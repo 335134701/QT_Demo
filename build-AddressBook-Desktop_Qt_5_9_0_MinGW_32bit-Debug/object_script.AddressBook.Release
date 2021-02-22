@@ -1,0 +1,13 @@
+INPUT(
+./release/main.o
+./release/mainwindow.o
+./release/adddialog.o
+./release/addresswidget.o
+./release/newaddresstab.o
+./release/tablemodel.o
+./release/moc_mainwindow.o
+./release/moc_adddialog.o
+./release/moc_addresswidget.o
+./release/moc_newaddresstab.o
+./release/moc_tablemodel.o
+);

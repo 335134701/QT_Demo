@@ -41,6 +41,7 @@ INPUT(
 ./release\stringmatchfilter.o
 ./release\main.o
 ./release\Qlogger.o
+./release\Log.o
 ./release\moc_appender.o
 ./release\moc_appenderskeleton.o
 ./release\moc_consoleappender.o
@@ -64,4 +65,5 @@ INPUT(
 ./release\moc_listappender.o
 ./release\moc_stringmatchfilter.o
 ./release\moc_Qlogger.o
+./release\moc_Log.o
 );

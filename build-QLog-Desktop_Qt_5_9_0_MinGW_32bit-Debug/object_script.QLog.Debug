@@ -41,6 +41,7 @@ INPUT(
 ./debug\stringmatchfilter.o
 ./debug\main.o
 ./debug\Qlogger.o
+./debug\Log.o
 ./debug\moc_appender.o
 ./debug\moc_appenderskeleton.o
 ./debug\moc_consoleappender.o
@@ -64,4 +65,5 @@ INPUT(
 ./debug\moc_listappender.o
 ./debug\moc_stringmatchfilter.o
 ./debug\moc_Qlogger.o
+./debug\moc_Log.o
 );

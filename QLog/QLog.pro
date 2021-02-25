@@ -25,10 +25,13 @@ include (log4qt/log4qt.pri)
 
 SOURCES += \
         main.cpp \
-        Qlogger.cpp
+        Qlogger.cpp \
+    Log.cpp
 
 HEADERS += \
-        Qlogger.h
+        Qlogger.h \
+    Log.h \
+    define.h
 
 FORMS += \
         Qlogger.ui

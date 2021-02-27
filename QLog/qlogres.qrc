@@ -1,0 +1,5 @@
+<RCC>
+    <qresource prefix="/ICO">
+        <file>QLog.ico</file>
+    </qresource>
+</RCC>

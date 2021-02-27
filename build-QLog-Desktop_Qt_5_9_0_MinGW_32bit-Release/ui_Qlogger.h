@@ -41,6 +41,9 @@ public:
         if (Qlogger->objectName().isEmpty())
             Qlogger->setObjectName(QStringLiteral("Qlogger"));
         Qlogger->resize(400, 300);
+        QIcon icon;
+        icon.addFile(QStringLiteral(":/ICO/QLog.ico"), QSize(), QIcon::Normal, QIcon::Off);
+        Qlogger->setWindowIcon(icon);
         centralWidget = new QWidget(Qlogger);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         horizontalLayout_3 = new QHBoxLayout(centralWidget);
@@ -93,7 +96,7 @@ public:
 
     void retranslateUi(QMainWindow *Qlogger)
     {
-        Qlogger->setWindowTitle(QApplication::translate("Qlogger", "Qlogger", Q_NULLPTR));
+        Qlogger->setWindowTitle(QApplication::translate("Qlogger", "Qlogger\346\265\213\350\257\225\347\225\214\351\235\242", Q_NULLPTR));
         InfoButton->setText(QApplication::translate("Qlogger", "Info", Q_NULLPTR));
         WarnButton->setText(QApplication::translate("Qlogger", "Warn", Q_NULLPTR));
         DebugButton->setText(QApplication::translate("Qlogger", "Debug", Q_NULLPTR));

@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Qlogger</string>
+   <string>Qlogger测试界面</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="qlogres.qrc">
+    <normaloff>:/ICO/QLog.ico</normaloff>:/ICO/QLog.ico</iconset>
   </property>
   <widget class="QWidget" name="centralWidget">
    <layout class="QHBoxLayout" name="horizontalLayout_3">
@@ -58,6 +62,8 @@
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="qlogres.qrc"/>
+ </resources>
  <connections/>
 </ui>

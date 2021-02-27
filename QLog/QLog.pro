@@ -5,7 +5,7 @@
 #-------------------------------------------------
 
 QT       += core gui
-
+RC_ICONS +=QLog.ico
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = QLog
@@ -33,3 +33,6 @@ HEADERS += \
 
 FORMS += \
         Qlogger.ui
+
+RESOURCES += \
+    qlogres.qrc

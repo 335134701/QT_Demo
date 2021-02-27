@@ -87,8 +87,7 @@ SOURCES       = ..\QLog\log4qt\appenderskeleton.cpp \
 		..\QLog\log4qt\varia\listappender.cpp \
 		..\QLog\log4qt\varia\stringmatchfilter.cpp \
 		..\QLog\main.cpp \
-		..\QLog\Qlogger.cpp \
-		..\QLog\Log.cpp release\moc_appender.cpp \
+		..\QLog\Qlogger.cpp release\moc_appender.cpp \
 		release\moc_appenderskeleton.cpp \
 		release\moc_consoleappender.cpp \
 		release\moc_dailyrollingfileappender.cpp \
@@ -110,8 +109,7 @@ SOURCES       = ..\QLog\log4qt\appenderskeleton.cpp \
 		release\moc_levelrangefilter.cpp \
 		release\moc_listappender.cpp \
 		release\moc_stringmatchfilter.cpp \
-		release\moc_Qlogger.cpp \
-		release\moc_Log.cpp
+		release\moc_Qlogger.cpp
 OBJECTS       = release/appenderskeleton.o \
 		release/basicconfigurator.o \
 		release/consoleappender.o \
@@ -154,7 +152,6 @@ OBJECTS       = release/appenderskeleton.o \
 		release/stringmatchfilter.o \
 		release/main.o \
 		release/Qlogger.o \
-		release/Log.o \
 		release/moc_appender.o \
 		release/moc_appenderskeleton.o \
 		release/moc_consoleappender.o \
@@ -177,8 +174,7 @@ OBJECTS       = release/appenderskeleton.o \
 		release/moc_levelrangefilter.o \
 		release/moc_listappender.o \
 		release/moc_stringmatchfilter.o \
-		release/moc_Qlogger.o \
-		release/moc_Log.o
+		release/moc_Qlogger.o
 
 DIST          =  ..\QLog\log4qt\appender.h \
 		..\QLog\log4qt\appenderskeleton.h \
@@ -222,7 +218,6 @@ DIST          =  ..\QLog\log4qt\appender.h \
 		..\QLog\log4qt\varia\listappender.h \
 		..\QLog\log4qt\varia\stringmatchfilter.h \
 		..\QLog\Qlogger.h \
-		..\QLog\Log.h \
 		..\QLog\define.h ..\QLog\log4qt\appenderskeleton.cpp \
 		..\QLog\log4qt\basicconfigurator.cpp \
 		..\QLog\log4qt\consoleappender.cpp \
@@ -264,8 +259,7 @@ DIST          =  ..\QLog\log4qt\appender.h \
 		..\QLog\log4qt\varia\listappender.cpp \
 		..\QLog\log4qt\varia\stringmatchfilter.cpp \
 		..\QLog\main.cpp \
-		..\QLog\Qlogger.cpp \
-		..\QLog\Log.cpp
+		..\QLog\Qlogger.cpp
 QMAKE_TARGET  = QLog
 DESTDIR        = release\ #avoid trailing-slash linebreak
 TARGET         = QLog.exe
@@ -285,10 +279,10 @@ qmake: FORCE
 qmake_all: FORCE
 
 dist:
-	$(ZIP) QLog.zip $(SOURCES) $(DIST) ..\QLog\QLog.pro D:\QT\5.9\mingw53_32\mkspecs\features\spec_pre.prf D:\QT\5.9\mingw53_32\mkspecs\qdevice.pri D:\QT\5.9\mingw53_32\mkspecs\features\device_config.prf D:\QT\5.9\mingw53_32\mkspecs\common\g++-base.conf D:\QT\5.9\mingw53_32\mkspecs\common\angle.conf D:\QT\5.9\mingw53_32\mkspecs\common\sanitize.conf D:\QT\5.9\mingw53_32\mkspecs\common\gcc-base.conf D:\QT\5.9\mingw53_32\mkspecs\qconfig.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3danimation.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3danimation_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dcore.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dcore_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dextras.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dextras_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dinput.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dinput_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dlogic.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dlogic_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dquick.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dquick_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dquickanimation.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dquickanimation_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dquickextras.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dquickextras_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dquickinput.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dquickinput_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dquickrender.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dquickrender_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dquickscene2d.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dquickscene2d_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3drender.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3drender_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_accessibility_support_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_axbase.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_axbase_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_axcontainer.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_axcontainer_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_axserver.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_axserver_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_bluetooth.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_bluetooth_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_bootstrap_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_charts.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_charts_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_concurrent.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_concurrent_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_core.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_core_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_dbus.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_dbus_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_designer.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_designer_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_designercomponents_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_devicediscovery_support_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_egl_support_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_eventdispatcher_support_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_fb_support_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_fontdatabase_support_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_gamepad.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_gamepad_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_gui.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_gui_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_help.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_help_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_location.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_location_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_multimedia.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_multimedia_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_multimediawidgets.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_multimediawidgets_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_network.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_network_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_nfc.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_nfc_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_opengl.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_opengl_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_openglextensions.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_openglextensions_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_packetprotocol_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_platformcompositor_support_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_positioning.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_positioning_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_printsupport.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_printsupport_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_qml.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_qml_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_qmldebug_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_qmldevtools_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_qmltest.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_qmltest_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_quick.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_quick_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_quickcontrols2.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_quickcontrols2_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_quickparticles_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_quicktemplates2_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_quickwidgets.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_quickwidgets_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_scxml.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_scxml_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_sensors.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_sensors_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_serialbus.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_serialbus_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_serialport.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_serialport_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_sql.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_sql_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_svg.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_svg_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_testlib.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_testlib_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_theme_support_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_uiplugin.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_uitools.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_uitools_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_webchannel.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_webchannel_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_websockets.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_websockets_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_widgets.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_widgets_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_winextras.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_winextras_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_xml.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_xml_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_xmlpatterns.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_xmlpatterns_private.pri D:\QT\5.9\mingw53_32\mkspecs\features\qt_functions.prf D:\QT\5.9\mingw53_32\mkspecs\features\qt_config.prf D:\QT\5.9\mingw53_32\mkspecs\win32-g++\qmake.conf D:\QT\5.9\mingw53_32\mkspecs\features\spec_post.prf .qmake.stash D:\QT\5.9\mingw53_32\mkspecs\features\exclusive_builds.prf D:\QT\5.9\mingw53_32\mkspecs\features\toolchain.prf D:\QT\5.9\mingw53_32\mkspecs\features\default_pre.prf D:\QT\5.9\mingw53_32\mkspecs\features\win32\default_pre.prf ..\QLog\log4qt\log4qt.pri D:\QT\5.9\mingw53_32\mkspecs\features\resolve_config.prf D:\QT\5.9\mingw53_32\mkspecs\features\exclusive_builds_post.prf D:\QT\5.9\mingw53_32\mkspecs\features\default_post.prf D:\QT\5.9\mingw53_32\mkspecs\features\build_pass.prf D:\QT\5.9\mingw53_32\mkspecs\features\qml_debug.prf D:\QT\5.9\mingw53_32\mkspecs\features\precompile_header.prf D:\QT\5.9\mingw53_32\mkspecs\features\warn_on.prf D:\QT\5.9\mingw53_32\mkspecs\features\qt.prf D:\QT\5.9\mingw53_32\mkspecs\features\resources.prf D:\QT\5.9\mingw53_32\mkspecs\features\moc.prf D:\QT\5.9\mingw53_32\mkspecs\features\win32\opengl.prf D:\QT\5.9\mingw53_32\mkspecs\features\uic.prf D:\QT\5.9\mingw53_32\mkspecs\features\qmake_use.prf D:\QT\5.9\mingw53_32\mkspecs\features\file_copies.prf D:\QT\5.9\mingw53_32\mkspecs\features\win32\windows.prf D:\QT\5.9\mingw53_32\mkspecs\features\testcase_targets.prf D:\QT\5.9\mingw53_32\mkspecs\features\exceptions.prf D:\QT\5.9\mingw53_32\mkspecs\features\yacc.prf D:\QT\5.9\mingw53_32\mkspecs\features\lex.prf ..\QLog\QLog.pro D:\QT\5.9\mingw53_32\lib\qtmain.prl D:\QT\5.9\mingw53_32\lib\Qt5Widgets.prl D:\QT\5.9\mingw53_32\lib\Qt5Gui.prl D:\QT\5.9\mingw53_32\lib\Qt5Core.prl    D:\QT\5.9\mingw53_32\mkspecs\features\data\dummy.cpp ..\QLog\log4qt\appender.h ..\QLog\log4qt\appenderskeleton.h ..\QLog\log4qt\basicconfigurator.h ..\QLog\log4qt\consoleappender.h ..\QLog\log4qt\dailyrollingfileappender.h ..\QLog\log4qt\fileappender.h ..\QLog\log4qt\helpers\classlogger.h ..\QLog\log4qt\helpers\configuratorhelper.h ..\QLog\log4qt\helpers\datetime.h ..\QLog\log4qt\helpers\factory.h ..\QLog\log4qt\helpers\initialisationhelper.h ..\QLog\log4qt\helpers\logerror.h ..\QLog\log4qt\helpers\logobject.h ..\QLog\log4qt\helpers\logobjectptr.h ..\QLog\log4qt\helpers\optionconverter.h ..\QLog\log4qt\helpers\patternformatter.h ..\QLog\log4qt\helpers\properties.h ..\QLog\log4qt\hierarchy.h ..\QLog\log4qt\layout.h ..\QLog\log4qt\level.h ..\QLog\log4qt\log4qt.h ..\QLog\log4qt\logger.h ..\QLog\log4qt\loggerrepository.h ..\QLog\log4qt\loggingevent.h ..\QLog\log4qt\logmanager.h ..\QLog\log4qt\mdc.h ..\QLog\log4qt\ndc.h ..\QLog\log4qt\patternlayout.h ..\QLog\log4qt\propertyconfigurator.h ..\QLog\log4qt\rollingfileappender.h ..\QLog\log4qt\simplelayout.h ..\QLog\log4qt\spi\filter.h ..\QLog\log4qt\ttcclayout.h ..\QLog\log4qt\writerappender.h ..\QLog\log4qt\varia\debugappender.h ..\QLog\log4qt\varia\denyallfilter.h ..\QLog\log4qt\varia\nullappender.h ..\QLog\log4qt\varia\levelmatchfilter.h ..\QLog\log4qt\varia\levelrangefilter.h ..\QLog\log4qt\varia\listappender.h ..\QLog\log4qt\varia\stringmatchfilter.h ..\QLog\Qlogger.h ..\QLog\Log.h ..\QLog\define.h ..\QLog\log4qt\appenderskeleton.cpp ..\QLog\log4qt\basicconfigurator.cpp ..\QLog\log4qt\consoleappender.cpp ..\QLog\log4qt\dailyrollingfileappender.cpp ..\QLog\log4qt\fileappender.cpp ..\QLog\log4qt\helpers\classlogger.cpp ..\QLog\log4qt\helpers\configuratorhelper.cpp ..\QLog\log4qt\helpers\datetime.cpp ..\QLog\log4qt\helpers\factory.cpp ..\QLog\log4qt\helpers\initialisationhelper.cpp ..\QLog\log4qt\helpers\logerror.cpp ..\QLog\log4qt\helpers\logobject.cpp ..\QLog\log4qt\helpers\logobjectptr.cpp ..\QLog\log4qt\helpers\optionconverter.cpp ..\QLog\log4qt\helpers\patternformatter.cpp ..\QLog\log4qt\helpers\properties.cpp ..\QLog\log4qt\hierarchy.cpp ..\QLog\log4qt\layout.cpp ..\QLog\log4qt\level.cpp ..\QLog\log4qt\log4qt.cpp ..\QLog\log4qt\logger.cpp ..\QLog\log4qt\loggerrepository.cpp ..\QLog\log4qt\loggingevent.cpp ..\QLog\log4qt\logmanager.cpp ..\QLog\log4qt\mdc.cpp ..\QLog\log4qt\ndc.cpp ..\QLog\log4qt\patternlayout.cpp ..\QLog\log4qt\propertyconfigurator.cpp ..\QLog\log4qt\rollingfileappender.cpp ..\QLog\log4qt\simplelayout.cpp ..\QLog\log4qt\spi\filter.cpp ..\QLog\log4qt\ttcclayout.cpp ..\QLog\log4qt\writerappender.cpp ..\QLog\log4qt\varia\debugappender.cpp ..\QLog\log4qt\varia\denyallfilter.cpp ..\QLog\log4qt\varia\nullappender.cpp ..\QLog\log4qt\varia\levelmatchfilter.cpp ..\QLog\log4qt\varia\levelrangefilter.cpp ..\QLog\log4qt\varia\listappender.cpp ..\QLog\log4qt\varia\stringmatchfilter.cpp ..\QLog\main.cpp ..\QLog\Qlogger.cpp ..\QLog\Log.cpp ..\QLog\Qlogger.ui    
+	$(ZIP) QLog.zip $(SOURCES) $(DIST) ..\QLog\QLog.pro D:\QT\5.9\mingw53_32\mkspecs\features\spec_pre.prf D:\QT\5.9\mingw53_32\mkspecs\qdevice.pri D:\QT\5.9\mingw53_32\mkspecs\features\device_config.prf D:\QT\5.9\mingw53_32\mkspecs\common\g++-base.conf D:\QT\5.9\mingw53_32\mkspecs\common\angle.conf D:\QT\5.9\mingw53_32\mkspecs\common\sanitize.conf D:\QT\5.9\mingw53_32\mkspecs\common\gcc-base.conf D:\QT\5.9\mingw53_32\mkspecs\qconfig.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3danimation.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3danimation_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dcore.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dcore_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dextras.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dextras_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dinput.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dinput_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dlogic.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dlogic_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dquick.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dquick_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dquickanimation.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dquickanimation_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dquickextras.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dquickextras_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dquickinput.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dquickinput_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dquickrender.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dquickrender_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dquickscene2d.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dquickscene2d_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3drender.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3drender_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_accessibility_support_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_axbase.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_axbase_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_axcontainer.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_axcontainer_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_axserver.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_axserver_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_bluetooth.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_bluetooth_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_bootstrap_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_charts.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_charts_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_concurrent.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_concurrent_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_core.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_core_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_dbus.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_dbus_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_designer.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_designer_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_designercomponents_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_devicediscovery_support_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_egl_support_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_eventdispatcher_support_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_fb_support_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_fontdatabase_support_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_gamepad.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_gamepad_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_gui.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_gui_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_help.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_help_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_location.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_location_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_multimedia.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_multimedia_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_multimediawidgets.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_multimediawidgets_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_network.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_network_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_nfc.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_nfc_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_opengl.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_opengl_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_openglextensions.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_openglextensions_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_packetprotocol_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_platformcompositor_support_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_positioning.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_positioning_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_printsupport.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_printsupport_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_qml.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_qml_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_qmldebug_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_qmldevtools_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_qmltest.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_qmltest_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_quick.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_quick_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_quickcontrols2.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_quickcontrols2_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_quickparticles_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_quicktemplates2_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_quickwidgets.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_quickwidgets_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_scxml.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_scxml_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_sensors.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_sensors_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_serialbus.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_serialbus_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_serialport.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_serialport_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_sql.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_sql_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_svg.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_svg_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_testlib.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_testlib_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_theme_support_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_uiplugin.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_uitools.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_uitools_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_webchannel.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_webchannel_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_websockets.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_websockets_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_widgets.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_widgets_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_winextras.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_winextras_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_xml.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_xml_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_xmlpatterns.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_xmlpatterns_private.pri D:\QT\5.9\mingw53_32\mkspecs\features\qt_functions.prf D:\QT\5.9\mingw53_32\mkspecs\features\qt_config.prf D:\QT\5.9\mingw53_32\mkspecs\win32-g++\qmake.conf D:\QT\5.9\mingw53_32\mkspecs\features\spec_post.prf .qmake.stash D:\QT\5.9\mingw53_32\mkspecs\features\exclusive_builds.prf D:\QT\5.9\mingw53_32\mkspecs\features\toolchain.prf D:\QT\5.9\mingw53_32\mkspecs\features\default_pre.prf D:\QT\5.9\mingw53_32\mkspecs\features\win32\default_pre.prf ..\QLog\log4qt\log4qt.pri D:\QT\5.9\mingw53_32\mkspecs\features\resolve_config.prf D:\QT\5.9\mingw53_32\mkspecs\features\exclusive_builds_post.prf D:\QT\5.9\mingw53_32\mkspecs\features\default_post.prf D:\QT\5.9\mingw53_32\mkspecs\features\build_pass.prf D:\QT\5.9\mingw53_32\mkspecs\features\qml_debug.prf D:\QT\5.9\mingw53_32\mkspecs\features\precompile_header.prf D:\QT\5.9\mingw53_32\mkspecs\features\warn_on.prf D:\QT\5.9\mingw53_32\mkspecs\features\qt.prf D:\QT\5.9\mingw53_32\mkspecs\features\resources.prf D:\QT\5.9\mingw53_32\mkspecs\features\moc.prf D:\QT\5.9\mingw53_32\mkspecs\features\win32\opengl.prf D:\QT\5.9\mingw53_32\mkspecs\features\uic.prf D:\QT\5.9\mingw53_32\mkspecs\features\qmake_use.prf D:\QT\5.9\mingw53_32\mkspecs\features\file_copies.prf D:\QT\5.9\mingw53_32\mkspecs\features\win32\windows.prf D:\QT\5.9\mingw53_32\mkspecs\features\testcase_targets.prf D:\QT\5.9\mingw53_32\mkspecs\features\exceptions.prf D:\QT\5.9\mingw53_32\mkspecs\features\yacc.prf D:\QT\5.9\mingw53_32\mkspecs\features\lex.prf ..\QLog\QLog.pro D:\QT\5.9\mingw53_32\lib\qtmain.prl D:\QT\5.9\mingw53_32\lib\Qt5Widgets.prl D:\QT\5.9\mingw53_32\lib\Qt5Gui.prl D:\QT\5.9\mingw53_32\lib\Qt5Core.prl    D:\QT\5.9\mingw53_32\mkspecs\features\data\dummy.cpp ..\QLog\log4qt\appender.h ..\QLog\log4qt\appenderskeleton.h ..\QLog\log4qt\basicconfigurator.h ..\QLog\log4qt\consoleappender.h ..\QLog\log4qt\dailyrollingfileappender.h ..\QLog\log4qt\fileappender.h ..\QLog\log4qt\helpers\classlogger.h ..\QLog\log4qt\helpers\configuratorhelper.h ..\QLog\log4qt\helpers\datetime.h ..\QLog\log4qt\helpers\factory.h ..\QLog\log4qt\helpers\initialisationhelper.h ..\QLog\log4qt\helpers\logerror.h ..\QLog\log4qt\helpers\logobject.h ..\QLog\log4qt\helpers\logobjectptr.h ..\QLog\log4qt\helpers\optionconverter.h ..\QLog\log4qt\helpers\patternformatter.h ..\QLog\log4qt\helpers\properties.h ..\QLog\log4qt\hierarchy.h ..\QLog\log4qt\layout.h ..\QLog\log4qt\level.h ..\QLog\log4qt\log4qt.h ..\QLog\log4qt\logger.h ..\QLog\log4qt\loggerrepository.h ..\QLog\log4qt\loggingevent.h ..\QLog\log4qt\logmanager.h ..\QLog\log4qt\mdc.h ..\QLog\log4qt\ndc.h ..\QLog\log4qt\patternlayout.h ..\QLog\log4qt\propertyconfigurator.h ..\QLog\log4qt\rollingfileappender.h ..\QLog\log4qt\simplelayout.h ..\QLog\log4qt\spi\filter.h ..\QLog\log4qt\ttcclayout.h ..\QLog\log4qt\writerappender.h ..\QLog\log4qt\varia\debugappender.h ..\QLog\log4qt\varia\denyallfilter.h ..\QLog\log4qt\varia\nullappender.h ..\QLog\log4qt\varia\levelmatchfilter.h ..\QLog\log4qt\varia\levelrangefilter.h ..\QLog\log4qt\varia\listappender.h ..\QLog\log4qt\varia\stringmatchfilter.h ..\QLog\Qlogger.h ..\QLog\define.h ..\QLog\log4qt\appenderskeleton.cpp ..\QLog\log4qt\basicconfigurator.cpp ..\QLog\log4qt\consoleappender.cpp ..\QLog\log4qt\dailyrollingfileappender.cpp ..\QLog\log4qt\fileappender.cpp ..\QLog\log4qt\helpers\classlogger.cpp ..\QLog\log4qt\helpers\configuratorhelper.cpp ..\QLog\log4qt\helpers\datetime.cpp ..\QLog\log4qt\helpers\factory.cpp ..\QLog\log4qt\helpers\initialisationhelper.cpp ..\QLog\log4qt\helpers\logerror.cpp ..\QLog\log4qt\helpers\logobject.cpp ..\QLog\log4qt\helpers\logobjectptr.cpp ..\QLog\log4qt\helpers\optionconverter.cpp ..\QLog\log4qt\helpers\patternformatter.cpp ..\QLog\log4qt\helpers\properties.cpp ..\QLog\log4qt\hierarchy.cpp ..\QLog\log4qt\layout.cpp ..\QLog\log4qt\level.cpp ..\QLog\log4qt\log4qt.cpp ..\QLog\log4qt\logger.cpp ..\QLog\log4qt\loggerrepository.cpp ..\QLog\log4qt\loggingevent.cpp ..\QLog\log4qt\logmanager.cpp ..\QLog\log4qt\mdc.cpp ..\QLog\log4qt\ndc.cpp ..\QLog\log4qt\patternlayout.cpp ..\QLog\log4qt\propertyconfigurator.cpp ..\QLog\log4qt\rollingfileappender.cpp ..\QLog\log4qt\simplelayout.cpp ..\QLog\log4qt\spi\filter.cpp ..\QLog\log4qt\ttcclayout.cpp ..\QLog\log4qt\writerappender.cpp ..\QLog\log4qt\varia\debugappender.cpp ..\QLog\log4qt\varia\denyallfilter.cpp ..\QLog\log4qt\varia\nullappender.cpp ..\QLog\log4qt\varia\levelmatchfilter.cpp ..\QLog\log4qt\varia\levelrangefilter.cpp ..\QLog\log4qt\varia\listappender.cpp ..\QLog\log4qt\varia\stringmatchfilter.cpp ..\QLog\main.cpp ..\QLog\Qlogger.cpp ..\QLog\Qlogger.ui    
 
 clean: compiler_clean 
-	-$(DEL_FILE) release\appenderskeleton.o release\basicconfigurator.o release\consoleappender.o release\dailyrollingfileappender.o release\fileappender.o release\classlogger.o release\configuratorhelper.o release\datetime.o release\factory.o release\initialisationhelper.o release\logerror.o release\logobject.o release\logobjectptr.o release\optionconverter.o release\patternformatter.o release\properties.o release\hierarchy.o release\layout.o release\level.o release\log4qt.o release\logger.o release\loggerrepository.o release\loggingevent.o release\logmanager.o release\mdc.o release\ndc.o release\patternlayout.o release\propertyconfigurator.o release\rollingfileappender.o release\simplelayout.o release\filter.o release\ttcclayout.o release\writerappender.o release\debugappender.o release\denyallfilter.o release\nullappender.o release\levelmatchfilter.o release\levelrangefilter.o release\listappender.o release\stringmatchfilter.o release\main.o release\Qlogger.o release\Log.o release\moc_appender.o release\moc_appenderskeleton.o release\moc_consoleappender.o release\moc_dailyrollingfileappender.o release\moc_fileappender.o release\moc_configuratorhelper.o release\moc_logobject.o release\moc_layout.o release\moc_logger.o release\moc_patternlayout.o release\moc_rollingfileappender.o release\moc_simplelayout.o release\moc_filter.o release\moc_ttcclayout.o release\moc_writerappender.o release\moc_debugappender.o release\moc_denyallfilter.o release\moc_nullappender.o release\moc_levelmatchfilter.o release\moc_levelrangefilter.o release\moc_listappender.o release\moc_stringmatchfilter.o release\moc_Qlogger.o release\moc_Log.o
+	-$(DEL_FILE) release\appenderskeleton.o release\basicconfigurator.o release\consoleappender.o release\dailyrollingfileappender.o release\fileappender.o release\classlogger.o release\configuratorhelper.o release\datetime.o release\factory.o release\initialisationhelper.o release\logerror.o release\logobject.o release\logobjectptr.o release\optionconverter.o release\patternformatter.o release\properties.o release\hierarchy.o release\layout.o release\level.o release\log4qt.o release\logger.o release\loggerrepository.o release\loggingevent.o release\logmanager.o release\mdc.o release\ndc.o release\patternlayout.o release\propertyconfigurator.o release\rollingfileappender.o release\simplelayout.o release\filter.o release\ttcclayout.o release\writerappender.o release\debugappender.o release\denyallfilter.o release\nullappender.o release\levelmatchfilter.o release\levelrangefilter.o release\listappender.o release\stringmatchfilter.o release\main.o release\Qlogger.o release\moc_appender.o release\moc_appenderskeleton.o release\moc_consoleappender.o release\moc_dailyrollingfileappender.o release\moc_fileappender.o release\moc_configuratorhelper.o release\moc_logobject.o release\moc_layout.o release\moc_logger.o release\moc_patternlayout.o release\moc_rollingfileappender.o release\moc_simplelayout.o release\moc_filter.o release\moc_ttcclayout.o release\moc_writerappender.o release\moc_debugappender.o release\moc_denyallfilter.o release\moc_nullappender.o release\moc_levelmatchfilter.o release\moc_levelrangefilter.o release\moc_listappender.o release\moc_stringmatchfilter.o release\moc_Qlogger.o
 
 distclean: clean 
 	-$(DEL_FILE) .qmake.stash
@@ -313,9 +307,9 @@ compiler_moc_predefs_clean:
 release/moc_predefs.h: D:/QT/5.9/mingw53_32/mkspecs/features/data/dummy.cpp
 	g++ -fno-keep-inline-dllexport -pipe -O2 -std=gnu++11 -Wextra -Wall -W -dM -E -o release\moc_predefs.h D:\QT\5.9\mingw53_32\mkspecs\features\data\dummy.cpp
 
-compiler_moc_header_make_all: release/moc_appender.cpp release/moc_appenderskeleton.cpp release/moc_consoleappender.cpp release/moc_dailyrollingfileappender.cpp release/moc_fileappender.cpp release/moc_configuratorhelper.cpp release/moc_logobject.cpp release/moc_layout.cpp release/moc_logger.cpp release/moc_patternlayout.cpp release/moc_rollingfileappender.cpp release/moc_simplelayout.cpp release/moc_filter.cpp release/moc_ttcclayout.cpp release/moc_writerappender.cpp release/moc_debugappender.cpp release/moc_denyallfilter.cpp release/moc_nullappender.cpp release/moc_levelmatchfilter.cpp release/moc_levelrangefilter.cpp release/moc_listappender.cpp release/moc_stringmatchfilter.cpp release/moc_Qlogger.cpp release/moc_Log.cpp
+compiler_moc_header_make_all: release/moc_appender.cpp release/moc_appenderskeleton.cpp release/moc_consoleappender.cpp release/moc_dailyrollingfileappender.cpp release/moc_fileappender.cpp release/moc_configuratorhelper.cpp release/moc_logobject.cpp release/moc_layout.cpp release/moc_logger.cpp release/moc_patternlayout.cpp release/moc_rollingfileappender.cpp release/moc_simplelayout.cpp release/moc_filter.cpp release/moc_ttcclayout.cpp release/moc_writerappender.cpp release/moc_debugappender.cpp release/moc_denyallfilter.cpp release/moc_nullappender.cpp release/moc_levelmatchfilter.cpp release/moc_levelrangefilter.cpp release/moc_listappender.cpp release/moc_stringmatchfilter.cpp release/moc_Qlogger.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) release\moc_appender.cpp release\moc_appenderskeleton.cpp release\moc_consoleappender.cpp release\moc_dailyrollingfileappender.cpp release\moc_fileappender.cpp release\moc_configuratorhelper.cpp release\moc_logobject.cpp release\moc_layout.cpp release\moc_logger.cpp release\moc_patternlayout.cpp release\moc_rollingfileappender.cpp release\moc_simplelayout.cpp release\moc_filter.cpp release\moc_ttcclayout.cpp release\moc_writerappender.cpp release\moc_debugappender.cpp release\moc_denyallfilter.cpp release\moc_nullappender.cpp release\moc_levelmatchfilter.cpp release\moc_levelrangefilter.cpp release\moc_listappender.cpp release\moc_stringmatchfilter.cpp release\moc_Qlogger.cpp release\moc_Log.cpp
+	-$(DEL_FILE) release\moc_appender.cpp release\moc_appenderskeleton.cpp release\moc_consoleappender.cpp release\moc_dailyrollingfileappender.cpp release\moc_fileappender.cpp release\moc_configuratorhelper.cpp release\moc_logobject.cpp release\moc_layout.cpp release\moc_logger.cpp release\moc_patternlayout.cpp release\moc_rollingfileappender.cpp release\moc_simplelayout.cpp release\moc_filter.cpp release\moc_ttcclayout.cpp release\moc_writerappender.cpp release\moc_debugappender.cpp release\moc_denyallfilter.cpp release\moc_nullappender.cpp release\moc_levelmatchfilter.cpp release\moc_levelrangefilter.cpp release\moc_listappender.cpp release\moc_stringmatchfilter.cpp release\moc_Qlogger.cpp
 release/moc_appender.cpp: ../QLog/log4qt/helpers/logobject.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QObject \
 		D:/QT/5.9/mingw53_32/include/QtCore/qobject.h \
@@ -2007,94 +2001,6 @@ release/moc_Qlogger.cpp: D:/QT/5.9/mingw53_32/include/QtWidgets/QMainWindow \
 		release/moc_predefs.h \
 		D:/QT/5.9/mingw53_32/bin/moc.exe
 	D:\QT\5.9\mingw53_32\bin\moc.exe $(DEFINES) --include release/moc_predefs.h -ID:/QT/5.9/mingw53_32/mkspecs/win32-g++ -IF:/Software/QTWorkspace/Widget/Log/QLog -IF:/Software/QTWorkspace/Widget/Log/QLog -ID:/QT/5.9/mingw53_32/include -ID:/QT/5.9/mingw53_32/include/QtWidgets -ID:/QT/5.9/mingw53_32/include/QtGui -ID:/QT/5.9/mingw53_32/include/QtANGLE -ID:/QT/5.9/mingw53_32/include/QtCore -I. -ID:/QT/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -ID:/QT/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -ID:/QT/Tools/mingw530_32/i686-w64-mingw32/include -ID:/QT/Tools/mingw530_32/i686-w64-mingw32/include/c++ -ID:/QT/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -ID:/QT/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ..\QLog\Qlogger.h -o release\moc_Qlogger.cpp
-
-release/moc_Log.cpp: D:/QT/5.9/mingw53_32/include/QtCore/QObject \
-		D:/QT/5.9/mingw53_32/include/QtCore/qobject.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qobjectdefs.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qnamespace.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qglobal.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qconfig-bootstrapped.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qconfig.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qtcore-config.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qsystemdetection.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qprocessordetection.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qcompilerdetection.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qtypeinfo.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qsysinfo.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qlogging.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qflags.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qatomic.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qbasicatomic.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qatomic_bootstrap.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qgenericatomic.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qatomic_cxx11.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qatomic_msvc.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qglobalstatic.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qmutex.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qnumeric.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qversiontagging.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qobjectdefs_impl.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qstring.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qchar.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qbytearray.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qrefcount.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qarraydata.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qstringbuilder.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qlist.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qalgorithms.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qiterator.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qhashfunctions.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qpair.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qbytearraylist.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qstringlist.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qregexp.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qstringmatcher.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qcoreevent.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qscopedpointer.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qmetatype.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qvarlengtharray.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qcontainerfwd.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qobject_impl.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/QMutex \
-		D:/QT/5.9/mingw53_32/include/QtCore/QMutexLocker \
-		D:/QT/5.9/mingw53_32/include/QtCore/QCoreApplication \
-		D:/QT/5.9/mingw53_32/include/QtCore/qcoreapplication.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qeventloop.h \
-		../QLog/log4qt/logger.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/QAtomicPointer \
-		D:/QT/5.9/mingw53_32/include/QtCore/QList \
-		D:/QT/5.9/mingw53_32/include/QtCore/QReadWriteLock \
-		D:/QT/5.9/mingw53_32/include/QtCore/qreadwritelock.h \
-		../QLog/log4qt/helpers/logerror.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/QString \
-		D:/QT/5.9/mingw53_32/include/QtCore/QVariant \
-		D:/QT/5.9/mingw53_32/include/QtCore/qvariant.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qmap.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qdebug.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qhash.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qtextstream.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qiodevice.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qlocale.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qshareddata.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qvector.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qpoint.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qset.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qcontiguouscache.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qsharedpointer.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qsharedpointer_impl.h \
-		../QLog/log4qt/helpers/classlogger.h \
-		../QLog/log4qt/helpers/logobjectptr.h \
-		../QLog/log4qt/helpers/logobject.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/QAtomicInt \
-		../QLog/log4qt/level.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/QMetaType \
-		../QLog/log4qt/log4qt.h \
-		../QLog/log4qt/basicconfigurator.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/Qt \
-		../QLog/Log.h \
-		release/moc_predefs.h \
-		D:/QT/5.9/mingw53_32/bin/moc.exe
-	D:\QT\5.9\mingw53_32\bin\moc.exe $(DEFINES) --include release/moc_predefs.h -ID:/QT/5.9/mingw53_32/mkspecs/win32-g++ -IF:/Software/QTWorkspace/Widget/Log/QLog -IF:/Software/QTWorkspace/Widget/Log/QLog -ID:/QT/5.9/mingw53_32/include -ID:/QT/5.9/mingw53_32/include/QtWidgets -ID:/QT/5.9/mingw53_32/include/QtGui -ID:/QT/5.9/mingw53_32/include/QtANGLE -ID:/QT/5.9/mingw53_32/include/QtCore -I. -ID:/QT/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -ID:/QT/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -ID:/QT/Tools/mingw530_32/i686-w64-mingw32/include -ID:/QT/Tools/mingw530_32/i686-w64-mingw32/include/c++ -ID:/QT/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -ID:/QT/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ..\QLog\Log.h -o release\moc_Log.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -5784,92 +5690,6 @@ release/Qlogger.o: ../QLog/Qlogger.cpp ../QLog/Qlogger.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/QWidget
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\Qlogger.o ..\QLog\Qlogger.cpp
 
-release/Log.o: ../QLog/Log.cpp ../QLog/Log.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/QObject \
-		D:/QT/5.9/mingw53_32/include/QtCore/qobject.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qobjectdefs.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qnamespace.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qglobal.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qconfig-bootstrapped.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qconfig.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qtcore-config.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qsystemdetection.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qprocessordetection.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qcompilerdetection.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qtypeinfo.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qsysinfo.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qlogging.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qflags.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qatomic.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qbasicatomic.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qatomic_bootstrap.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qgenericatomic.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qatomic_cxx11.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qatomic_msvc.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qglobalstatic.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qmutex.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qnumeric.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qversiontagging.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qobjectdefs_impl.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qstring.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qchar.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qbytearray.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qrefcount.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qarraydata.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qstringbuilder.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qlist.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qalgorithms.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qiterator.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qhashfunctions.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qpair.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qbytearraylist.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qstringlist.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qregexp.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qstringmatcher.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qcoreevent.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qscopedpointer.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qmetatype.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qvarlengtharray.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qcontainerfwd.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qobject_impl.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/QMutex \
-		D:/QT/5.9/mingw53_32/include/QtCore/QMutexLocker \
-		D:/QT/5.9/mingw53_32/include/QtCore/QCoreApplication \
-		D:/QT/5.9/mingw53_32/include/QtCore/qcoreapplication.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qeventloop.h \
-		../QLog/log4qt/logger.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/QAtomicPointer \
-		D:/QT/5.9/mingw53_32/include/QtCore/QList \
-		D:/QT/5.9/mingw53_32/include/QtCore/QReadWriteLock \
-		D:/QT/5.9/mingw53_32/include/QtCore/qreadwritelock.h \
-		../QLog/log4qt/helpers/logerror.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/QString \
-		D:/QT/5.9/mingw53_32/include/QtCore/QVariant \
-		D:/QT/5.9/mingw53_32/include/QtCore/qvariant.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qmap.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qdebug.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qhash.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qtextstream.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qiodevice.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qlocale.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qshareddata.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qvector.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qpoint.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qset.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qcontiguouscache.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qsharedpointer.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qsharedpointer_impl.h \
-		../QLog/log4qt/helpers/classlogger.h \
-		../QLog/log4qt/helpers/logobjectptr.h \
-		../QLog/log4qt/helpers/logobject.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/QAtomicInt \
-		../QLog/log4qt/level.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/QMetaType \
-		../QLog/log4qt/log4qt.h \
-		../QLog/log4qt/basicconfigurator.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/Qt
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\Log.o ..\QLog\Log.cpp
-
 release/moc_appender.o: release/moc_appender.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\moc_appender.o release\moc_appender.cpp
 
@@ -5938,9 +5758,6 @@ release/moc_stringmatchfilter.o: release/moc_stringmatchfilter.cpp
 
 release/moc_Qlogger.o: release/moc_Qlogger.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\moc_Qlogger.o release\moc_Qlogger.cpp
-
-release/moc_Log.o: release/moc_Log.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o release\moc_Log.o release\moc_Log.cpp
 
 ####### Install
 

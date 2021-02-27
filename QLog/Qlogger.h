@@ -15,6 +15,15 @@ public:
     explicit Qlogger(QWidget *parent = 0);
     ~Qlogger();
 
+private slots:
+    void on_InfoButton_clicked();
+
+    void on_WarnButton_clicked();
+
+    void on_DebugButton_clicked();
+
+    void on_ErrorButton_clicked();
+
 private:
     Ui::Qlogger *ui;
 };

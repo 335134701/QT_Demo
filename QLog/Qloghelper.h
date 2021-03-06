@@ -11,6 +11,7 @@
 
 class QLoghelper
 {
+public:
     QLoghelper();
     QLoghelper(QString);
     void Init();

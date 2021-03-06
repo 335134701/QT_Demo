@@ -2,6 +2,7 @@
 #define QLOGGER_H
 
 #include <QMainWindow>
+#include "Qloghelper.h"
 
 namespace Ui {
 class Qlogger;
@@ -14,6 +15,8 @@ class Qlogger : public QMainWindow
 public:
     explicit Qlogger(QWidget *parent = 0);
     ~Qlogger();
+    void SetQLoghelper(QLoghelper *);
+
 
 private slots:
     void on_InfoButton_clicked();
@@ -26,6 +29,7 @@ private slots:
 
 private:
     Ui::Qlogger *ui;
+    QLoghelper *log=NULL;
 };
 
 #endif // QLOGGER_H

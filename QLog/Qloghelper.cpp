@@ -27,6 +27,8 @@ void QLoghelper::Init(){
         if(logDebug==NULL){ logDebug = Log4Qt::Logger::logger("debug");}
         if(logError==NULL){ logError = Log4Qt::Logger::logger("error");}
         if(logConsole==NULL){ logConsole = Log4Qt::Logger::logger("all");}
+    }else{
+        qDebug() << "Log配置文件读取失败!";
     }
 }
 

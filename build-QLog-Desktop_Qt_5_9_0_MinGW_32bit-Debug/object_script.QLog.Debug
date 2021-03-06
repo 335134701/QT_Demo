@@ -41,6 +41,7 @@ INPUT(
 ./debug\stringmatchfilter.o
 ./debug\main.o
 ./debug\Qlogger.o
+./debug\Qloghelper.o
 ./debug\qrc_qlogres.o
 ./debug\moc_appender.o
 ./debug\moc_appenderskeleton.o

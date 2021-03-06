@@ -40,7 +40,7 @@ public:
     {
         if (Qlogger->objectName().isEmpty())
             Qlogger->setObjectName(QStringLiteral("Qlogger"));
-        Qlogger->resize(400, 300);
+        Qlogger->resize(736, 300);
         QIcon icon;
         icon.addFile(QStringLiteral(":/ICO/QLog.ico"), QSize(), QIcon::Normal, QIcon::Off);
         Qlogger->setWindowIcon(icon);

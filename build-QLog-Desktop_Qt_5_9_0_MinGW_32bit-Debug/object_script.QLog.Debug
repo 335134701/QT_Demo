@@ -41,7 +41,7 @@ INPUT(
 ./debug\stringmatchfilter.o
 ./debug\main.o
 ./debug\Qlogger.o
-./debug\Qloghelper.o
+./debug\QLogHelper.o
 ./debug\qrc_qlogres.o
 ./debug\moc_appender.o
 ./debug\moc_appenderskeleton.o
@@ -66,4 +66,5 @@ INPUT(
 ./debug\moc_listappender.o
 ./debug\moc_stringmatchfilter.o
 ./debug\moc_Qlogger.o
+./debug\moc_QLogHelper.o
 );

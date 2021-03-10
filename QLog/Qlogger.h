@@ -15,7 +15,6 @@ class Qlogger : public QMainWindow
 public:
     explicit Qlogger(QWidget *parent = 0);
     ~Qlogger();
-    void SetQLoghelper(QLoghelper *);
 
 
 private slots:
@@ -27,9 +26,10 @@ private slots:
 
     void on_ErrorButton_clicked();
 
+    void on_ClearButton_clicked();
+
 private:
     Ui::Qlogger *ui;
-    QLoghelper *log=NULL;
 };
 
 #endif // QLOGGER_H

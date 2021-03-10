@@ -34,6 +34,7 @@ public:
     QPushButton *WarnButton;
     QPushButton *DebugButton;
     QPushButton *ErrorButton;
+    QPushButton *ClearButton;
     QTextEdit *textEdit;
 
     void setupUi(QMainWindow *Qlogger)
@@ -76,6 +77,11 @@ public:
 
         verticalLayout->addWidget(ErrorButton);
 
+        ClearButton = new QPushButton(centralWidget);
+        ClearButton->setObjectName(QStringLiteral("ClearButton"));
+
+        verticalLayout->addWidget(ClearButton);
+
 
         horizontalLayout_2->addLayout(verticalLayout);
 
@@ -101,6 +107,7 @@ public:
         WarnButton->setText(QApplication::translate("Qlogger", "Warn", Q_NULLPTR));
         DebugButton->setText(QApplication::translate("Qlogger", "Debug", Q_NULLPTR));
         ErrorButton->setText(QApplication::translate("Qlogger", "Error", Q_NULLPTR));
+        ClearButton->setText(QApplication::translate("Qlogger", "Clear", Q_NULLPTR));
     } // retranslateUi
 
 };

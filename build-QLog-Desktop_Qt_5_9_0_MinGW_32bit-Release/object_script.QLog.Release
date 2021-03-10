@@ -41,7 +41,7 @@ INPUT(
 ./release\stringmatchfilter.o
 ./release\main.o
 ./release\Qlogger.o
-./release\Qloghelper.o
+./release\QLogHelper.o
 ./release\qrc_qlogres.o
 ./release\moc_appender.o
 ./release\moc_appenderskeleton.o
@@ -66,4 +66,5 @@ INPUT(
 ./release\moc_listappender.o
 ./release\moc_stringmatchfilter.o
 ./release\moc_Qlogger.o
+./release\moc_QLogHelper.o
 );

@@ -22,8 +22,12 @@ private slots:
     void on_IDEdit_editingFinished();
 
 
+    void on_IDEdit_textChanged(const QString &arg1);
+
 private:
     Ui::AutomationTool *ui;
+    const QString errFontStytle="color:red;background-color: rgb(255, 255, 255);font: 75 11pt \"Consolas\";";
+    const QString nomalFontStytle="color:black;background-color: rgb(255, 255, 255);font: 75 11pt \"Consolas\";";
     void init();
 };
 

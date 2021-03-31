@@ -12,26 +12,11 @@ CommonBean *CommonBean::instance()
     return &comBean;
 }
 
-/**
- * @def 初始化相关参数
- * @brief CommonBean::Init
- */
-void CommonBean::Init()
-{
-    ID="11111111111";
-//   RExpression.insert("");
-}
-
-
 QMap<QString, QString> CommonBean::getRExpression() const
 {
     return RExpression;
 }
 
-void CommonBean::setRExpression(const QMap<QString, QString> &value)
-{
-    RExpression = value;
-}
 
 QString CommonBean::getID() const
 {
@@ -44,3 +29,12 @@ void CommonBean::setID(const QString &value)
 }
 
 
+/**
+ * @def 初始化相关参数
+ * @brief CommonBean::Init
+ */
+void CommonBean::Init()
+{
+    ID="11111111111";
+    RExpression.insert("IDEdit","^EN[3|4]\\d\\d\\dP[A-Z]");
+}

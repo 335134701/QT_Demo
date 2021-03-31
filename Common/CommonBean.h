@@ -4,6 +4,12 @@
 #include <QObject>
 #include "QLoghelper.h"
 
+//******************************************************************
+//
+//
+//
+//
+//******************************************************************
 class CommonBean : public QObject
 {
     Q_OBJECT
@@ -13,7 +19,6 @@ public:
     static CommonBean *instance();
 
     QMap<QString, QString> getRExpression() const;
-    void setRExpression(const QMap<QString, QString> &value);
 
     QString getID() const;
     void setID(const QString &value);
@@ -23,8 +28,12 @@ signals:
 public slots:
 private :
     QMap<QString,QString> RExpression;
+    //错误状态码集合
+    QMap<QString,qint8> errCode;
+    //机种番号
     QString ID;
     void Init();
+
 };
 
 #endif // COMMONBEAN_H

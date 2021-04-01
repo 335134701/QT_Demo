@@ -6,11 +6,6 @@ CommonBean::CommonBean(QObject *parent) : QObject(parent)
     this->Init();
 }
 
-CommonBean *CommonBean::instance()
-{
-    static CommonBean comBean;
-    return &comBean;
-}
 
 QMap<QString, QString> CommonBean::getRExpression() const
 {
@@ -28,13 +23,37 @@ void CommonBean::setID(const QString &value)
     ID = value;
 }
 
+QMap<QString, QChar> CommonBean::getErrCode() const
+{
+    return errCode;
+}
+
+QString CommonBean::getRelyID() const
+{
+    return RelyID;
+}
+
+void CommonBean::setRelyID(const QString &value)
+{
+    RelyID = value;
+}
+
 
 /**
- * @def 初始化相关参数
+ * @def 程序启动时初始化相关参数
  * @brief CommonBean::Init
  */
 void CommonBean::Init()
 {
-    ID="11111111111";
+    ID="";
+    RelyID="";
     RExpression.insert("IDEdit","^EN[3|4]\\d\\d\\dP[A-Z]");
+}
+/**
+ * @def 程序运行过程中需要对部分参数进行初始化处理
+ * @brief CommonBean::ParameterInit
+ */
+void CommonBean::ParameterInit()
+{
+
 }

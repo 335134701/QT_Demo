@@ -37,5 +37,3 @@ INCLUDEPATH         += $$PWD/Forms
 INCLUDEPATH         += $$PWD/QLog
 INCLUDEPATH         += $$PWD/Common
 
-RESOURCES += \
-    Conf/conf.qrc

@@ -4,7 +4,12 @@
 #include "QLoghelper.h"
 #include "CommonBean.h"
 #include <QMainWindow>
-#include<QMouseEvent>
+#include <QMouseEvent>
+#include <Qmessagebox>
+#include <QFileDialog>
+#include <QStandardPaths>
+#include <QObject>
+
 
 namespace Ui {
 class AutomationTool;
@@ -13,6 +18,10 @@ class AutomationTool;
 class AutomationTool : public QMainWindow
 {
     Q_OBJECT
+    #define errFontColor "color:red;"
+    #define comBakColor "background-color: rgb(255, 255, 255)"
+    #define comFont "font: 75 11pt \"Consolas\";"
+    #define nomFontColor "color:black;"
 
 public:
     explicit AutomationTool(QWidget *parent = 0);
@@ -32,20 +41,16 @@ private slots:
 
     void on_OutputButton_clicked();
 
-    void mousePressEvent(QMouseEvent *event);
-
-    void IDEditMouse_Clicked();
+    void on_CreateButton_clicked();
 
 private:
     Ui::AutomationTool *ui;
-    const QString errFontStytle="color:red;background-color: rgb(255, 255, 255);font: 75 11pt \"Consolas\";";
-    const QString nomalFontStytle="color:black;background-color: rgb(255, 255, 255);font: 75 11pt \"Consolas\";";
+    QString desktopPath;
     CommonBean *comBean;
     void init();
 
 
 signals:
-    void IDEditMouse_Signal();
 };
 
 #endif // AUTOMATIONTOOL_H

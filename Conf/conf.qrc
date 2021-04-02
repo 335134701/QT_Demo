@@ -1,6 +1,6 @@
 <RCC>
     <qresource prefix="/">
-        <file>ReadME.txt</file>
         <file>Log4qt.properties</file>
+        <file>ERRCode.xml</file>
     </qresource>
 </RCC>

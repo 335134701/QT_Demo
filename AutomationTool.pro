@@ -30,7 +30,6 @@ RESOURCES           += Conf/conf.qrc
 
 include             ($$PWD/Forms/Forms.pri)
 include             ($$PWD/QLog/QLog.pri)
-include             ($$PWD/ExcelOperation/ExcelOperation.pri)
 include             ($$PWD/Common/Common.pri)
 
 INCLUDEPATH         += $$PWD

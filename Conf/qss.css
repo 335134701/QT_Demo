@@ -1,0 +1,37 @@
+QWidget{
+    font: 75 9pt "微软雅黑";
+    background:#484848;
+}
+
+QAbstractButton{
+    font: 75 11pt "微软雅黑";
+    border-style:none;
+    border:1px solid #242424;
+    color:#DCDCDC;
+    padding:5px;
+    min-height:15px;
+    border-radius:5px;
+    background:qlineargradient(spread:pad,x1:0,y1:0,x2:0,y2:1,stop:0 #484848,stop:1 #383838);
+}
+QAbstractButton#CreateButton,#CheckButton{
+    font: 75 15pt "微软雅黑";
+}
+
+QAbstractButton:hover{
+    color:#FFFFFF;
+    background-color:#636363;
+}
+QAbstractButton:pressed{
+    color:#FFFFFF;
+    background-color:#484848;
+}
+
+QLineEdit{
+    font: 75 12pt "微软雅黑";
+    padding:3px;
+    color: rgb(255, 255, 255);
+}
+
+QLabel#IDLabel,#RelyIDLabel{
+    font: 75 11pt "微软雅黑";
+}

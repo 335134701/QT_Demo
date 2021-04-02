@@ -7,6 +7,7 @@ AutomationTool::AutomationTool(QWidget *parent) :
 {
     QLogHelper::instance()->LogInfo("AutomationTool构造函数执行中!");
     ui->setupUi(this);
+    this->initStyle();
     this->init();
 }
 
@@ -31,8 +32,16 @@ void AutomationTool::init()
     comBean->getErrCode().insert(ui->OutputButton->objectName(),0x05);
 }
 
-
-
+void AutomationTool::initStyle()
+{
+    //加载样式表
+    QFile file(":/qss.css");
+    if (file.open(QFile::ReadOnly)) {
+        QString qss = QLatin1String(file.readAll());
+        qApp->setStyleSheet(qss);
+        file.close();
+    }
+}
 /**
  * @def 机种IDEdit文本改变完成触发函数
  *      正则表达式判断IDEdit内容是否符合要求

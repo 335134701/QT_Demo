@@ -45,11 +45,14 @@ private slots:
 
 private:
     Ui::AutomationTool *ui;
+
     QString desktopPath;
+
     CommonBean *comBean;
+
     void init();
 
-
+    void initStyle();
 signals:
 };
 

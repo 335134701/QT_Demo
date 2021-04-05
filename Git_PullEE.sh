@@ -24,7 +24,7 @@ function Main()
 {
 	#=======================================================
 	#参数更改
-	repository=git@github.com:335134701/QT_Demo.git
+	repository=git@gitee.com:ZC335134701/QT_Demo.git
 	localDir=$(pwd)
 	localDirName=${localDir##*/}
 	#=======================================================

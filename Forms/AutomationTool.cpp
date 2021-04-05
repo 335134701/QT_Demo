@@ -27,6 +27,7 @@ void AutomationTool::init()
     QLogHelper::instance()->LogInfo("AutomationTool->init() 函数执行中!");
     desktopPath = QStandardPaths::writableLocation(QStandardPaths::DesktopLocation);
     comBean=new CommonBean();
+    //初始化设置Error Code，通过解析XML方式获取错误码
     comBean->getErrCode().insert(ui->IDEdit->objectName(),0x01);
     comBean->getErrCode().insert(ui->RelyIDEdit->objectName(),0x02);
     comBean->getErrCode().insert(ui->ResultButton->objectName(),0x03);
@@ -106,6 +107,7 @@ void AutomationTool::on_RelyIDEdit_editingFinished()
     }
 }
 /**
+ * @def
  * @brief AutomationTool::on_ResultButton_clicked
  */
 void AutomationTool::on_ResultButton_clicked()
@@ -124,6 +126,7 @@ void AutomationTool::on_ResultButton_clicked()
     comBean->setResultDirPath(dirName);
 }
 /**
+ * @def
  * @brief AutomationTool::on_MotButton_clicked
  */
 void AutomationTool::on_MotButton_clicked()
@@ -142,6 +145,7 @@ void AutomationTool::on_MotButton_clicked()
     comBean->setMotDirPath(dirName);
 }
 /**
+ * @def
  * @brief AutomationTool::on_OutputButton_clicked
  */
 void AutomationTool::on_OutputButton_clicked()
@@ -160,6 +164,7 @@ void AutomationTool::on_OutputButton_clicked()
     comBean->setOutputDirPath(dirName);
 }
 /**
+ * @def
  * @brief AutomationTool::on_CreateButton_clicked
  */
 void AutomationTool::on_CreateButton_clicked()

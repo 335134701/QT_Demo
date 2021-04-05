@@ -10,7 +10,9 @@ AutomationTool::AutomationTool(QWidget *parent) :
     this->initStyle();
     this->init();
 }
-
+/**
+ * @brief AutomationTool::~AutomationTool
+ */
 AutomationTool::~AutomationTool()
 {
     QLogHelper::instance()->LogInfo("AutomationTool执行结束,删除UI对象!");
@@ -27,11 +29,13 @@ void AutomationTool::init()
     comBean=new CommonBean();
     comBean->getErrCode().insert(ui->IDEdit->objectName(),0x01);
     comBean->getErrCode().insert(ui->RelyIDEdit->objectName(),0x02);
-    comBean->getErrCode().insert(ui->RelyButton->objectName(),0x03);
-    comBean->getErrCode().insert(ui->ResultButton->objectName(),0x04);
-    comBean->getErrCode().insert(ui->OutputButton->objectName(),0x05);
+    comBean->getErrCode().insert(ui->ResultButton->objectName(),0x03);
+    comBean->getErrCode().insert(ui->OutputButton->objectName(),0x04);
 }
-
+/**
+ * @def UI界面初始化函数，主要功能是美化UI
+ * @brief AutomationTool::initStyle
+ */
 void AutomationTool::initStyle()
 {
     //加载样式表
@@ -102,26 +106,6 @@ void AutomationTool::on_RelyIDEdit_editingFinished()
     }
 }
 /**
- * @def 导入依赖文件触发函数
- * @brief AutomationTool::on_RelyButton_clicked
- */
-void AutomationTool::on_RelyButton_clicked()
-{
-    QLogHelper::instance()->LogInfo("AutomationTool->on_RelyButton_clicked() 函数触发执行!");
-    ui->RelyLabel->setText("");
-    comBean->setRelyFilePath("");
-    QString fileName = QFileDialog::getOpenFileName(this,tr("Open File"),desktopPath,tr("Excel(*.xlsx *.xls);;ALL File(*);;"));
-    QFile file(fileName);
-    if (!file.open(QIODevice::ReadOnly | QFile::Text)) {
-        ui->RelyLabel->setStyleSheet(QString(errFontColor));
-        QMessageBox::warning(this, "警告", "Cannot open file: " + file.errorString());
-        return;
-    }
-    ui->RelyLabel->setStyleSheet(QString(nomFontColor));
-    comBean->setRelyFilePath(fileName);
-    ui->RelyLabel->setText(fileName);
-}
-/**
  * @brief AutomationTool::on_ResultButton_clicked
  */
 void AutomationTool::on_ResultButton_clicked()
@@ -181,6 +165,8 @@ void AutomationTool::on_OutputButton_clicked()
 void AutomationTool::on_CreateButton_clicked()
 {
     if(comBean->getErrCode().size()==0){
+
+    }else{
 
     }
 }

@@ -33,8 +33,6 @@ private slots:
 
     void on_RelyIDEdit_editingFinished();
 
-    void on_RelyButton_clicked();
-
     void on_ResultButton_clicked();
 
     void on_MotButton_clicked();

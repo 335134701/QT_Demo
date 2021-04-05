@@ -11,19 +11,14 @@
         <Code>0x02</Code>
     </UIErrCode>
     <UIErrCode>
-        <ID>RelyButton</ID>
-        <Def>依赖文件按钮</Def>
-        <Code>0x03</Code>
-    </UIErrCode>
-    <UIErrCode>
         <ID>ResultButton</ID>
         <Def>成果物路径</Def>
-        <Code>0x04</Code>
+        <Code>0x03</Code>
     </UIErrCode>
     <UIErrCode>
         <ID>OutputButton</ID>
         <Def>输出路径</Def>
-        <Code>0x05</Code>
+        <Code>0x04</Code>
     </UIErrCode>
 </ERRCodeType>
 

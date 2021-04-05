@@ -9,6 +9,8 @@ class CommonMethod : public QObject
 public:
     explicit CommonMethod(QObject *parent = nullptr);
 
+    QString JudgeIDType(QString ID);
+
 signals:
 
 public slots:

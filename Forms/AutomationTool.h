@@ -44,7 +44,7 @@ private slots:
 private:
     Ui::AutomationTool *ui;
 
-    QString desktopPath;
+    const QString desktopPath = QStandardPaths::writableLocation(QStandardPaths::DesktopLocation);
 
     CommonBean *comBean;
 

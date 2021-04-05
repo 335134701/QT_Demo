@@ -25,13 +25,14 @@ AutomationTool::~AutomationTool()
 void AutomationTool::init()
 {
     QLogHelper::instance()->LogInfo("AutomationTool->init() 函数执行中!");
-    desktopPath = QStandardPaths::writableLocation(QStandardPaths::DesktopLocation);
+
     comBean=new CommonBean();
     //初始化设置Error Code，通过解析XML方式获取错误码
     comBean->getErrCode().insert(ui->IDEdit->objectName(),0x01);
     comBean->getErrCode().insert(ui->RelyIDEdit->objectName(),0x02);
     comBean->getErrCode().insert(ui->ResultButton->objectName(),0x03);
     comBean->getErrCode().insert(ui->OutputButton->objectName(),0x04);
+    //
 }
 /**
  * @def UI界面初始化函数，主要功能是美化UI

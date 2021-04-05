@@ -24,17 +24,17 @@ public:
     Log4Qt::Logger* GetLogDebug();
     Log4Qt::Logger* GetLogError();
     Log4Qt::Logger* GetLogConsole();
-    void LogInfo(QString);
-    void LogWarn(QString);
-    void LogDebug(QString);
-    void LogError(QString);
-    static QString confFilePath;
+    void LogInfo(QString txt);
+    void LogWarn(QString txt);
+    void LogDebug(QString txt);
+    void LogError(QString txt);
 
 signals:
 
 public slots:
 
 private:
+    const QString confFilePath=":/Log4qt.properties";
     Log4Qt::Logger *logInfo=NULL;
     Log4Qt::Logger *logWarn=NULL;
     Log4Qt::Logger *logDebug=NULL;

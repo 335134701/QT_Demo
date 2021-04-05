@@ -2,9 +2,17 @@
 #define XMLOPERATE_H
 
 #include <QObject>
-#include <QtXml>
-#include <QDomDocument>
+#include <QtXml/QDomDocument>
+#include "QLoghelper.h"
 
+typedef struct ERRCodeType{
+    QString ID;
+    QString Def;
+    QString ErrDef;
+    QString Level;
+    QChar Code;
+
+}ERRCODETYPE;
 
 class XMLOperate : public QObject
 {
@@ -12,16 +20,13 @@ class XMLOperate : public QObject
 public:
     explicit XMLOperate(QObject *parent = nullptr);
 
-    bool OpenXML(const QString filePath);
+    void ReadXML();
 
-    QDomNode* listDom(QDomElement *docElem);
+    QMap<QString, ERRCODETYPE> getErrCodeType() const;
 
-signals:
-
-public slots:
-
-private :
-
+private:
+    const QString xmlPath=":/ERRCode.xml";
+    QMap<QString,ERRCODETYPE> errCodeType;
 };
 
 #endif // XMLOPERATE_H

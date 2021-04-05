@@ -2,14 +2,14 @@ HEADERS += \
     $$PWD/CommonBean.h \
     $$PWD/CommonMethod.h \
     $$PWD/UIMethod.h \
-    $$PWD/XMLOperate.h \
-    $$PWD/ExcelOperation.h
+    $$PWD/ExcelOperation.h \
+    $$PWD/XMLOperate.h
 
 SOURCES += \
     $$PWD/CommonBean.cpp \
     $$PWD/CommonMethod.cpp \
     $$PWD/UIMethod.cpp \
-    $$PWD/XMLOperate.cpp \
-    $$PWD/ExcelOperation.cpp
+    $$PWD/ExcelOperation.cpp \
+    $$PWD/XMLOperate.cpp
 
 

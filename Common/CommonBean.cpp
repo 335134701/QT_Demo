@@ -23,11 +23,6 @@ void CommonBean::setID(const QString &value)
     ID = value;
 }
 
-QMap<QString, QChar> CommonBean::getErrCode() const
-{
-    return errCode;
-}
-
 QString CommonBean::getRelyID() const
 {
     return RelyID;
@@ -98,6 +93,11 @@ void CommonBean::setUiMethod(UIMethod *value)
     uiMethod = value;
 }
 
+QMap<QString, ERRCODETYPE> CommonBean::getErrCode() const
+{
+    return errCode;
+}
+
 
 /**
  * @def 程序启动时初始化相关参数
@@ -109,6 +109,7 @@ void CommonBean::Init()
     RelyID="";
     comMethod=new CommonMethod();
     uiMethod=new UIMethod();
+    xmlOperate=new XMLOperate();
     RExpression.insert("IDEdit","^EN[3|4]\\d\\d\\dP[A-Z]");
 }
 /**

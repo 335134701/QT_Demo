@@ -28,10 +28,10 @@ void AutomationTool::init()
 
     comBean=new CommonBean();
     //初始化设置Error Code，通过解析XML方式获取错误码
-    comBean->getErrCode().insert(ui->IDEdit->objectName(),0x01);
-    comBean->getErrCode().insert(ui->RelyIDEdit->objectName(),0x02);
-    comBean->getErrCode().insert(ui->ResultButton->objectName(),0x03);
-    comBean->getErrCode().insert(ui->OutputButton->objectName(),0x04);
+    //comBean->getErrCode().insert(ui->IDEdit->objectName(),0x01);
+    //comBean->getErrCode().insert(ui->RelyIDEdit->objectName(),0x02);
+    //comBean->getErrCode().insert(ui->ResultButton->objectName(),0x03);
+    //comBean->getErrCode().insert(ui->OutputButton->objectName(),0x04);
     //
 }
 /**
@@ -63,17 +63,18 @@ void AutomationTool::on_IDEdit_editingFinished()
     if(rx.indexIn(ui->IDEdit->text())==0){
         ui->IDEdit->setStyleSheet(QString(errFontColor)+QString(comBakColor)+QString(comFont)); //字体相关设置
         //如果存在错误码则移除错误码
-        if(!QString(comBean->getErrCode().value(ui->IDEdit->objectName())).isEmpty()){
+       /* if(!QString(comBean->getErrCode().value(ui->IDEdit->objectName())).isEmpty()){
             comBean->getErrCode().remove(ui->IDEdit->objectName());
         }
+        */
         comBean->setID(ui->IDEdit->text());
     }else{
         ui->IDEdit->setStyleSheet(QString(nomFontColor)+QString(comBakColor)+QString(comFont)); //字体相关设置
         comBean->setID("");
         //如果错误码不存在，则添加错误码
-        if(QString(comBean->getErrCode().value(ui->IDEdit->objectName())).isEmpty()){
-            comBean->getErrCode().insert(ui->IDEdit->objectName(),0x01);
-        }
+        /*if(QString(comBean->getErrCode().value(ui->IDEdit->objectName())).isEmpty()){
+            //comBean->getErrCode().insert(ui->IDEdit->objectName(),0x01);
+        }*/
     }
 }
 
@@ -86,25 +87,25 @@ void AutomationTool::on_RelyIDEdit_editingFinished()
     QLogHelper::instance()->LogInfo("AutomationTool->on_RelyIDEdit_editingFinished() 函数触发执行!");
     comBean->setRelyID("");
     //如果RelyIDEdit文本输入为空，则说明不依赖任何机种
-    if(ui->RelyIDEdit->text().isEmpty()&&!QString(comBean->getErrCode().value(ui->RelyIDEdit->objectName())).isEmpty()){
+    /*if(ui->RelyIDEdit->text().isEmpty()&&!QString(comBean->getErrCode().value(ui->RelyIDEdit->objectName())).isEmpty()){
         comBean->getErrCode().remove(ui->RelyIDEdit->objectName());
         return;
-    }
+    }*/
     //RelyIDEdit使用的正则表达式与IDEdit一致，使用IDEdit定义的正则表达式
     QRegExp rx(comBean->getRExpression().value(ui->IDEdit->objectName()));
     if(rx.indexIn(ui->RelyIDEdit->text())==0){
         ui->RelyIDEdit->setStyleSheet(QString(errFontColor)+QString(comBakColor)+QString(comFont)); //字体相关设置
         //如果存在错误码则移除错误码
-        if(!QString(comBean->getErrCode().value(ui->RelyIDEdit->objectName())).isEmpty()){
+        /*if(!QString(comBean->getErrCode().value(ui->RelyIDEdit->objectName())).isEmpty()){
             comBean->getErrCode().remove(ui->RelyIDEdit->objectName());
-        }
+        }*/
         comBean->setRelyID(ui->RelyIDEdit->text());
     }else{
         ui->RelyIDEdit->setStyleSheet(QString(nomFontColor)+QString(comBakColor)+QString(comFont)); //字体相关设置
         //如果错误码不存在，则添加错误码
-        if(QString(comBean->getErrCode().value(ui->RelyIDEdit->objectName())).isEmpty()){
+        /*if(QString(comBean->getErrCode().value(ui->RelyIDEdit->objectName())).isEmpty()){
             comBean->getErrCode().insert(ui->RelyIDEdit->objectName(),0x02);
-        }
+        }*/
     }
 }
 /**

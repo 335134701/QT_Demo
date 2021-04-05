@@ -6,25 +6,33 @@
 -->
 <?xml version="1.0" encoding="utf-8" ?>
 <ERRCodeType>
-    <UIErrCode>
+    <ErrCode>
         <ID>IDEdit</ID>
         <Def>机种番号</Def>
+        <ErrDef>机种番号填写错误</ErrDef>
+        <Level>Error</Level>
         <Code>0x01</Code>
-    </UIErrCode>
-    <UIErrCode>
+    </ErrCode>
+    <ErrCode>
         <ID>RelyIDEdit</ID>
         <Def>依赖机种番号</Def>
+        <ErrDef>依赖机种番号填写错误</ErrDef>
+        <Level>Error</Level>
         <Code>0x02</Code>
-    </UIErrCode>
-    <UIErrCode>
+    </ErrCode>
+    <ErrCode>
         <ID>ResultButton</ID>
         <Def>成果物路径</Def>
+        <ErrDef>成果物路径填写错误</ErrDef>
+        <Level>Error</Level>
         <Code>0x03</Code>
-    </UIErrCode>
-    <UIErrCode>
+    </ErrCode>
+    <ErrCode>
         <ID>OutputButton</ID>
         <Def>输出路径</Def>
+        <ErrDef>输出路径填写错误</ErrDef>
+        <Level>Error</Level>
         <Code>0x04</Code>
-    </UIErrCode>
+    </ErrCode>
 </ERRCodeType>
 

@@ -5,18 +5,15 @@ XMLOperate::XMLOperate(QObject *parent) : QObject(parent)
 
 }
 /**
- * @def 读取XML文件
- * @brief XMLOperate::OpenXML
- * @param filePath
- * @return
+ * @def 读取XML配置文件
+ * @brief XMLOperate::ReadXML
  */
-bool XMLOperate::OpenXML(const QString filePath)
+void XMLOperate::ReadXML()
 {
-    if(!filePath.isEmpty()){return false;}
-    return false;
+
 }
 
-QDomNode *XMLOperate::listDom(QDomElement *docElem)
+QMap<QString, ERRCODETYPE> XMLOperate::getErrCodeType() const
 {
-
+    return errCodeType;
 }

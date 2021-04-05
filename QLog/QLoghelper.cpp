@@ -2,7 +2,6 @@
 
 using namespace Log4Qt;
 
-QString QLogHelper::confFilePath=":/Log4qt.properties";
 
 QLogHelper::QLogHelper(QObject *parent) : QObject(parent)
 {

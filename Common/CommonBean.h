@@ -5,10 +5,13 @@
 #include "QLoghelper.h"
 #include "CommonMethod.h"
 #include "UIMethod.h"
+#include "XMLOperate.h"
+
 
 class CommonBean : public QObject
 {
     Q_OBJECT
+
 public:
     explicit CommonBean(QObject *parent = nullptr);
 
@@ -19,8 +22,6 @@ public:
 
     QString getID() const;
     void setID(const QString &value);
-
-    QMap<QString, QChar> getErrCode() const;
 
     QString getRelyID() const;
     void setRelyID(const QString &value);
@@ -43,13 +44,12 @@ public:
     UIMethod *getUiMethod() const;
     void setUiMethod(UIMethod *value);
 
-signals:
+    QMap<QString, ERRCODETYPE> getErrCode() const;
 
-public slots:
 private :
     QMap<QString,QString> RExpression;
     //错误状态码集合
-    QMap<QString,QChar> errCode;
+    QMap<QString,ERRCODETYPE> errCode;
     //机种番号
     QString ID;
     //依赖机种番号
@@ -66,6 +66,8 @@ private :
     CommonMethod *comMethod;
     //处理UI界面的相关方法
     UIMethod *uiMethod;
+
+    XMLOperate *xmlOperate;
     //初始化函数
     void Init();
 };

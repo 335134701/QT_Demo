@@ -46,12 +46,19 @@ public:
 
     QMap<QString, ERRCODETYPE> getErrCode() const;
 
+    QString getIDType() const;
+    void setIDType(const QString &value);
+
+    XMLOperate *getXmlOperate() const;
+
 private :
     QMap<QString,QString> RExpression;
     //错误状态码集合
     QMap<QString,ERRCODETYPE> errCode;
     //机种番号
     QString ID;
+    //机种类型
+    QString IDType;
     //依赖机种番号
     QString RelyID;
     //依赖文件路径
@@ -64,12 +71,13 @@ private :
     QString OutputDirPath;
     //公共的方法类对象
     CommonMethod *comMethod;
-    //处理UI界面的相关方法
+    //处理UI界面的对象
     UIMethod *uiMethod;
-
+    //处理XML的对象
     XMLOperate *xmlOperate;
     //初始化函数
     void Init();
+
 };
 
 #endif // COMMONBEAN_H

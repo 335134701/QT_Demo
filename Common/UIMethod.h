@@ -2,6 +2,7 @@
 #define UIMETHOD_H
 
 #include <QObject>
+#include "QLoghelper.h"
 
 class UIMethod : public QObject
 {
@@ -9,9 +10,11 @@ class UIMethod : public QObject
 public:
     explicit UIMethod(QObject *parent = nullptr);
 
+
 signals:
 
 public slots:
+    QString JudgeIDType(const QString ID);
 };
 
 #endif // UIMETHOD_H

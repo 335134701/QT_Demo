@@ -19,9 +19,7 @@ class AutomationTool : public QMainWindow
 {
     Q_OBJECT
     #define errFontColor "color:red;"
-    #define comBakColor "background-color: rgb(255, 255, 255)"
-    #define comFont "font: 75 11pt \"Consolas\";"
-    #define nomFontColor "color:black;"
+    #define nomFontColor "color:white;"
 
 public:
     explicit AutomationTool(QWidget *parent = 0);
@@ -41,6 +39,8 @@ private slots:
 
     void on_CreateButton_clicked();
 
+    void JudgeIDTypeSlot(const QString ID);
+
 private:
     Ui::AutomationTool *ui;
 
@@ -50,8 +50,11 @@ private:
 
     void init();
 
+    void ConnectSlot();
+
     void initStyle();
 signals:
+    void JudgeIDTypeSignal(QString ID);
 };
 
 #endif // AUTOMATIONTOOL_H

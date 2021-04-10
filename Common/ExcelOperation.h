@@ -2,6 +2,7 @@
 #define EXCELOPERATION_H
 
 #include <QObject>
+#include "QLoghelper.h"
 
 class ExcelOperation : public QObject
 {

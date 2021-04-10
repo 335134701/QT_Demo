@@ -2,14 +2,13 @@
 #define COMMONMETHOD_H
 
 #include <QObject>
+#include "QLoghelper.h"
 
 class CommonMethod : public QObject
 {
     Q_OBJECT
 public:
     explicit CommonMethod(QObject *parent = nullptr);
-
-    QString JudgeIDType(QString ID);
 
 signals:
 

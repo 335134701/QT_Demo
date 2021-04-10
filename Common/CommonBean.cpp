@@ -98,6 +98,20 @@ QMap<QString, ERRCODETYPE> CommonBean::getErrCode() const
     return errCode;
 }
 
+QString CommonBean::getIDType() const
+{
+    return IDType;
+}
+
+void CommonBean::setIDType(const QString &value)
+{
+    IDType = value;
+}
+
+XMLOperate *CommonBean::getXmlOperate() const
+{
+    return xmlOperate;
+}
 
 /**
  * @def 程序启动时初始化相关参数

@@ -3,5 +3,6 @@
         <file>Log4qt.properties</file>
         <file>ERRCode.xml</file>
         <file>qss.css</file>
+        <file>Images/Tool.ico</file>
     </qresource>
 </RCC>

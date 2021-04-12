@@ -19,6 +19,10 @@
   <property name="windowTitle">
    <string>AutomationTool</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="../Conf/conf.qrc">
+    <normaloff>:/Images/Tool.ico</normaloff>:/Images/Tool.ico</iconset>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <property name="autoFillBackground">
     <bool>false</bool>
@@ -491,6 +495,8 @@
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="../Conf/conf.qrc"/>
+ </resources>
  <connections/>
 </ui>

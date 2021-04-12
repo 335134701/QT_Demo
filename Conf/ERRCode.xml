@@ -1,9 +1,3 @@
-<!--
-    错误码说明:
-            UI界面错误码起始:  0x01
-            UI界面错误码终止:  0x1F
-
--->
 <?xml version="1.0" encoding="utf-8" ?>
 <ERRCodeType>
     <ErrCode>

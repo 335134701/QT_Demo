@@ -15,10 +15,12 @@ CommonBean::CommonBean(QObject *parent) : QObject(parent)
 void CommonBean::Init()
 {
     QLogHelper::instance()->LogInfo("CommonBean->Init() 函数执行!");
-    ID="";
-    RelyID="";
     comMethod=new CommonMethod();
     xmlOperate=new XMLOperate();
+    //初始化设置Error Code，通过解析XML方式获取错误码
+    getXmlOperate()->ReadXML();
+    //初始化错误码
+
     RExpression.insert("IDEdit","^EN[3|4]\\d\\d\\dP[A-Z]");
     RExpression.insert("RelyIDEdit","^EN[3|4]\\d\\d\\dP[A-Z]");
 }
@@ -29,6 +31,18 @@ void CommonBean::Init()
 void CommonBean::ParameterInit()
 {
     QLogHelper::instance()->LogInfo("CommonBean->ParameterInit() 函数执行!");
+}
+/**
+ * @def 初始化错误码
+ * @brief CommonBean::ErrorCodeInit
+ * @return
+ */
+bool CommonBean::ErrorCodeInit()
+{
+    bool ret=false;
+    if(getXmlOperate()->getErrCodeType().count()>0){
+    }
+    return ret;
 }
 
 QMap<QString, QString> CommonBean::getRExpression() const

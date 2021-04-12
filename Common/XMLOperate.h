@@ -2,7 +2,8 @@
 #define XMLOPERATE_H
 
 #include <QObject>
-#include <QtXml/QDomDocument>
+#include <QXmlStreamReader>
+#include <QFile>
 #include "QLoghelper.h"
 
 typedef struct ERRCodeType{
@@ -10,7 +11,7 @@ typedef struct ERRCodeType{
     QString Def;
     QString ErrDef;
     QString Level;
-    QChar Code;
+    QString Code;
 
 }ERRCODETYPE;
 

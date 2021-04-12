@@ -29,7 +29,7 @@ void AutomationTool::init()
     comBean=new CommonBean();
     uiMethod=new UIMethod();
     uiMethod->setComBean(comBean);
-    //初始化设置Error Code，通过解析XML方式获取错误码
+    comBean->ErrorCodeInit();
 }
 /**
  * @def UI连接信号槽函数

@@ -20,6 +20,8 @@ public:
     const QString applicationPath=QApplication::applicationDirPath();
     //一些特殊参数 初始化方法
     void ParameterInit();
+    //错误码初始化
+    bool ErrorCodeInit();
 
     QMap<QString, QString> getRExpression() const;
 

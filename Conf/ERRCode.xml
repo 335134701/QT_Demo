@@ -21,18 +21,40 @@
         <Code>0x02</Code>
     </ErrCode>
     <ErrCode>
-        <ID>ResultButton</ID>
+        <ID>ResultLabel</ID>
         <Def>成果物路径</Def>
         <ErrDef>成果物路径填写错误</ErrDef>
         <Level>Error</Level>
         <Code>0x03</Code>
     </ErrCode>
     <ErrCode>
-        <ID>OutputButton</ID>
+        <ID>MotLabel</ID>
+        <Def>Mot文件路径</Def>
+        <ErrDef>Mot文件路径填写错误</ErrDef>
+        <Level>Error</Level>
+        <Code>0x04</Code>
+    </ErrCode>
+    <ErrCode>
+        <ID>OutputLabel</ID>
         <Def>输出路径</Def>
         <ErrDef>输出路径填写错误</ErrDef>
         <Level>Error</Level>
-        <Code>0x04</Code>
+        <Code>0x05</Code>
+    </ErrCode>
+    <ErrCode>
+        <ID>RelyIDID</ID>
+        <Def>依赖机种与原机种类型不一致</Def>
+        <ErrDef>依赖机种与原机种类型不一致错误</ErrDef>
+        <Level>Error</Level>
+        <Code>0x06</Code>
+    </ErrCode>
+
+    <ErrCode>
+        <ID>ExampleDirError</ID>
+        <Def>Example目录不存在</Def>
+        <ErrDef>Example目录不存在错误</ErrDef>
+        <Level>Error</Level>
+        <Code>0x20</Code>
     </ErrCode>
 </ERRCodeType>
 

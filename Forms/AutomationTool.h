@@ -3,11 +3,11 @@
 
 #include "QLoghelper.h"
 #include "CommonBean.h"
+#include "UIMethod.h"
 #include <QMainWindow>
 #include <QMouseEvent>
 #include <Qmessagebox>
 #include <QFileDialog>
-#include <QStandardPaths>
 #include <QObject>
 
 
@@ -39,14 +39,12 @@ private slots:
 
     void on_CreateButton_clicked();
 
-    void JudgeIDTypeSlot(const QString ID);
-
 private:
     Ui::AutomationTool *ui;
 
-    const QString desktopPath = QStandardPaths::writableLocation(QStandardPaths::DesktopLocation);
-
     CommonBean *comBean;
+
+    UIMethod *uiMethod;
 
     void init();
 
@@ -54,7 +52,14 @@ private:
 
     void initStyle();
 signals:
-    void JudgeIDTypeSignal(QString ID);
+    void JudgeIDSignal(QLineEdit *Edit);
+
+    void JudgeIDTypeSignal(QLineEdit *Edit);
+
+    void SelectDirSignal(QLabel *label);
+
+    void SelectExampleSignal(const QString dirPath,const QString condition);
+
 };
 
 #endif // AUTOMATIONTOOL_H

@@ -2,16 +2,44 @@
 
 CommonBean::CommonBean(QObject *parent) : QObject(parent)
 {
-    QLogHelper::instance()->LogInfo("CommonBean构造函数触发执行中!");
+    QLogHelper::instance()->LogInfo("CommonBean->CommonBean() 构造函数执行!");
     this->Init();
 }
 
+
+
+/**
+ * @def 程序启动时初始化相关参数
+ * @brief CommonBean::Init
+ */
+void CommonBean::Init()
+{
+    QLogHelper::instance()->LogInfo("CommonBean->Init() 函数执行!");
+    ID="";
+    RelyID="";
+    comMethod=new CommonMethod();
+    xmlOperate=new XMLOperate();
+    RExpression.insert("IDEdit","^EN[3|4]\\d\\d\\dP[A-Z]");
+    RExpression.insert("RelyIDEdit","^EN[3|4]\\d\\d\\dP[A-Z]");
+}
+/**
+ * @def 程序运行过程中需要对部分参数进行初始化处理
+ * @brief CommonBean::ParameterInit
+ */
+void CommonBean::ParameterInit()
+{
+    QLogHelper::instance()->LogInfo("CommonBean->ParameterInit() 函数执行!");
+}
 
 QMap<QString, QString> CommonBean::getRExpression() const
 {
     return RExpression;
 }
 
+QMap<QString, ERRCODETYPE> CommonBean::getErrCode() const
+{
+    return errCode;
+}
 
 QString CommonBean::getID() const
 {
@@ -21,6 +49,16 @@ QString CommonBean::getID() const
 void CommonBean::setID(const QString &value)
 {
     ID = value;
+}
+
+QString CommonBean::getIDType() const
+{
+    return IDType;
+}
+
+void CommonBean::setIDType(const QString &value)
+{
+    IDType = value;
 }
 
 QString CommonBean::getRelyID() const
@@ -83,54 +121,12 @@ void CommonBean::setComMethod(CommonMethod *value)
     comMethod = value;
 }
 
-UIMethod *CommonBean::getUiMethod() const
-{
-    return uiMethod;
-}
-
-void CommonBean::setUiMethod(UIMethod *value)
-{
-    uiMethod = value;
-}
-
-QMap<QString, ERRCODETYPE> CommonBean::getErrCode() const
-{
-    return errCode;
-}
-
-QString CommonBean::getIDType() const
-{
-    return IDType;
-}
-
-void CommonBean::setIDType(const QString &value)
-{
-    IDType = value;
-}
-
 XMLOperate *CommonBean::getXmlOperate() const
 {
     return xmlOperate;
 }
 
-/**
- * @def 程序启动时初始化相关参数
- * @brief CommonBean::Init
- */
-void CommonBean::Init()
+void CommonBean::setXmlOperate(XMLOperate *value)
 {
-    ID="";
-    RelyID="";
-    comMethod=new CommonMethod();
-    uiMethod=new UIMethod();
-    xmlOperate=new XMLOperate();
-    RExpression.insert("IDEdit","^EN[3|4]\\d\\d\\dP[A-Z]");
-}
-/**
- * @def 程序运行过程中需要对部分参数进行初始化处理
- * @brief CommonBean::ParameterInit
- */
-void CommonBean::ParameterInit()
-{
-
+    xmlOperate = value;
 }

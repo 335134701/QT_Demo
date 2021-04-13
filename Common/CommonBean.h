@@ -36,10 +36,8 @@ public:
     QString MotDirPath;
     //生成文件路径
     QString OutputDirPath;
-
-    QMap<QString, QString> getRExpression() const;
-
-    QMap<QString, ERRCODETYPE> getErrCode() const;
+    //错误状态码集合
+    QMap<QString,ERRCODETYPE> errCode;
 
     QString getIDType() const;
     void setIDType(const QString &value);
@@ -53,11 +51,10 @@ public:
     XMLOperate *getXmlOperate() const;
     void setXmlOperate(XMLOperate *value);
 
-private :
+    QMap<QString, QString> getRExpression() const;
 
+private :
     QMap<QString,QString> RExpression;
-    //错误状态码集合
-    QMap<QString,ERRCODETYPE> errCode;
     //机种类型
     QString IDType;
     //依赖文件路径

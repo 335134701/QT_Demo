@@ -4,14 +4,6 @@ XMLOperate::XMLOperate(QObject *parent) : QObject(parent)
 {
     QLogHelper::instance()->LogInfo("XMLOperate() 构造函数执行!");
     errCodeType=ReadXML(xmlPath);
-    QLogHelper::instance()->LogDebug(QString::number(getErrCodeType().count()));
-
-
-    QMapIterator<QString,ERRCODETYPE> i(errCodeType);
-    while(i.hasNext()) {
-        i.next();
-         QLogHelper::instance()->LogDebug(i.key());
-    }
 }
 
 
@@ -34,12 +26,12 @@ QMap<QString,ERRCODETYPE> XMLOperate::ReadXML(const QString filePath)
 {
     QLogHelper::instance()->LogInfo("XMLOperate->ReadXML() 函数执行!");
     QMap<QString,ERRCODETYPE> errMap;
+    ERRCODETYPE err;
     QFile xmlFile(filePath);
     if (!xmlFile.open(QIODevice::ReadOnly | QIODevice::Text)){return errMap;}
     QXmlStreamReader reader(&xmlFile);
     while(!reader.atEnd())
     {
-        ERRCODETYPE err;
         //判断是否是节点的开始
         if(reader.isStartElement())
         {
@@ -49,25 +41,28 @@ QMap<QString,ERRCODETYPE> XMLOperate::ReadXML(const QString filePath)
             }
             else if(reader.name() == "Def")  //判断当前节点的名字是否为Def
             {
-                err.Def= reader.readElementText();
+                err.Def= reader.readElementText().replace(QString("\""), QString(""));
             }
             else if(reader.name() == "ErrDef")  //判断当前节点的名字是否为ErrDef
             {
-                err.ErrDef =reader.readElementText();
+                err.ErrDef =reader.readElementText().replace(QString("\""), QString(""));
             }
             else if(reader.name() == "Level")  //判断当前节点的名字是否为Level
             {
-                err.Level=reader.readElementText();
+                err.Level=reader.readElementText().replace(QString("\""), QString(""));
             }
             else if(reader.name() == "Code")  //判断当前节点的名字是否为Code
             {
-                err.Code =reader.readElementText();
+                err.Code =reader.readElementText().replace(QString("\""), QString(""));
             }
         }
-        if(!err.ID.isEmpty()&& errMap.value(err.ID).ID.isEmpty()){
+        else if(reader.isEndElement() && reader.name() == "ErrCode" && !err.ID.isEmpty()&& errMap.value(err.ID).ID.isEmpty())  //节点结束、并且节点名字为ErrCode（含有子节点）
+        {
             errMap.insert(err.ID,err);
+            err={"","","","",""};
         }
         reader.readNext();
+
     }
     xmlFile.close();
     return errMap;

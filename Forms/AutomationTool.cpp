@@ -137,9 +137,9 @@ void AutomationTool::on_OutputButton_clicked()
 void AutomationTool::on_CreateButton_clicked()
 {
     QLogHelper::instance()->LogInfo("AutomationTool->on_CreateButton_clicked() 函数触发执行!");
-    if(comBean->getErrCode().size()==0){
+    /*if(comBean->getErrCode().size()==0){
 
     }else{
 
-    }
+    }*/
 }

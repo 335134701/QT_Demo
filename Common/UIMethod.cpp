@@ -23,13 +23,13 @@ void UIMethod::ErrorCodeDeal(const QString objectName, bool flag)
     if(comBean==NULL){return;}
     if(flag){
         //如果错误码不存在，则添加错误码
-        if(comBean->getErrCode().value(objectName).ID.isEmpty()){
-            comBean->getErrCode().insert(objectName,comBean->getXmlOperate()->getErrCodeType().value(objectName));
+        if(comBean->errCode.value(objectName).ID.isEmpty()){
+            comBean->errCode.insert(objectName,comBean->getXmlOperate()->getErrCodeType().value(objectName));
         }
     }else{
         //如果存在错误码则移除错误码
-        if(!comBean->getErrCode().value(objectName).ID.isEmpty()){
-            comBean->getErrCode().remove(objectName);
+        if(!comBean->errCode.value(objectName).ID.isEmpty()){
+            comBean->errCode.remove(objectName);
         }
     }
 }
@@ -95,6 +95,8 @@ void UIMethod::SelectExampleSlot(const QString dirPath,const QString condition)
     QLogHelper::instance()->LogInfo("UIMethod->SelectExample() 函数执行!");
     if(comBean==NULL||comBean->getIDType().isEmpty()){return;}
     if(QFile::exists(dirPath)){
+        //Example目录存在,存在错误码则移除错误码
+        ErrorCodeDeal(ExampleDirError,false);
         QDir searchDir= QDir(dirPath);
         QFileInfoList list = searchDir.entryInfoList();
         QFileInfoList::const_iterator cit = list.begin();
@@ -120,17 +122,14 @@ void UIMethod::JudgeIDTypeSlot(QLineEdit *Edit)
         comBean->setIDType(ret);
     }else if(comBean->getIDType()!=ret){
         Edit->setStyleSheet(QString(errFontColor));
+        ErrorCodeDeal(IDRelyID,true);
         //错误处理，添加错误码
-        if(comBean->getErrCode().value(IDRelyID).ID.isEmpty()){
-            comBean->getErrCode().insert(IDRelyID,comBean->getXmlOperate()->getErrCodeType().value(IDRelyID));
-        }
+        ErrorCodeDeal(IDRelyID,true);
         return ;
     }
     Edit->setStyleSheet(QString(nomFontColor));
     //正确处理，如果存在错误码，则移除
-    if(!comBean->getErrCode().value(IDRelyID).ID.isEmpty()){
-        comBean->getErrCode().remove(IDRelyID);
-    }
+    ErrorCodeDeal(IDRelyID,false);
     return;
 }
 /**

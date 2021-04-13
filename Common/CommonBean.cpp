@@ -40,21 +40,10 @@ bool CommonBean::ErrorCodeInit()
 {
     bool ret=false;
     if(getXmlOperate()->getErrCodeType().count()>0){
+        //this->getErrCode()->insert(IDRelyID,this->getXmlOperate()->getErrCodeType().value(IDRelyID));
     }
     return ret;
 }
-
-QMap<QString, QString> CommonBean::getRExpression() const
-{
-    return RExpression;
-}
-
-QMap<QString, ERRCODETYPE> CommonBean::getErrCode() const
-{
-    return errCode;
-}
-
-
 
 QString CommonBean::getIDType() const
 {
@@ -76,10 +65,6 @@ void CommonBean::setRelyFilePath(const QString &value)
     RelyFilePath = value;
 }
 
-CommonMethod *CommonBean::getComMethod() const
-{
-    return comMethod;
-}
 
 void CommonBean::setComMethod(CommonMethod *value)
 {
@@ -94,4 +79,9 @@ XMLOperate *CommonBean::getXmlOperate() const
 void CommonBean::setXmlOperate(XMLOperate *value)
 {
     xmlOperate = value;
+}
+
+QMap<QString, QString> CommonBean::getRExpression() const
+{
+    return RExpression;
 }

@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QXmlStreamReader>
 #include <QFile>
+#include <QDebug>
 #include "QLoghelper.h"
 
 typedef struct ERRCodeType{
@@ -21,7 +22,7 @@ class XMLOperate : public QObject
 public:
     explicit XMLOperate(QObject *parent = nullptr);
 
-    void ReadXML();
+    QMap<QString,ERRCODETYPE> ReadXML(const QString filePath);
 
     QMap<QString, ERRCODETYPE> getErrCodeType() const;
 

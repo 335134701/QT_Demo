@@ -52,11 +52,11 @@ private:
 
     void initStyle();
 signals:
-    void JudgeIDSignal(QLineEdit *Edit);
+    void JudgeIDSignal(QLineEdit *Edit,QString *objectID);
 
     void JudgeIDTypeSignal(QLineEdit *Edit);
 
-    void SelectDirSignal(QLabel *label);
+    void SelectDirSignal(QLabel *label,QString *objectID);
 
     void SelectExampleSignal(const QString dirPath,const QString condition);
 

@@ -2,7 +2,7 @@
 
 UIMethod::UIMethod(QObject *parent) : QObject(parent)
 {
-    QLogHelper::instance()->LogInfo("UIMethod->UIMethod() 构造函数执行!");
+    QLogHelper::instance()->LogInfo("UIMethod() 构造函数执行!");
 }
 
 void UIMethod::setComBean(CommonBean *value)
@@ -11,28 +11,50 @@ void UIMethod::setComBean(CommonBean *value)
 }
 
 /**
+ * @def 处理错误码的添加或者移除
+ *      flag  true  表示添加错误码
+ *      flag  false 表示移除错误码
+ * @brief UIMethod::ErrorCodeDeal
+ * @param ID
+ * @param flag
+ */
+void UIMethod::ErrorCodeDeal(const QString objectName, bool flag)
+{
+    if(comBean==NULL){return;}
+    if(flag){
+        //如果错误码不存在，则添加错误码
+        if(comBean->getErrCode().value(objectName).ID.isEmpty()){
+            comBean->getErrCode().insert(objectName,comBean->getXmlOperate()->getErrCodeType().value(objectName));
+        }
+    }else{
+        //如果存在错误码则移除错误码
+        if(!comBean->getErrCode().value(objectName).ID.isEmpty()){
+            comBean->getErrCode().remove(objectName);
+        }
+    }
+}
+
+/**
  * @def 判断机种名称是否符合要求
  * @brief UIMethod::JudgeIDSlot
  * @param Edit
  */
-void UIMethod::JudgeIDSlot(QLineEdit *Edit)
+void UIMethod::JudgeIDSlot(QLineEdit *Edit,QString *objectID)
 {
     QLogHelper::instance()->LogInfo("UIMethod->JudgeIDSlot() 函数执行!");
     if(comBean==NULL){return;}
     //设置正则表达式对象
     QRegExp rx(comBean->getRExpression().value(Edit->objectName()));
     if(rx.indexIn(Edit->text())==0){
+        *objectID=Edit->text();
         Edit->setStyleSheet(QString(nomFontColor)); //字体相关设置;
-        //如果存在错误码则移除错误码
-        if(!comBean->getErrCode().value(Edit->objectName()).ID.isEmpty()){
-            comBean->getErrCode().remove(Edit->objectName());
-        }
+        //如果存在错误码,则移除错误码
+        ErrorCodeDeal(Edit->objectName(),false);
     }else{
+        *objectID="";
         Edit->setStyleSheet(QString(errFontColor)); //字体相关设置;
         //如果错误码不存在，则添加错误码
-        if(comBean->getErrCode().value(Edit->objectName()).ID.isEmpty()){
-            comBean->getErrCode().insert(Edit->objectName(),comBean->getXmlOperate()->getErrCodeType().value(Edit->objectName()));
-        }
+         ErrorCodeDeal(Edit->objectName(),true);
     }
 }
 /**
@@ -42,27 +64,25 @@ void UIMethod::JudgeIDSlot(QLineEdit *Edit)
  * @param destDirPath
  * @param dirPath
  */
-void UIMethod::SelectDirSlot(QLabel *label)
+void UIMethod::SelectDirSlot(QLabel *label,QString *objectID)
 {
     QLogHelper::instance()->LogInfo("UIMethod->SelectDirSlot() 函数执行!");
     if(comBean==NULL){return;}
     label->setText("");
     QString dirName =  QFileDialog::getExistingDirectory(label, tr("Open Directory"),comBean->desktopPath,QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
     if (dirName.isEmpty()) {
+        *objectID="";
         label->setStyleSheet(QString(errFontColor));
-        //错误处理，添加错误码
-        if(comBean->getErrCode().value(label->objectName()).ID.isEmpty()){
-            comBean->getErrCode().insert(label->objectName(),comBean->getXmlOperate()->getErrCodeType().value(label->objectName()));
-        }
+        //如果错误码不存在，则添加错误码
+        ErrorCodeDeal(label->objectName(),true);
         QMessageBox::warning(label, "Warn", tr("No directory selected!"));
         return;
     }
     label->setStyleSheet(QString(nomFontColor));
     //正确处理，如果存在错误码，则移除
-    if(!comBean->getErrCode().value(label->objectName()).ID.isEmpty()){
-        comBean->getErrCode().remove(label->objectName());
-    }
+    ErrorCodeDeal(label->objectName(),false);
     label->setText(dirName);
+    *objectID=dirName;
 }
 /**
  * @def 查找Example文档
@@ -73,10 +93,8 @@ void UIMethod::SelectDirSlot(QLabel *label)
 void UIMethod::SelectExampleSlot(const QString dirPath,const QString condition)
 {
     QLogHelper::instance()->LogInfo("UIMethod->SelectExample() 函数执行!");
-    //exampleDir=comBean->applicationPath+"/Example";
     if(comBean==NULL||comBean->getIDType().isEmpty()){return;}
     if(QFile::exists(dirPath)){
-        /*
         QDir searchDir= QDir(dirPath);
         QFileInfoList list = searchDir.entryInfoList();
         QFileInfoList::const_iterator cit = list.begin();
@@ -84,12 +102,9 @@ void UIMethod::SelectExampleSlot(const QString dirPath,const QString condition)
         {
             QLogHelper::instance()->LogDebug((*cit++).fileName());
         }
-        */
     }else{
-        //Example目录不存在，异常处理
-        if(comBean->getErrCode().value("ExampleDirError").ID.isEmpty()){
-            comBean->getErrCode().insert("ExampleDirError",comBean->getXmlOperate()->getErrCodeType().value("ExampleDirError"));
-        }
+        //Example目录不存在,异常处理,添加错误码
+        ErrorCodeDeal(ExampleDirError,true);
     }
 }
 /**
@@ -101,23 +116,22 @@ void UIMethod::JudgeIDTypeSlot(QLineEdit *Edit)
     QLogHelper::instance()->LogInfo("UIMethod->JudgeIDTypeSlot() 函数执行!");
     if(comBean==NULL){return;}
     QString ret=JudgeIDType(Edit->text());
-    if(!Edit->objectName().contains("Rely")){
+    if(comBean->getIDType().isEmpty()){
         comBean->setIDType(ret);
-    }else{
-        if(comBean->getIDType()!=ret){
-            Edit->setStyleSheet(QString(errFontColor));
-            //错误处理，添加错误码
-            if(comBean->getErrCode().value("RelyIDID").ID.isEmpty()){
-                comBean->getErrCode().insert("RelyIDID",comBean->getXmlOperate()->getErrCodeType().value("RelyIDID"));
-            }
-        }else{
-            Edit->setStyleSheet(QString(nomFontColor));
-            //正确处理，如果存在错误码，则移除
-            if(!comBean->getErrCode().value("RelyIDID").ID.isEmpty()){
-                comBean->getErrCode().remove("RelyIDID");
-            }
+    }else if(comBean->getIDType()!=ret){
+        Edit->setStyleSheet(QString(errFontColor));
+        //错误处理，添加错误码
+        if(comBean->getErrCode().value(IDRelyID).ID.isEmpty()){
+            comBean->getErrCode().insert(IDRelyID,comBean->getXmlOperate()->getErrCodeType().value(IDRelyID));
         }
+        return ;
     }
+    Edit->setStyleSheet(QString(nomFontColor));
+    //正确处理，如果存在错误码，则移除
+    if(!comBean->getErrCode().value(IDRelyID).ID.isEmpty()){
+        comBean->getErrCode().remove(IDRelyID);
+    }
+    return;
 }
 /**
  * @def 判断机种类型

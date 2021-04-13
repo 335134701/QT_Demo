@@ -5,7 +5,7 @@ AutomationTool::AutomationTool(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::AutomationTool)
 {
-    QLogHelper::instance()->LogInfo("AutomationTool构造函数执行!");
+    QLogHelper::instance()->LogInfo("AutomationTool() 构造函数执行!");
     ui->setupUi(this);
     this->initStyle();
     this->init();
@@ -16,7 +16,7 @@ AutomationTool::AutomationTool(QWidget *parent) :
  */
 AutomationTool::~AutomationTool()
 {
-    QLogHelper::instance()->LogInfo("AutomationTool执行结束,删除UI对象!");
+    QLogHelper::instance()->LogInfo("AutomationTool() 执行结束,删除UI对象!");
     delete ui;
 }
 /**
@@ -29,7 +29,6 @@ void AutomationTool::init()
     comBean=new CommonBean();
     uiMethod=new UIMethod();
     uiMethod->setComBean(comBean);
-    comBean->ErrorCodeInit();
 }
 /**
  * @def UI连接信号槽函数
@@ -57,7 +56,6 @@ void AutomationTool::initStyle()
         qApp->setStyleSheet(qss);
         file.close();
     }
-    ui->RelyIDEdit->setReadOnly(true);
 }
 /**
  * @def 机种IDEdit文本改变完成触发函数
@@ -70,14 +68,13 @@ void AutomationTool::on_IDEdit_editingFinished()
 {
     QLogHelper::instance()->LogInfo("AutomationTool->on_IDEdit_editingFinished() 函数触发执行!");
     //判断机种名称是否符合要求
-    emit JudgeIDSignal(ui->IDEdit);
-    if(!comBean->getID().isEmpty()){
-        ui->RelyIDEdit->setReadOnly(false);
+    emit JudgeIDSignal(ui->IDEdit,&(comBean->ID));
+    if(!comBean->ID.isEmpty()){
         //分析机种类型
         emit JudgeIDTypeSignal(ui->IDEdit);
         if(!comBean->getIDType().isEmpty()){
             //根据机种类型找到对应的依赖文件路径
-            emit SelectExampleSignal(comBean->applicationPath+"/Example",comBean->getIDType());
+            //emit SelectExampleSignal(comBean->applicationPath+"/Example",comBean->getIDType());
         }
     }
 }
@@ -90,14 +87,13 @@ void AutomationTool::on_RelyIDEdit_editingFinished()
     QLogHelper::instance()->LogInfo("AutomationTool->on_RelyIDEdit_editingFinished() 函数触发执行!");
     //如果RelyIDEdit文本输入为空，则说明不依赖任何机种
     if(ui->RelyIDEdit->text().isEmpty()){
-        if(comBean->getErrCode().value(ui->RelyIDEdit->objectName()).ID.isEmpty()){
-            comBean->getErrCode().remove(ui->RelyIDEdit->objectName());
-        }
+        //如果错误码不存在,添加错误码
+        uiMethod->ErrorCodeDeal(ui->RelyIDEdit->objectName(),true);
         return;
     }
     //判断机种名称是否符合要求
-    emit JudgeIDSignal(ui->RelyIDEdit);
-    if(!comBean->getID().isEmpty()){
+    emit JudgeIDSignal(ui->RelyIDEdit,&(comBean->RelyID));
+    if(!comBean->ID.isEmpty()){
         //判断依赖机种是否和作成机种同一种类型
         emit JudgeIDTypeSignal(ui->RelyIDEdit);
     }
@@ -110,7 +106,7 @@ void AutomationTool::on_ResultButton_clicked()
 {
     QLogHelper::instance()->LogInfo("AutomationTool->on_ResultButton_clicked() 函数触发执行!");
     //成果物路径获取
-    emit SelectDirSignal(ui->ResultLabel);
+    emit SelectDirSignal(ui->ResultLabel,&(comBean->ResultDirPath));
     //获取相应的P票文件等
 }
 /**
@@ -121,7 +117,7 @@ void AutomationTool::on_MotButton_clicked()
 {
     QLogHelper::instance()->LogInfo("AutomationTool->on_MotButton_clicked() 函数触发执行!");
     //mot文件路径获取
-    emit SelectDirSignal(ui->MotLabel);
+    emit SelectDirSignal(ui->MotLabel,&(comBean->MotDirPath));
     //获取相应的CarInfo文件等
 }
 /**
@@ -132,7 +128,7 @@ void AutomationTool::on_OutputButton_clicked()
 {
     QLogHelper::instance()->LogInfo("AutomationTool->on_OutputButton_clicked() 函数触发执行!");
     //生成路径获取
-    emit SelectDirSignal(ui->OutputLabel);
+    emit SelectDirSignal(ui->OutputLabel,&(comBean->OutputDirPath));
 }
 /**
  * @def

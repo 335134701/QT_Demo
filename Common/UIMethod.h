@@ -20,14 +20,16 @@ public:
     explicit UIMethod(QObject *parent = nullptr);
 
     void setComBean(CommonBean *value);
+
+    void ErrorCodeDeal(const QString objectName,bool flag);
 signals:
 
 public slots:
-    void JudgeIDSlot(QLineEdit *Edit);
+    void JudgeIDSlot(QLineEdit *Edit,QString *objectID);
 
     void JudgeIDTypeSlot(QLineEdit *Edit);
 
-    void SelectDirSlot(QLabel *label);
+    void SelectDirSlot(QLabel *label,QString *objectID);
 
     void SelectExampleSlot(const QString dirPath,const QString condition);
 

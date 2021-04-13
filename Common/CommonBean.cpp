@@ -2,8 +2,9 @@
 
 CommonBean::CommonBean(QObject *parent) : QObject(parent)
 {
-    QLogHelper::instance()->LogInfo("CommonBean->CommonBean() 构造函数执行!");
+    QLogHelper::instance()->LogInfo("CommonBean() 构造函数执行!");
     this->Init();
+    this->ErrorCodeInit();
 }
 
 
@@ -16,11 +17,9 @@ void CommonBean::Init()
 {
     QLogHelper::instance()->LogInfo("CommonBean->Init() 函数执行!");
     comMethod=new CommonMethod();
-    xmlOperate=new XMLOperate();
     //初始化设置Error Code，通过解析XML方式获取错误码
-    getXmlOperate()->ReadXML();
+    xmlOperate=new XMLOperate();
     //初始化错误码
-
     RExpression.insert("IDEdit","^EN[3|4]\\d\\d\\dP[A-Z]");
     RExpression.insert("RelyIDEdit","^EN[3|4]\\d\\d\\dP[A-Z]");
 }
@@ -55,15 +54,7 @@ QMap<QString, ERRCODETYPE> CommonBean::getErrCode() const
     return errCode;
 }
 
-QString CommonBean::getID() const
-{
-    return ID;
-}
 
-void CommonBean::setID(const QString &value)
-{
-    ID = value;
-}
 
 QString CommonBean::getIDType() const
 {
@@ -75,16 +66,6 @@ void CommonBean::setIDType(const QString &value)
     IDType = value;
 }
 
-QString CommonBean::getRelyID() const
-{
-    return RelyID;
-}
-
-void CommonBean::setRelyID(const QString &value)
-{
-    RelyID = value;
-}
-
 QString CommonBean::getRelyFilePath() const
 {
     return RelyFilePath;
@@ -93,36 +74,6 @@ QString CommonBean::getRelyFilePath() const
 void CommonBean::setRelyFilePath(const QString &value)
 {
     RelyFilePath = value;
-}
-
-QString CommonBean::getResultDirPath() const
-{
-    return ResultDirPath;
-}
-
-void CommonBean::setResultDirPath(const QString &value)
-{
-    ResultDirPath = value;
-}
-
-QString CommonBean::getMotDirPath() const
-{
-    return MotDirPath;
-}
-
-void CommonBean::setMotDirPath(const QString &value)
-{
-    MotDirPath = value;
-}
-
-QString CommonBean::getOutputDirPath() const
-{
-    return OutputDirPath;
-}
-
-void CommonBean::setOutputDirPath(const QString &value)
-{
-    OutputDirPath = value;
 }
 
 CommonMethod *CommonBean::getComMethod() const

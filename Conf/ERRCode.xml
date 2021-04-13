@@ -36,7 +36,7 @@
         <Code>0x05</Code>
     </ErrCode>
     <ErrCode>
-        <ID>RelyIDID</ID>
+        <ID>IDRelyID</ID>
         <Def>依赖机种与原机种类型不一致</Def>
         <ErrDef>依赖机种与原机种类型不一致错误</ErrDef>
         <Level>Error</Level>

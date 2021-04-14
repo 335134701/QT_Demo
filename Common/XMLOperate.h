@@ -16,6 +16,15 @@ typedef struct ERRCodeType{
 
 }ERRCODETYPE;
 
+typedef struct ERRCodeType{
+    QString ID;
+    QString Def;
+    QString ErrDef;
+    QString Level;
+    QString Code;
+
+}ERRCODETYPE;
+
 class XMLOperate : public QObject
 {
     Q_OBJECT

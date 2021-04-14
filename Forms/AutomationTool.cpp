@@ -83,6 +83,8 @@ void AutomationTool::on_IDEdit_editingFinished()
      emit SelectExampleSignal(comBean->exampleDirPath,comBean->getIDType());
      if(comBean->getRelyFilePath().isEmpty()){return;}
      ui->LogView->append(DATAStytle+"依赖文件路径: "+comBean->getRelyFilePath());
+     //if(comBean->getIniFilePath().isEmpty()){return;}
+     //ui->LogView->append(DATAStytle+"ini文件路径: "+comBean->getRelyFilePath());
      //发送信号，读取依赖文件的相关信息
 
      //信息读取完成后显示

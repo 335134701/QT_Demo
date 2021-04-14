@@ -16,10 +16,9 @@ CommonBean::CommonBean(QObject *parent) : QObject(parent)
 void CommonBean::Init()
 {
     QLogHelper::instance()->LogInfo("CommonBean->Init() 函数执行!");
-    errCode=new QMap<QString,ERRCODETYPE>();
     comMethod=new CommonMethod();
-    //初始化设置Error Code，通过解析XML方式获取错误码
-    xmlOperate=new XMLOperate();
+    errCode=new QMap<QString,ERRCODETYPE>();
+    xmlOperate=new XMLOperate();            //初始化设置Error Code，通过解析XML方式获取错误码
     excelOption=new ExcelOperation();
     ID=new QString();
     RelyID=new QString();
@@ -70,12 +69,6 @@ QString CommonBean::getRelyFilePath() const
 void CommonBean::setRelyFilePath(const QString &value)
 {
     RelyFilePath = value;
-}
-
-
-void CommonBean::setComMethod(CommonMethod *value)
-{
-    comMethod = value;
 }
 
 XMLOperate *CommonBean::getXmlOperate() const
@@ -181,4 +174,64 @@ QString *CommonBean::getOutputDirPath() const
 void CommonBean::setOutputDirPath(QString *value)
 {
     OutputDirPath = value;
+}
+
+CommonMethod *CommonBean::getComMethod() const
+{
+    return comMethod;
+}
+
+void CommonBean::setComMethod(CommonMethod *value)
+{
+    comMethod = value;
+}
+
+QString CommonBean::getPFilePath() const
+{
+    return PFilePath;
+}
+
+void CommonBean::setPFilePath(const QString &value)
+{
+    PFilePath = value;
+}
+
+QString CommonBean::getSWFilePath() const
+{
+    return SWFilePath;
+}
+
+void CommonBean::setSWFilePath(const QString &value)
+{
+    SWFilePath = value;
+}
+
+QString CommonBean::getCarInfoFilePath() const
+{
+    return CarInfoFilePath;
+}
+
+void CommonBean::setCarInfoFilePath(const QString &value)
+{
+    CarInfoFilePath = value;
+}
+
+QString CommonBean::getCarMapFilePath() const
+{
+    return CarMapFilePath;
+}
+
+void CommonBean::setCarMapFilePath(const QString &value)
+{
+    CarMapFilePath = value;
+}
+
+QString CommonBean::getCarOSDFilePath() const
+{
+    return CarOSDFilePath;
+}
+
+void CommonBean::setCarOSDFilePath(const QString &value)
+{
+    CarOSDFilePath = value;
 }

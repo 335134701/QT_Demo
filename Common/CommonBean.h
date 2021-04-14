@@ -9,18 +9,25 @@
 #include "XMLOperate.h"
 #include "ExcelOperation.h"
 
+#define DATETIME                QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss")
+#define DATAStytle              "[ "+DATETIME+" ] "
+#define IDRelyID                "IDRelyID"
+#define ExampleDirError         "ExampleDirError"
+#define RelyFileError           "RelyFileError"
+#define IniFileError            "IniFileError"
+#define ResultDirError          "ResultDirError"
+#define PFileError              "PFileError"
+#define SWFileError             "SWFileError"
+#define MotDirError             "MotDirError"
+#define CarInfoFileError        "CarInfoFileError"
+#define CarMapFileError         "CarMapFileError"
+#define CarOSDFileError         "CarOSDFileError"
+
+
 
 class CommonBean : public QObject
 {
     Q_OBJECT
-
-    #define DATETIME                QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss")
-    #define DATAStytle              "[ "+DATETIME+" ] "
-    #define IDRelyID                "IDRelyID"
-    #define ExampleDirError         "ExampleDirError"
-    #define RelyFileError           "RelyFileError"
-    #define IniFileError            "IniFileError"
-
 
 public:
     explicit CommonBean(QObject *parent = nullptr);
@@ -41,9 +48,6 @@ public:
     QString getRelyFilePath() const;
     void setRelyFilePath(const QString &value);
 
-    CommonMethod *getComMethod() const;
-    void setComMethod(CommonMethod *value);
-
     XMLOperate *getXmlOperate() const;
     void setXmlOperate(XMLOperate *value);
 
@@ -54,7 +58,6 @@ public:
 
     QString getIniFilePath() const;
     void setIniFilePath(const QString &value);
-
 
     ExcelOperation *getExcelOption() const;
     void setExcelOption(ExcelOperation *value);
@@ -76,6 +79,24 @@ public:
 
     QString *getOutputDirPath() const;
     void setOutputDirPath(QString *value);
+
+    CommonMethod *getComMethod() const;
+    void setComMethod(CommonMethod *value);
+
+    QString getPFilePath() const;
+    void setPFilePath(const QString &value);
+
+    QString getSWFilePath() const;
+    void setSWFilePath(const QString &value);
+
+    QString getCarInfoFilePath() const;
+    void setCarInfoFilePath(const QString &value);
+
+    QString getCarMapFilePath() const;
+    void setCarMapFilePath(const QString &value);
+
+    QString getCarOSDFilePath() const;
+    void setCarOSDFilePath(const QString &value);
 
 private :
     QMap<QString,QString> RExpression;
@@ -101,6 +122,14 @@ private :
     QString IniFilePath;
     //P票相关路径
     QString PFilePath;
+    //SW确认表路径
+    QString SWFilePath;
+    //CarInfo路径
+    QString CarInfoFilePath;
+    //CarMap路径
+    QString CarMapFilePath;
+    //CarOSD路径
+    QString CarOSDFilePath;
     //公共的方法类对象
     CommonMethod *comMethod;
     //处理XML的对象

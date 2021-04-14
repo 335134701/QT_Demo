@@ -20,6 +20,7 @@ void UIMethod::setComBean(CommonBean *value)
  */
 void UIMethod::ErrorCodeDeal(const QString objectName, bool flag)
 {
+    QLogHelper::instance()->LogInfo("UIMethod->ErrorCodeDeal() 函数执行!");
     if(comBean==NULL){return;}
     if(flag&&comBean->getErrCode()->value(objectName).ID.isEmpty()){
         //如果错误码不存在，则添加错误码
@@ -32,12 +33,15 @@ void UIMethod::ErrorCodeDeal(const QString objectName, bool flag)
 
 /**
  * @def 判断机种名称是否符合要求
+ *      如果机种符合要求，则记录下来，字体设置为正常，如果存在错误码则移除错误码
+ *      如果机种不符合要求，记录为空，字体设置为红色，设置错误码
  * @brief UIMethod::JudgeIDSlot
  * @param Edit
  */
 void UIMethod::JudgeIDSlot(QLineEdit *Edit,QString *objectID)
 {
     QLogHelper::instance()->LogInfo("UIMethod->JudgeIDSlot() 函数执行!");
+    //判断comBean 对象是否为空，如果不为空则继续执行
     if(comBean==NULL){
         QLogHelper::instance()->LogInfo("UIMethod->JudgeIDSlot() comBean = NULL");
         return;
@@ -46,6 +50,7 @@ void UIMethod::JudgeIDSlot(QLineEdit *Edit,QString *objectID)
     QRegExp rx(comBean->getRExpression().value(Edit->objectName()));
     if(rx.indexIn(Edit->text())==0){
         QLogHelper::instance()->LogInfo("UIMethod->JudgeIDSlot() "+Edit->text()+" 符合正则表达式要求!");
+        //对指定对象赋值
         *objectID=Edit->text();
         Edit->setStyleSheet(QString(nomFontColor)); //字体相关设置;
         //如果存在错误码,则移除错误码
@@ -55,16 +60,21 @@ void UIMethod::JudgeIDSlot(QLineEdit *Edit,QString *objectID)
         *objectID="";
         Edit->setStyleSheet(QString(errFontColor)); //字体相关设置;
         //如果错误码不存在，则添加错误码
-         ErrorCodeDeal(Edit->objectName(),true);
+        ErrorCodeDeal(Edit->objectName(),true);
     }
 }
 /**
  * @def 判断机种类型
+ *      以作成机种(ID)为主导地位
+ *      以依赖机种(RelyID)为辅导地位
+ *      对比依赖机种与作成机种的类型是否一致
+ *      如果不一致，则依赖机种显示红色字体
  * @brief AutomationTool::JudgeIDTypeSlot
  */
 void UIMethod::JudgeIDTypeSlot(QLineEdit *Edit)
 {
     QLogHelper::instance()->LogInfo("UIMethod->JudgeIDTypeSlot() 函数执行!");
+    //判断comBean 对象是否为空，如果不为空则继续执行
     if(comBean==NULL){
         QLogHelper::instance()->LogInfo("UIMethod->JudgeIDTypeSlot() comBean = NULL");
         return;
@@ -95,6 +105,7 @@ void UIMethod::JudgeIDTypeSlot(QLineEdit *Edit)
 }
 /**
  * @def 判断机种类型
+ *      根据ID字符串，第三四位字符判断
  * @brief UIMethod::JudgeIDType
  * @param ID
  * @return 返回机种类型对象
@@ -104,6 +115,7 @@ QString UIMethod::JudgeIDType(const QString ID)
     QLogHelper::instance()->LogInfo("UIMethod->JudgeIDType() 函数执行!");
     QString ret;
     if(!ID.contains("EN")){return NULL;}
+    //字符转数字
     switch (ID.mid(2,2).toInt()) {
     case 33 :
     case 40 :
@@ -138,6 +150,7 @@ QString UIMethod::JudgeIDType(const QString ID)
 void UIMethod::SelectDirSlot(QLabel *label,QString *objectID)
 {
     QLogHelper::instance()->LogInfo("UIMethod->SelectDirSlot() 函数执行!");
+    //判断comBean 对象是否为空，如果不为空则继续执行
     if(comBean==NULL){
         QLogHelper::instance()->LogInfo("UIMethod->SelectDirSlot() comBean = NULL");
         return;
@@ -176,38 +189,26 @@ void UIMethod::SelectExampleSlot(const QString dirPath, QString condition)
     if(condition.compare("EntryAVM2")==0){ condition="EntryAVM";}
     if(condition.compare("NextPH3")==0){ condition="NextPhase3";}
     comBean->setRelyFilePath("");
-    if(QFile::exists(dirPath)){
-        QLogHelper::instance()->LogInfo("UIMethod->SelectExampleSlot() "+dirPath+" 目录存在!" );
-        //Example目录存在,存在错误码则移除错误码
-        ErrorCodeDeal(ExampleDirError,false);
-        QDir searchDir(dirPath);
-        //列出searchDir(path)目录文件下所有文件和目录信息，存储到file_list容器
-        QFileInfoList file_list = searchDir.entryInfoList();
-        //进行子文件夹folder_list递归遍历，将内容存入file_list容器
-        foreach(QFileInfo fileinfo, file_list)
-        {
-            if(fileinfo.fileName().contains(condition)&&fileinfo.fileName().contains("AKM対応用")){
-                QLogHelper::instance()->LogInfo("UIMethod->SelectExampleSlot() "+fileinfo.fileName()+" 文件存在!" );
-                comBean->setRelyFilePath(fileinfo.absoluteFilePath());
-            }
-            if(fileinfo.fileName().contains("LOGZONE_")&&fileinfo.completeSuffix()=="ini"){
-                QLogHelper::instance()->LogInfo("UIMethod->SelectExampleSlot() "+fileinfo.fileName()+" 文件存在!" );
-                comBean->setIniFilePath(fileinfo.absoluteFilePath());
-            }
-        }
-        if(comBean->getRelyFilePath().isEmpty()){
-            ErrorCodeDeal(RelyFileError,true);
-        }else{
-            ErrorCodeDeal(RelyFileError,false);
-        }
-        if(comBean->getIniFilePath().isEmpty()){
-            ErrorCodeDeal(IniFileError,true);
-        }else{
-            ErrorCodeDeal(IniFileError,false);
-        }
-    }else{
+    if(!QFile::exists(dirPath)){
         //Example目录不存在,异常处理,添加错误码
         ErrorCodeDeal(ExampleDirError,true);
+        QLogHelper::instance()->LogInfo("UIMethod->SelectExampleSlot() "+dirPath+" 不目录存在!" );
+        return;
+    }
+    QLogHelper::instance()->LogInfo("UIMethod->SelectExampleSlot() "+dirPath+" 目录存在!" );
+    //Example目录存在,存在错误码则移除错误码
+    ErrorCodeDeal(ExampleDirError,false);
+    comBean->setRelyFilePath(comBean->getComMethod()->OutputFilePath(dirPath,condition,"AKM対応用"));
+    if(comBean->getRelyFilePath().isEmpty()){
+        ErrorCodeDeal(RelyFileError,true);
+    }else{
+        ErrorCodeDeal(RelyFileError,false);
+    }
+    comBean->setIniFilePath(comBean->getComMethod()->OutputFilePath(dirPath,"LOGZONE_","ini"));
+    if(comBean->getIniFilePath().isEmpty()){
+        ErrorCodeDeal(IniFileError,true);
+    }else{
+        ErrorCodeDeal(IniFileError,false);
     }
 }
 /**
@@ -218,10 +219,11 @@ void UIMethod::SelectExampleSlot(const QString dirPath, QString condition)
 void UIMethod::SelectResultFileSlot(const QString dirPath)
 {
     QLogHelper::instance()->LogInfo("UIMethod->SelectResultFileSlot() 函数执行!");
-    if(comBean==NULL||comBean->getIDType().isEmpty()){
-        QLogHelper::instance()->LogInfo("UIMethod->SelectResultFileSlot() comBean==NULL !" );
+    if(comBean==NULL||dirPath.isEmpty()){
+        QLogHelper::instance()->LogInfo("UIMethod->SelectResultFileSlot() comBean==NULL || 传入参数为空值!" );
         return;
     }
+
 }
 
 

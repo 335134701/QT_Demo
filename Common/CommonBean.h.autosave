@@ -66,8 +66,6 @@ public:
     QString getIniFilePath() const;
     void setIniFilePath(const QString &value);
 
-    QString getOutputType() const;
-    void setOutputType(const QString &value);
 
 private :
     QMap<QString,QString> RExpression;
@@ -79,8 +77,9 @@ private :
     QString RelyFilePath;
     //ini文件路径
     QString IniFilePath;
-    //生成文件类型
-    QString OutputType;
+    //P票相关路径
+    QString PFilePath;
+    
     //公共的方法类对象
     CommonMethod *comMethod;
     //处理XML的对象

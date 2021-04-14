@@ -58,7 +58,7 @@ signals:
 
     void SelectDirSignal(QLabel *label,QString *objectID);
 
-    void SelectExampleSignal(const QString dirPath,const QString condition);
+    void SelectExampleSignal(const QString dirPath,QString condition);
 
 };
 

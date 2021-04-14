@@ -67,16 +67,25 @@ void AutomationTool::initStyle()
 void AutomationTool::on_IDEdit_editingFinished()
 {
     QLogHelper::instance()->LogInfo("AutomationTool->on_IDEdit_editingFinished() 函数触发执行!");
+    ui->LogView->clear();
     //判断机种名称是否符合要求
     emit JudgeIDSignal(ui->IDEdit,&(comBean->ID));
-    if(!comBean->ID.isEmpty()){
-        //分析机种类型
-        emit JudgeIDTypeSignal(ui->IDEdit);
-        if(!comBean->getIDType().isEmpty()){
-            //根据机种类型找到对应的依赖文件路径
-            //emit SelectExampleSignal(comBean->applicationPath+"/Example",comBean->getIDType());
-        }
-    }
+    if(comBean->ID.isEmpty()){return;}
+    ui->LogView->append(DATAStytle+"机种番号: "+comBean->ID);
+    //分析机种类型
+    emit JudgeIDTypeSignal(ui->IDEdit);
+    ui->LogView->append(DATAStytle+"机种类型: "+comBean->getIDType());
+    if(!comBean->errCode.value(IDRelyID).ID.isEmpty()){
+         ui->RelyIDEdit->setStyleSheet(QString(errFontColor));
+     }
+     if(comBean->getIDType().isEmpty()){return;}
+     //根据机种类型找到对应的依赖文件路径
+     emit SelectExampleSignal(comBean->exampleDirPath,comBean->getIDType());
+     if(comBean->getRelyFilePath().isEmpty()){return;}
+     ui->LogView->append(DATAStytle+"依赖文件路径: "+comBean->getRelyFilePath());
+     //发送信号，读取依赖文件的相关信息
+
+     //信息读取完成后显示
 }
 /**
  * @def 机种RelyIDEdit文本改变完成触发函数
@@ -87,16 +96,16 @@ void AutomationTool::on_RelyIDEdit_editingFinished()
     QLogHelper::instance()->LogInfo("AutomationTool->on_RelyIDEdit_editingFinished() 函数触发执行!");
     //如果RelyIDEdit文本输入为空，则说明不依赖任何机种
     if(ui->RelyIDEdit->text().isEmpty()){
-        //如果错误码不存在,添加错误码
-        uiMethod->ErrorCodeDeal(ui->RelyIDEdit->objectName(),true);
+        //如果错误码存在,则删除错误码
+        uiMethod->ErrorCodeDeal(ui->RelyIDEdit->objectName(),false);
         return;
     }
     //判断机种名称是否符合要求
     emit JudgeIDSignal(ui->RelyIDEdit,&(comBean->RelyID));
-    if(!comBean->ID.isEmpty()){
-        //判断依赖机种是否和作成机种同一种类型
-        emit JudgeIDTypeSignal(ui->RelyIDEdit);
-    }
+    if(comBean->RelyID.isEmpty()){return;}
+    ui->LogView->append(DATAStytle+"依赖机种番号: "+comBean->RelyID);
+    //判断依赖机种是否和作成机种同一种类型
+    emit JudgeIDTypeSignal(ui->RelyIDEdit);
 }
 /**
  * @def
@@ -107,7 +116,11 @@ void AutomationTool::on_ResultButton_clicked()
     QLogHelper::instance()->LogInfo("AutomationTool->on_ResultButton_clicked() 函数触发执行!");
     //成果物路径获取
     emit SelectDirSignal(ui->ResultLabel,&(comBean->ResultDirPath));
-    //获取相应的P票文件等
+    if(comBean->ResultDirPath.isEmpty()){return;}
+    ui->LogView->append(DATAStytle+"成果物路径: "+comBean->ResultDirPath);
+    //发送信号开始解析并获取成果物路径
+    //根据依赖，判断依赖类型
+    //获取生成类型
 }
 /**
  * @def
@@ -118,7 +131,9 @@ void AutomationTool::on_MotButton_clicked()
     QLogHelper::instance()->LogInfo("AutomationTool->on_MotButton_clicked() 函数触发执行!");
     //mot文件路径获取
     emit SelectDirSignal(ui->MotLabel,&(comBean->MotDirPath));
-    //获取相应的CarInfo文件等
+    if(comBean->MotDirPath.isEmpty()){return;}
+    ui->LogView->append(DATAStytle+"Mot文件路径: "+comBean->MotDirPath);
+    //发送信号，获取mot文件路径
 }
 /**
  * @def
@@ -129,6 +144,8 @@ void AutomationTool::on_OutputButton_clicked()
     QLogHelper::instance()->LogInfo("AutomationTool->on_OutputButton_clicked() 函数触发执行!");
     //生成路径获取
     emit SelectDirSignal(ui->OutputLabel,&(comBean->OutputDirPath));
+    if(comBean->OutputDirPath.isEmpty()){return;}
+    ui->LogView->append(DATAStytle+"文件生成路径: "+comBean->OutputDirPath);
 }
 /**
  * @def
@@ -137,9 +154,9 @@ void AutomationTool::on_OutputButton_clicked()
 void AutomationTool::on_CreateButton_clicked()
 {
     QLogHelper::instance()->LogInfo("AutomationTool->on_CreateButton_clicked() 函数触发执行!");
-    /*if(comBean->getErrCode().size()==0){
+    if(comBean->errCode.size()==0){
 
     }else{
-
-    }*/
+        //根据错误码，弹出错误显示
+    }
 }

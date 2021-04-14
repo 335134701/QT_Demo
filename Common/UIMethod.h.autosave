@@ -33,7 +33,7 @@ public slots:
 
     void SelectExampleSlot(const QString dirPath, QString condition);
 
-    void SelectResultFileSlot();
+    void SelectResultFileSlot(const QString dirPath);
 
 private :
     QString JudgeIDType(const QString ID);

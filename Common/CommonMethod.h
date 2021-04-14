@@ -10,6 +10,7 @@ class CommonMethod : public QObject
 public:
     explicit CommonMethod(QObject *parent = nullptr);
 
+    QString OutputFilePath(const QString dir,const QString condition);
 signals:
 
 public slots:

@@ -42,6 +42,13 @@
         <Level>Error</Level>
         <Code>0x06</Code>
     </ErrCode>
+    <ErrCode>
+        <ID>RelyFileError</ID>
+        <Def>依赖文件未找到</Def>
+        <ErrDef>未找到相应的依赖文件</ErrDef>
+        <Level>Error</Level>
+        <Code>0x06</Code>
+    </ErrCode>
 
     <ErrCode>
         <ID>ExampleDirError</ID>
@@ -49,6 +56,13 @@
         <ErrDef>Example目录不存在错误</ErrDef>
         <Level>Error</Level>
         <Code>0x20</Code>
+    </ErrCode>
+    <ErrCode>
+        <ID>IniFileError</ID>
+        <Def>ini文件未找到</Def>
+        <ErrDef>ini文件不存在</ErrDef>
+        <Level>Error</Level>
+        <Code>0x21</Code>
     </ErrCode>
 </ERRCodeType>
 

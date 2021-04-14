@@ -20,8 +20,8 @@ void CommonBean::Init()
     //初始化设置Error Code，通过解析XML方式获取错误码
     xmlOperate=new XMLOperate();
     //初始化错误码
-    RExpression.insert("IDEdit","^EN[3|4]\\d\\d\\dP[A-Z]");
-    RExpression.insert("RelyIDEdit","^EN[3|4]\\d\\d\\dP[A-Z]");
+    RExpression.insert("IDEdit","^EN(3[3-7]|42)\\d\\dP[A-Z]");
+    RExpression.insert("RelyIDEdit","^EN(3[3-7]|42)\\d\\dP[A-Z]");
 }
 /**
  * @def 程序运行过程中需要对部分参数进行初始化处理
@@ -84,4 +84,24 @@ void CommonBean::setXmlOperate(XMLOperate *value)
 QMap<QString, QString> CommonBean::getRExpression() const
 {
     return RExpression;
+}
+
+QString CommonBean::getRelyIDType() const
+{
+    return RelyIDType;
+}
+
+void CommonBean::setRelyIDType(const QString &value)
+{
+    RelyIDType = value;
+}
+
+QString CommonBean::getIniFilePath() const
+{
+    return IniFilePath;
+}
+
+void CommonBean::setIniFilePath(const QString &value)
+{
+    IniFilePath = value;
 }

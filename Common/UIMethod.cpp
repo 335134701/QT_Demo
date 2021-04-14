@@ -21,12 +21,12 @@ void UIMethod::setComBean(CommonBean *value)
 void UIMethod::ErrorCodeDeal(const QString objectName, bool flag)
 {
     if(comBean==NULL){return;}
-    if(flag&&comBean->errCode.value(objectName).ID.isEmpty()){
+    if(flag&&comBean->getErrCode()->value(objectName).ID.isEmpty()){
         //如果错误码不存在，则添加错误码
-        comBean->errCode.insert(objectName,comBean->getXmlOperate()->getErrCodeType().value(objectName));
-    }else if(!comBean->errCode.value(objectName).ID.isEmpty()){
+        comBean->getErrCode()->insert(objectName,comBean->getXmlOperate()->getErrCodeType().value(objectName));
+    }else if(!comBean->getErrCode()->value(objectName).ID.isEmpty()){
         //如果存在错误码则移除错误码
-            comBean->errCode.remove(objectName);
+            comBean->getErrCode()->remove(objectName);
     }
 }
 
@@ -73,7 +73,7 @@ void UIMethod::JudgeIDTypeSlot(QLineEdit *Edit)
     if(Edit->objectName()=="IDEdit"){
         QLogHelper::instance()->LogInfo("UIMethod->JudgeIDTypeSlot() "+Edit->objectName()+" 类型判断!");
         comBean->setIDType(ret);
-        if((!comBean->getRelyIDType().isEmpty()&&ret!=comBean->getRelyIDType())||(comBean->ID==comBean->RelyID)){
+        if((!comBean->getRelyIDType().isEmpty()&&ret!=comBean->getRelyIDType())||(comBean->getID()==comBean->getRelyID())){
             //错误处理，添加错误码
             ErrorCodeDeal(IDRelyID,true);
             return;
@@ -81,7 +81,7 @@ void UIMethod::JudgeIDTypeSlot(QLineEdit *Edit)
     }
     if(Edit->objectName()=="RelyIDEdit"){
         QLogHelper::instance()->LogInfo("UIMethod->JudgeIDTypeSlot() "+Edit->objectName()+" 类型判断!");
-        if((!comBean->getIDType().isEmpty()&&ret!=comBean->getIDType())||(comBean->ID==comBean->RelyID)){
+        if((!comBean->getIDType().isEmpty()&&ret!=comBean->getIDType())||(comBean->getID()==comBean->getRelyID())){
             Edit->setStyleSheet(QString(errFontColor)); //字体相关设置;
             //错误处理，添加错误码
             ErrorCodeDeal(IDRelyID,true);
@@ -223,5 +223,6 @@ void UIMethod::SelectResultFileSlot(const QString dirPath)
         return;
     }
 }
+
 
 

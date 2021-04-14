@@ -7,6 +7,7 @@
 #include "QLoghelper.h"
 #include "CommonMethod.h"
 #include "XMLOperate.h"
+#include "ExcelOperation.h"
 
 
 class CommonBean : public QObject
@@ -33,18 +34,6 @@ public:
     void ParameterInit();
     //错误码初始化
     bool ErrorCodeInit();
-    //机种番号
-    QString ID;
-    //依赖机种番号
-    QString RelyID;
-    //成果物路径
-    QString ResultDirPath;
-    //Mot文件路径
-    QString MotDirPath;
-    //生成文件路径
-    QString OutputDirPath;
-    //错误状态码集合
-    QMap<QString,ERRCODETYPE> errCode;
 
     QString getIDType() const;
     void setIDType(const QString &value);
@@ -66,11 +55,42 @@ public:
     QString getIniFilePath() const;
     void setIniFilePath(const QString &value);
 
-    QString getOutputType() const;
-    void setOutputType(const QString &value);
+
+    ExcelOperation *getExcelOption() const;
+    void setExcelOption(ExcelOperation *value);
+
+    QMap<QString, ERRCODETYPE> *getErrCode() const;
+    void setErrCode(QMap<QString, ERRCODETYPE> *value);
+
+    QString *getID() const;
+    void setID(QString *value);
+
+    QString *getRelyID() const;
+    void setRelyID(QString *value);
+
+    QString *getResultDirPath() const;
+    void setResultDirPath(QString *value);
+
+    QString *getMotDirPath() const;
+    void setMotDirPath(QString *value);
+
+    QString *getOutputDirPath() const;
+    void setOutputDirPath(QString *value);
 
 private :
     QMap<QString,QString> RExpression;
+    //错误状态码集合
+    QMap<QString,ERRCODETYPE> *errCode;
+    //机种番号
+    QString *ID;
+    //依赖机种番号
+    QString *RelyID;
+    //成果物路径
+    QString *ResultDirPath;
+    //Mot文件路径
+    QString *MotDirPath;
+    //生成文件路径
+    QString *OutputDirPath;
     //机种类型
     QString IDType;
     //依赖机种类型
@@ -79,12 +99,14 @@ private :
     QString RelyFilePath;
     //ini文件路径
     QString IniFilePath;
-    //生成文件类型
-    QString OutputType;
+    //P票相关路径
+    QString PFilePath;
     //公共的方法类对象
     CommonMethod *comMethod;
     //处理XML的对象
     XMLOperate *xmlOperate;
+    //Excel操作函数
+    ExcelOperation *excelOption;
     //初始化函数
     void Init();
 

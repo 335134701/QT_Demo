@@ -16,9 +16,16 @@ CommonBean::CommonBean(QObject *parent) : QObject(parent)
 void CommonBean::Init()
 {
     QLogHelper::instance()->LogInfo("CommonBean->Init() 函数执行!");
+    errCode=new QMap<QString,ERRCODETYPE>();
     comMethod=new CommonMethod();
     //初始化设置Error Code，通过解析XML方式获取错误码
     xmlOperate=new XMLOperate();
+    excelOption=new ExcelOperation();
+    ID=new QString();
+    RelyID=new QString();
+    ResultDirPath=new QString();
+    MotDirPath=new QString();
+    OutputDirPath=new QString();
     //初始化错误码
     RExpression.insert("IDEdit","^EN(3[3-7]|42)\\d\\dP[A-Z]");
     RExpression.insert("RelyIDEdit","^EN(3[3-7]|42)\\d\\dP[A-Z]");
@@ -104,4 +111,74 @@ QString CommonBean::getIniFilePath() const
 void CommonBean::setIniFilePath(const QString &value)
 {
     IniFilePath = value;
+}
+
+ExcelOperation *CommonBean::getExcelOption() const
+{
+    return excelOption;
+}
+
+void CommonBean::setExcelOption(ExcelOperation *value)
+{
+    excelOption = value;
+}
+
+QMap<QString, ERRCODETYPE> *CommonBean::getErrCode() const
+{
+    return errCode;
+}
+
+void CommonBean::setErrCode(QMap<QString, ERRCODETYPE> *value)
+{
+    errCode = value;
+}
+
+QString *CommonBean::getID() const
+{
+    return ID;
+}
+
+void CommonBean::setID(QString *value)
+{
+    ID = value;
+}
+
+QString *CommonBean::getRelyID() const
+{
+    return RelyID;
+}
+
+void CommonBean::setRelyID(QString *value)
+{
+    RelyID = value;
+}
+
+QString *CommonBean::getResultDirPath() const
+{
+    return ResultDirPath;
+}
+
+void CommonBean::setResultDirPath(QString *value)
+{
+    ResultDirPath = value;
+}
+
+QString *CommonBean::getMotDirPath() const
+{
+    return MotDirPath;
+}
+
+void CommonBean::setMotDirPath(QString *value)
+{
+    MotDirPath = value;
+}
+
+QString *CommonBean::getOutputDirPath() const
+{
+    return OutputDirPath;
+}
+
+void CommonBean::setOutputDirPath(QString *value)
+{
+    OutputDirPath = value;
 }

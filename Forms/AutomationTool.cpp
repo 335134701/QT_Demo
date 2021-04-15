@@ -71,10 +71,8 @@ void AutomationTool::on_IDEdit_editingFinished()
     //判断机种名称是否符合要求
     emit JudgeIDSignal(ui->IDEdit,comBean->getID());
     if(comBean->getID()->isEmpty()){return;}
-    ui->LogView->append(DATAStytle+"机种番号: "+comBean->getID());
     //分析机种类型
     emit JudgeIDTypeSignal(ui->IDEdit);
-    ui->LogView->append(DATAStytle+"机种类型: "+comBean->getIDType());
     if(!comBean->getErrCode()->value(IDRelyID).ID.isEmpty()){
          ui->RelyIDEdit->setStyleSheet(QString(errFontColor));
      }
@@ -82,7 +80,6 @@ void AutomationTool::on_IDEdit_editingFinished()
      //根据机种类型找到对应的依赖文件路径
      emit SelectExampleSignal(comBean->exampleDirPath,false);
      if(comBean->getRelyFilePath().isEmpty()){return;}
-     ui->LogView->append(DATAStytle+"依赖文件路径: "+comBean->getRelyFilePath());
      //发送信号，读取依赖文件的相关信息
 
      //信息读取完成后显示
@@ -103,7 +100,6 @@ void AutomationTool::on_RelyIDEdit_editingFinished()
     //判断机种名称是否符合要求
     emit JudgeIDSignal(ui->RelyIDEdit,comBean->getRelyID());
     if(comBean->getRelyID()->isEmpty()){return;}
-    ui->LogView->append(DATAStytle+"依赖机种番号: "+comBean->getRelyID());
     //判断依赖机种是否和作成机种同一种类型
     emit JudgeIDTypeSignal(ui->RelyIDEdit);
 }
@@ -115,7 +111,7 @@ void AutomationTool::on_SVNButton_clicked()
 {
      QLogHelper::instance()->LogInfo("AutomationTool->on_SVNButton_clicked() 函数触发执行!");
      //获取相应文件路径
-    emit SelectDirSignal(ui->SVNLabel,comBean->getSVNDirPath());
+     emit SelectDirSignal(ui->SVNLabel,comBean->getSVNDirPath());
      //QStringList st=comBean->getComMethod()->FinFile(dirName,QStringList() << "*.c");
 }
 /**
@@ -128,7 +124,6 @@ void AutomationTool::on_OutputButton_clicked()
     //生成路径获取
     emit SelectDirSignal(ui->OutputLabel,comBean->getOutputDirPath());
     if(comBean->getOutputDirPath()->isEmpty()){return;}
-    ui->LogView->append(DATAStytle+"文件生成路径: "+comBean->getOutputDirPath());
 }
 /**
  * @def

@@ -66,6 +66,8 @@ QString CommonMethod::OutputFilePath(const QString dir,const QString conditionOn
     return file.absoluteFilePath();
 }
 */
+
+
 /**
  * @def 判断目录是否存在
  * @brief CommonMethod::JudgeDirExist
@@ -75,12 +77,8 @@ QString CommonMethod::OutputFilePath(const QString dir,const QString conditionOn
 bool CommonMethod::JudgeDirExist(const QString dirPath)
 {
     //判断目录是否存在
-    if(QFile::exists(dirPath)){
-        QLogHelper::instance()->LogInfo("CommonMethod->JudgeDirExist() "+dirPath+" 目录存在!" );
-        return true;
-    }else{
-        QLogHelper::instance()->LogInfo("CommonMethod->JudgeDirExist() "+dirPath+" 不目录存在!" );
-        return false;
+    if(QFile::exists(dirPath)){return true;
+    }else{return false;
     }
 }
 

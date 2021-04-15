@@ -8,8 +8,6 @@ CommonMethod::CommonMethod(QObject *parent) : QObject(parent)
  * @def 根据条件找到对应的文件
  *      dir 文件所在的路径
  *      conditionOne 条件1
- *      conditionTwo 条件2
- *      errCode 错误码
  * @brief CommonMethod::OutputFilePath
  * @param dir
  * @param conditionOne
@@ -17,11 +15,36 @@ CommonMethod::CommonMethod(QObject *parent) : QObject(parent)
  * @param errCode
  * @return
  */
+QStringList CommonMethod::FinFile(const QString dirPath,QStringList filters)
+{
+    QStringList fileNames;
+    QDir dir(dirPath);
+    foreach (QString file, dir.entryList(filters,QDir::Files)) {
+        fileNames+=dirPath+"/"+file;
+    }
+    foreach (QString subdir, dir.entryList(QDir::AllDirs|QDir::NoDotAndDotDot)) {
+        fileNames+=FinFile(dirPath+"/"+subdir,filters);
+    }
+    return fileNames;
+}
+/**
+ * @def 根据条件找到对应的文件
+ *      dir 文件所在的路径
+ *      conditionOne 条件1
+ *      conditionTwo 条件2
+ * @brief CommonMethod::OutputFilePath
+ * @param dir
+ * @param conditionOne
+ * @param conditionTwo
+ * @param errCode
+ * @return
+ */
+/*
 QString CommonMethod::OutputFilePath(const QString dir,const QString conditionOne,const QString conditionTwo)
 {
     QLogHelper::instance()->LogInfo("CommonMethod->OutputFilePath() 函数执行!");
     QFileInfo file;
-    if(dir.isEmpty()){return NULL;}
+    if(dir.isEmpty()||JudgeDirExist(dir)){return NULL;}
     QDir searchDir(dir);
     //列出searchDir(path)目录文件下所有文件和目录信息，存储到file_list容器
     QFileInfoList file_list = searchDir.entryInfoList();
@@ -42,6 +65,7 @@ QString CommonMethod::OutputFilePath(const QString dir,const QString conditionOn
     }
     return file.absoluteFilePath();
 }
+*/
 /**
  * @def 判断目录是否存在
  * @brief CommonMethod::JudgeDirExist

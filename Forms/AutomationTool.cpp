@@ -115,7 +115,8 @@ void AutomationTool::on_SVNButton_clicked()
 {
      QLogHelper::instance()->LogInfo("AutomationTool->on_SVNButton_clicked() 函数触发执行!");
      //获取相应文件路径
-
+    emit SelectDirSignal(ui->SVNLabel,comBean->getSVNDirPath());
+     //QStringList st=comBean->getComMethod()->FinFile(dirName,QStringList() << "*.c");
 }
 /**
  * @def

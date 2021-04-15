@@ -187,6 +187,7 @@ void UIMethod::SelectExampleSlot(const QString dirPath, bool flag)
         return;
     }
     QString condition=comBean->getIDType();
+    /*
     comBean->setRelyFilePath("");
     if(!QFile::exists(dirPath)){
         //Example目录不存在,异常处理,添加错误码
@@ -215,4 +216,5 @@ void UIMethod::SelectExampleSlot(const QString dirPath, bool flag)
             ErrorCodeDeal(IniFileError,false);
         }
     }
+    */
 }

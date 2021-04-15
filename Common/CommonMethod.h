@@ -10,7 +10,7 @@ class CommonMethod : public QObject
 public:
     explicit CommonMethod(QObject *parent = nullptr);
 
-    QString OutputFilePath(const QString dir,const QString conditionOne,const QString conditionTwo);
+    QStringList FinFile(const QString dirPath,QStringList filters);
 
     bool JudgeDirExist(const QString dirPath);
 

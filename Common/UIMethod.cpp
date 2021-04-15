@@ -27,7 +27,7 @@ void UIMethod::ErrorCodeDeal(const QString objectName, bool flag)
         comBean->getErrCode()->insert(objectName,comBean->getXmlOperate()->getErrCodeType().value(objectName));
     }else if(!comBean->getErrCode()->value(objectName).ID.isEmpty()){
         //如果存在错误码则移除错误码
-            comBean->getErrCode()->remove(objectName);
+        comBean->getErrCode()->remove(objectName);
     }
 }
 
@@ -179,15 +179,14 @@ void UIMethod::SelectDirSlot(QLabel *label,QString *objectID)
  * @param dirPath
  * @param condition
  */
-void UIMethod::SelectExampleSlot(const QString dirPath, QString condition)
+void UIMethod::SelectExampleSlot(const QString dirPath, bool flag)
 {
     QLogHelper::instance()->LogInfo("UIMethod->SelectExample() 函数执行!");
     if(comBean==NULL||comBean->getIDType().isEmpty()){
         QLogHelper::instance()->LogInfo("UIMethod->SelectExampleSlot() comBean==NULL||comBean->getIDType().isEmpty() 满足条件!" );
         return;
     }
-    if(condition.compare("EntryAVM2")==0){ condition="EntryAVM";}
-    if(condition.compare("NextPH3")==0){ condition="NextPhase3";}
+    QString condition=comBean->getIDType();
     comBean->setRelyFilePath("");
     if(!QFile::exists(dirPath)){
         //Example目录不存在,异常处理,添加错误码
@@ -198,33 +197,22 @@ void UIMethod::SelectExampleSlot(const QString dirPath, QString condition)
     QLogHelper::instance()->LogInfo("UIMethod->SelectExampleSlot() "+dirPath+" 目录存在!" );
     //Example目录存在,存在错误码则移除错误码
     ErrorCodeDeal(ExampleDirError,false);
-    comBean->setRelyFilePath(comBean->getComMethod()->OutputFilePath(dirPath,condition,"AKM対応用"));
-    if(comBean->getRelyFilePath().isEmpty()){
-        ErrorCodeDeal(RelyFileError,true);
+    //.ini文件比较特殊，在check过程中获取的文件路径和生成过程中路径不同
+    if(!flag){
+        if(condition.compare("EntryAVM2")==0){ condition="EntryAVM";}
+        if(condition.compare("NextPH3")==0){ condition="NextPhase3";}
+        comBean->setRelyFilePath(comBean->getComMethod()->OutputFilePath(dirPath,condition,"AKM対応用"));
+        if(comBean->getRelyFilePath().isEmpty()){
+            ErrorCodeDeal(RelyFileError,true);
+        }else{
+            ErrorCodeDeal(RelyFileError,false);
+        }
     }else{
-        ErrorCodeDeal(RelyFileError,false);
-    }
-    comBean->setIniFilePath(comBean->getComMethod()->OutputFilePath(dirPath,"LOGZONE_","ini"));
-    if(comBean->getIniFilePath().isEmpty()){
-        ErrorCodeDeal(IniFileError,true);
-    }else{
-        ErrorCodeDeal(IniFileError,false);
+        comBean->setIniFilePath(comBean->getComMethod()->OutputFilePath(dirPath,"LOGZONE_","ini"));
+        if(comBean->getIniFilePath().isEmpty()){
+            ErrorCodeDeal(IniFileError,true);
+        }else{
+            ErrorCodeDeal(IniFileError,false);
+        }
     }
 }
-/**
- * @def 获取成果物下面相关文件路径
- * @brief UIMethod::SelectResultFileSlot
- * @param dirPath
- */
-void UIMethod::SelectResultFileSlot(const QString dirPath)
-{
-    QLogHelper::instance()->LogInfo("UIMethod->SelectResultFileSlot() 函数执行!");
-    if(comBean==NULL||dirPath.isEmpty()){
-        QLogHelper::instance()->LogInfo("UIMethod->SelectResultFileSlot() comBean==NULL || 传入参数为空值!" );
-        return;
-    }
-
-}
-
-
-

@@ -15,7 +15,7 @@ typedef struct ERRCodeType{
     QString Code;
 
 }ERRCODETYPE;
-
+/*
 typedef struct ERRCodeType{
     QString ID;
     QString Def;
@@ -24,7 +24,7 @@ typedef struct ERRCodeType{
     QString Code;
 
 }ERRCODETYPE;
-
+*/
 class XMLOperate : public QObject
 {
     Q_OBJECT

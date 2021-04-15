@@ -15,10 +15,10 @@
 #define ExampleDirError         "ExampleDirError"
 #define RelyFileError           "RelyFileError"
 #define IniFileError            "IniFileError"
-#define ResultDirError          "ResultDirError"
+#define APPFileError            "APPFileError"
+#define JoinFileError           "JoinFileError"
 #define PFileError              "PFileError"
 #define SWFileError             "SWFileError"
-#define MotDirError             "MotDirError"
 #define CarInfoFileError        "CarInfoFileError"
 #define CarMapFileError         "CarMapFileError"
 #define CarOSDFileError         "CarOSDFileError"
@@ -71,12 +71,6 @@ public:
     QString *getRelyID() const;
     void setRelyID(QString *value);
 
-    QString *getResultDirPath() const;
-    void setResultDirPath(QString *value);
-
-    QString *getMotDirPath() const;
-    void setMotDirPath(QString *value);
-
     QString *getOutputDirPath() const;
     void setOutputDirPath(QString *value);
 
@@ -98,6 +92,9 @@ public:
     QString getCarOSDFilePath() const;
     void setCarOSDFilePath(const QString &value);
 
+    QString *getSVNDirPath() const;
+    void setSVNDirPath(QString *value);
+
 private :
     QMap<QString,QString> RExpression;
     //错误状态码集合
@@ -106,10 +103,8 @@ private :
     QString *ID;
     //依赖机种番号
     QString *RelyID;
-    //成果物路径
-    QString *ResultDirPath;
-    //Mot文件路径
-    QString *MotDirPath;
+    //SVN路径
+    QString *SVNDirPath;
     //生成文件路径
     QString *OutputDirPath;
     //机种类型

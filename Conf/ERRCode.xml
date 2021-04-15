@@ -15,39 +15,25 @@
         <Code>0x02</Code>
     </ErrCode>
     <ErrCode>
-        <ID>ResultLabel</ID>
-        <Def>成果物路径</Def>
-        <ErrDef>成果物路径填写错误</ErrDef>
+        <ID>SVNLabel</ID>
+        <Def>SVN路径填写</Def>
+        <ErrDef>SVN路径填写错误</ErrDef>
         <Level>Error</Level>
         <Code>0x03</Code>
-    </ErrCode>
-    <ErrCode>
-        <ID>MotLabel</ID>
-        <Def>Mot文件路径</Def>
-        <ErrDef>Mot文件路径填写错误</ErrDef>
-        <Level>Error</Level>
-        <Code>0x04</Code>
     </ErrCode>
     <ErrCode>
         <ID>OutputLabel</ID>
         <Def>输出路径</Def>
         <ErrDef>输出路径填写错误</ErrDef>
         <Level>Error</Level>
-        <Code>0x05</Code>
+        <Code>0x04</Code>
     </ErrCode>
     <ErrCode>
         <ID>IDRelyID</ID>
         <Def>依赖机种与原机种类型不一致</Def>
         <ErrDef>依赖机种与原机种类型不一致错误</ErrDef>
         <Level>Error</Level>
-        <Code>0x06</Code>
-    </ErrCode>
-    <ErrCode>
-        <ID>RelyFileError</ID>
-        <Def>依赖文件未找到</Def>
-        <ErrDef>未找到相应的依赖文件</ErrDef>
-        <Level>Error</Level>
-        <Code>0x06</Code>
+        <Code>0x05</Code>
     </ErrCode>
 
 
@@ -61,16 +47,16 @@
         <Code>0x20</Code>
     </ErrCode>
     <ErrCode>
-        <ID>IniFileError</ID>
-        <Def>ini文件未找到</Def>
-        <ErrDef>ini文件不存在</ErrDef>
+        <ID>RelyFileError</ID>
+        <Def>依赖文件未找到</Def>
+        <ErrDef>未找到相应的依赖文件</ErrDef>
         <Level>Error</Level>
         <Code>0x21</Code>
     </ErrCode>
     <ErrCode>
-        <ID>ResultDirError</ID>
-        <Def>成果物路径不存在错误</Def>
-        <ErrDef>成果物路径不存在</ErrDef>
+        <ID>IniFileError</ID>
+        <Def>ini文件未找到</Def>
+        <ErrDef>ini文件不存在</ErrDef>
         <Level>Error</Level>
         <Code>0x22</Code>
     </ErrCode>
@@ -89,32 +75,39 @@
         <Code>0x24</Code>
     </ErrCode>
     <ErrCode>
-        <ID>MotDirError</ID>
-        <Def>Mot文件路径不存在错误</Def>
-        <ErrDef>Mot文件路径不存在</ErrDef>
+        <ID>APPFileError</ID>
+        <Def>APP文件不存在错误</Def>
+        <ErrDef>APP文件不存在</ErrDef>
         <Level>Error</Level>
         <Code>0x25</Code>
+    </ErrCode>
+    <ErrCode>
+        <ID>JoinFileError</ID>
+        <Def>Join文件不存在错误</Def>
+        <ErrDef>Join文件不存在</ErrDef>
+        <Level>Error</Level>
+        <Code>0x26</Code>
     </ErrCode>
     <ErrCode>
         <ID>CarInfoFileError</ID>
         <Def>CarInfo文件不存在错误</Def>
         <ErrDef>CarInfo文件不存在</ErrDef>
         <Level>Error</Level>
-        <Code>0x26</Code>
+        <Code>0x28</Code>
     </ErrCode>
     <ErrCode>
         <ID>CarMapFileError</ID>
         <Def>CarMap文件不存在错误</Def>
         <ErrDef>CarMap文件不存在</ErrDef>
         <Level>Error</Level>
-        <Code>0x27</Code>
+        <Code>0x29</Code>
     </ErrCode>
     <ErrCode>
         <ID>CarOSDFileError</ID>
         <Def>CarOSD文件不存在错误</Def>
         <ErrDef>CarOSD文件不存在</ErrDef>
         <Level>Error</Level>
-        <Code>0x28</Code>
+        <Code>0x2A</Code>
     </ErrCode>
 </ERRCodeType>
 

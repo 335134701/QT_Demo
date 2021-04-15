@@ -12,6 +12,8 @@ public:
 
     QString OutputFilePath(const QString dir,const QString conditionOne,const QString conditionTwo);
 
+    bool JudgeDirExist(const QString dirPath);
+
 signals:
 
 public slots:

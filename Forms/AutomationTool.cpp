@@ -80,11 +80,9 @@ void AutomationTool::on_IDEdit_editingFinished()
      }
      if(comBean->getIDType().isEmpty()){return;}
      //根据机种类型找到对应的依赖文件路径
-     emit SelectExampleSignal(comBean->exampleDirPath,comBean->getIDType());
+     emit SelectExampleSignal(comBean->exampleDirPath,false);
      if(comBean->getRelyFilePath().isEmpty()){return;}
      ui->LogView->append(DATAStytle+"依赖文件路径: "+comBean->getRelyFilePath());
-     //if(comBean->getIniFilePath().isEmpty()){return;}
-     //ui->LogView->append(DATAStytle+"ini文件路径: "+comBean->getRelyFilePath());
      //发送信号，读取依赖文件的相关信息
 
      //信息读取完成后显示
@@ -111,31 +109,13 @@ void AutomationTool::on_RelyIDEdit_editingFinished()
 }
 /**
  * @def
- * @brief AutomationTool::on_ResultButton_clicked
+ * @brief AutomationTool::on_SVNButton_clicked
  */
-void AutomationTool::on_ResultButton_clicked()
+void AutomationTool::on_SVNButton_clicked()
 {
-    QLogHelper::instance()->LogInfo("AutomationTool->on_ResultButton_clicked() 函数触发执行!");
-    //成果物路径获取
-    emit SelectDirSignal(ui->ResultLabel,comBean->getResultDirPath());
-    if(comBean->getResultDirPath()->isEmpty()){return;}
-    ui->LogView->append(DATAStytle+"成果物路径: "+comBean->getResultDirPath());
-    //发送信号开始解析并获取成果物路径
-    //根据依赖，判断依赖类型
-    //获取生成类型
-}
-/**
- * @def
- * @brief AutomationTool::on_MotButton_clicked
- */
-void AutomationTool::on_MotButton_clicked()
-{
-    QLogHelper::instance()->LogInfo("AutomationTool->on_MotButton_clicked() 函数触发执行!");
-    //mot文件路径获取
-    emit SelectDirSignal(ui->MotLabel,comBean->getMotDirPath());
-    if(comBean->getMotDirPath()->isEmpty()){return;}
-    ui->LogView->append(DATAStytle+"Mot文件路径: "+comBean->getMotDirPath());
-    //发送信号，获取mot文件路径
+     QLogHelper::instance()->LogInfo("AutomationTool->on_SVNButton_clicked() 函数触发执行!");
+     //获取相应文件路径
+
 }
 /**
  * @def
@@ -162,3 +142,5 @@ void AutomationTool::on_CreateButton_clicked()
         //根据错误码，弹出错误显示
     }
 }
+
+

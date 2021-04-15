@@ -31,9 +31,7 @@ public slots:
 
     void SelectDirSlot(QLabel *label,QString *objectID);
 
-    void SelectExampleSlot(const QString dirPath, QString condition);
-
-    void SelectResultFileSlot(const QString dirPath);
+    void SelectExampleSlot(const QString dirPath, bool flag);
 
 private :
     QString JudgeIDType(const QString ID);

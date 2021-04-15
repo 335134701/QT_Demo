@@ -31,13 +31,11 @@ private slots:
 
     void on_RelyIDEdit_editingFinished();
 
-    void on_ResultButton_clicked();
-
-    void on_MotButton_clicked();
-
     void on_OutputButton_clicked();
 
     void on_CreateButton_clicked();
+
+    void on_SVNButton_clicked();
 
 private:
     Ui::AutomationTool *ui;
@@ -58,8 +56,9 @@ signals:
 
     void SelectDirSignal(QLabel *label,QString *objectID);
 
-    void SelectExampleSignal(const QString dirPath,QString condition);
+    void SelectExampleSignal(const QString dirPath, bool flag);
 
+    //void SelectResultFileSignal(QString *dirPath);
 };
 
 #endif // AUTOMATIONTOOL_H

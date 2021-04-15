@@ -22,8 +22,7 @@ void CommonBean::Init()
     excelOption=new ExcelOperation();
     ID=new QString();
     RelyID=new QString();
-    ResultDirPath=new QString();
-    MotDirPath=new QString();
+    SVNDirPath=new QString();
     OutputDirPath=new QString();
     //初始化错误码
     RExpression.insert("IDEdit","^EN(3[3-7]|42)\\d\\dP[A-Z]");
@@ -146,26 +145,6 @@ void CommonBean::setRelyID(QString *value)
     RelyID = value;
 }
 
-QString *CommonBean::getResultDirPath() const
-{
-    return ResultDirPath;
-}
-
-void CommonBean::setResultDirPath(QString *value)
-{
-    ResultDirPath = value;
-}
-
-QString *CommonBean::getMotDirPath() const
-{
-    return MotDirPath;
-}
-
-void CommonBean::setMotDirPath(QString *value)
-{
-    MotDirPath = value;
-}
-
 QString *CommonBean::getOutputDirPath() const
 {
     return OutputDirPath;
@@ -234,4 +213,14 @@ QString CommonBean::getCarOSDFilePath() const
 void CommonBean::setCarOSDFilePath(const QString &value)
 {
     CarOSDFilePath = value;
+}
+
+QString *CommonBean::getSVNDirPath() const
+{
+    return SVNDirPath;
+}
+
+void CommonBean::setSVNDirPath(QString *value)
+{
+    SVNDirPath = value;
 }

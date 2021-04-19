@@ -85,6 +85,9 @@
            <height>0</height>
           </size>
          </property>
+         <property name="contextMenuPolicy">
+          <enum>Qt::ActionsContextMenu</enum>
+         </property>
          <property name="readOnly">
           <bool>true</bool>
          </property>

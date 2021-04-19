@@ -39,8 +39,10 @@ void AutomationTool::ConnectSlot()
     QLogHelper::instance()->LogInfo("AutomationTool->ConnectSlot() 函数执行!");
     connect(this,&AutomationTool::JudgeIDSignal,this->uiMethod,&UIMethod::JudgeIDSlot);
     connect(this,&AutomationTool::JudgeIDTypeSignal,this->uiMethod,&UIMethod::JudgeIDTypeSlot);
+    connect(this,&AutomationTool::ShowIDmessageSignal,this->uiMethod,&UIMethod::ShowIDmessageSlot);
     connect(this,&AutomationTool::SelectDirSignal,this->uiMethod,&UIMethod::SelectDirSlot);
-    connect(this,&AutomationTool::SelectExampleSignal,this->uiMethod,&UIMethod::SelectExampleSlot);
+    connect(logViewClearAction,&QAction::triggered,this,&AutomationTool::LogViewClearSlot);
+    connect(this,&AutomationTool::SelectFileSignal,this->uiMethod,&UIMethod::SelectFileSlot);
 }
 /**
  * @def UI界面初始化函数，主要功能是美化UI
@@ -56,6 +58,9 @@ void AutomationTool::initStyle()
         qApp->setStyleSheet(qss);
         file.close();
     }
+    logViewClearAction=new QAction("清除显示");
+    //为Logview添加清除操作
+    ui->LogView->addAction(logViewClearAction);
 }
 /**
  * @def 机种IDEdit文本改变完成触发函数
@@ -67,22 +72,17 @@ void AutomationTool::initStyle()
 void AutomationTool::on_IDEdit_editingFinished()
 {
     QLogHelper::instance()->LogInfo("AutomationTool->on_IDEdit_editingFinished() 函数触发执行!");
-    ui->LogView->clear();
+    if(comBean==NULL){return;}
     //判断机种名称是否符合要求
     emit JudgeIDSignal(ui->IDEdit,comBean->getID());
     if(comBean->getID()->isEmpty()){return;}
     //分析机种类型
-    emit JudgeIDTypeSignal(ui->IDEdit);
+    emit JudgeIDTypeSignal(ui->IDEdit,comBean->getIDType(),comBean->getRelyIDType());
     if(!comBean->getErrCode()->value(IDRelyID).ID.isEmpty()){
          ui->RelyIDEdit->setStyleSheet(QString(errFontColor));
      }
-     if(comBean->getIDType().isEmpty()){return;}
-     //根据机种类型找到对应的依赖文件路径
-     emit SelectExampleSignal(comBean->exampleDirPath,false);
-     if(comBean->getRelyFilePath().isEmpty()){return;}
-     //发送信号，读取依赖文件的相关信息
-
-     //信息读取完成后显示
+    //LogView界面显示信息
+    emit ShowIDmessageSignal(ui->LogView,0);
 }
 /**
  * @def 机种RelyIDEdit文本改变完成触发函数
@@ -91,17 +91,21 @@ void AutomationTool::on_IDEdit_editingFinished()
 void AutomationTool::on_RelyIDEdit_editingFinished()
 {
     QLogHelper::instance()->LogInfo("AutomationTool->on_RelyIDEdit_editingFinished() 函数触发执行!");
+    if(comBean==NULL){return;}
     //如果RelyIDEdit文本输入为空，则说明不依赖任何机种
-    if(ui->RelyIDEdit->text().isEmpty()){
+    if(ui->RelyIDEdit->text().isEmpty()||ui->RelyIDEdit->text()==comBean->getID()){
+        ui->RelyIDEdit->setStyleSheet(QString(errFontColor));
         //如果错误码存在,则删除错误码
-        uiMethod->ErrorCodeDeal(ui->RelyIDEdit->objectName(),false);
+        comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),ui->RelyIDEdit->objectName(),NULL,false);
+        comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),IDRelyID,NULL,false);
         return;
     }
     //判断机种名称是否符合要求
     emit JudgeIDSignal(ui->RelyIDEdit,comBean->getRelyID());
     if(comBean->getRelyID()->isEmpty()){return;}
     //判断依赖机种是否和作成机种同一种类型
-    emit JudgeIDTypeSignal(ui->RelyIDEdit);
+    emit JudgeIDTypeSignal(ui->RelyIDEdit,comBean->getRelyIDType(),comBean->getIDType());
+    emit ShowIDmessageSignal(ui->LogView,1);
 }
 /**
  * @def
@@ -110,10 +114,13 @@ void AutomationTool::on_RelyIDEdit_editingFinished()
 void AutomationTool::on_SVNButton_clicked()
 {
      QLogHelper::instance()->LogInfo("AutomationTool->on_SVNButton_clicked() 函数触发执行!");
+     if(comBean==NULL){return;}
      //获取相应文件路径
-     emit SelectDirSignal(ui->SVNLabel,comBean->getSVNDirPath());
-     //QStringList st=comBean->getComMethod()->FinFile(dirName,QStringList() << "*.c");
+     emit SelectDirSignal(ui->SVNLabel,comBean->getSVNDirPath(),SVNDirError);
+     if(comBean->getSVNDirPath()->isEmpty()||comBean->getID()->isEmpty()){return;}
+     emit SelectFileSignal(*(comBean->getSVNDirPath()));
 }
+
 /**
  * @def
  * @brief AutomationTool::on_OutputButton_clicked
@@ -121,9 +128,9 @@ void AutomationTool::on_SVNButton_clicked()
 void AutomationTool::on_OutputButton_clicked()
 {
     QLogHelper::instance()->LogInfo("AutomationTool->on_OutputButton_clicked() 函数触发执行!");
+    if(comBean==NULL){return;}
     //生成路径获取
-    emit SelectDirSignal(ui->OutputLabel,comBean->getOutputDirPath());
-    if(comBean->getOutputDirPath()->isEmpty()){return;}
+    emit SelectDirSignal(ui->OutputLabel,comBean->getOutputDirPath(),ui->OutputLabel->objectName());
 }
 /**
  * @def
@@ -132,11 +139,25 @@ void AutomationTool::on_OutputButton_clicked()
 void AutomationTool::on_CreateButton_clicked()
 {
     QLogHelper::instance()->LogInfo("AutomationTool->on_CreateButton_clicked() 函数触发执行!");
+    if(comBean==NULL){return;}
     if(comBean->getErrCode()->size()==0){
 
     }else{
         //根据错误码，弹出错误显示
     }
 }
+/**
+ * @brief AutomationTool::LogViewClearSlot
+ */
+void AutomationTool::LogViewClearSlot()
+{
+    QLogHelper::instance()->LogInfo("AutomationTool->LogViewClearSlot() 函数触发执行!");
+    ui->LogView->clear();
+}
 
-
+/**
+ * @brief AutomationTool::on_CheckButton_clicked
+ */
+void AutomationTool::on_CheckButton_clicked()
+{
+}

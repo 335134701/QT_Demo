@@ -2,6 +2,7 @@
 #define COMMONMETHOD_H
 
 #include <QObject>
+#include "XMLOperate.h"
 #include "QLoghelper.h"
 
 class CommonMethod : public QObject
@@ -10,9 +11,11 @@ class CommonMethod : public QObject
 public:
     explicit CommonMethod(QObject *parent = nullptr);
 
-    QStringList FinFile(const QString dirPath,QStringList filters);
+    QString JudgeIDType(const QString ID);
 
-    bool JudgeDirExist(const QString dirPath);
+    void ErrorCodeDeal(QMap<QString,ERRCODETYPE> *errCode,QMap<QString,ERRCODETYPE> errCodeType,const QString objectName,const QString condition,bool flag);
+
+    QStringList FindFile(const QString dirPath,QStringList filters);
 
 signals:
 

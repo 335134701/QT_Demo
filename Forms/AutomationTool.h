@@ -37,12 +37,18 @@ private slots:
 
     void on_SVNButton_clicked();
 
+    void LogViewClearSlot();
+
+    void on_CheckButton_clicked();
+
 private:
     Ui::AutomationTool *ui;
 
     CommonBean *comBean;
 
     UIMethod *uiMethod;
+
+    QAction *logViewClearAction;
 
     void init();
 
@@ -52,13 +58,13 @@ private:
 signals:
     void JudgeIDSignal(QLineEdit *Edit,QString *objectID);
 
-    void JudgeIDTypeSignal(QLineEdit *Edit);
+    void JudgeIDTypeSignal(QLineEdit *Edit,QString *srcobject,QString *desobject);
 
-    void SelectDirSignal(QLabel *label,QString *objectID);
+    void ShowIDmessageSignal(QTextEdit *Edit,int flag);
 
-    void SelectExampleSignal(const QString dirPath, bool flag);
+    void SelectDirSignal(QLabel *label,QString *objectID,const QString errName);
 
-    //void SelectResultFileSignal(QString *dirPath);
+    void SelectFileSignal(const QString dirPath);
 };
 
 #endif // AUTOMATIONTOOL_H

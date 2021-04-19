@@ -51,15 +51,11 @@ QMap<QString,ERRCODETYPE> XMLOperate::ReadXML(const QString filePath)
             {
                 err.Level=reader.readElementText().replace(QString("\""), QString(""));
             }
-            else if(reader.name() == "Code")  //判断当前节点的名字是否为Code
-            {
-                err.Code =reader.readElementText().replace(QString("\""), QString(""));
-            }
         }
         else if(reader.isEndElement() && reader.name() == "ErrCode" && !err.ID.isEmpty()&& errMap.value(err.ID).ID.isEmpty())  //节点结束、并且节点名字为ErrCode（含有子节点）
         {
             errMap.insert(err.ID,err);
-            err={"","","","",""};
+            err={"","","",""};
         }
         reader.readNext();
 

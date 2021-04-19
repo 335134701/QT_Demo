@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
+#include <QTextEdit>
 #include <Qmessagebox>
 #include <QFileDialog>
 #include "QLoghelper.h"
@@ -20,18 +21,18 @@ public:
     explicit UIMethod(QObject *parent = nullptr);
 
     void setComBean(CommonBean *value);
-
-    void ErrorCodeDeal(const QString objectName,bool flag);
 signals:
 
 public slots:
     void JudgeIDSlot(QLineEdit *Edit,QString *objectID);
 
-    void JudgeIDTypeSlot(QLineEdit *Edit);
+    void JudgeIDTypeSlot(QLineEdit *Edit,QString *srcobject,QString *desobject);
 
-    void SelectDirSlot(QLabel *label,QString *objectID);
+    void ShowIDmessageSlot(QTextEdit *Edit,int flag);
 
-    void SelectExampleSlot(const QString dirPath, bool flag);
+    void SelectDirSlot(QLabel *label,QString *objectID,const QString errName);
+
+    void SelectFileSlot(const QString dirPath);
 
 private :
     QString JudgeIDType(const QString ID);

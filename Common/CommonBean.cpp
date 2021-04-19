@@ -22,6 +22,8 @@ void CommonBean::Init()
     excelOption=new ExcelOperation();
     ID=new QString();
     RelyID=new QString();
+    IDType=new QString();
+    RelyIDType=new QString();
     SVNDirPath=new QString();
     OutputDirPath=new QString();
     //初始化错误码
@@ -50,16 +52,6 @@ bool CommonBean::ErrorCodeInit()
     return ret;
 }
 
-QString CommonBean::getIDType() const
-{
-    return IDType;
-}
-
-void CommonBean::setIDType(const QString &value)
-{
-    IDType = value;
-}
-
 QString CommonBean::getRelyFilePath() const
 {
     return RelyFilePath;
@@ -83,16 +75,6 @@ void CommonBean::setXmlOperate(XMLOperate *value)
 QMap<QString, QString> CommonBean::getRExpression() const
 {
     return RExpression;
-}
-
-QString CommonBean::getRelyIDType() const
-{
-    return RelyIDType;
-}
-
-void CommonBean::setRelyIDType(const QString &value)
-{
-    RelyIDType = value;
 }
 
 QString CommonBean::getIniFilePath() const
@@ -223,4 +205,24 @@ QString *CommonBean::getSVNDirPath() const
 void CommonBean::setSVNDirPath(QString *value)
 {
     SVNDirPath = value;
+}
+
+QString *CommonBean::getIDType() const
+{
+    return IDType;
+}
+
+void CommonBean::setIDType(QString *value)
+{
+    IDType = value;
+}
+
+QString *CommonBean::getRelyIDType() const
+{
+    return RelyIDType;
+}
+
+void CommonBean::setRelyIDType(QString *value)
+{
+    RelyIDType = value;
 }

@@ -12,8 +12,8 @@
 #define DATETIME                QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss")
 #define DATAStytle              "[ "+DATETIME+" ] "
 #define IDRelyID                "IDRelyID"
-#define ExampleDirError         "ExampleDirError"
 #define RelyFileError           "RelyFileError"
+#define SVNDirError             "SVNDirError"
 #define IniFileError            "IniFileError"
 #define APPFileError            "APPFileError"
 #define JoinFileError           "JoinFileError"
@@ -42,9 +42,6 @@ public:
     //错误码初始化
     bool ErrorCodeInit();
 
-    QString getIDType() const;
-    void setIDType(const QString &value);
-
     QString getRelyFilePath() const;
     void setRelyFilePath(const QString &value);
 
@@ -52,9 +49,6 @@ public:
     void setXmlOperate(XMLOperate *value);
 
     QMap<QString, QString> getRExpression() const;
-
-    QString getRelyIDType() const;
-    void setRelyIDType(const QString &value);
 
     QString getIniFilePath() const;
     void setIniFilePath(const QString &value);
@@ -95,6 +89,12 @@ public:
     QString *getSVNDirPath() const;
     void setSVNDirPath(QString *value);
 
+    QString *getIDType() const;
+    void setIDType(QString *value);
+
+    QString *getRelyIDType() const;
+    void setRelyIDType(QString *value);
+
 private :
     QMap<QString,QString> RExpression;
     //错误状态码集合
@@ -108,9 +108,9 @@ private :
     //生成文件路径
     QString *OutputDirPath;
     //机种类型
-    QString IDType;
+    QString *IDType;
     //依赖机种类型
-    QString RelyIDType;
+    QString *RelyIDType;
     //依赖文件路径
     QString RelyFilePath;
     //ini文件路径

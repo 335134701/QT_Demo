@@ -12,7 +12,6 @@ typedef struct ERRCodeType{
     QString Def;
     QString ErrDef;
     QString Level;
-    QString Code;
 
 }ERRCODETYPE;
 /*

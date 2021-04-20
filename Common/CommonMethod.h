@@ -13,14 +13,13 @@ public:
 
     QString JudgeIDType(const QString ID);
 
-    QString AnalyzePath(const QString dirPath);
+    QString AnalyzePath(const QString dirPath,unsigned int flag);
 
     void ErrorCodeDeal(QMap<QString,ERRCODETYPE> *errCode,QMap<QString,ERRCODETYPE> errCodeType,const QString objectName,const QString condition,bool flag);
 
     QStringList FindFile(const QString dirPath,QStringList filters);
 
-    QString AnalyzeRelyFilePath(const QStringList filePath);
-
+    void AnalyzeFilePath(const QStringList filePaths,QString *filePath,unsigned int flag);
 
 signals:
 

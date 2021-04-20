@@ -41,8 +41,11 @@ private slots:
 
     void on_CheckButton_clicked();
 
+
 private:
     Ui::AutomationTool *ui;
+
+    QStandardItemModel *messageViewModel;
 
     CommonBean *comBean;
 
@@ -62,11 +65,11 @@ signals:
 
     void JudgeIDTypeSignal(QLineEdit *Edit,QString *srcobject,QString *desobject);
 
-    void ShowIDmessageSignal(QTextEdit *Edit,int flag);
+    void ShowIDmessageSignal(int flag);
 
     void SelectDirSignal(QLabel *label,QString *objectID,const QString errName);
 
-    void SelectFileSignal(const QString dirPath);
+    void SelectFileSignal(QString dirPath,unsigned int flag);
 };
 
 #endif // AUTOMATIONTOOL_H

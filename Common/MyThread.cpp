@@ -20,6 +20,6 @@ void MyThread::FindFileThreadSlot(const QString dirPath,CommonMethod *commonMeth
     //文件搜索
     qlist=commonMethod->FindFile(dirPath,filters);
     //线程处理结束
-    emit EndFindFileThreadSignal(qlist,dirPath,flag);
+    emit EndFindFileThreadSignal(qlist,flag);
 }
 

@@ -11,7 +11,7 @@ public:
     explicit MyThread(QObject *parent = nullptr);
 
 signals:
-    void EndFindFileThreadSignal(QStringList st,QString dirPath,unsigned int flag);
+    void EndFindFileThreadSignal(QStringList st,unsigned int flag);
 
 public slots:
     void FindFileThreadSlot(const QString dirPath,CommonMethod *commonMethod,const QStringList filters,unsigned int flag);

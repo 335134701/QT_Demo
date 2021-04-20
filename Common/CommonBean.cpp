@@ -26,6 +26,16 @@ void CommonBean::Init()
     RelyIDType=new QString();
     SVNDirPath=new QString();
     OutputDirPath=new QString();
+    RelyFilePath=new QString();
+    IniFilePath=new QString();
+    PFilePath=new QString();
+    SWFilePath=new QString();
+    CarInfoFilePath=new QString();
+    CarMapFilePath=new QString();
+    CarOSDFilePath=new QString();
+    JoinMot=new QString();
+    APPMot=new QString();
+    EEFilePath=new QString();
     statusflag=false;
     //初始化错误码
     RExpression.insert("IDEdit","^EN(3[3-7]|42)\\d\\dP[A-Z]");
@@ -53,49 +63,14 @@ bool CommonBean::ErrorCodeInit()
     return ret;
 }
 
-QString CommonBean::getRelyFilePath() const
-{
-    return RelyFilePath;
-}
-
-void CommonBean::setRelyFilePath(const QString &value)
-{
-    RelyFilePath = value;
-}
-
-XMLOperate *CommonBean::getXmlOperate() const
-{
-    return xmlOperate;
-}
-
-void CommonBean::setXmlOperate(XMLOperate *value)
-{
-    xmlOperate = value;
-}
-
 QMap<QString, QString> CommonBean::getRExpression() const
 {
     return RExpression;
 }
 
-QString CommonBean::getIniFilePath() const
+void CommonBean::setRExpression(const QMap<QString, QString> &value)
 {
-    return IniFilePath;
-}
-
-void CommonBean::setIniFilePath(const QString &value)
-{
-    IniFilePath = value;
-}
-
-ExcelOperation *CommonBean::getExcelOption() const
-{
-    return excelOption;
-}
-
-void CommonBean::setExcelOption(ExcelOperation *value)
-{
-    excelOption = value;
+    RExpression = value;
 }
 
 QMap<QString, ERRCODETYPE> *CommonBean::getErrCode() const
@@ -128,76 +103,6 @@ void CommonBean::setRelyID(QString *value)
     RelyID = value;
 }
 
-QString *CommonBean::getOutputDirPath() const
-{
-    return OutputDirPath;
-}
-
-void CommonBean::setOutputDirPath(QString *value)
-{
-    OutputDirPath = value;
-}
-
-CommonMethod *CommonBean::getComMethod() const
-{
-    return comMethod;
-}
-
-void CommonBean::setComMethod(CommonMethod *value)
-{
-    comMethod = value;
-}
-
-QString CommonBean::getPFilePath() const
-{
-    return PFilePath;
-}
-
-void CommonBean::setPFilePath(const QString &value)
-{
-    PFilePath = value;
-}
-
-QString CommonBean::getSWFilePath() const
-{
-    return SWFilePath;
-}
-
-void CommonBean::setSWFilePath(const QString &value)
-{
-    SWFilePath = value;
-}
-
-QString CommonBean::getCarInfoFilePath() const
-{
-    return CarInfoFilePath;
-}
-
-void CommonBean::setCarInfoFilePath(const QString &value)
-{
-    CarInfoFilePath = value;
-}
-
-QString CommonBean::getCarMapFilePath() const
-{
-    return CarMapFilePath;
-}
-
-void CommonBean::setCarMapFilePath(const QString &value)
-{
-    CarMapFilePath = value;
-}
-
-QString CommonBean::getCarOSDFilePath() const
-{
-    return CarOSDFilePath;
-}
-
-void CommonBean::setCarOSDFilePath(const QString &value)
-{
-    CarOSDFilePath = value;
-}
-
 QString *CommonBean::getSVNDirPath() const
 {
     return SVNDirPath;
@@ -206,6 +111,16 @@ QString *CommonBean::getSVNDirPath() const
 void CommonBean::setSVNDirPath(QString *value)
 {
     SVNDirPath = value;
+}
+
+QString *CommonBean::getOutputDirPath() const
+{
+    return OutputDirPath;
+}
+
+void CommonBean::setOutputDirPath(QString *value)
+{
+    OutputDirPath = value;
 }
 
 QString *CommonBean::getIDType() const
@@ -228,6 +143,116 @@ void CommonBean::setRelyIDType(QString *value)
     RelyIDType = value;
 }
 
+QString *CommonBean::getRelyFilePath() const
+{
+    return RelyFilePath;
+}
+
+void CommonBean::setRelyFilePath(QString *value)
+{
+    RelyFilePath = value;
+}
+
+QString *CommonBean::getIniFilePath() const
+{
+    return IniFilePath;
+}
+
+void CommonBean::setIniFilePath(QString *value)
+{
+    IniFilePath = value;
+}
+
+QString *CommonBean::getPFilePath() const
+{
+    return PFilePath;
+}
+
+void CommonBean::setPFilePath(QString *value)
+{
+    PFilePath = value;
+}
+
+QString *CommonBean::getSWFilePath() const
+{
+    return SWFilePath;
+}
+
+void CommonBean::setSWFilePath(QString *value)
+{
+    SWFilePath = value;
+}
+
+QString *CommonBean::getCarInfoFilePath() const
+{
+    return CarInfoFilePath;
+}
+
+void CommonBean::setCarInfoFilePath(QString *value)
+{
+    CarInfoFilePath = value;
+}
+
+QString *CommonBean::getCarMapFilePath() const
+{
+    return CarMapFilePath;
+}
+
+void CommonBean::setCarMapFilePath(QString *value)
+{
+    CarMapFilePath = value;
+}
+
+QString *CommonBean::getCarOSDFilePath() const
+{
+    return CarOSDFilePath;
+}
+
+void CommonBean::setCarOSDFilePath(QString *value)
+{
+    CarOSDFilePath = value;
+}
+
+QString *CommonBean::getJoinMot() const
+{
+    return JoinMot;
+}
+
+void CommonBean::setJoinMot(QString *value)
+{
+    JoinMot = value;
+}
+
+QString *CommonBean::getAPPMot() const
+{
+    return APPMot;
+}
+
+void CommonBean::setAPPMot(QString *value)
+{
+    APPMot = value;
+}
+
+CommonMethod *CommonBean::getComMethod() const
+{
+    return comMethod;
+}
+
+void CommonBean::setComMethod(CommonMethod *value)
+{
+    comMethod = value;
+}
+
+XMLOperate *CommonBean::getXmlOperate() const
+{
+    return xmlOperate;
+}
+
+void CommonBean::setXmlOperate(XMLOperate *value)
+{
+    xmlOperate = value;
+}
+
 unsigned int CommonBean::getStatusflag() const
 {
     return statusflag;
@@ -237,3 +262,24 @@ void CommonBean::setStatusflag(unsigned int value)
 {
     statusflag = value;
 }
+
+ExcelOperation *CommonBean::getExcelOption() const
+{
+    return excelOption;
+}
+
+void CommonBean::setExcelOption(ExcelOperation *value)
+{
+    excelOption = value;
+}
+
+QString *CommonBean::getEEFilePath() const
+{
+    return EEFilePath;
+}
+
+void CommonBean::setEEFilePath(QString *value)
+{
+    EEFilePath = value;
+}
+

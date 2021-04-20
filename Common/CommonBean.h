@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QStandardPaths>
 #include <QDateTime>
+#include <QStandardItem>
 #include "QLoghelper.h"
 #include "CommonMethod.h"
 #include "XMLOperate.h"
@@ -42,19 +43,8 @@ public:
     //错误码初始化
     bool ErrorCodeInit();
 
-    QString getRelyFilePath() const;
-    void setRelyFilePath(const QString &value);
-
-    XMLOperate *getXmlOperate() const;
-    void setXmlOperate(XMLOperate *value);
-
     QMap<QString, QString> getRExpression() const;
-
-    QString getIniFilePath() const;
-    void setIniFilePath(const QString &value);
-
-    ExcelOperation *getExcelOption() const;
-    void setExcelOption(ExcelOperation *value);
+    void setRExpression(const QMap<QString, QString> &value);
 
     QMap<QString, ERRCODETYPE> *getErrCode() const;
     void setErrCode(QMap<QString, ERRCODETYPE> *value);
@@ -65,29 +55,11 @@ public:
     QString *getRelyID() const;
     void setRelyID(QString *value);
 
-    QString *getOutputDirPath() const;
-    void setOutputDirPath(QString *value);
-
-    CommonMethod *getComMethod() const;
-    void setComMethod(CommonMethod *value);
-
-    QString getPFilePath() const;
-    void setPFilePath(const QString &value);
-
-    QString getSWFilePath() const;
-    void setSWFilePath(const QString &value);
-
-    QString getCarInfoFilePath() const;
-    void setCarInfoFilePath(const QString &value);
-
-    QString getCarMapFilePath() const;
-    void setCarMapFilePath(const QString &value);
-
-    QString getCarOSDFilePath() const;
-    void setCarOSDFilePath(const QString &value);
-
     QString *getSVNDirPath() const;
     void setSVNDirPath(QString *value);
+
+    QString *getOutputDirPath() const;
+    void setOutputDirPath(QString *value);
 
     QString *getIDType() const;
     void setIDType(QString *value);
@@ -95,9 +67,47 @@ public:
     QString *getRelyIDType() const;
     void setRelyIDType(QString *value);
 
+    QString *getRelyFilePath() const;
+    void setRelyFilePath(QString *value);
+
+    QString *getIniFilePath() const;
+    void setIniFilePath(QString *value);
+
+    QString *getPFilePath() const;
+    void setPFilePath(QString *value);
+
+    QString *getSWFilePath() const;
+    void setSWFilePath(QString *value);
+
+    QString *getCarInfoFilePath() const;
+    void setCarInfoFilePath(QString *value);
+
+    QString *getCarMapFilePath() const;
+    void setCarMapFilePath(QString *value);
+
+    QString *getCarOSDFilePath() const;
+    void setCarOSDFilePath(QString *value);
+
+    QString *getJoinMot() const;
+    void setJoinMot(QString *value);
+
+    QString *getAPPMot() const;
+    void setAPPMot(QString *value);
+
+    CommonMethod *getComMethod() const;
+    void setComMethod(CommonMethod *value);
+
+    XMLOperate *getXmlOperate() const;
+    void setXmlOperate(XMLOperate *value);
+
     unsigned int getStatusflag() const;
     void setStatusflag(unsigned int value);
 
+    ExcelOperation *getExcelOption() const;
+    void setExcelOption(ExcelOperation *value);
+
+    QString *getEEFilePath() const;
+    void setEEFilePath(QString *value);
 private :
     unsigned int statusflag;
 
@@ -117,19 +127,27 @@ private :
     //依赖机种类型
     QString *RelyIDType;
     //依赖文件路径
-    QString RelyFilePath;
+    QString *RelyFilePath;
     //ini文件路径
-    QString IniFilePath;
+    QString *IniFilePath;
     //P票相关路径
-    QString PFilePath;
+    QString *PFilePath;
     //SW确认表路径
-    QString SWFilePath;
+    QString *SWFilePath;
     //CarInfo路径
-    QString CarInfoFilePath;
+    QString *CarInfoFilePath;
     //CarMap路径
-    QString CarMapFilePath;
+    QString *CarMapFilePath;
     //CarOSD路径
-    QString CarOSDFilePath;
+    QString *CarOSDFilePath;
+    //joinMot路径
+    QString *JoinMot;
+    //APPMot路径
+    QString *APPMot;
+    //EE模板文件路径
+    QString *EEFilePath;
+    //确认文件路径
+    //QString *
     //公共的方法类对象
     CommonMethod *comMethod;
     //处理XML的对象

@@ -44,19 +44,7 @@ QString CommonMethod::JudgeIDType(const QString ID)
     }
     return ret;
 }
-/**
- * @def 对传入路径进行解析，并组装成指定的路径
- * @brief CommonMethod::AnalyzePath
- * @param dirPath
- * @return
- */
-QString CommonMethod::AnalyzePath(const QString dirPath)
-{
-    QString pathName;
-    if(!QFile::exists(dirPath)){return pathName;}
-    pathName=dirPath.mid(dirPath.lastIndexOf("/")+1);
-    return pathName;
-}
+
 /**
  * @def   处理关于错误码的赋值，删除，以及不确定赋值或者删除操作
  * @brief CommonMethod::ErrorCodeDeal
@@ -104,25 +92,134 @@ QStringList CommonMethod::FindFile(const QString dirPath,QStringList filters)
     return fileNames;
 }
 /**
- * @def 此函数主要功能是获取到依赖文件列表后取出最新的依赖文件
- * @brief CommonMethod::AnalyzeRelyFilePath
- * @param filePath
+ * @def 对传入路径进行解析，并组装成指定的路径
+ *      flag 说明:
+ *      0   无任何表示
+ *      1   表示机种番号信息获取
+ *      2   表示机种类型信息获取
+ *      3   表示量产管理表信息获取
+ *      4   表示Ini文件信息获取
+ *      5   表示P票信息获取
+ *      6   表示SW确认文件获取
+ *      7   表示CarInfoMot文件获取
+ *      8   表示CarMapMot文件获取
+ *      9   表示OSDMot文件获取
+ *      10   表示 joinMot 文件获取
+ *      11   表示 appMot   文件获取
+ * @brief CommonMethod::AnalyzePath
+ * @param dirPath
  * @return
  */
-QString CommonMethod::AnalyzeRelyFilePath(const QStringList filePath)
+QString CommonMethod::AnalyzePath(const QString dirPath, unsigned int flag)
 {
-    QLogHelper::instance()->LogInfo("CommonMethod->AnalyzeRelyFilePath() 函数执行!");
+    QString pathName=dirPath;
+    if(!QFile::exists(dirPath)){return pathName;}
+    switch (flag) {
+    case 3:
+
+        break;
+    case 4:
+
+        break;
+    case 5:
+
+        break;
+    case 6:
+
+        break;
+    case 7:
+
+        break;
+    case 8:
+
+        break;
+    case 9:
+
+        break;
+    case 10:
+
+        break;
+    case 11:
+
+        break;
+    case 12:
+
+        break;
+    case 13:
+
+        break;
+    }
+    if(!QFile::exists(pathName)){return dirPath;}
+    return pathName;
+}
+/**
+ * @def 根据获取的文件列表，解析需要的文件路径
+ *      flag 说明:
+ *      0   无任何表示
+ *      1   表示机种番号信息获取
+ *      2   表示机种类型信息获取
+ *      3   表示量产管理表信息获取
+ *      4   表示Ini文件信息获取
+ *      5   表示P票信息获取
+ *      6   表示SW确认文件获取
+ *      7   表示CarInfoMot文件获取
+ *      8   表示CarMapMot文件获取
+ *      9   表示OSDMot文件获取
+ *      10   表示 joinMot 文件获取
+ *      11   表示 appMot   文件获取
+ * @brief CommonMethod::AnalyzeFilePath
+ * @param filePaths
+ * @param filePath
+ * @param flag
+ * @return
+ */
+void CommonMethod::AnalyzeFilePath(const QStringList filePaths, QString *filePath, unsigned int flag)
+{
+    QLogHelper::instance()->LogInfo("CommonMethod->AnalyzeFilePath() 函数执行!");
+    QString path;
     int size=0,tmpsize=0;
-    QString relyFilePath;
-    if(filePath.size()>0){
-        foreach (QString file, filePath) {
+    switch (flag) {
+    case 3:
+        foreach (QString file, filePaths) {
             tmpsize=file.mid(file.lastIndexOf("_")+1,6).toInt();
             if(tmpsize>size){
                 size=tmpsize;
-                relyFilePath=file;
+                path=file;
             }
         }
+        break;
+    case 4:
+
+        break;
+    case 5:
+
+        break;
+    case 6:
+
+        break;
+    case 7:
+
+        break;
+    case 8:
+
+        break;
+    case 9:
+
+        break;
+    case 10:
+
+        break;
+    case 11:
+
+        break;
+    case 12:
+
+        break;
+    case 13:
+
+        break;
     }
-    return relyFilePath;
+    (*filePath)=path;
 }
+
 

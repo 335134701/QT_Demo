@@ -24,28 +24,36 @@ public:
     explicit UIMethod(QObject *parent = nullptr);
 
     void setComBean(CommonBean *value);
+
+    QTextEdit *getTextEdit() const;
+    void setTextEdit(QTextEdit *value);
+
 signals:
     void FindFileThreadSignal(const QString dirPath,CommonMethod *commonMethod,const QStringList filters,unsigned int flag);
 
-    void ActiveThreadSignal(QStringList st,QString dirPath,unsigned int flag);
+    void ActiveThreadSignal(QString dirPath,unsigned int flag);
+
+    void ShowIDmessageSignal(int flag);
 
 public slots:
     void JudgeIDSlot(QLineEdit *Edit,QString *objectID);
 
     void JudgeIDTypeSlot(QLineEdit *Edit,QString *srcobject,QString *desobject);
 
-    void ShowIDmessageSlot(QTextEdit *Edit,int flag);
+    void ShowIDmessageSlot(int flag);
 
     void SelectDirSlot(QLabel *label,QString *objectID,const QString errName);
 
-    void SelectFileSlot(const QString dirPath);
+    void SelectFileSlot(QString dirPath,unsigned int flag);
 
-    void EndFindFileThreadSlot(QStringList st,QString dirPath,unsigned int flag);
+    void EndFindFileThreadSlot(QStringList st,unsigned int flag);
 
 private :
     void Init();
 
     QString JudgeIDType(const QString ID);
+
+    QTextEdit *textEdit;
 
     CommonBean *comBean;
 
@@ -53,9 +61,6 @@ private :
 
     QThread *dealFileFileThread;
 
-    void StartThread(QThread *thread,const QString dirPath,CommonMethod *commonMethod,const QStringList filters,unsigned int flag);
-
-    void EndThread(QThread *thread);
 };
 
 #endif // UIMETHOD_H

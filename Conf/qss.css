@@ -35,3 +35,8 @@ QLineEdit{
 QLabel#IDLabel,#RelyIDLabel{
     font: 75 11pt "微软雅黑";
 }
+QTableView{
+font: 75 12pt "微软雅黑";
+padding:3px;
+color: rgb(255, 255, 255);
+}

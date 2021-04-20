@@ -29,6 +29,7 @@ void AutomationTool::init()
     comBean=new CommonBean();
     uiMethod=new UIMethod();
     uiMethod->setComBean(comBean);
+    uiMethod->setTextEdit(ui->LogView);
 }
 /**
  * @def UI连接信号槽函数
@@ -61,6 +62,12 @@ void AutomationTool::initStyle()
     logViewClearAction=new QAction("清除显示");
     //为Logview添加清除操作
     ui->LogView->addAction(logViewClearAction);
+    messageViewModel=new QStandardItemModel();
+    messageViewModel->setItem(0, 0, new QStandardItem("张三"));
+    messageViewModel->setItem(0, 1, new QStandardItem("20120202"));
+    messageViewModel->setItem(1, 0, new QStandardItem("张三"));
+    messageViewModel->setItem(1, 1, new QStandardItem("20120202"));
+    ui->MessageView->setModel(messageViewModel);
 }
 
 /**
@@ -83,7 +90,7 @@ void AutomationTool::on_IDEdit_editingFinished()
          ui->RelyIDEdit->setStyleSheet(QString(errFontColor));
      }
     //LogView界面显示信息
-    emit ShowIDmessageSignal(ui->LogView,0);
+    emit ShowIDmessageSignal(1);
 }
 /**
  * @def 机种RelyIDEdit文本改变完成触发函数
@@ -106,7 +113,7 @@ void AutomationTool::on_RelyIDEdit_editingFinished()
     if(comBean->getRelyID()->isEmpty()){return;}
     //判断依赖机种是否和作成机种同一种类型
     emit JudgeIDTypeSignal(ui->RelyIDEdit,comBean->getRelyIDType(),comBean->getIDType());
-    emit ShowIDmessageSignal(ui->LogView,1);
+    emit ShowIDmessageSignal(2);
 }
 /**
  * @def
@@ -119,7 +126,7 @@ void AutomationTool::on_SVNButton_clicked()
      //获取相应文件路径
      emit SelectDirSignal(ui->SVNLabel,comBean->getSVNDirPath(),SVNDirError);
      if(comBean->getSVNDirPath()->isEmpty()||comBean->getID()->isEmpty()){return;}
-     emit SelectFileSignal(*(comBean->getSVNDirPath()));
+     emit SelectFileSignal(*(comBean->getSVNDirPath()),3);
 }
 
 /**

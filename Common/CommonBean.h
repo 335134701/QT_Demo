@@ -95,7 +95,12 @@ public:
     QString *getRelyIDType() const;
     void setRelyIDType(QString *value);
 
+    unsigned int getStatusflag() const;
+    void setStatusflag(unsigned int value);
+
 private :
+    unsigned int statusflag;
+
     QMap<QString,QString> RExpression;
     //错误状态码集合
     QMap<QString,ERRCODETYPE> *errCode;

@@ -3,6 +3,50 @@
 UIMethod::UIMethod(QObject *parent) : QObject(parent)
 {
     QLogHelper::instance()->LogInfo("UIMethod() 构造函数执行!");
+    this->Init();
+}
+/**
+ * @brief UIMethod::Init
+ */
+void UIMethod::Init()
+{
+    mythread=new MyThread();
+    connect(this,&UIMethod::ActiveThreadSignal,this,&UIMethod::EndFindFileThreadSlot);
+    //激活线程，以信号槽的方式
+    connect(this,&UIMethod::FindFileThreadSignal,mythread,&MyThread::FindFileThreadSlot);
+    //线程处理完，返回主函数，以信号槽方式
+    connect(mythread,&MyThread::EndFindFileThreadSignal,this,&UIMethod::EndFindFileThreadSlot);
+}
+/**
+ * @def 线程初始化操作
+ * @brief UIMethod::StartThread
+ * @param thread
+ * @param dirPath
+ * @param commonMethod
+ * @param filters
+ * @param flag
+ */
+void UIMethod::StartThread(QThread *thread, const QString dirPath, CommonMethod *commonMethod, const QStringList filters, unsigned int flag)
+{
+    if(thread==NULL){
+        thread=new QThread();
+        mythread->moveToThread(thread);
+    }
+    thread->start();
+    emit FindFileThreadSignal(dirPath,commonMethod,filters,flag);
+}
+/**
+ * @def 结束线程
+ * @brief UIMethod::EndThread
+ * @param thread
+ */
+void UIMethod::EndThread(QThread *thread)
+{
+    if(thread!=NULL&&thread->isRunning())
+    {
+        thread->quit();
+        thread->wait();
+    }
 }
 
 void UIMethod::setComBean(CommonBean *value)
@@ -127,11 +171,66 @@ void UIMethod::SelectDirSlot(QLabel *label,QString *objectID,const QString errNa
  */
 void UIMethod::SelectFileSlot(const QString dirPath)
 {
-    //QStringList st;
     QLogHelper::instance()->LogInfo("UIMethod->SelectFileSlot() 函数执行!");
     if(!QFile::exists(dirPath)){return;}
-    QLogHelper::instance()->LogDebug(dirPath);
-    //创建多线程搜索文件
-    QStringList st=comBean->getComMethod()->FindFile(dirPath,QStringList() << *(comBean->getIDType())+"*AKM対応用*.xls");
-    QLogHelper::instance()->LogDebug(QString::number(st.size()));
+    comBean->setStatusflag(1);
+    emit ActiveThreadSignal(QStringList(),dirPath,2);
 }
+/**
+ * @def 此函数功能是子线程查找文件后回调函数
+ *      关于flag说明
+ *      2       表示查找 量产管理表文件 完成
+ *      3       表示查找 成果物路径下SW确认表 完成
+ * @brief UIMethod::EndFindFileThreadSignal
+ * @param st
+ * @param flag
+ */
+void UIMethod::EndFindFileThreadSlot(QStringList st,QString dirPath, unsigned int flag)
+{
+    QLogHelper::instance()->LogInfo("UIMethod->EndFindFileThreadSignal() 函数执行!");
+    QStringList filters;
+    switch (flag) {
+    case 2:
+        if(st.isEmpty()){
+            filters.append(*(comBean->getIDType())+"*ソフトウエア部品番号管理表(量産)_AKM対応用*.xls");
+            this->StartThread(dealFileFileThread,dirPath,comBean->getComMethod(),filters,flag);
+            return;
+        }else{
+            comBean->setRelyFilePath(comBean->getComMethod()->AnalyzeRelyFilePath(st));
+            comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),RelyFileError,comBean->getRelyFilePath(),true);
+            filters.clear();
+            filters.append("コンパイルSW確認結果_*"+*(comBean->getID())+".xlsx");
+            this->StartThread(dealFileFileThread,dirPath,comBean->getComMethod(),filters,flag+1);
+        }
+        break;
+    case 3:
+        QLogHelper::instance()->LogDebug(comBean->getSWFilePath());
+        comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),SWFileError,comBean->getRelyFilePath(),true);
+        break;
+    case 4:
+        comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),IniFileError,comBean->getRelyFilePath(),true);
+        break;
+    case 5:
+        comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),APPFileError,comBean->getRelyFilePath(),true);
+        break;
+    case 6:
+        comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),JoinFileError,comBean->getRelyFilePath(),true);
+        break;
+    case 7:
+        comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),PFileError,comBean->getRelyFilePath(),true);
+        break;
+    case 8:
+        comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),CarInfoFileError,comBean->getRelyFilePath(),true);
+        comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),CarMapFileError,comBean->getRelyFilePath(),true);
+        comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),CarOSDFileError,comBean->getRelyFilePath(),true);
+        comBean->setStatusflag(0);
+        return;
+        break;
+    default:
+        break;
+    }
+    //this->StartThread(dealFileFileThread,dirPath,comBean->getComMethod(),filters,flag+1);
+    //emit FindFileThreadSignal(dirPath,comBean->getComMethod(),QStringList() << *(comBean->getIDType())+"_"+*(comBean->getID())+"_AKM火災対応_P票.xls",2);
+    //this->EndThread(dealFileFileThread);
+}
+

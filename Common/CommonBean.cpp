@@ -26,6 +26,7 @@ void CommonBean::Init()
     RelyIDType=new QString();
     SVNDirPath=new QString();
     OutputDirPath=new QString();
+    statusflag=false;
     //初始化错误码
     RExpression.insert("IDEdit","^EN(3[3-7]|42)\\d\\dP[A-Z]");
     RExpression.insert("RelyIDEdit","^EN(3[3-7]|42)\\d\\dP[A-Z]");
@@ -225,4 +226,14 @@ QString *CommonBean::getRelyIDType() const
 void CommonBean::setRelyIDType(QString *value)
 {
     RelyIDType = value;
+}
+
+unsigned int CommonBean::getStatusflag() const
+{
+    return statusflag;
+}
+
+void CommonBean::setStatusflag(unsigned int value)
+{
+    statusflag = value;
 }

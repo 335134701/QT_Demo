@@ -62,6 +62,7 @@ void AutomationTool::initStyle()
     //为Logview添加清除操作
     ui->LogView->addAction(logViewClearAction);
 }
+
 /**
  * @def 机种IDEdit文本改变完成触发函数
  *      正则表达式判断IDEdit内容是否符合要求
@@ -72,7 +73,7 @@ void AutomationTool::initStyle()
 void AutomationTool::on_IDEdit_editingFinished()
 {
     QLogHelper::instance()->LogInfo("AutomationTool->on_IDEdit_editingFinished() 函数触发执行!");
-    if(comBean==NULL){return;}
+    if(comBean==NULL||MessageWarn()){return;}
     //判断机种名称是否符合要求
     emit JudgeIDSignal(ui->IDEdit,comBean->getID());
     if(comBean->getID()->isEmpty()){return;}
@@ -91,7 +92,7 @@ void AutomationTool::on_IDEdit_editingFinished()
 void AutomationTool::on_RelyIDEdit_editingFinished()
 {
     QLogHelper::instance()->LogInfo("AutomationTool->on_RelyIDEdit_editingFinished() 函数触发执行!");
-    if(comBean==NULL){return;}
+    if(comBean==NULL||MessageWarn()){return;}
     //如果RelyIDEdit文本输入为空，则说明不依赖任何机种
     if(ui->RelyIDEdit->text().isEmpty()||ui->RelyIDEdit->text()==comBean->getID()){
         ui->RelyIDEdit->setStyleSheet(QString(errFontColor));
@@ -114,7 +115,7 @@ void AutomationTool::on_RelyIDEdit_editingFinished()
 void AutomationTool::on_SVNButton_clicked()
 {
      QLogHelper::instance()->LogInfo("AutomationTool->on_SVNButton_clicked() 函数触发执行!");
-     if(comBean==NULL){return;}
+     if(comBean==NULL||MessageWarn()){return;}
      //获取相应文件路径
      emit SelectDirSignal(ui->SVNLabel,comBean->getSVNDirPath(),SVNDirError);
      if(comBean->getSVNDirPath()->isEmpty()||comBean->getID()->isEmpty()){return;}
@@ -128,7 +129,7 @@ void AutomationTool::on_SVNButton_clicked()
 void AutomationTool::on_OutputButton_clicked()
 {
     QLogHelper::instance()->LogInfo("AutomationTool->on_OutputButton_clicked() 函数触发执行!");
-    if(comBean==NULL){return;}
+    if(comBean==NULL||MessageWarn()){return;}
     //生成路径获取
     emit SelectDirSignal(ui->OutputLabel,comBean->getOutputDirPath(),ui->OutputLabel->objectName());
 }
@@ -139,7 +140,7 @@ void AutomationTool::on_OutputButton_clicked()
 void AutomationTool::on_CreateButton_clicked()
 {
     QLogHelper::instance()->LogInfo("AutomationTool->on_CreateButton_clicked() 函数触发执行!");
-    if(comBean==NULL){return;}
+    if(comBean==NULL||MessageWarn()){return;}
     if(comBean->getErrCode()->size()==0){
 
     }else{
@@ -160,4 +161,36 @@ void AutomationTool::LogViewClearSlot()
  */
 void AutomationTool::on_CheckButton_clicked()
 {
+}
+/**
+ * @def 执行某项操作时,其他操作不可执行提示
+ *      关于 Statusflag 表示说明：
+ *          0 表示无任何操作
+ *          1 表示正在查找文件
+ *          2 表示正在解析文件
+ *          3 表示正在生成相应的文件目录结构
+ *          4 表示正在Check 相应的文件
+ * @brief AutomationTool::MessageWarn
+ * @return
+ */
+bool AutomationTool::MessageWarn()
+{
+    if(comBean->getStatusflag()!=0)
+    {
+        switch (comBean->getStatusflag()) {
+        case 1:
+            QMessageBox::warning(this,"Warn","正在执行文件查找任务，其他任务暂时无法执行!");
+            break;
+        case 2:
+            QMessageBox::warning(this,"Title","Error Message");
+            break;
+        case 3:
+            QMessageBox::warning(this,"Title","Error Message");
+            break;
+        default:
+            break;
+        }
+        return true;
+    }
+    return false;
 }

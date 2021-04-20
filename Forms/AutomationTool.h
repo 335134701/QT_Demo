@@ -55,6 +55,8 @@ private:
     void ConnectSlot();
 
     void initStyle();
+
+    bool MessageWarn();
 signals:
     void JudgeIDSignal(QLineEdit *Edit,QString *objectID);
 

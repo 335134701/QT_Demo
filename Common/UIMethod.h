@@ -5,10 +5,13 @@
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QLineEdit>
 #include <QTextEdit>
+#include <QThread>
 #include <Qmessagebox>
 #include <QFileDialog>
 #include "QLoghelper.h"
 #include "CommonBean.h"
+#include "MyThread.h"
+#include "CommonMethod.h"
 
 
 class UIMethod : public QObject
@@ -22,6 +25,9 @@ public:
 
     void setComBean(CommonBean *value);
 signals:
+    void FindFileThreadSignal(const QString dirPath,CommonMethod *commonMethod,const QStringList filters,unsigned int flag);
+
+    void ActiveThreadSignal(QStringList st,QString dirPath,unsigned int flag);
 
 public slots:
     void JudgeIDSlot(QLineEdit *Edit,QString *objectID);
@@ -34,11 +40,22 @@ public slots:
 
     void SelectFileSlot(const QString dirPath);
 
+    void EndFindFileThreadSlot(QStringList st,QString dirPath,unsigned int flag);
+
 private :
+    void Init();
+
     QString JudgeIDType(const QString ID);
 
     CommonBean *comBean;
 
+    MyThread *mythread;
+
+    QThread *dealFileFileThread;
+
+    void StartThread(QThread *thread,const QString dirPath,CommonMethod *commonMethod,const QStringList filters,unsigned int flag);
+
+    void EndThread(QThread *thread);
 };
 
 #endif // UIMETHOD_H

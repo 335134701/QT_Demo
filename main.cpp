@@ -1,4 +1,5 @@
 #include <QApplication>
+#include <QThread>
 #include "AutomationTool.h"
 
 int main(int argc, char *argv[])

@@ -36,7 +36,14 @@ QLabel#IDLabel,#RelyIDLabel{
     font: 75 11pt "微软雅黑";
 }
 QTableView{
-font: 75 12pt "微软雅黑";
-padding:3px;
-color: rgb(255, 255, 255);
+    border-color: rgb(0, 170, 0);
+    font: 75 12pt "微软雅黑";
+    padding:3px;
+    color: rgb(255, 255, 255);
+}
+QTextEdit{
+    border-color: rgb(0, 170, 0);
+    font: 75 11pt "微软雅黑";
+    padding:3px;
+    color: rgb(255, 255, 255);
 }

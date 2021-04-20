@@ -56,47 +56,47 @@ void UIMethod::setComBean(CommonBean *value)
  */
 void UIMethod::ShowIDmessageSlot(int flag)
 {
-    this->getTextEdit()->append(DATETIME+"=======================================");
+    this->getTextEdit()->append(DATETIME+" =======================================");
     switch (flag) {
     case 1:
-        this->getTextEdit()->append(DATETIME+"机种番号: "+comBean->getID());
-        this->getTextEdit()->append(DATETIME+"机种类型: "+comBean->getIDType());
+        this->getTextEdit()->append(DATETIME+" 机种番号: "+comBean->getID());
+        this->getTextEdit()->append(DATETIME+" 机种类型: "+comBean->getIDType());
         break;
     case 2:
-        this->getTextEdit()->append(DATETIME+"依赖机种番号: "+comBean->getRelyID());
-        this->getTextEdit()->append(DATETIME+"依赖机种类型: "+comBean->getRelyIDType());
+        this->getTextEdit()->append(DATETIME+" 依赖机种番号: "+comBean->getRelyID());
+        this->getTextEdit()->append(DATETIME+" 依赖机种类型: "+comBean->getRelyIDType());
         break;
     case 3:
-        this->getTextEdit()->append(DATETIME+"量产管理表路径: "+comBean->getRelyFilePath());
+        this->getTextEdit()->append(DATETIME+" 量产管理表路径: "+comBean->getRelyFilePath());
         break;
     case 4:
-        this->getTextEdit()->append(DATETIME+"ini配置文件路径: "+comBean->getIniFilePath());
+        this->getTextEdit()->append(DATETIME+" ini配置文件路径: "+comBean->getIniFilePath());
         break;
     case 5:
-        this->getTextEdit()->append(DATETIME+"P票文件路径: "+comBean->getPFilePath());
+        this->getTextEdit()->append(DATETIME+" P票文件路径: "+comBean->getPFilePath());
         break;
     case 6:
-        this->getTextEdit()->append(DATETIME+"SW確認文件路径: "+comBean->getRelyIDType());
+        this->getTextEdit()->append(DATETIME+" SW確認文件路径: "+comBean->getRelyIDType());
         break;
     case 7:
-        this->getTextEdit()->append(DATETIME+"CarInfo文件路径: "+comBean->getCarInfoFilePath());
+        this->getTextEdit()->append(DATETIME+" CarInfo文件路径: "+comBean->getCarInfoFilePath());
         break;
     case 8:
-        this->getTextEdit()->append(DATETIME+"CarMAP文件路径: "+comBean->getCarMapFilePath());
+        this->getTextEdit()->append(DATETIME+" CarMAP文件路径: "+comBean->getCarMapFilePath());
         break;
     case 9:
-        this->getTextEdit()->append(DATETIME+"OSD文件路径: "+comBean->getCarOSDFilePath());
+        this->getTextEdit()->append(DATETIME+" OSD文件路径: "+comBean->getCarOSDFilePath());
         break;
     case 10:
-        this->getTextEdit()->append(DATETIME+"join Mot文件路径: "+comBean->getJoinMot());
+        this->getTextEdit()->append(DATETIME+" join Mot文件路径: "+comBean->getJoinMot());
         break;
     case 11:
-        this->getTextEdit()->append(DATETIME+"APP Mot文件路径: "+comBean->getAPPMot());
+        this->getTextEdit()->append(DATETIME+" APP Mot文件路径: "+comBean->getAPPMot());
         break;
     default:
         break;
     }
-    this->getTextEdit()->append(DATETIME+"=======================================");
+    this->getTextEdit()->append(DATETIME+" =======================================");
 }
 /**
  * @def 判断机种名称是否符合要求

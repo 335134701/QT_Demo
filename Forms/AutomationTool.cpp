@@ -63,11 +63,15 @@ void AutomationTool::initStyle()
     //为Logview添加清除操作
     ui->LogView->addAction(logViewClearAction);
     messageViewModel=new QStandardItemModel();
+    //ui->MessageView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);//对第0列单独设置固定宽度
     messageViewModel->setItem(0, 0, new QStandardItem("张三"));
     messageViewModel->setItem(0, 1, new QStandardItem("20120202"));
     messageViewModel->setItem(1, 0, new QStandardItem("张三"));
     messageViewModel->setItem(1, 1, new QStandardItem("20120202"));
     ui->MessageView->setModel(messageViewModel);
+    ui->MessageView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->MessageView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);//对第0列单独设置固定宽度
+    ui->MessageView->setColumnWidth(0,100);
 }
 
 /**

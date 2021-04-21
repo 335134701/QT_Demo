@@ -26,8 +26,8 @@ void UIMethod::Init()
     //连接解析excel线程
     connect(this,&UIMethod::ExcelOperateThreadSignal,excelOperateThread,&ExcelOperateThread::ExcelOperateThreadSlot);
     //解析excel完成后回调函数连接
-    //connect(excelOperateThread,&ExcelOperateThread::EndExcelOperateThreadSoftSignal,this,&UIMethod::EndExcelOperateThreadSoftSlot);
-    //connect(excelOperateThread,&ExcelOperateThread::EndExcelOperateThreadSoftSignal,this,&UIMethod::EndExcelOperateThreadSoftSlot);
+    connect(excelOperateThread,&ExcelOperateThread::EndExcelOperateThreadSoftSignal,this,&UIMethod::EndExcelOperateThreadSoftSlot);
+    connect(excelOperateThread,&ExcelOperateThread::EndExcelOperateThreadSoftSignal,this,&UIMethod::EndExcelOperateThreadSoftSlot);
 }
 
 QTextEdit *UIMethod::getTextEdit() const
@@ -310,7 +310,8 @@ void UIMethod::EndFindFileThreadSlot(QStringList st, unsigned int flag, bool goO
             {
                 excelThread->start();
             }
-            emit ExcelOperateThreadSignal(*(comBean->getRelyFilePath()),*(comBean->getID()),*(comBean->getIDType()),flag);
+            emit ExcelOperateThreadSignal(comBean->getExcelOption(),*(comBean->getRelyFilePath()),*(comBean->getID()),*(comBean->getIDType()),flag);
+
         }
         comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),RelyFileError,*(comBean->getRelyFilePath()),true);
         goOn=false;

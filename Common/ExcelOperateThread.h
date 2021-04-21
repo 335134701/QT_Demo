@@ -16,7 +16,7 @@ signals:
     void EndExcelOperateThreadConfSignal(QList<CONFIGTable> list);
 
 public slots:
-    void ExcelOperateThreadSlot(const QString filePath,const QString ID,const QString IDType,unsigned int flag);
+    void ExcelOperateThreadSlot(ExcelOperation *exl,const QString filePath,const QString ID,const QString IDType,unsigned int flag);
 };
 
 #endif // EXCELOPERATETHREAD_H

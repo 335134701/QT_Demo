@@ -8,18 +8,17 @@ ExcelOperateThread::ExcelOperateThread(QObject *parent) : QObject(parent)
  * @brief ExcelOperateThread::ExcelOperateThreadSlot
  * @param filePath
  */
-void ExcelOperateThread::ExcelOperateThreadSlot(const QString filePath, const QString ID, const QString IDType, unsigned int flag)
+void ExcelOperateThread::ExcelOperateThreadSlot(ExcelOperation *exl, const QString filePath, const QString ID, const QString IDType, unsigned int flag)
 {
     QLogHelper::instance()->LogInfo("ExcelOperateThread->ExcelOperateThreadSlot() 函数执行!");
-    QList<SOFTNUMBERTable> softList;
-    QList<CONFIGTable> confList;
-    if(QFile::exists(filePath)){
-
-    }
+    QList<SOFTNUMBERTable> *softList=new QList<SOFTNUMBERTable>();
+    QList<CONFIGTable> *confList=new QList<CONFIGTable>();
     if(flag==3){
-        emit EndExcelOperateThreadSoftSignal(softList);
+        //(*softList)=exl->ReadSoftExcel(filePath,ID,IDType);
+        //emit EndExcelOperateThreadSoftSignal(softList);
     }
     else if(flag==14){
-        emit EndExcelOperateThreadConfSignal(confList);
+        //(*confList)=exl->ReadConfExcel(filePath,ID,IDType);
+        //emit EndExcelOperateThreadConfSignal(confList);
     }
 }

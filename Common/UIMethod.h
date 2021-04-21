@@ -35,7 +35,7 @@ signals:
 
     void ActiveThreadSignal(QString dirPath,unsigned int flag, bool goOn);
 
-    void ExcelOperateThreadSignal(const QString filePath,const QString ID,const QString IDType,unsigned int flag);
+    void ExcelOperateThreadSignal(ExcelOperation *exl,const QString filePath,const QString ID,const QString IDType,unsigned int flag);
 
     void ShowIDmessageSignal(int flag);
 

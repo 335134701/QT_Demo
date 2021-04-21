@@ -54,11 +54,15 @@ typedef struct ConfigTable{
     QString Configpartnumber;       //コンフィグ部番
 }CONFIGTable;
 
+using namespace libxl;
+
 class ExcelOperation : public QObject
 {
     Q_OBJECT
 public:
     explicit ExcelOperation(QObject *parent = nullptr);
+
+    bool Init(const QString filePath);
 
     QList<SOFTNUMBERTable> ReadSoftExcel(const QString filePath,const QString ID,const QString IDType);
 
@@ -66,6 +70,9 @@ public:
 signals:
 
 public slots:
+
+private :
+   Book *book;
 };
 
 #endif // EXCELOPERATION_H

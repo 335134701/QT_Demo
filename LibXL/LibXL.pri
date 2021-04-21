@@ -10,7 +10,7 @@ HEADERS += \
     $$PWD/libxl.h \
     $$PWD/setup.h
 
-LIBS += -L$$PWD/Lib/ -lCreateDLL
+LIBS += $$PWD/Lib/libxl.lib
 
 
 

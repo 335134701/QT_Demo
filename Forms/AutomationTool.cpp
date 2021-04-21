@@ -130,7 +130,7 @@ void AutomationTool::on_SVNButton_clicked()
      //获取相应文件路径
      emit SelectDirSignal(ui->SVNLabel,comBean->getSVNDirPath(),SVNDirError);
      if(comBean->getSVNDirPath()->isEmpty()||comBean->getID()->isEmpty()){return;}
-     emit SelectFileSignal(*(comBean->getSVNDirPath()),3);
+     emit SelectFileSignal(*(comBean->getSVNDirPath()),3,false);
 }
 
 /**

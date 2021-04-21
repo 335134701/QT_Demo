@@ -13,7 +13,7 @@ public:
 
     QString JudgeIDType(const QString ID);
 
-    QString AnalyzePath(const QString dirPath,unsigned int flag);
+    QString AnalyzePath(const QString dirPath,const QString ID,QString IDType,unsigned int flag);
 
     void ErrorCodeDeal(QMap<QString,ERRCODETYPE> *errCode,QMap<QString,ERRCODETYPE> errCodeType,const QString objectName,const QString condition,bool flag);
 

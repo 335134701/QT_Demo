@@ -69,7 +69,7 @@ signals:
 
     void SelectDirSignal(QLabel *label,QString *objectID,const QString errName);
 
-    void SelectFileSignal(QString dirPath,unsigned int flag);
+    void SelectFileSignal(QString dirPath,unsigned int flag, bool goOn);
 };
 
 #endif // AUTOMATIONTOOL_H

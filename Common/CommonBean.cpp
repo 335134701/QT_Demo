@@ -18,6 +18,8 @@ void CommonBean::Init()
     QLogHelper::instance()->LogInfo("CommonBean->Init() 函数执行!");
     comMethod=new CommonMethod();
     errCode=new QMap<QString,ERRCODETYPE>();
+    softNumberTable=new QList<SOFTNUMBERTable>();
+    configTable=new QList<CONFIGTable>();
     xmlOperate=new XMLOperate();            //初始化设置Error Code，通过解析XML方式获取错误码
     excelOption=new ExcelOperation();
     ID=new QString();
@@ -36,6 +38,8 @@ void CommonBean::Init()
     JoinMot=new QString();
     APPMot=new QString();
     EEFilePath=new QString();
+    ReadyFilePath=new QString();
+    ConfigFilePath=new QString();
     statusflag=false;
     //初始化错误码
     RExpression.insert("IDEdit","^EN(3[3-7]|42)\\d\\dP[A-Z]");
@@ -281,5 +285,45 @@ QString *CommonBean::getEEFilePath() const
 void CommonBean::setEEFilePath(QString *value)
 {
     EEFilePath = value;
+}
+
+QString *CommonBean::getReadyFilePath() const
+{
+    return ReadyFilePath;
+}
+
+void CommonBean::setReadyFilePath(QString *value)
+{
+    ReadyFilePath = value;
+}
+
+QString *CommonBean::getConfigFilePath() const
+{
+    return ConfigFilePath;
+}
+
+void CommonBean::setConfigFilePath(QString *value)
+{
+    ConfigFilePath = value;
+}
+
+QList<SOFTNUMBERTable> *CommonBean::getSoftNumberTable() const
+{
+    return softNumberTable;
+}
+
+void CommonBean::setSoftNumberTable(QList<SOFTNUMBERTable> *value)
+{
+    softNumberTable = value;
+}
+
+QList<CONFIGTable> *CommonBean::getConfigTable() const
+{
+    return configTable;
+}
+
+void CommonBean::setConfigTable(QList<CONFIGTable> *value)
+{
+    configTable = value;
 }
 

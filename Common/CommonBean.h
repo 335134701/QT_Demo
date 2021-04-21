@@ -23,6 +23,9 @@
 #define CarInfoFileError        "CarInfoFileError"
 #define CarMapFileError         "CarMapFileError"
 #define CarOSDFileError         "CarOSDFileError"
+#define EEFileError             "EEFileError"
+#define ReadyFileError          "ReadyFileError"
+#define ConfigFileError         "ConfigFileError"
 
 
 
@@ -108,12 +111,28 @@ public:
 
     QString *getEEFilePath() const;
     void setEEFilePath(QString *value);
+    QString *getReadyFilePath() const;
+    void setReadyFilePath(QString *value);
+
+    QString *getConfigFilePath() const;
+    void setConfigFilePath(QString *value);
+
+    QList<SOFTNUMBERTable> *getSoftNumberTable() const;
+    void setSoftNumberTable(QList<SOFTNUMBERTable> *value);
+
+    QList<CONFIGTable> *getConfigTable() const;
+    void setConfigTable(QList<CONFIGTable> *value);
+
 private :
     unsigned int statusflag;
 
     QMap<QString,QString> RExpression;
     //错误状态码集合
     QMap<QString,ERRCODETYPE> *errCode;
+    //ソフトウエア部品番号管理表(量産)_AKM対応用解析集合
+    QList<SOFTNUMBERTable> *softNumberTable;
+    //採用車種コンフィグ詳細文件解析集合
+    QList<CONFIGTable> *configTable;
     //机种番号
     QString *ID;
     //依赖机种番号
@@ -147,7 +166,9 @@ private :
     //EE模板文件路径
     QString *EEFilePath;
     //确认文件路径
-    //QString *
+    QString *ReadyFilePath;
+    //EntryAVM採用車種コンフィグ詳細
+    QString *ConfigFilePath;
     //公共的方法类对象
     CommonMethod *comMethod;
     //处理XML的对象

@@ -86,5 +86,23 @@
         <ErrDef>CarOSD文件不存在</ErrDef>
         <Level>Error</Level>
     </ErrCode>
+    <ErrCode>
+        <ID>EEFileError</ID>
+        <Def>EE-A002-1000 DR会議運用手順_様式7文件不存在错误</Def>
+        <ErrDef>EE-A002-1000 DR会議運用手順_様式7文件不存在</ErrDef>
+        <Level>Error</Level>
+    </ErrCode>
+    <ErrCode>
+        <ID>ReadyFileError</ID>
+        <Def>確認シート文件不存在错误</Def>
+        <ErrDef>確認シート文件不存在</ErrDef>
+        <Level>Error</Level>
+    </ErrCode>
+    <ErrCode>
+        <ID>ConfigFileError</ID>
+        <Def>EntryAVM採用車種コンフィグ詳細文件不存在错误</Def>
+        <ErrDef>EntryAVM採用車種コンフィグ詳細文件不存在</ErrDef>
+        <Level>Error</Level>
+    </ErrCode>
 </ERRCodeType>
 

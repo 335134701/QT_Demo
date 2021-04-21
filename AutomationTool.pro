@@ -32,9 +32,10 @@ RESOURCES           += Conf/conf.qrc \
 include             ($$PWD/Forms/Forms.pri)
 include             ($$PWD/QLog/QLog.pri)
 include             ($$PWD/Common/Common.pri)
+include             ($$PWD/LibXL/LibXL.pri)
 
 INCLUDEPATH         += $$PWD
 INCLUDEPATH         += $$PWD/Forms
 INCLUDEPATH         += $$PWD/QLog
 INCLUDEPATH         += $$PWD/Common
-
+INCLUDEPATH         += $$PWD/LibXL

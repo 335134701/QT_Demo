@@ -6,12 +6,14 @@
 #include <QtWidgets/QLineEdit>
 #include <QTextEdit>
 #include <QThread>
+#include <QDir>
 #include <Qmessagebox>
 #include <QFileDialog>
 #include "QLoghelper.h"
 #include "CommonBean.h"
 #include "MyThread.h"
 #include "CommonMethod.h"
+#include "ExcelOperateThread.h"
 
 
 class UIMethod : public QObject
@@ -29,9 +31,11 @@ public:
     void setTextEdit(QTextEdit *value);
 
 signals:
-    void FindFileThreadSignal(const QString dirPath,CommonMethod *commonMethod,const QStringList filters,unsigned int flag);
+    void FindFileThreadSignal(const QString dirPath,CommonMethod *commonMethod,const QStringList filters,unsigned int flag, bool goOn);
 
-    void ActiveThreadSignal(QString dirPath,unsigned int flag);
+    void ActiveThreadSignal(QString dirPath,unsigned int flag, bool goOn);
+
+    void ExcelOperateThreadSignal(const QString filePath,const QString ID,const QString IDType,unsigned int flag);
 
     void ShowIDmessageSignal(int flag);
 
@@ -44,9 +48,12 @@ public slots:
 
     void SelectDirSlot(QLabel *label,QString *objectID,const QString errName);
 
-    void SelectFileSlot(QString dirPath,unsigned int flag);
+    void SelectFileSlot(QString dirPath,unsigned int flag, bool goOn);
 
-    void EndFindFileThreadSlot(QStringList st,unsigned int flag);
+    void EndFindFileThreadSlot(QStringList st,unsigned int flag, bool goOn);
+
+    void EndExcelOperateThreadSoftSlot(QList<SOFTNUMBERTable> list);
+    void EndExcelOperateThreadConfSlot(QList<CONFIGTable> list);
 
 private :
     void Init();
@@ -59,7 +66,11 @@ private :
 
     MyThread *mythread;
 
+    ExcelOperateThread *excelOperateThread;
+
     QThread *dealFileFileThread;
+
+    QThread *excelThread;
 
 };
 

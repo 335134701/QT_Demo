@@ -13,13 +13,13 @@ MyThread::MyThread(QObject *parent) : QObject(parent)
  * @param filters
  * @param flag
  */
-void MyThread::FindFileThreadSlot(const QString dirPath,CommonMethod *commonMethod,const QStringList filters,unsigned int flag)
+void MyThread::FindFileThreadSlot(const QString dirPath,CommonMethod *commonMethod,const QStringList filters,unsigned int flag, bool goOn)
 {
-    QStringList qlist;
     QLogHelper::instance()->LogInfo("MyThread->FindFileThreadSlot() 函数执行!");
+    QStringList qlist;
     //文件搜索
     qlist=commonMethod->FindFile(dirPath,filters);
     //线程处理结束
-    emit EndFindFileThreadSignal(qlist,flag);
+    emit EndFindFileThreadSignal(qlist,flag,goOn);
 }
 

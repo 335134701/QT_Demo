@@ -274,7 +274,7 @@ void UIMethod::SelectFileSlot(QString dirPath,unsigned int flag, bool goOn)
         //filters.append(*(comBean->getIDType())+"*ソフトウエア部品番号管理表(量産)_AKM対応用*.xls");
         break;
     case 14:
-        //filters.append(*(comBean->getIDType())+"*ソフトウエア部品番号管理表(量産)_AKM対応用*.xls");
+        filters.append(*(comBean->getIDType())+"*採用車種コンフィグ詳細*.xls");
         break;
     }
     dirPath=comBean->getComMethod()->AnalyzePath(dirPath,*(comBean->getID()),*(comBean->getIDType()),flag);
@@ -360,6 +360,7 @@ void UIMethod::EndFindFileThreadSlot(QStringList st, unsigned int flag, bool goO
     case 14:
         comBean->getComMethod()->AnalyzeFilePath(st,comBean->getConfigFilePath(),flag);
         if(!comBean->getConfigFilePath()->isEmpty()&&!excelThread->isRunning()){
+            excelThread->start();
             emit ExcelOperateThreadSignal(comBean->getExcelOption(),*(comBean->getConfigFilePath()),*(comBean->getID()),*(comBean->getIDType()),flag);
         }
         comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),ConfigFileError,*(comBean->getRelyFilePath()),true);

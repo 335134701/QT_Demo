@@ -34,6 +34,7 @@ QList<SOFTNUMBERTable> ExcelOperation::ReadSoftExcel(const QString filePath, con
     Sheet *sheetread;
     QList<SOFTNUMBERTable> *softlist=new QList<SOFTNUMBERTable>();
     SOFTNUMBERTable soft;
+    QString CarModels,PartNumber,CANGen,Productionstage;
     if(this->Init(filePath)&&book->load(filePath.toLocal8Bit()))
     {
         if(IDType!="EntryAVM2"){
@@ -47,27 +48,35 @@ QList<SOFTNUMBERTable> ExcelOperation::ReadSoftExcel(const QString filePath, con
             if(ID==QString::fromLocal8Bit(sheetread->readStr(i,1))||(flag&&QString::fromLocal8Bit(sheetread->readStr(i,1)).isEmpty())){
                 flag=true;
             }else{flag=false;}
-            if(flag&&(sheetread->cellFormat(i,5)->patternForegroundColor()==13||sheetread->cellFormat(i,5)->patternForegroundColor()==51))
+            if(flag)
             {
-                soft.ModelNumber=sheetread->readStr(i,1);
-                soft.CarModels=sheetread->readStr(i,2);
-                soft.PartNumber=sheetread->readStr(i,3);
-                soft.CANGen=sheetread->readStr(i,4);
-                soft.Productionstage=sheetread->readStr(i,5);
-                soft.ApplicationPartNo=sheetread->readStr(i,11);
-                soft.ApplicationVer=sheetread->readStr(i,12);
-                soft.CarInfoPartNo=sheetread->readStr(i,13);
-                soft.CarInfoVer=sheetread->readStr(i,14);
-                soft.CameraMAPPartNo=sheetread->readStr(i,15);
-                soft.CameraMAPVer=sheetread->readStr(i,16);
-                soft.OSDPartNo=sheetread->readStr(i,17);
-                soft.OSDVer=sheetread->readStr(i,18);
-                soft.CANfblPartNo=sheetread->readStr(i,19);
-                soft.CANfblVer=sheetread->readStr(i,20);
-                soft.BootloaderPartNo=sheetread->readStr(i,21);
-                soft.BootloaderVer=sheetread->readStr(i,22);
-                soft.DiagnosticCode=sheetread->readStr(i,23);
-                softlist->append(soft);
+                if(CarModels.isEmpty()){CarModels=QString(sheetread->readStr(i,2));}
+                if(PartNumber.isEmpty()){PartNumber=QString(sheetread->readStr(i,3));}
+                if(CANGen.isEmpty()){CANGen=QString(sheetread->readStr(i,4));}
+                if(Productionstage.isEmpty()){Productionstage=QString(sheetread->readStr(i,5));}
+                if((sheetread->cellFormat(i,5)->patternForegroundColor()==13||sheetread->cellFormat(i,5)->patternForegroundColor()==51))
+                {
+                    soft.ModelNumber=ID;
+                    soft.CarModels=CarModels;
+                    soft.PartNumber=PartNumber;
+                    soft.CANGen=CANGen;
+                    soft.Productionstage=Productionstage;
+                    soft.ApplicationPartNo=QString(sheetread->readStr(i,11));
+                    soft.ApplicationVer=QString(sheetread->readStr(i,12));
+                    soft.CarInfoPartNo=QString(sheetread->readStr(i,13));
+                    soft.CarInfoVer=QString(sheetread->readStr(i,14));
+                    soft.CameraMAPPartNo=QString(sheetread->readStr(i,15));
+                    soft.CameraMAPVer=QString(sheetread->readStr(i,16));
+                    soft.OSDPartNo=QString(sheetread->readStr(i,17));
+                    soft.OSDVer=QString(sheetread->readStr(i,18));
+                    soft.CANfblPartNo=QString(sheetread->readStr(i,19));
+                    soft.CANfblVer=QString(sheetread->readStr(i,20));
+                    soft.BootloaderPartNo=QString(sheetread->readStr(i,21));
+                    soft.BootloaderVer=QString(sheetread->readStr(i,22));
+                    soft.DiagnosticCode=QString(sheetread->readStr(i,23));
+                    QLogHelper::instance()->LogDebug(soft.DiagnosticCode);
+                    softlist->append(soft);
+                }
             }
         }
     }
@@ -98,17 +107,17 @@ QList<CONFIGTable> ExcelOperation::ReadConfExcel(const QString filePath, const Q
             }else{flag=false;}
             if(flag){
                 /*
-                conf.Vehicletype=sheetread->readStr(i,3);            //車種 Vehicle
-                conf.ITS=sheetread->readStr(i,9);                    //ITS
-                conf.PickMethod=sheetread->readStr(i,11);;             //接続先・方式
-                conf.Destination=sheetread->readStr(i,13);;            //仕向け
-                conf.Wheelspeedpulse=sheetread->readStr(i,15);;        //車輪速パルス
-                conf.CANspecifications=sheetread->readStr(i,17);;      //CAN仕様
-                conf.Camerasystem=sheetread->readStr(i,19);;           //カメラシステム
-                conf.WAS=sheetread->readStr(i,21);;                    //4WAS有無
-                conf.Steeringgearratio=sheetread->readStr(i,23);;      //ステアリングギア比
-                conf.VCANsonar=sheetread->readStr(i,25);;              //V-CANソナー有無
-                conf.Sonarinterrupt=sheetread->readStr(i,27);;         //ソナー割り込み表示機能有無
+                conf.Vehicletype=sheetread->readStr(i,4);            //車種 Vehicle
+                conf.ITS=sheetread->readStr(i,10);                    //ITS
+                conf.PickMethod=sheetread->readStr(i,12);;             //接続先・方式
+                conf.Destination=sheetread->readStr(i,14);;            //仕向け
+                conf.Wheelspeedpulse=sheetread->readStr(i,16);;        //車輪速パルス
+                conf.CANspecifications=sheetread->readStr(i,18);;      //CAN仕様
+                conf.Camerasystem=sheetread->readStr(i,20);;           //カメラシステム
+                conf.WAS=sheetread->readStr(i,22);;                    //4WAS有無
+                conf.Steeringgearratio=sheetread->readStr(i,24);;      //ステアリングギア比
+                conf.VCANsonar=sheetread->readStr(i,26);;              //V-CANソナー有無
+                conf.Sonarinterrupt=sheetread->readStr(i,28);;         //ソナー割り込み表示機能有無
                 conf.Expectedadroute=sheetread->readStr(i,1);;        //予想進路線の有無
                 conf.Steerspecifications=sheetread->readStr(i,1);;    //左右ステアリング仕様
                 conf.Mission=sheetread->readStr(i,1);;                //ミッション

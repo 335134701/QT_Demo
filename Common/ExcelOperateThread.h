@@ -17,6 +17,9 @@ signals:
 
 public slots:
     void ExcelOperateThreadSlot(ExcelOperation *exl,const QString filePath,const QString ID,const QString IDType,unsigned int flag);
+
+private :
+    QList<SOFTNUMBERTable> DealSoftTable(QList<SOFTNUMBERTable> list);
 };
 
 #endif // EXCELOPERATETHREAD_H

@@ -58,7 +58,7 @@ void CommonMethod::ErrorCodeDeal(QMap<QString, ERRCODETYPE> *errCode, QMap<QStri
 {
     QLogHelper::instance()->LogInfo("CommonMethod->ErrorCodeDeal() 函数执行!");
     if(errCode==NULL){return;}
-    if((flag&&errCode->value(objectName).ID.isEmpty())&&condition.isEmpty()){
+    if((flag&&errCode->value(objectName).ID.isEmpty())&&(condition.isEmpty()||condition=="0")){
         QLogHelper::instance()->LogDebug("CommonMethod->ErrorCodeDeal() 添加错误码!");
         //如果错误码不存在，则添加错误码
         errCode->insert(objectName,errCodeType.value(objectName));

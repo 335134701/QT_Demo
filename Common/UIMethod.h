@@ -7,6 +7,7 @@
 #include <QTextEdit>
 #include <QThread>
 #include <QDir>
+#include <QMetaType>
 #include <Qmessagebox>
 #include <QFileDialog>
 #include "QLoghelper.h"
@@ -14,6 +15,7 @@
 #include "MyThread.h"
 #include "CommonMethod.h"
 #include "ExcelOperateThread.h"
+#include "ExcelOperation.h"
 
 
 class UIMethod : public QObject

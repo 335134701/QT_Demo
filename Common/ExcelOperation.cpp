@@ -73,8 +73,8 @@ QList<SOFTNUMBERTable> ExcelOperation::ReadSoftExcel(const QString filePath, con
                     soft.CANfblVer=QString(sheetread->readStr(i,20));
                     soft.BootloaderPartNo=QString(sheetread->readStr(i,21));
                     soft.BootloaderVer=QString(sheetread->readStr(i,22));
-                    soft.DiagnosticCode=QString(sheetread->readStr(i,23));
-                    QLogHelper::instance()->LogDebug(soft.DiagnosticCode);
+                    QByteArray byte(sheetread->readStr(i,23));
+                    soft.DiagnosticCode = codec->toUnicode(byte);
                     softlist->append(soft);
                 }
             }

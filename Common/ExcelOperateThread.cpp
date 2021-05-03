@@ -13,24 +13,9 @@ void ExcelOperateThread::ExcelOperateThreadSlot(ExcelOperation *exl, const QStri
     QLogHelper::instance()->LogInfo("ExcelOperateThread->ExcelOperateThreadSlot() 函数执行!");
     QList<SOFTNUMBERTable> *softList=new QList<SOFTNUMBERTable>();
     QList<CONFIGTable> *confList=new QList<CONFIGTable>();
-    QString DiagnosticCode;
-    if(flag==3){
+    if(flag==RelyFileflag){
         (*softList)=exl->ReadSoftExcel(filePath,ID,IDType);
-        (*softList)=this->DealSoftTable(*(softList));
-        QLogHelper::instance()->LogDebug((*softList)[0].DiagnosticCode);
-        //如果还是未获取诊断码，则人为赋值诊断码
-        if(softList->size()>0&&(*softList)[0].DiagnosticCode.isEmpty()){
-            if(IDType=="EntryAVM"){DiagnosticCode=0x09;}
-            if(IDType=="EntryAVM2"){DiagnosticCode=0x09;}
-            //if(IDType=="EntryAVM"){DiagnosticCode=0x09;}
-            //if(IDType=="EntryAVM"){DiagnosticCode=0x09;}
-            //if(IDType=="EntryAVM"){DiagnosticCode=0x09;}
-            //if(IDType=="EntryAVM"){DiagnosticCode=0x09;}
-            //if(IDType=="EntryAVM"){DiagnosticCode=0x09;}
-        }
-        for(int i=0;i<softList->size();i++){
-            (*softList)[i].DiagnosticCode=DiagnosticCode;
-        }
+        (*softList)=this->DealSoftTable(*(softList),IDType);
         emit EndExcelOperateThreadSoftSignal(*softList);
     }
     else if(flag==14){
@@ -65,7 +50,7 @@ void ExcelOperateThread::ExcelOperateThreadSlot(ExcelOperation *exl, const QStri
     QString BootloaderVer;          //Bootloader Ver
     QString DiagnosticCode;         //診断識別コード
  */
-QList<SOFTNUMBERTable> ExcelOperateThread::DealSoftTable(QList<SOFTNUMBERTable> list)
+QList<SOFTNUMBERTable> ExcelOperateThread::DealSoftTable(QList<SOFTNUMBERTable> list,QString IDType)
 {
     QLogHelper::instance()->LogInfo("ExcelOperateThread->DealSoftTable() 函数执行!");
     SOFTNUMBERTable soft;
@@ -108,14 +93,24 @@ QList<SOFTNUMBERTable> ExcelOperateThread::DealSoftTable(QList<SOFTNUMBERTable> 
         if(!list[i].BootloaderVer.isEmpty()){soft.BootloaderVer=list[i].BootloaderVer;}
         else {list[i].BootloaderVer=soft.BootloaderVer;}
 
-        //QLogHelper::instance()->LogDebug(list[i].DiagnosticCode.mid(0,list[i].DiagnosticCode.indexOf("/")));
         if(list[i].DiagnosticCode.contains("診断識別コード")){
-            DiagnosticCode=list[i].DiagnosticCode.mid(list[i].DiagnosticCode.lastIndexOf("診断識別コード"));
-            DiagnosticCode=DiagnosticCode.mid(DiagnosticCode.indexOf("/"));
+            DiagnosticCode=list[i].DiagnosticCode.left(list[i].DiagnosticCode.indexOf("/"));
+            DiagnosticCode=DiagnosticCode.right(DiagnosticCode.indexOf("ード"));
         }
     }
+    //未获取到诊断识别码
+    if(DiagnosticCode.isEmpty()){
+        if(IDType=="EntryAVM"){DiagnosticCode=0x09;}
+        if(IDType=="EntryAVM2"){DiagnosticCode=0x0A;}
+        if(IDType=="EntryIPA"){DiagnosticCode=0x0C;}
+        if(IDType=="FAP"){DiagnosticCode=0x09;}
+        if(IDType=="NextPH3"){DiagnosticCode=0x09;}
+    }
+    //填充所有诊断识别码
     for(int i=0;i<list.size();i++){
-        list[i].DiagnosticCode=DiagnosticCode;
+        if(list[i].DiagnosticCode.isEmpty()){
+            list[i].DiagnosticCode=DiagnosticCode;
+        }
     }
     return list;
 }

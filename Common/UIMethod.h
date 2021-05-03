@@ -12,10 +12,11 @@
 #include <QFileDialog>
 #include "QLoghelper.h"
 #include "CommonBean.h"
-#include "MyThread.h"
+#include "FileThread.h"
 #include "CommonMethod.h"
 #include "ExcelOperateThread.h"
 #include "ExcelOperation.h"
+#include "DEFINE.h"
 
 
 class UIMethod : public QObject
@@ -66,7 +67,7 @@ private :
 
     CommonBean *comBean;
 
-    MyThread *mythread;
+    FileThread *fileThread;
 
     ExcelOperateThread *excelOperateThread;
 

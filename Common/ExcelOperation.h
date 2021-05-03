@@ -2,8 +2,10 @@
 #define EXCELOPERATION_H
 
 #include <QObject>
+#include <QTextCodec>
 #include "libxl.h"
 #include "QLoghelper.h"
+#include "DEFINE.h"
 
 typedef struct SoftNumberTable{
     QString ModelNumber;            //クラリオン機種番号
@@ -60,6 +62,8 @@ class ExcelOperation : public QObject
 {
     Q_OBJECT
 public:
+    QTextCodec *codec = QTextCodec::codecForName("GBK") ;
+
     explicit ExcelOperation(QObject *parent = nullptr);
 
     bool Init(const QString filePath);

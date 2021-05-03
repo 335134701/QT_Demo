@@ -9,23 +9,8 @@
 #include "CommonMethod.h"
 #include "XMLOperate.h"
 #include "ExcelOperation.h"
+#include "DEFINE.h"
 
-#define DATETIME                QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss")
-#define DATAStytle              "[ "+DATETIME+" ] "
-#define IDRelyID                "IDRelyID"
-#define RelyFileError           "RelyFileError"
-#define SVNDirError             "SVNDirError"
-#define IniFileError            "IniFileError"
-#define APPFileError            "APPFileError"
-#define JoinFileError           "JoinFileError"
-#define PFileError              "PFileError"
-#define SWFileError             "SWFileError"
-#define CarInfoFileError        "CarInfoFileError"
-#define CarMapFileError         "CarMapFileError"
-#define CarOSDFileError         "CarOSDFileError"
-#define EEFileError             "EEFileError"
-#define ReadyFileError          "ReadyFileError"
-#define ConfigFileError         "ConfigFileError"
 
 
 
@@ -34,6 +19,7 @@ class CommonBean : public QObject
     Q_OBJECT
 
 public:
+
     explicit CommonBean(QObject *parent = nullptr);
 
     const QString desktopDirPath = QStandardPaths::writableLocation(QStandardPaths::DesktopLocation);

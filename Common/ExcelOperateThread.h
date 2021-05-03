@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include "QLoghelper.h"
+#include "DEFINE.h"
 #include "ExcelOperation.h"
 
 class ExcelOperateThread : public QObject
@@ -19,7 +20,7 @@ public slots:
     void ExcelOperateThreadSlot(ExcelOperation *exl,const QString filePath,const QString ID,const QString IDType,unsigned int flag);
 
 private :
-    QList<SOFTNUMBERTable> DealSoftTable(QList<SOFTNUMBERTable> list);
+    QList<SOFTNUMBERTable> DealSoftTable(QList<SOFTNUMBERTable> list,QString IDType);
 };
 
 #endif // EXCELOPERATETHREAD_H

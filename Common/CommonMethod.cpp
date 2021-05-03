@@ -121,24 +121,24 @@ QString CommonMethod::AnalyzePath(const QString dirPath,const QString ID,QString
     if(pathName.mid(pathName.lastIndexOf("/")+1)=="trunk"&&QDir(pathName+"/01REQ").exists()){pathName=pathName+"/01REQ";}
     if(QDir(pathName).exists()){
         switch (flag) {
-        case 3:
+        case RelyFileflag:
             if(pathName.mid(pathName.lastIndexOf("/")+1)=="01REQ"&&QDir(pathName+"/0101Model").exists()){pathName=pathName+"/0101Model";}
             if(pathName.mid(pathName.lastIndexOf("/")+1)=="0101Model"&&QDir(pathName+"/按类型归档").exists()){pathName=pathName+"/按类型归档";}
             if(pathName.mid(pathName.lastIndexOf("/")+1)=="按类型归档"&&QDir(pathName+"/旭化成工場 火事対応").exists()){pathName=pathName+"/旭化成工場 火事対応";}
             if(pathName.mid(pathName.lastIndexOf("/")+1)=="旭化成工場 火事対応"&&QDir(pathName+"/00量产管理表").exists()){pathName=pathName+"/00量产管理表";}
             break;
-        case 4:
-        case 12:
-        case 13:
+        case IniFileflag:
+        case EEFileflag:
+        case ReadyFileflag:
             if(pathName.mid(pathName.lastIndexOf("/")+1)=="01REQ"&&QDir(pathName+"/0101Model").exists()){pathName=pathName+"/0101Model";}
             if(pathName.mid(pathName.lastIndexOf("/")+1)=="0101Model"&&QDir(pathName+"/按类型归档").exists()){pathName=pathName+"/按类型归档";}
             if(pathName.mid(pathName.lastIndexOf("/")+1)=="按类型归档"&&QDir(pathName+"/旭化成工場 火事対応").exists()){pathName=pathName+"/旭化成工場 火事対応";}
             if(pathName.mid(pathName.lastIndexOf("/")+1)=="旭化成工場 火事対応"&&QDir(pathName+"/入检资料作成情報").exists()){pathName=pathName+"/入检资料作成情報";}
             break;
-        case 5:
-        case 6:
-        case 10:
-        case 11:
+        case PFileflag:
+        case SWFileflag:
+        case JoinFileflag:
+        case APPFileflag:
             if(pathName.mid(pathName.lastIndexOf("/")+1)=="01REQ"&&QDir(pathName+"/0102Report").exists()){pathName=pathName+"/0102Report";}
             if(pathName.mid(pathName.lastIndexOf("/")+1)=="0102Report"&&QDir(pathName+"/00成果物").exists()){pathName=pathName+"/00成果物";}
             if(pathName.mid(pathName.lastIndexOf("/")+1)=="00成果物"&&QDir(pathName+"/旭化成工場 火事対応").exists()){pathName=pathName+"/旭化成工場 火事対応";}
@@ -146,13 +146,11 @@ QString CommonMethod::AnalyzePath(const QString dirPath,const QString ID,QString
             if(pathName.mid(pathName.lastIndexOf("/")+1)=="旭化成工場 火事対応"&&QDir(pathName+"/"+IDType).exists()){pathName=pathName+"/"+IDType;}
             if(pathName.mid(pathName.lastIndexOf("/")+1)==IDType&&QDir(pathName+"/"+ID).exists()){pathName=pathName+"/"+ID;}
             break;
-        case 7:
+        case CarInfoFileflag:
+        case CarMapFileflag:
+        case CarOSDFileflag:
             break;
-        case 8:
-            break;
-        case 9:
-            break;
-        case 14:
+        case ConfigFileflag:
             if(pathName.mid(pathName.lastIndexOf("/")+1)=="01REQ"&&QDir(pathName+"/0101Model").exists()){pathName=pathName+"/0101Model";}
             if(pathName.mid(pathName.lastIndexOf("/")+1)=="0101Model"&&QDir(pathName+"/按类型归档").exists()){pathName=pathName+"/按类型归档";}
             if(pathName.mid(pathName.lastIndexOf("/")+1)=="按类型归档"&&QDir(pathName+"/旭化成工場 火事対応").exists()){pathName=pathName+"/旭化成工場 火事対応";}
@@ -192,7 +190,7 @@ void CommonMethod::AnalyzeFilePath(const QStringList filePaths, QString *filePat
     QString path;
     int size=0,tmpsize=0;
     switch (flag) {
-    case 3:
+    case RelyFileflag:
         foreach (QString file, filePaths) {
             tmpsize=file.mid(file.lastIndexOf("_")+1,6).toInt();
             if(tmpsize>size){
@@ -201,43 +199,29 @@ void CommonMethod::AnalyzeFilePath(const QStringList filePaths, QString *filePat
             }
         }
         break;
-    case 4:
-    case 5:
-    case 6:
-        if(filePaths.size()>0){path=filePaths[0];}
+    case IniFileflag:
+    case PFileflag:
+    case SWFileflag:
+    case CarInfoFileflag:
+    case CarMapFileflag:
+    case CarOSDFileflag:
+        if(filePaths.size()>0){path=filePaths[filePaths.size()-1];}
         break;
-    case 7:
+    case JoinFileflag:
+    case APPFileflag:
+        if(filePaths.size()>0){path=filePaths[filePaths.size()-1];}
+        break;
+    case EEFileflag:
         foreach (QString file, filePaths) {
             QLogHelper::instance()->LogInfo(file);
         }
         break;
-    case 8:
+    case ReadyFileflag:
         foreach (QString file, filePaths) {
             QLogHelper::instance()->LogInfo(file);
         }
         break;
-    case 9:
-        foreach (QString file, filePaths) {
-            QLogHelper::instance()->LogInfo(file);
-        }
-        break;
-    case 10:
-        if(filePaths.size()>0){path=filePaths[0];}
-        break;
-    case 11:
-        if(filePaths.size()>0){path=filePaths[0];}
-        break;
-    case 12:
-        foreach (QString file, filePaths) {
-            QLogHelper::instance()->LogInfo(file);
-        }
-        break;
-    case 13:
-        foreach (QString file, filePaths) {
-            QLogHelper::instance()->LogInfo(file);
-        }
-        break;
-    case 14:
+    case ConfigFileflag:
         foreach (QString file, filePaths) {
             QLogHelper::instance()->LogInfo(file);
         }

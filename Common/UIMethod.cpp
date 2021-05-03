@@ -1,5 +1,6 @@
 #include "UIMethod.h"
 
+
 UIMethod::UIMethod(QObject *parent) : QObject(parent)
 {
     QLogHelper::instance()->LogInfo("UIMethod() 构造函数执行!");
@@ -10,9 +11,9 @@ UIMethod::UIMethod(QObject *parent) : QObject(parent)
  */
 void UIMethod::Init()
 {
-    mythread=new MyThread();
+    fileThread=new FileThread();
     dealFileFileThread=new QThread();
-    mythread->moveToThread(dealFileFileThread);
+    fileThread->moveToThread(dealFileFileThread);
     excelOperateThread=new ExcelOperateThread();
     excelThread=new QThread();
     excelOperateThread->moveToThread(excelThread);
@@ -23,9 +24,9 @@ void UIMethod::Init()
 
     connect(this,&UIMethod::ActiveThreadSignal,this,&UIMethod::SelectFileSlot);
     //激活线程，以信号槽的方式
-    connect(this,&UIMethod::FindFileThreadSignal,mythread,&MyThread::FindFileThreadSlot);
+    connect(this,&UIMethod::FindFileThreadSignal,fileThread,&FileThread::FindFileThreadSlot);
     //线程处理完，返回主函数，以信号槽方式
-    connect(mythread,&MyThread::EndFindFileThreadSignal,this,&UIMethod::EndFindFileThreadSlot);
+    connect(fileThread,&FileThread::EndFindFileThreadSignal,this,&UIMethod::EndFindFileThreadSlot);
     //LogView显示
     connect(this,&UIMethod::ShowIDmessageSignal,this,&UIMethod::ShowIDmessageSlot);
     //连接解析excel线程
@@ -76,48 +77,48 @@ void UIMethod::ShowIDmessageSlot(int flag)
 {
     this->getTextEdit()->append(DATETIME+" =======================================");
     switch (flag) {
-    case 1:
+    case IDflag:
         this->getTextEdit()->append(DATETIME+" 机种番号: "+comBean->getID());
         this->getTextEdit()->append(DATETIME+" 机种类型: "+comBean->getIDType());
         break;
-    case 2:
+    case IDTypeflag:
         this->getTextEdit()->append(DATETIME+" 依赖机种番号: "+comBean->getRelyID());
         this->getTextEdit()->append(DATETIME+" 依赖机种类型: "+comBean->getRelyIDType());
         break;
-    case 3:
+    case RelyFileflag:
         this->getTextEdit()->append(DATETIME+" 量产管理表路径: "+comBean->getRelyFilePath());
         break;
-    case 4:
+    case IniFileflag:
         this->getTextEdit()->append(DATETIME+" ini配置文件路径: "+comBean->getIniFilePath());
         break;
-    case 5:
+    case PFileflag:
         this->getTextEdit()->append(DATETIME+" P票文件路径: "+comBean->getPFilePath());
         break;
-    case 6:
-        this->getTextEdit()->append(DATETIME+" SW確認文件路径: "+comBean->getRelyIDType());
+    case SWFileflag:
+        this->getTextEdit()->append(DATETIME+" SW確認文件路径: "+comBean->getSWFilePath());
         break;
-    case 7:
+    case CarInfoFileflag:
         this->getTextEdit()->append(DATETIME+" CarInfo文件路径: "+comBean->getCarInfoFilePath());
         break;
-    case 8:
+    case CarMapFileflag:
         this->getTextEdit()->append(DATETIME+" CarMAP文件路径: "+comBean->getCarMapFilePath());
         break;
-    case 9:
+    case CarOSDFileflag:
         this->getTextEdit()->append(DATETIME+" OSD文件路径: "+comBean->getCarOSDFilePath());
         break;
-    case 10:
+    case JoinFileflag:
         this->getTextEdit()->append(DATETIME+" join Mot文件路径: "+comBean->getJoinMot());
         break;
-    case 11:
+    case APPFileflag:
         this->getTextEdit()->append(DATETIME+" APP Mot文件路径: "+comBean->getAPPMot());
         break;
-    case 12:
+    case EEFileflag:
         this->getTextEdit()->append(DATETIME+" EE-A002-1000 DR会議運用手順文件路径: "+comBean->getEEFilePath());
         break;
-    case 13:
+    case ReadyFileflag:
         this->getTextEdit()->append(DATETIME+" 確認シート文件路径: "+comBean->getReadyFilePath());
         break;
-    case 14:
+    case ConfigFileflag:
         this->getTextEdit()->append(DATETIME+" EntryAVM採用車種コンフィグ詳細文件路径: "+comBean->getConfigFilePath());
         break;
     }
@@ -240,45 +241,98 @@ void UIMethod::SelectFileSlot(QString dirPath,unsigned int flag, bool goOn)
         dealFileFileThread->start();
     }
     switch (flag) {
-    case 3:
+    case RelyFileflag:
         filters.append(*(comBean->getIDType())+"*ソフトウエア部品番号管理表(量産)_AKM対応用*.xls");
         break;
-    case 4:
+    case IniFileflag:
         filters.append("LOGZONE_*_2nd.ini");
         break;
-    case 5:
-        filters.append(*(comBean->getIDType())+"_"+*(comBean->getID())+"_AKM火災対応_P票.xls");
+    case PFileflag:
+        if(!comBean->getRelyID()->isEmpty()){
+            filters.append("*_"+*(comBean->getID())+"_AKM火災対応_P票.xls");
+            filters.append(*(comBean->getRelyID())+"*と共有する.txt");
+        }else{
+            filters.append("*_"+*(comBean->getID())+"_AKM火災対応_P票.xls");
+        }
         break;
-    case 6:
-        filters.append("コンパイルSW確認結果_*"+*(comBean->getID())+".xlsx");
+    case SWFileflag:
+        if(!comBean->getRelyID()->isEmpty()){
+            filters.append("コンパイルSW確認結果_*"+*(comBean->getID())+".xlsx");
+            filters.append(*(comBean->getRelyID())+"*と共有する.txt");
+        }else{
+            filters.append("コンパイルSW確認結果_*"+*(comBean->getID())+".xlsx");
+        }
         break;
-    case 7:
-        //filters.append(*(comBean->getIDType())+"*ソフトウエア部品番号管理表(量産)_AKM対応用*.xls");
+    case CarInfoFileflag:
+        if(!comBean->getErrCode()->value(CarInfoFileError).ID.isEmpty()){
+            if(!comBean->getCarMapFilePath()->isEmpty()){
+                dirPath=comBean->getCarMapFilePath()->left(comBean->getCarMapFilePath()->lastIndexOf("/"));
+            }
+            else if(!comBean->getCarOSDFilePath()->isEmpty()){
+                dirPath=comBean->getCarMapFilePath()->left(comBean->getCarMapFilePath()->lastIndexOf("/"));
+            }
+        }
+        if(!comBean->getRelyID()->isEmpty()){
+            filters.append("*"+*(comBean->getID())+"*_CarInfo.mot");
+            filters.append("*"+*(comBean->getRelyID())+"*_CarInfo.mot");
+        }else{
+            filters.append("*"+*(comBean->getID())+"*_CarInfo.mot");
+        }
         break;
-    case 8:
-        //filters.append(*(comBean->getIDType())+"*ソフトウエア部品番号管理表(量産)_AKM対応用*.xls");
+    case CarMapFileflag:
+        if(!comBean->getErrCode()->value(CarMapFileError).ID.isEmpty()){
+            if(!comBean->getIniFilePath()->isEmpty()){
+                dirPath=comBean->getIniFilePath()->left(comBean->getIniFilePath()->lastIndexOf("/"));
+            }
+            else if(!comBean->getCarOSDFilePath()->isEmpty()){
+                dirPath=comBean->getCarMapFilePath()->left(comBean->getCarMapFilePath()->lastIndexOf("/"));
+            }
+        }
+        if(!comBean->getRelyID()->isEmpty()){
+            filters.append("*"+*(comBean->getID())+"*_CameraMAP.mot");
+            filters.append("*"+*(comBean->getRelyID())+"*_CameraMAP.mot");
+        }else{
+            filters.append("*"+*(comBean->getID())+"*_CameraMAP.mot");
+        }
         break;
-    case 9:
-        //filters.append(*(comBean->getIDType())+"*ソフトウエア部品番号管理表(量産)_AKM対応用*.xls");
+    case CarOSDFileflag:
+        if(!comBean->getErrCode()->value(CarOSDFileError).ID.isEmpty()){
+            if(!comBean->getIniFilePath()->isEmpty()){
+                dirPath=comBean->getIniFilePath()->left(comBean->getIniFilePath()->lastIndexOf("/"));
+            }
+            else if(!comBean->getCarMapFilePath()->isEmpty()){
+                dirPath=comBean->getCarMapFilePath()->left(comBean->getCarMapFilePath()->lastIndexOf("/"));
+            }
+        }
+        if(!comBean->getRelyID()->isEmpty()){
+            filters.append("*"+*(comBean->getID())+"*_OSD.mot");
+            filters.append("*"+*(comBean->getRelyID())+"*_OSD.mot");
+        }else{
+            filters.append("*"+*(comBean->getID())+"*_OSD.mot");
+        }
         break;
-    case 10:
+    case JoinFileflag:
         filters.append("join_*.mot");
         break;
-    case 11:
+    case APPFileflag:
         filters.append("APP_*.mot");
+        filters.append("App.motは*共有する.txt");
         break;
-    case 12:
+    case EEFileflag:
         //filters.append(*(comBean->getIDType())+"*ソフトウエア部品番号管理表(量産)_AKM対応用*.xls");
         break;
-    case 13:
+    case ReadyFileflag:
+        if(!comBean->getRelyID()->isEmpty()){}else{
+
+        }
         //filters.append(*(comBean->getIDType())+"*ソフトウエア部品番号管理表(量産)_AKM対応用*.xls");
         break;
-    case 14:
+    case ConfigFileflag:
         filters.append(*(comBean->getIDType())+"*採用車種コンフィグ詳細*.xls");
         break;
     }
     dirPath=comBean->getComMethod()->AnalyzePath(dirPath,*(comBean->getID()),*(comBean->getIDType()),flag);
-    //QLogHelper::instance()->LogDebug(dirPath);
+    QLogHelper::instance()->LogDebug(dirPath);
     //根据需求发送
     emit FindFileThreadSignal(dirPath,comBean->getComMethod(),filters,flag,goOn);
 }
@@ -308,62 +362,80 @@ void UIMethod::EndFindFileThreadSlot(QStringList st, unsigned int flag, bool goO
 {
     QLogHelper::instance()->LogInfo("UIMethod->EndFindFileThreadSignal() 函数执行!");
     switch (flag) {
-    case 3:
+    case RelyFileflag:
         comBean->getComMethod()->AnalyzeFilePath(st,comBean->getRelyFilePath(),flag);
         if(!comBean->getRelyFilePath()->isEmpty()&&!excelThread->isRunning()){
             excelThread->start();
             emit ExcelOperateThreadSignal(comBean->getExcelOption(),*(comBean->getRelyFilePath()),*(comBean->getID()),*(comBean->getIDType()),flag);
         }
         comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),RelyFileError,*(comBean->getRelyFilePath()),true);
-        goOn=false;
         break;
-    case 4:
+    case IniFileflag:
         comBean->getComMethod()->AnalyzeFilePath(st,comBean->getIniFilePath(),flag);
-        comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),IniFileError,*(comBean->getRelyFilePath()),true);
+        comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),IniFileError,*(comBean->getIniFilePath()),true);
         break;
-    case 5:
+    case PFileflag:
         comBean->getComMethod()->AnalyzeFilePath(st,comBean->getPFilePath(),flag);
-        comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),PFileError,*(comBean->getRelyFilePath()),true);
+        comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),PFileError,*(comBean->getPFilePath()),true);
         break;
-    case 6:
+    case SWFileflag:
         comBean->getComMethod()->AnalyzeFilePath(st,comBean->getSWFilePath(),flag);
-        comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),SWFileError,*(comBean->getRelyFilePath()),true);
+        QLogHelper::instance()->LogInfo(*comBean->getSWFilePath());
+        comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),SWFileError,*(comBean->getSWFilePath()),true);
         break;
-    case 7:
+    case CarInfoFileflag:
         comBean->getComMethod()->AnalyzeFilePath(st,comBean->getCarInfoFilePath(),flag);
-        comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),CarInfoFileError,*(comBean->getRelyFilePath()),true);
+        comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),CarInfoFileError,*(comBean->getCarInfoFilePath()),true);
         break;
-    case 8:
+    case CarMapFileflag:
         comBean->getComMethod()->AnalyzeFilePath(st,comBean->getCarMapFilePath(),flag);
-        comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),CarMapFileError,*(comBean->getRelyFilePath()),true);
+        comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),CarMapFileError,*(comBean->getCarMapFilePath()),true);
         break;
-    case 9:
+    case CarOSDFileflag:
         comBean->getComMethod()->AnalyzeFilePath(st,comBean->getCarOSDFilePath(),flag);
-        comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),CarOSDFileError,*(comBean->getRelyFilePath()),true);
+        comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),CarOSDFileError,*(comBean->getCarOSDFilePath()),true);
+        //因为周边软件的机种番号可能与目标机种番号不一致，需要做处理
+        //处理逻辑是：先获取CarInfo，CarMap mot文件路径
+        //没有获取到三个对应的文件，则对路径做处理，再获取一次，如果还是没获取到对应文件的路径，则不进行处理
+        /*if(comBean->getCarInfoFilePath()->isEmpty())
+        {
+            emit ActiveThreadSignal(*(comBean->getSVNDirPath()),flag-2,goOn);
+            return;
+        }
+        if(comBean->getCarInfoFilePath()->isEmpty())
+        {
+            emit ActiveThreadSignal(*(comBean->getSVNDirPath()),flag-1,goOn);
+            return;
+        }
+        if(comBean->getCarInfoFilePath()->isEmpty())
+        {
+            emit ActiveThreadSignal(*(comBean->getSVNDirPath()),flag,goOn);
+            return;
+        }*/
         break;
-    case 10:
+    case JoinFileflag:
         comBean->getComMethod()->AnalyzeFilePath(st,comBean->getJoinMot(),flag);
-        comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),JoinFileError,*(comBean->getRelyFilePath()),true);
+        comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),JoinFileError,*(comBean->getJoinMot()),true);
         break;
-    case 11:
+    case APPFileflag:
         comBean->getComMethod()->AnalyzeFilePath(st,comBean->getAPPMot(),flag);
-        comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),APPFileError,*(comBean->getRelyFilePath()),true);
+        comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),APPFileError,*(comBean->getAPPMot()),true);
         break;
-    case 12:
+    case EEFileflag:
         comBean->getComMethod()->AnalyzeFilePath(st,comBean->getEEFilePath(),flag);
-        comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),EEFileError,*(comBean->getRelyFilePath()),true);
+        comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),EEFileError,*(comBean->getEEFilePath()),true);
         break;
-    case 13:
+    case ReadyFileflag:
         comBean->getComMethod()->AnalyzeFilePath(st,comBean->getReadyFilePath(),flag);
-        comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),ReadyFileError,*(comBean->getRelyFilePath()),true);
+        comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),ReadyFileError,*(comBean->getReadyFilePath()),true);
         break;
-    case 14:
+    case ConfigFileflag:
         comBean->getComMethod()->AnalyzeFilePath(st,comBean->getConfigFilePath(),flag);
         if(!comBean->getConfigFilePath()->isEmpty()&&!excelThread->isRunning()){
             excelThread->start();
-            emit ExcelOperateThreadSignal(comBean->getExcelOption(),*(comBean->getConfigFilePath()),*(comBean->getID()),*(comBean->getIDType()),flag);
+            emit ExcelOperateThreadSignal(comBean->getExcelOption(),*(comBean->getConfigFilePath()),*(comBean->getID()),*(comBean->getConfigFilePath()),flag);
         }
-        comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),ConfigFileError,*(comBean->getRelyFilePath()),true);
+        comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),ConfigFileError,*(comBean->getConfigFilePath()),true);
         break;
     }
     emit ShowIDmessageSignal(flag);

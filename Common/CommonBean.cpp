@@ -1,5 +1,6 @@
 #include "CommonBean.h"
 
+
 CommonBean::CommonBean(QObject *parent) : QObject(parent)
 {
     QLogHelper::instance()->LogInfo("CommonBean() 构造函数执行!");

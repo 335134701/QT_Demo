@@ -4,8 +4,9 @@ HEADERS += \
     $$PWD/UIMethod.h \
     $$PWD/ExcelOperation.h \
     $$PWD/XMLOperate.h \
-    $$PWD/MyThread.h \
-    $$PWD/ExcelOperateThread.h
+    $$PWD/ExcelOperateThread.h \
+    $$PWD/FileThread.h \
+    $$PWD/DEFINE.h
 
 SOURCES += \
     $$PWD/CommonBean.cpp \
@@ -13,8 +14,8 @@ SOURCES += \
     $$PWD/UIMethod.cpp \
     $$PWD/ExcelOperation.cpp \
     $$PWD/XMLOperate.cpp \
-    $$PWD/MyThread.cpp \
-    $$PWD/ExcelOperateThread.cpp
+    $$PWD/ExcelOperateThread.cpp \
+    $$PWD/FileThread.cpp
 
 
 

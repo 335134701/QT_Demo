@@ -4,6 +4,7 @@
 #include <QObject>
 #include "XMLOperate.h"
 #include "QLoghelper.h"
+#include "DEFINE.h"
 
 class CommonMethod : public QObject
 {

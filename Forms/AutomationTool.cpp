@@ -92,7 +92,9 @@ void AutomationTool::on_IDEdit_editingFinished()
     emit JudgeIDTypeSignal(ui->IDEdit,comBean->getIDType(),comBean->getRelyIDType());
     if(!comBean->getErrCode()->value(IDRelyID).ID.isEmpty()){
          ui->RelyIDEdit->setStyleSheet(QString(errFontColor));
-     }
+     }else{
+        ui->RelyIDEdit->setStyleSheet(QString(nomFontColor));
+    }
     //LogView界面显示信息
     emit ShowIDmessageSignal(1);
 }
@@ -105,11 +107,11 @@ void AutomationTool::on_RelyIDEdit_editingFinished()
     QLogHelper::instance()->LogInfo("AutomationTool->on_RelyIDEdit_editingFinished() 函数触发执行!");
     if(comBean==NULL||MessageWarn()){return;}
     //如果RelyIDEdit文本输入为空，则说明不依赖任何机种
-    if(ui->RelyIDEdit->text().isEmpty()||ui->RelyIDEdit->text()==comBean->getID()){
-        ui->RelyIDEdit->setStyleSheet(QString(errFontColor));
+    if(ui->RelyIDEdit->text().isEmpty()||ui->RelyIDEdit->text()==(*comBean->getID())){
         //如果错误码存在,则删除错误码
         comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),ui->RelyIDEdit->objectName(),NULL,false);
         comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),IDRelyID,NULL,false);
+        ui->RelyIDEdit->setText("");
         return;
     }
     //判断机种名称是否符合要求
@@ -130,7 +132,7 @@ void AutomationTool::on_SVNButton_clicked()
      //获取相应文件路径
      emit SelectDirSignal(ui->SVNLabel,comBean->getSVNDirPath(),SVNDirError);
      if(comBean->getSVNDirPath()->isEmpty()||comBean->getID()->isEmpty()){return;}
-     emit SelectFileSignal(*(comBean->getSVNDirPath()),3,false);
+     emit SelectFileSignal(*(comBean->getSVNDirPath()),APPFileflag,false);
 }
 
 /**

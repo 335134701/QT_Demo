@@ -26,8 +26,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 
 SOURCES             += main.cpp
-RESOURCES           += Conf/conf.qrc \
-    Example/example.qrc
+RESOURCES           += Conf/conf.qrc
 
 include             ($$PWD/Forms/Forms.pri)
 include             ($$PWD/QLog/QLog.pri)

@@ -53,22 +53,6 @@ void UIMethod::setComBean(CommonBean *value)
 
 /**
  * @def LogView 界面操作显示
- *      flag 说明:
- *      0   无任何表示
- *      1   表示机种番号信息获取
- *      2   表示机种类型信息获取
- *      3   表示量产管理表信息获取
- *      4   表示Ini文件信息获取
- *      5   表示P票信息获取
- *      6   表示SW确认文件获取
- *      7   表示CarInfoMot文件获取
- *      8   表示CarMapMot文件获取
- *      9   表示OSDMot文件获取
- *      10   表示 joinMot 文件获取
- *      11   表示 appMot   文件获取
- *      12   表示 DR会議運用手順_様式7模板文件 获取
- *      13   表示 確認シート 文件获取
- *      14   表示 EntryAVM採用車種 文件获取
  * @brief UIMethod::ShowIDmessageSlot
  * @param Edit
  * @param flag
@@ -81,7 +65,7 @@ void UIMethod::ShowIDmessageSlot(int flag)
         this->getTextEdit()->append(DATETIME+" 机种番号: "+comBean->getID());
         this->getTextEdit()->append(DATETIME+" 机种类型: "+comBean->getIDType());
         break;
-    case IDTypeflag:
+    case RelyIDflag:
         this->getTextEdit()->append(DATETIME+" 依赖机种番号: "+comBean->getRelyID());
         this->getTextEdit()->append(DATETIME+" 依赖机种类型: "+comBean->getRelyIDType());
         break;
@@ -208,22 +192,6 @@ void UIMethod::SelectDirSlot(QLabel *label,QString *objectID,const QString errNa
 }
 /**
  * @def 获取相应的文件路径
- *      flag 说明:
- *      0   无任何表示
- *      1   表示机种番号信息获取
- *      2   表示机种类型信息获取
- *      3   表示量产管理表信息获取
- *      4   表示Ini文件信息获取
- *      5   表示P票信息获取
- *      6   表示SW确认文件获取
- *      7   表示CarInfoMot文件获取
- *      8   表示CarMapMot文件获取
- *      9   表示OSDMot文件获取
- *      10   表示 joinMot 文件获取
- *      11   表示 appMot   文件获取
- *      12   表示 DR会議運用手順_様式7模板文件 获取
- *      13   表示 確認シート 文件获取
- *      14   表示 EntryAVM採用車種 文件获取
  * @brief UIMethod::SelectFileSlot
  * @param filters
  */
@@ -338,22 +306,6 @@ void UIMethod::SelectFileSlot(QString dirPath,unsigned int flag, bool goOn)
 }
 /**
  * @def 此函数功能是子线程查找文件后回调函数
- *      flag 说明:
- *      0   无任何表示
- *      1   表示机种番号信息获取
- *      2   表示机种类型信息获取
- *      3   表示量产管理表信息获取
- *      4   表示Ini文件信息获取
- *      5   表示P票信息获取
- *      6   表示SW确认文件获取
- *      7   表示CarInfoMot文件获取
- *      8   表示CarMapMot文件获取
- *      9   表示OSDMot文件获取
- *      10   表示 joinMot 文件获取
- *      11   表示 appMot   文件获取
- *      12   表示 DR会議運用手順_様式7模板文件 获取
- *      13   表示 確認シート 文件获取
- *      14   表示 EntryAVM採用車種 文件获取
  * @brief UIMethod::EndFindFileThreadSignal
  * @param st
  * @param flag

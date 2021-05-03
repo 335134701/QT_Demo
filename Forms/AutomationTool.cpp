@@ -62,7 +62,7 @@ void AutomationTool::initStyle()
     logViewClearAction=new QAction("清除显示");
     //为Logview添加清除操作
     ui->LogView->addAction(logViewClearAction);
-    messageViewModel=new QStandardItemModel();
+   /* messageViewModel=new QStandardItemModel();
     //ui->MessageView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);//对第0列单独设置固定宽度
     messageViewModel->setItem(0, 0, new QStandardItem("张三"));
     messageViewModel->setItem(0, 1, new QStandardItem("20120202"));
@@ -72,6 +72,7 @@ void AutomationTool::initStyle()
     ui->MessageView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->MessageView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);//对第0列单独设置固定宽度
     ui->MessageView->setColumnWidth(0,100);
+    */
 }
 
 /**
@@ -96,7 +97,7 @@ void AutomationTool::on_IDEdit_editingFinished()
         ui->RelyIDEdit->setStyleSheet(QString(nomFontColor));
     }
     //LogView界面显示信息
-    emit ShowIDmessageSignal(1);
+    emit ShowIDmessageSignal(IDflag);
 }
 /**
  * @def 机种RelyIDEdit文本改变完成触发函数
@@ -119,7 +120,7 @@ void AutomationTool::on_RelyIDEdit_editingFinished()
     if(comBean->getRelyID()->isEmpty()){return;}
     //判断依赖机种是否和作成机种同一种类型
     emit JudgeIDTypeSignal(ui->RelyIDEdit,comBean->getRelyIDType(),comBean->getIDType());
-    emit ShowIDmessageSignal(2);
+    emit ShowIDmessageSignal(RelyIDflag);
 }
 /**
  * @def

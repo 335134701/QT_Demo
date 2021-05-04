@@ -7,8 +7,9 @@ AutomationTool::AutomationTool(QWidget *parent) :
 {
     QLogHelper::instance()->LogInfo("AutomationTool() 构造函数执行!");
     ui->setupUi(this);
-    this->initStyle();
-    this->init();
+    this->InitStyle();
+    this->Init();
+    this->InitTableView();
     this->ConnectSlot();
 }
 /**
@@ -21,9 +22,9 @@ AutomationTool::~AutomationTool()
 }
 /**
  * @def UI初始化过程中需要预处理操作
- * @brief AutomationTool::init
+ * @brief AutomationTool::Init
  */
-void AutomationTool::init()
+void AutomationTool::Init()
 {
     QLogHelper::instance()->LogInfo("AutomationTool->init() 函数执行!");
     comBean=new CommonBean();
@@ -44,12 +45,76 @@ void AutomationTool::ConnectSlot()
     connect(this,&AutomationTool::SelectDirSignal,this->uiMethod,&UIMethod::SelectDirSlot);
     connect(logViewClearAction,&QAction::triggered,this,&AutomationTool::LogViewClearSlot);
     connect(this,&AutomationTool::SelectFileSignal,this->uiMethod,&UIMethod::SelectFileSlot);
+    connect(comBean->getMessageViewModel(),&QStandardItemModel::itemChanged,this->uiMethod,&UIMethod::MessageViewModelEditedSlot);
+}
+
+/**
+ * @brief AutomationTool::InitTableView
+ */
+void AutomationTool::InitTableView()
+{
+    ui->MessageView->setModel(comBean->getMessageViewModel());
+    comBean->getMessageViewModel()->setItem(0, 0, new QStandardItem("机种番号:"));
+    comBean->getMessageViewModel()->item(0,0)->setEditable(false);
+    comBean->getMessageViewModel()->setItem(0, 1, new QStandardItem(""));
+    comBean->getMessageViewModel()->item(0,1)->setEditable(false);
+    comBean->getMessageViewModel()->setItem(1, 0, new QStandardItem("机种类型:"));
+    comBean->getMessageViewModel()->item(1,0)->setEditable(false);
+    comBean->getMessageViewModel()->setItem(1, 1, new QStandardItem(""));
+    comBean->getMessageViewModel()->item(1,1)->setEditable(false);
+    comBean->getMessageViewModel()->setItem(2, 0, new QStandardItem("依赖机种番号:"));
+    comBean->getMessageViewModel()->item(2,0)->setEditable(false);
+    comBean->getMessageViewModel()->setItem(2, 1, new QStandardItem(""));
+    comBean->getMessageViewModel()->item(2,1)->setEditable(false);
+    comBean->getMessageViewModel()->setItem(3, 0, new QStandardItem("依赖机种类型:"));
+    comBean->getMessageViewModel()->item(3,0)->setEditable(false);
+    comBean->getMessageViewModel()->setItem(3, 1, new QStandardItem(""));
+    comBean->getMessageViewModel()->item(3,1)->setEditable(false);
+    comBean->getMessageViewModel()->setItem(4, 0, new QStandardItem("量产管理表路径:"));
+    comBean->getMessageViewModel()->item(4,0)->setEditable(false);
+    comBean->getMessageViewModel()->setItem(4, 1, new QStandardItem(""));
+    comBean->getMessageViewModel()->setItem(5, 0, new QStandardItem("INI模板文件路径:"));
+    comBean->getMessageViewModel()->item(5,0)->setEditable(false);
+    comBean->getMessageViewModel()->setItem(5, 1, new QStandardItem(""));
+    comBean->getMessageViewModel()->setItem(6, 0, new QStandardItem("P票文件路径"));
+    comBean->getMessageViewModel()->item(6,0)->setEditable(false);
+    comBean->getMessageViewModel()->setItem(6, 1, new QStandardItem(""));
+    comBean->getMessageViewModel()->setItem(7, 0, new QStandardItem("SW确认文件路径:"));
+    comBean->getMessageViewModel()->item(7,0)->setEditable(false);
+    comBean->getMessageViewModel()->setItem(7, 1, new QStandardItem(""));
+    comBean->getMessageViewModel()->setItem(8, 0, new QStandardItem("CarInfoMot文件路径:"));
+    comBean->getMessageViewModel()->item(8,0)->setEditable(false);
+    comBean->getMessageViewModel()->setItem(8, 1, new QStandardItem(""));
+    comBean->getMessageViewModel()->setItem(9, 0, new QStandardItem("CarMapMot文件路径:"));
+    comBean->getMessageViewModel()->item(9,0)->setEditable(false);
+    comBean->getMessageViewModel()->setItem(9, 1, new QStandardItem(""));
+    comBean->getMessageViewModel()->setItem(10, 0, new QStandardItem("OSDMot文件路径:"));
+    comBean->getMessageViewModel()->item(10,0)->setEditable(false);
+    comBean->getMessageViewModel()->setItem(10, 1, new QStandardItem(""));
+    comBean->getMessageViewModel()->setItem(11, 0, new QStandardItem("joinMot文件路径:"));
+    comBean->getMessageViewModel()->item(11,0)->setEditable(false);
+    comBean->getMessageViewModel()->setItem(11, 1, new QStandardItem(""));
+    comBean->getMessageViewModel()->setItem(12, 0, new QStandardItem("appMot文件路径:"));
+    comBean->getMessageViewModel()->item(12,0)->setEditable(false);
+    comBean->getMessageViewModel()->setItem(12, 1, new QStandardItem(""));
+    comBean->getMessageViewModel()->setItem(13, 0, new QStandardItem("DR会議運用手順文件路径:"));
+    comBean->getMessageViewModel()->item(13,0)->setEditable(false);
+    comBean->getMessageViewModel()->setItem(13, 1, new QStandardItem(""));
+    comBean->getMessageViewModel()->setItem(14, 0, new QStandardItem("確認シート文件路径:"));
+    comBean->getMessageViewModel()->item(14,0)->setEditable(false);
+    comBean->getMessageViewModel()->setItem(14, 1, new QStandardItem(""));
+    comBean->getMessageViewModel()->setItem(15, 0, new QStandardItem("EntryAVM採用車種文件路径:"));
+    comBean->getMessageViewModel()->item(15,0)->setEditable(false);
+    comBean->getMessageViewModel()->setItem(15, 1, new QStandardItem(""));
+    ui->MessageView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    ui->MessageView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);//对第0列单独设置固定宽度
+    ui->MessageView->setColumnWidth(0,280);
 }
 /**
  * @def UI界面初始化函数，主要功能是美化UI
- * @brief AutomationTool::initStyle
+ * @brief AutomationTool::InitStyle
  */
-void AutomationTool::initStyle()
+void AutomationTool::InitStyle()
 {
     QLogHelper::instance()->LogInfo("AutomationTool->initStyle() 函数执行!");
     //加载样式表
@@ -62,17 +127,6 @@ void AutomationTool::initStyle()
     logViewClearAction=new QAction("清除显示");
     //为Logview添加清除操作
     ui->LogView->addAction(logViewClearAction);
-   /* messageViewModel=new QStandardItemModel();
-    //ui->MessageView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);//对第0列单独设置固定宽度
-    messageViewModel->setItem(0, 0, new QStandardItem("张三"));
-    messageViewModel->setItem(0, 1, new QStandardItem("20120202"));
-    messageViewModel->setItem(1, 0, new QStandardItem("张三"));
-    messageViewModel->setItem(1, 1, new QStandardItem("20120202"));
-    ui->MessageView->setModel(messageViewModel);
-    ui->MessageView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
-    ui->MessageView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);//对第0列单独设置固定宽度
-    ui->MessageView->setColumnWidth(0,100);
-    */
 }
 
 /**
@@ -92,8 +146,8 @@ void AutomationTool::on_IDEdit_editingFinished()
     //分析机种类型
     emit JudgeIDTypeSignal(ui->IDEdit,comBean->getIDType(),comBean->getRelyIDType());
     if(!comBean->getErrCode()->value(IDRelyID).ID.isEmpty()){
-         ui->RelyIDEdit->setStyleSheet(QString(errFontColor));
-     }else{
+        ui->RelyIDEdit->setStyleSheet(QString(errFontColor));
+    }else{
         ui->RelyIDEdit->setStyleSheet(QString(nomFontColor));
     }
     //LogView界面显示信息
@@ -128,12 +182,12 @@ void AutomationTool::on_RelyIDEdit_editingFinished()
  */
 void AutomationTool::on_SVNButton_clicked()
 {
-     QLogHelper::instance()->LogInfo("AutomationTool->on_SVNButton_clicked() 函数触发执行!");
-     if(comBean==NULL||MessageWarn()){return;}
-     //获取相应文件路径
-     emit SelectDirSignal(ui->SVNLabel,comBean->getSVNDirPath(),SVNDirError);
-     if(comBean->getSVNDirPath()->isEmpty()||comBean->getID()->isEmpty()){return;}
-     emit SelectFileSignal(*(comBean->getSVNDirPath()),APPFileflag,false);
+    QLogHelper::instance()->LogInfo("AutomationTool->on_SVNButton_clicked() 函数触发执行!");
+    if(comBean==NULL||MessageWarn()){return;}
+    //获取相应文件路径
+    emit SelectDirSignal(ui->SVNLabel,comBean->getSVNDirPath(),SVNDirError);
+    if(comBean->getSVNDirPath()->isEmpty()||comBean->getID()->isEmpty()){return;}
+    emit SelectFileSignal(*(comBean->getSVNDirPath()),RelyFileflag,false);
 }
 
 /**

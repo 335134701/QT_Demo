@@ -33,7 +33,6 @@ QList<SOFTNUMBERTable> ExcelOperation::ReadSoftExcel(const QString filePath, con
     bool flag=false;
     Sheet *sheetread;
     QList<SOFTNUMBERTable> *softlist=new QList<SOFTNUMBERTable>();
-    SOFTNUMBERTable soft;
     QString CarModels,PartNumber,CANGen,Productionstage;
     if(this->Init(filePath)&&book->load(filePath.toLocal8Bit()))
     {
@@ -56,6 +55,7 @@ QList<SOFTNUMBERTable> ExcelOperation::ReadSoftExcel(const QString filePath, con
                 if(Productionstage.isEmpty()){Productionstage=QString(sheetread->readStr(i,5));}
                 if((sheetread->cellFormat(i,5)->patternForegroundColor()==13||sheetread->cellFormat(i,5)->patternForegroundColor()==51))
                 {
+                    SOFTNUMBERTable soft;
                     soft.ModelNumber=ID;
                     soft.CarModels=CarModels;
                     soft.PartNumber=PartNumber;
@@ -94,8 +94,8 @@ QList<CONFIGTable> ExcelOperation::ReadConfExcel(const QString filePath, const Q
     QLogHelper::instance()->LogInfo("ExcelOperation->ReadConfExcel() 函数执行!");
     bool flag=false;
     Sheet *sheetread;
+    QByteArray byte;
     QList<CONFIGTable> *conflist=new QList<CONFIGTable>();
-    CONFIGTable conf;
     if(this->Init(filePath)&&book->load(filePath.toLocal8Bit()))
     {
         sheetread = book->getSheet(1);
@@ -106,34 +106,83 @@ QList<CONFIGTable> ExcelOperation::ReadConfExcel(const QString filePath, const Q
                 flag=true;
             }else{flag=false;}
             if(flag){
-                /*
-                conf.Vehicletype=sheetread->readStr(i,4);            //車種 Vehicle
-                conf.ITS=sheetread->readStr(i,10);                    //ITS
-                conf.PickMethod=sheetread->readStr(i,12);;             //接続先・方式
-                conf.Destination=sheetread->readStr(i,14);;            //仕向け
-                conf.Wheelspeedpulse=sheetread->readStr(i,16);;        //車輪速パルス
-                conf.CANspecifications=sheetread->readStr(i,18);;      //CAN仕様
-                conf.Camerasystem=sheetread->readStr(i,20);;           //カメラシステム
-                conf.WAS=sheetread->readStr(i,22);;                    //4WAS有無
-                conf.Steeringgearratio=sheetread->readStr(i,24);;      //ステアリングギア比
-                conf.VCANsonar=sheetread->readStr(i,26);;              //V-CANソナー有無
-                conf.Sonarinterrupt=sheetread->readStr(i,28);;         //ソナー割り込み表示機能有無
-                conf.Expectedadroute=sheetread->readStr(i,1);;        //予想進路線の有無
-                conf.Steerspecifications=sheetread->readStr(i,1);;    //左右ステアリング仕様
-                conf.Mission=sheetread->readStr(i,1);;                //ミッション
-                conf.RRREBfunction=sheetread->readStr(i,1);;          //RR　REB機能有無
-                conf.BCWfunction=sheetread->readStr(i,1);;            //BCW機能有無
-                conf.Buzzer=sheetread->readStr(i,1);;                 //ブザー
-                conf.MeterSW=sheetread->readStr(i,1);;                //メーターSW
-                conf.OFFROADMODE=sheetread->readStr(i,1);;            //OFF ROAD MODE
-                conf.Movingway=sheetread->readStr(i,1);;              //駆動方式
-                conf.PSRfunction=sheetread->readStr(i,1);;            //PSR機能有無
-                conf.Rearnormalview=sheetread->readStr(i,1);;         //リアノーマルビュー有無
-                conf.Enginespecifications=sheetread->readStr(i,1);;   //エンジン仕様
-                conf.Tiresize=sheetread->readStr(i,1);;               //タイヤサイズ
-                conf.Configpartnumber=sheetread->readStr(i,1);;       //コンフィグ部番
-                conflist->append(conf)=sheetread->readStr(i,1);;
-                */
+                CONFIGTable conf;
+                byte.append(sheetread->readStr(i,4));
+                conf.Vehicletype=codec->toUnicode(byte);            //車種 Vehicle
+                byte.clear();
+                byte.append(sheetread->readStr(i,10));
+                conf.ITS=codec->toUnicode(byte);                    //ITS
+                byte.clear();
+                byte.append(sheetread->readStr(i,12));
+                conf.PickMethod=codec->toUnicode(byte);              //接続先・方式
+                byte.clear();
+                byte.append(sheetread->readStr(i,14));
+                conf.Destination=codec->toUnicode(byte);             //仕向け
+                byte.clear();
+                byte.append(sheetread->readStr(i,16));
+                conf.Wheelspeedpulse=codec->toUnicode(byte);         //車輪速パルス
+                byte.clear();
+                byte.append(sheetread->readStr(i,18));
+                conf.CANspecifications=codec->toUnicode(byte);       //CAN仕様
+                byte.clear();
+                byte.append(sheetread->readStr(i,20));
+                conf.Camerasystem=codec->toUnicode(byte);            //カメラシステム
+                byte.clear();
+                byte.append(sheetread->readStr(i,22));
+                conf.WAS=codec->toUnicode(byte);                     //4WAS有無
+                byte.clear();
+                byte.append(sheetread->readStr(i,24));
+                conf.Steeringgearratio=codec->toUnicode(byte);       //ステアリングギア比
+                byte.clear();
+                byte.append(sheetread->readStr(i,26));
+                conf.VCANsonar=codec->toUnicode(byte);              //V-CANソナー有無
+                byte.clear();
+                byte.append(sheetread->readStr(i,28));
+                conf.Sonarinterrupt=codec->toUnicode(byte);          //ソナー割り込み表示機能有無
+                byte.clear();
+                byte.append(sheetread->readStr(i,30));
+                conf.Expectedadroute=codec->toUnicode(byte);         //予想進路線の有無
+                byte.clear();
+                byte.append(sheetread->readStr(i,32));
+                conf.Steerspecifications=codec->toUnicode(byte);     //左右ステアリング仕様
+                byte.clear();
+                byte.append(sheetread->readStr(i,34));
+                conf.Mission=codec->toUnicode(byte);                 //ミッション
+                byte.clear();
+                byte.append(sheetread->readStr(i,46));
+                conf.RRREBfunction=codec->toUnicode(byte);           //RR　REB機能有無
+                byte.clear();
+                byte.append(sheetread->readStr(i,52));
+                conf.BCWfunction=codec->toUnicode(byte);             //BCW機能有無
+                byte.clear();
+                byte.append(sheetread->readStr(i,54));
+                conf.Buzzer=codec->toUnicode(byte);                  //ブザー
+                byte.clear();
+                byte.append(sheetread->readStr(i,58));
+                conf.MeterSW=codec->toUnicode(byte);                //メーターSW
+                byte.clear();
+                byte.append(sheetread->readStr(i,64));
+                conf.OFFROADMODE=codec->toUnicode(byte);             //OFF ROAD MODE
+                byte.clear();
+                byte.append(sheetread->readStr(i,68));
+                conf.Movingway=codec->toUnicode(byte);               //駆動方式
+                byte.clear();
+                byte.append(sheetread->readStr(i,74));
+                conf.PSRfunction=codec->toUnicode(byte);             //PSR機能有無
+                byte.clear();
+                byte.append(sheetread->readStr(i,76));
+                conf.Rearnormalview=codec->toUnicode(byte);          //リアノーマルビュー有無
+                byte.clear();
+                byte.append(sheetread->readStr(i,84));
+                conf.Enginespecifications=codec->toUnicode(byte);    //エンジン仕様
+                byte.clear();
+                byte.append(sheetread->readStr(i,86));
+                conf.Tiresize=codec->toUnicode(byte);                //タイヤサイズ
+                byte.clear();
+                byte.append(sheetread->readStr(i,90));
+                conf.Configpartnumber=codec->toUnicode(byte);        //コンフィグ部番
+                byte.clear();
+                conflist->append(conf);
             }
         }
     }

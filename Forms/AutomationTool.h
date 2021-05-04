@@ -41,11 +41,8 @@ private slots:
 
     void on_CheckButton_clicked();
 
-
 private:
     Ui::AutomationTool *ui;
-
-    QStandardItemModel *messageViewModel;
 
     CommonBean *comBean;
 
@@ -53,11 +50,13 @@ private:
 
     QAction *logViewClearAction;
 
-    void init();
+    void Init();
 
     void ConnectSlot();
 
-    void initStyle();
+    void InitTableView();
+
+    void InitStyle();
 
     bool MessageWarn();
 signals:
@@ -70,6 +69,8 @@ signals:
     void SelectDirSignal(QLabel *label,QString *objectID,const QString errName);
 
     void SelectFileSignal(QString dirPath,unsigned int flag, bool goOn);
+
+    void MessageViewModelEditedSignal(const QStandardItem *item);
 };
 
 #endif // AUTOMATIONTOOL_H

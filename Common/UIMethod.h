@@ -58,6 +58,8 @@ public slots:
     void EndExcelOperateThreadSoftSlot(QList<SOFTNUMBERTable> list);
     void EndExcelOperateThreadConfSlot(QList<CONFIGTable> list);
 
+    void MessageViewModelEditedSlot(const QStandardItem *item);
+
 private :
     void Init();
 

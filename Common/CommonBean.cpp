@@ -41,6 +41,7 @@ void CommonBean::Init()
     EEFilePath=new QString();
     ReadyFilePath=new QString();
     ConfigFilePath=new QString();
+    messageViewModel=new QStandardItemModel();
     statusflag=false;
     //初始化错误码
     RExpression.insert("IDEdit","^EN(3[3-7]|42)\\d\\dP[A-Z]");
@@ -326,5 +327,15 @@ QList<CONFIGTable> *CommonBean::getConfigTable() const
 void CommonBean::setConfigTable(QList<CONFIGTable> *value)
 {
     configTable = value;
+}
+
+QStandardItemModel *CommonBean::getMessageViewModel() const
+{
+    return messageViewModel;
+}
+
+void CommonBean::setMessageViewModel(QStandardItemModel *value)
+{
+    messageViewModel = value;
 }
 

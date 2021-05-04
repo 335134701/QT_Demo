@@ -109,8 +109,14 @@ public:
     QList<CONFIGTable> *getConfigTable() const;
     void setConfigTable(QList<CONFIGTable> *value);
 
+    QStandardItemModel *getMessageViewModel() const;
+    void setMessageViewModel(QStandardItemModel *value);
+
 private :
     unsigned int statusflag;
+
+    //TableView数据模型
+    QStandardItemModel *messageViewModel;
 
     QMap<QString,QString> RExpression;
     //错误状态码集合

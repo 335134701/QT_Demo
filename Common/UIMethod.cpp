@@ -64,46 +64,67 @@ void UIMethod::ShowIDmessageSlot(int flag)
     case IDflag:
         this->getTextEdit()->append(DATETIME+" 机种番号: "+comBean->getID());
         this->getTextEdit()->append(DATETIME+" 机种类型: "+comBean->getIDType());
+        comBean->getMessageViewModel()->setItem(0, 1, new QStandardItem(*comBean->getID()));
+        comBean->getMessageViewModel()->item(0,1)->setEditable(false);
+        comBean->getMessageViewModel()->setItem(1, 1, new QStandardItem(*comBean->getIDType()));
+        comBean->getMessageViewModel()->item(1,1)->setEditable(false);
         break;
     case RelyIDflag:
         this->getTextEdit()->append(DATETIME+" 依赖机种番号: "+comBean->getRelyID());
         this->getTextEdit()->append(DATETIME+" 依赖机种类型: "+comBean->getRelyIDType());
+        comBean->getMessageViewModel()->setItem(2, 1, new QStandardItem(*comBean->getRelyID()));
+        comBean->getMessageViewModel()->item(2,1)->setEditable(false);
+        comBean->getMessageViewModel()->setItem(3, 1, new QStandardItem(*comBean->getRelyIDType()));
+        comBean->getMessageViewModel()->item(3,1)->setEditable(false);
         break;
     case RelyFileflag:
         this->getTextEdit()->append(DATETIME+" 量产管理表路径: "+comBean->getRelyFilePath());
+        comBean->getMessageViewModel()->setItem(4, 1, new QStandardItem(*comBean->getRelyFilePath()));
         break;
     case IniFileflag:
         this->getTextEdit()->append(DATETIME+" ini配置文件路径: "+comBean->getIniFilePath());
+        comBean->getMessageViewModel()->setItem(5, 1, new QStandardItem(*comBean->getIniFilePath()));
+
         break;
     case PFileflag:
         this->getTextEdit()->append(DATETIME+" P票文件路径: "+comBean->getPFilePath());
+        comBean->getMessageViewModel()->setItem(6, 1, new QStandardItem(*comBean->getPFilePath()));
         break;
     case SWFileflag:
         this->getTextEdit()->append(DATETIME+" SW確認文件路径: "+comBean->getSWFilePath());
+        comBean->getMessageViewModel()->setItem(7, 1, new QStandardItem(*comBean->getSWFilePath()));
         break;
     case CarInfoFileflag:
         this->getTextEdit()->append(DATETIME+" CarInfo文件路径: "+comBean->getCarInfoFilePath());
+        comBean->getMessageViewModel()->setItem(8, 1, new QStandardItem(*comBean->getCarInfoFilePath()));
         break;
     case CarMapFileflag:
         this->getTextEdit()->append(DATETIME+" CarMAP文件路径: "+comBean->getCarMapFilePath());
+        comBean->getMessageViewModel()->setItem(9, 1, new QStandardItem(*comBean->getCarMapFilePath()));
         break;
     case CarOSDFileflag:
         this->getTextEdit()->append(DATETIME+" OSD文件路径: "+comBean->getCarOSDFilePath());
+        comBean->getMessageViewModel()->setItem(10, 1, new QStandardItem(*comBean->getCarOSDFilePath()));
         break;
     case JoinFileflag:
         this->getTextEdit()->append(DATETIME+" join Mot文件路径: "+comBean->getJoinMot());
+        comBean->getMessageViewModel()->setItem(11, 1, new QStandardItem(*comBean->getJoinMot()));
         break;
     case APPFileflag:
         this->getTextEdit()->append(DATETIME+" APP Mot文件路径: "+comBean->getAPPMot());
+        comBean->getMessageViewModel()->setItem(12, 1, new QStandardItem(*comBean->getAPPMot()));
         break;
     case EEFileflag:
         this->getTextEdit()->append(DATETIME+" EE-A002-1000 DR会議運用手順文件路径: "+comBean->getEEFilePath());
+        comBean->getMessageViewModel()->setItem(13, 1, new QStandardItem(*comBean->getEEFilePath()));
         break;
     case ReadyFileflag:
         this->getTextEdit()->append(DATETIME+" 確認シート文件路径: "+comBean->getReadyFilePath());
+        comBean->getMessageViewModel()->setItem(14, 1, new QStandardItem(*comBean->getReadyFilePath()));
         break;
     case ConfigFileflag:
         this->getTextEdit()->append(DATETIME+" EntryAVM採用車種コンフィグ詳細文件路径: "+comBean->getConfigFilePath());
+        comBean->getMessageViewModel()->setItem(15, 1, new QStandardItem(*comBean->getConfigFilePath()));
         break;
     }
     this->getTextEdit()->append(DATETIME+" =======================================");
@@ -425,5 +446,17 @@ void UIMethod::EndExcelOperateThreadConfSlot(QList<CONFIGTable> list)
     comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),ConfigFileError,QString::number(comBean->getConfigTable()->size()),true);
     excelThread->quit();
     excelThread->wait();
+}
+
+/**
+ * @def MessageView单元格数据修改触发函数
+ * @brief UIMethod::MessageViewModelEditedSlot
+ * @param item
+ */
+void UIMethod::MessageViewModelEditedSlot(const QStandardItem *item)
+{
+    QLogHelper::instance()->LogInfo("AutomationTool->MessageViewModelEditedSlot() 函数触发执行!");
+    QLogHelper::instance()->LogDebug("column: "+QString::number(item->column())+"    row:"+QString::number(item->row()));
+    QLogHelper::instance()->LogDebug(item->text());
 }
 

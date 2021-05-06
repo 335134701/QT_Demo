@@ -112,6 +112,9 @@ public:
     QStandardItemModel *getMessageViewModel() const;
     void setMessageViewModel(QStandardItemModel *value);
 
+    bool getTableViewEditflag() const;
+    void setTableViewEditflag(bool value);
+
 private :
     unsigned int statusflag;
 
@@ -167,6 +170,8 @@ private :
     XMLOperate *xmlOperate;
     //Excel操作函数
     ExcelOperation *excelOption;
+    //TableViewEditflag
+    bool tableViewEditflag=false;
     //初始化函数
     void Init();
 

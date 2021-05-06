@@ -339,3 +339,13 @@ void CommonBean::setMessageViewModel(QStandardItemModel *value)
     messageViewModel = value;
 }
 
+bool CommonBean::getTableViewEditflag() const
+{
+    return tableViewEditflag;
+}
+
+void CommonBean::setTableViewEditflag(bool value)
+{
+    tableViewEditflag = value;
+}
+

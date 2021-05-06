@@ -60,6 +60,8 @@ public slots:
 
     void MessageViewModelEditedSlot(const QStandardItem *item);
 
+    void CreateSlot();
+
 private :
     void Init();
 

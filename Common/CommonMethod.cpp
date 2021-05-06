@@ -92,22 +92,6 @@ QStringList CommonMethod::FindFile(const QString dirPath,QStringList filters)
 }
 /**
  * @def 对传入路径进行解析，并组装成指定的路径
- *      flag 说明:
- *      0   无任何表示
- *      1   表示机种番号信息获取
- *      2   表示机种类型信息获取
- *      3   表示量产管理表信息获取
- *      4   表示Ini文件信息获取
- *      5   表示P票信息获取
- *      6   表示SW确认文件获取
- *      7   表示CarInfoMot文件获取
- *      8   表示CarMapMot文件获取
- *      9   表示OSDMot文件获取
- *      10   表示 joinMot 文件获取
- *      11   表示 appMot   文件获取
- *      12   表示 DR会議運用手順_様式7模板文件 获取
- *      13   表示 確認シート 文件获取
- *      14   表示 EntryAVM採用車種 文件获取
  * @brief CommonMethod::AnalyzePath
  * @param dirPath
  * @return
@@ -162,22 +146,6 @@ QString CommonMethod::AnalyzePath(const QString dirPath,const QString ID,QString
 }
 /**
  * @def 根据获取的文件列表，解析需要的文件路径
- *      flag 说明:
- *      0   无任何表示
- *      1   表示机种番号信息获取
- *      2   表示机种类型信息获取
- *      3   表示量产管理表信息获取
- *      4   表示Ini文件信息获取
- *      5   表示P票信息获取
- *      6   表示SW确认文件获取
- *      7   表示CarInfoMot文件获取
- *      8   表示CarMapMot文件获取
- *      9   表示OSDMot文件获取
- *      10   表示 joinMot 文件获取
- *      11   表示 appMot   文件获取
- *      12   表示 DR会議運用手順_様式7模板文件 获取
- *      13   表示 確認シート 文件获取
- *      14   表示 EntryAVM採用車種 文件获取
  * @brief CommonMethod::AnalyzeFilePath
  * @param filePaths
  * @param filePath
@@ -212,9 +180,7 @@ void CommonMethod::AnalyzeFilePath(const QStringList filePaths, QString *filePat
         if(filePaths.size()>0){path=filePaths[filePaths.size()-1];}
         break;
     case EEFileflag:
-        foreach (QString file, filePaths) {
-            QLogHelper::instance()->LogInfo(file);
-        }
+        if(filePaths.size()>0){path=filePaths[filePaths.size()-1];}
         break;
     case ReadyFileflag:
         foreach (QString file, filePaths) {
@@ -228,6 +194,39 @@ void CommonMethod::AnalyzeFilePath(const QStringList filePaths, QString *filePat
         break;
     }
     (*filePath)=path;
+}
+/**
+ * @def ini文件写入
+ * @brief CommonMethod::INIFileWrite
+ * @param filePath
+ * @param PartNumber
+ * @param DiagnosticCode
+ */
+void CommonMethod::INIFileWrite(const QString filePath, const QString PartNumber, const QString DiagnosticCode)
+{
+    QLogHelper::instance()->LogInfo("CommonMethod->INIFileWrite() 函数执行!");
+    QFileInfo *file=new QFileInfo();
+    QString tmpString;
+    /*
+    if(file->exists(filePath))
+    {
+        //tmpString="LOG_ZONE_IDENT_00="++"			;日産部番0, '"+tmp[0]+"'="+0x35;
+        QLogHelper::instance()->LogDebug(filePath[0]);
+    }
+    */
+}
+/**
+ * @def ini文件读取
+ * @brief CommonMethod::INIFileRead
+ * @param filePath
+ * @param PartNumber
+ * @param DiagnosticCode
+ * @return
+ */
+bool CommonMethod::INIFileRead(const QString filePath, const QString PartNumber, const QString DiagnosticCode)
+{
+    QLogHelper::instance()->LogInfo("CommonMethod->INIFileRead() 函数执行!");
+    return false;
 }
 
 

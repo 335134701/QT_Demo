@@ -21,9 +21,9 @@
 *      14   表示 DR会議運用手順_様式7模板文件 获取
 *      15   表示 確認シート 文件获取
 *      16   表示 EntryAVM採用車種 文件获取
-*      17~  宏定义
-*           解析量产管理表内容
-*           诊断识别码
+*      17   宏定义
+*      18   解析量产管理表内容
+*      19   解析採用車種コンフィグ詳細表内容
 */
 #define SUCCESS             0
 #define IDflag              1
@@ -42,6 +42,9 @@
 #define EEFileflag          14
 #define ReadyFileflag       15
 #define ConfigFileflag      16
+#define DefineConfig        17
+#define RelyMessageflag     18
+#define ConfigMessageflag   19
 
 #define DATETIME                QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss")
 #define DATAStytle              "[ "+DATETIME+" ] "

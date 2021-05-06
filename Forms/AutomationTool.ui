@@ -390,7 +390,7 @@
           <string notr="true"/>
          </property>
          <property name="text">
-          <string>输出路径</string>
+          <string>输出/校验路径</string>
          </property>
         </widget>
        </item>

@@ -41,6 +41,8 @@ private slots:
 
     void on_CheckButton_clicked();
 
+    void on_MessageView_doubleClicked(const QModelIndex &index);
+
 private:
     Ui::AutomationTool *ui;
 
@@ -71,6 +73,8 @@ signals:
     void SelectFileSignal(QString dirPath,unsigned int flag, bool goOn);
 
     void MessageViewModelEditedSignal(const QStandardItem *item);
+
+    void CreateSignal();
 };
 
 #endif // AUTOMATIONTOOL_H

@@ -22,6 +22,10 @@ public:
 
     void AnalyzeFilePath(const QStringList filePaths,QString *filePath,unsigned int flag);
 
+    void INIFileWrite(const QString filePath,const QString PartNumber,const QString DiagnosticCode);
+
+    bool INIFileRead(const QString filePath,const QString PartNumber,const QString DiagnosticCode);
+
 signals:
 
 public slots:

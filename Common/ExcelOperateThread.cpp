@@ -19,7 +19,7 @@ void ExcelOperateThread::ExcelOperateThreadSlot(ExcelOperation *exl, const QStri
         emit EndExcelOperateThreadSoftSignal(*softList);
     }
     else if(flag==14){
-        (*confList)=exl->ReadConfExcel(filePath,ID,IDType);
+        (*confList)=exl->ReadConfExcel(filePath,ID);
         emit EndExcelOperateThreadConfSignal((*confList));
     }
 }
@@ -108,9 +108,7 @@ QList<SOFTNUMBERTable> ExcelOperateThread::DealSoftTable(QList<SOFTNUMBERTable> 
     }
     //填充所有诊断识别码
     for(int i=0;i<list.size();i++){
-        if(list[i].DiagnosticCode.isEmpty()){
-            list[i].DiagnosticCode=DiagnosticCode;
-        }
+        list[i].DiagnosticCode=DiagnosticCode;
     }
     return list;
 }

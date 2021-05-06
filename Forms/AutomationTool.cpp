@@ -46,6 +46,7 @@ void AutomationTool::ConnectSlot()
     connect(logViewClearAction,&QAction::triggered,this,&AutomationTool::LogViewClearSlot);
     connect(this,&AutomationTool::SelectFileSignal,this->uiMethod,&UIMethod::SelectFileSlot);
     connect(comBean->getMessageViewModel(),&QStandardItemModel::itemChanged,this->uiMethod,&UIMethod::MessageViewModelEditedSlot);
+    connect(this,&AutomationTool::CreateSignal,this->uiMethod,&UIMethod::CreateSlot);
 }
 
 /**
@@ -55,60 +56,76 @@ void AutomationTool::InitTableView()
 {
     ui->MessageView->setModel(comBean->getMessageViewModel());
     comBean->getMessageViewModel()->setItem(0, 0, new QStandardItem("机种番号:"));
+    comBean->getMessageViewModel()->item(0,0)->setTextAlignment(Qt::AlignRight);
     comBean->getMessageViewModel()->item(0,0)->setEditable(false);
     comBean->getMessageViewModel()->setItem(0, 1, new QStandardItem(""));
     comBean->getMessageViewModel()->item(0,1)->setEditable(false);
     comBean->getMessageViewModel()->setItem(1, 0, new QStandardItem("机种类型:"));
+    comBean->getMessageViewModel()->item(1,0)->setTextAlignment(Qt::AlignRight);
     comBean->getMessageViewModel()->item(1,0)->setEditable(false);
     comBean->getMessageViewModel()->setItem(1, 1, new QStandardItem(""));
     comBean->getMessageViewModel()->item(1,1)->setEditable(false);
     comBean->getMessageViewModel()->setItem(2, 0, new QStandardItem("依赖机种番号:"));
+    comBean->getMessageViewModel()->item(2,0)->setTextAlignment(Qt::AlignRight);
     comBean->getMessageViewModel()->item(2,0)->setEditable(false);
     comBean->getMessageViewModel()->setItem(2, 1, new QStandardItem(""));
     comBean->getMessageViewModel()->item(2,1)->setEditable(false);
     comBean->getMessageViewModel()->setItem(3, 0, new QStandardItem("依赖机种类型:"));
+    comBean->getMessageViewModel()->item(3,0)->setTextAlignment(Qt::AlignRight);
     comBean->getMessageViewModel()->item(3,0)->setEditable(false);
     comBean->getMessageViewModel()->setItem(3, 1, new QStandardItem(""));
     comBean->getMessageViewModel()->item(3,1)->setEditable(false);
     comBean->getMessageViewModel()->setItem(4, 0, new QStandardItem("量产管理表路径:"));
+    comBean->getMessageViewModel()->item(4,0)->setTextAlignment(Qt::AlignRight);
     comBean->getMessageViewModel()->item(4,0)->setEditable(false);
     comBean->getMessageViewModel()->setItem(4, 1, new QStandardItem(""));
     comBean->getMessageViewModel()->setItem(5, 0, new QStandardItem("INI模板文件路径:"));
+    comBean->getMessageViewModel()->item(5,0)->setTextAlignment(Qt::AlignRight);
     comBean->getMessageViewModel()->item(5,0)->setEditable(false);
     comBean->getMessageViewModel()->setItem(5, 1, new QStandardItem(""));
     comBean->getMessageViewModel()->setItem(6, 0, new QStandardItem("P票文件路径"));
+    comBean->getMessageViewModel()->item(6,0)->setTextAlignment(Qt::AlignRight);
     comBean->getMessageViewModel()->item(6,0)->setEditable(false);
     comBean->getMessageViewModel()->setItem(6, 1, new QStandardItem(""));
     comBean->getMessageViewModel()->setItem(7, 0, new QStandardItem("SW确认文件路径:"));
+    comBean->getMessageViewModel()->item(7,0)->setTextAlignment(Qt::AlignRight);
     comBean->getMessageViewModel()->item(7,0)->setEditable(false);
     comBean->getMessageViewModel()->setItem(7, 1, new QStandardItem(""));
     comBean->getMessageViewModel()->setItem(8, 0, new QStandardItem("CarInfoMot文件路径:"));
+    comBean->getMessageViewModel()->item(8,0)->setTextAlignment(Qt::AlignRight);
     comBean->getMessageViewModel()->item(8,0)->setEditable(false);
     comBean->getMessageViewModel()->setItem(8, 1, new QStandardItem(""));
     comBean->getMessageViewModel()->setItem(9, 0, new QStandardItem("CarMapMot文件路径:"));
+    comBean->getMessageViewModel()->item(9,0)->setTextAlignment(Qt::AlignRight);
     comBean->getMessageViewModel()->item(9,0)->setEditable(false);
     comBean->getMessageViewModel()->setItem(9, 1, new QStandardItem(""));
     comBean->getMessageViewModel()->setItem(10, 0, new QStandardItem("OSDMot文件路径:"));
+    comBean->getMessageViewModel()->item(10,0)->setTextAlignment(Qt::AlignRight);
     comBean->getMessageViewModel()->item(10,0)->setEditable(false);
     comBean->getMessageViewModel()->setItem(10, 1, new QStandardItem(""));
     comBean->getMessageViewModel()->setItem(11, 0, new QStandardItem("joinMot文件路径:"));
+    comBean->getMessageViewModel()->item(11,0)->setTextAlignment(Qt::AlignRight);
     comBean->getMessageViewModel()->item(11,0)->setEditable(false);
     comBean->getMessageViewModel()->setItem(11, 1, new QStandardItem(""));
     comBean->getMessageViewModel()->setItem(12, 0, new QStandardItem("appMot文件路径:"));
+    comBean->getMessageViewModel()->item(12,0)->setTextAlignment(Qt::AlignRight);
     comBean->getMessageViewModel()->item(12,0)->setEditable(false);
     comBean->getMessageViewModel()->setItem(12, 1, new QStandardItem(""));
     comBean->getMessageViewModel()->setItem(13, 0, new QStandardItem("DR会議運用手順文件路径:"));
+    comBean->getMessageViewModel()->item(13,0)->setTextAlignment(Qt::AlignRight);
     comBean->getMessageViewModel()->item(13,0)->setEditable(false);
     comBean->getMessageViewModel()->setItem(13, 1, new QStandardItem(""));
     comBean->getMessageViewModel()->setItem(14, 0, new QStandardItem("確認シート文件路径:"));
+    comBean->getMessageViewModel()->item(14,0)->setTextAlignment(Qt::AlignRight);
     comBean->getMessageViewModel()->item(14,0)->setEditable(false);
     comBean->getMessageViewModel()->setItem(14, 1, new QStandardItem(""));
     comBean->getMessageViewModel()->setItem(15, 0, new QStandardItem("EntryAVM採用車種文件路径:"));
+    comBean->getMessageViewModel()->item(15,0)->setTextAlignment(Qt::AlignRight);
     comBean->getMessageViewModel()->item(15,0)->setEditable(false);
     comBean->getMessageViewModel()->setItem(15, 1, new QStandardItem(""));
     ui->MessageView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->MessageView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);//对第0列单独设置固定宽度
-    ui->MessageView->setColumnWidth(0,280);
+    ui->MessageView->setColumnWidth(0,220);
 }
 /**
  * @def UI界面初始化函数，主要功能是美化UI
@@ -127,6 +144,10 @@ void AutomationTool::InitStyle()
     logViewClearAction=new QAction("清除显示");
     //为Logview添加清除操作
     ui->LogView->addAction(logViewClearAction);
+    //设置TableView自适应
+    ui->MessageView->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+    ui->MessageView->verticalHeader()->setStretchLastSection(false);
+    ui->MessageView->setSelectionBehavior(QAbstractItemView::SelectRows);
 }
 
 /**
@@ -187,7 +208,7 @@ void AutomationTool::on_SVNButton_clicked()
     //获取相应文件路径
     emit SelectDirSignal(ui->SVNLabel,comBean->getSVNDirPath(),SVNDirError);
     if(comBean->getSVNDirPath()->isEmpty()||comBean->getID()->isEmpty()){return;}
-    emit SelectFileSignal(*(comBean->getSVNDirPath()),RelyFileflag,false);
+    emit SelectFileSignal(*(comBean->getSVNDirPath()),RelyFileflag,true);
 }
 
 /**
@@ -208,12 +229,8 @@ void AutomationTool::on_OutputButton_clicked()
 void AutomationTool::on_CreateButton_clicked()
 {
     QLogHelper::instance()->LogInfo("AutomationTool->on_CreateButton_clicked() 函数触发执行!");
-    if(comBean==NULL||MessageWarn()){return;}
-    if(comBean->getErrCode()->size()==0){
-
-    }else{
-        //根据错误码，弹出错误显示
-    }
+    if(comBean==NULL||comBean->getID()->isEmpty()||MessageWarn()){return;}
+    emit CreateSignal();
 }
 /**
  * @brief AutomationTool::LogViewClearSlot
@@ -243,6 +260,7 @@ void AutomationTool::on_CheckButton_clicked()
  */
 bool AutomationTool::MessageWarn()
 {
+    QLogHelper::instance()->LogInfo("AutomationTool->MessageWarn() 函数执行!");
     if(comBean->getStatusflag()!=0)
     {
         switch (comBean->getStatusflag()) {
@@ -261,4 +279,16 @@ bool AutomationTool::MessageWarn()
         return true;
     }
     return false;
+}
+/**
+ * @brief AutomationTool::on_MessageView_doubleClicked
+ * @param index
+ */
+void AutomationTool::on_MessageView_doubleClicked(const QModelIndex &index)
+{
+    QLogHelper::instance()->LogInfo("AutomationTool->on_MessageView_doubleClicked() 函数触发执行!");
+    QLogHelper::instance()->LogDebug("column: "+QString::number(index.column())+"    row:"+QString::number(index.row()));
+    if(!comBean->getTableViewEditflag()){
+        comBean->setTableViewEditflag(true);
+    }
 }

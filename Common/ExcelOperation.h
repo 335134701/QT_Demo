@@ -16,7 +16,7 @@ typedef struct SoftNumberTable{
     QString ApplicationPartNo;      //Application PartsNo
     QString ApplicationVer;         //Application Ver
     QString CarInfoPartNo;          //Car_Info PartsNo
-    QString CarInfoVer;             //Car_Info
+    QString CarInfoVer;             //Car_Info Ver
     QString CameraMAPPartNo;        //CameraMAP PartsNo
     QString CameraMAPVer;           //CameraMAP Ver
     QString OSDPartNo;              //OSD PartsNo
@@ -43,6 +43,7 @@ typedef struct ConfigTable{
     QString Expectedadroute;        //予想進路線の有無
     QString Steerspecifications;    //左右ステアリング仕様
     QString Mission;                //ミッション
+    QString BCIFunction;            //BCI機能有無
     QString RRREBfunction;          //RR　REB機能有無
     QString BCWfunction;            //BCW機能有無
     QString Buzzer;                 //ブザー
@@ -70,7 +71,7 @@ public:
 
     QList<SOFTNUMBERTable> ReadSoftExcel(const QString filePath,const QString ID,const QString IDType);
 
-    QList<CONFIGTable> ReadConfExcel(const QString filePath,const QString ID,const QString IDType);
+    QList<CONFIGTable> ReadConfExcel(const QString filePath,const QString ID);
 signals:
 
 public slots:

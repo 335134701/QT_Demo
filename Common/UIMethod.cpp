@@ -135,6 +135,7 @@ void UIMethod::ShowIDmessageSlot(int flag)
         }
         break;
     case RelyMessageflag:
+        /*
         tmp=DefineConfig-1+comBean->getSoftNumberTable()->size();
         foreach (SOFTNUMBERTable table, *(comBean->getSoftNumberTable())) {
             comBean->getMessageViewModel()->setItem(tmp+i*18+0, 0, new QStandardItem("クラリオン機種番号:"));
@@ -229,6 +230,7 @@ void UIMethod::ShowIDmessageSlot(int flag)
             this->getTextEdit()->append(DATETIME+"  診断識別コード: "+table.DiagnosticCode);
             i++;
         }
+        */
         break;
     case ConfigMessageflag:
         foreach (CONFIGTable conf, *(comBean->getConfigTable())) {
@@ -561,8 +563,8 @@ void UIMethod::EndFindFileThreadSlot(QStringList st, unsigned int flag, bool goO
 void UIMethod::EndExcelOperateThreadSoftSlot(QList<SOFTNUMBERTable> list)
 {
     QLogHelper::instance()->LogInfo("UIMethod->EndExcelOperateThreadSoftSlot() 函数执行!");
-    //QLogHelper::instance()->LogDebug(QString::number(list.size()));
-    comBean->setSoftNumberTable(&list);
+    QLogHelper::instance()->LogDebug(QString::number(list.size()));
+    *(comBean->getSoftNumberTable())=list;
     comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),ConfigFileError,QString::number(comBean->getSoftNumberTable()->size()),true);
     emit ShowIDmessageSignal(DefineConfig);
     emit ShowIDmessageSignal(RelyMessageflag);
@@ -578,7 +580,7 @@ void UIMethod::EndExcelOperateThreadConfSlot(QList<CONFIGTable> list)
 {
     QLogHelper::instance()->LogInfo("UIMethod->EndExcelOperateThreadConfSlot() 函数执行!");
     QLogHelper::instance()->LogDebug(QString::number(list.size()));
-    comBean->setConfigTable(&list);
+    *(comBean->getConfigTable())=list;
     emit ShowIDmessageSignal(ConfigMessageflag);
     comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),ConfigFileError,QString::number(comBean->getConfigTable()->size()),true);
     excelThread->quit();
@@ -611,6 +613,11 @@ void UIMethod::CreateSlot()
     QString fileName;
     QString tmpPath;
     bool flag=false;
+    SOFTNUMBERTable soft;
+    if((*comBean->getSoftNumberTable()).size()>0)
+    {
+        soft=comBean->getSoftNumberTable()->value(0);
+    }
     QDateTime current_date_time =QDateTime::currentDateTime();
     this->getTextEdit()->append(DATETIME+" =======================================");
     if(comBean->getOutputDirPath()->isEmpty()){
@@ -626,10 +633,10 @@ void UIMethod::CreateSlot()
     flag=folder->mkpath(tmpPath);
     if(!flag){this->getTextEdit()->append(DATETIME+" "+tmpPath+" 目录文件夹创建失败!");return;}
     this->getTextEdit()->append(DATETIME+" "+tmpPath+" 目录文件夹创建成功!");
-    if(comBean->getRelyID()->isEmpty()){
-        tmpPath=tmpPath+"/01_AKM対応";
-    }else{
+    if(!comBean->getRelyID()->isEmpty()||(*comBean->getAPPMot()).contains(".txt")||(*comBean->getPFilePath()).contains(".txt")||(*comBean->getSWFilePath()).contains(".txt")){
         tmpPath=tmpPath+"/02_AKM対応";
+    }else{
+        tmpPath=tmpPath+"/01_AKM対応";
     }
     if(folder->exists(tmpPath))
     {
@@ -645,10 +652,13 @@ void UIMethod::CreateSlot()
     if(!flag){this->getTextEdit()->append(DATETIME+" "+tmpPath+"/ソフト一式("+comBean->getID()+")/結合版"+" 目录文件夹创建失败!");return;}
     this->getTextEdit()->append(DATETIME+" "+tmpPath+"/ソフト一式("+comBean->getID()+")/結合版"+" 目录文件夹创建成功!");
 
+    comBean->getComMethod()->INIFileWrite(tmpPath+"/ソフト一式("+comBean->getID()+")/結合版/"+fileName,soft.PartNumber,soft.DiagnosticCode);
+/*
     //CarInfo文件复制
     if(!comBean->getCarInfoFilePath()->isEmpty()&&file->exists(*comBean->getCarInfoFilePath()))
     {
-        if(QFile::copy(*comBean->getCarInfoFilePath(),tmpPath+"/ソフト一式("+comBean->getID()+")")){
+        fileName=comBean->getCarInfoFilePath()->mid(comBean->getCarInfoFilePath()->lastIndexOf("/")+1);
+        if(QFile::copy(*comBean->getCarInfoFilePath(),tmpPath+"/ソフト一式("+comBean->getID()+")/"+fileName)){
             this->getTextEdit()->append(DATETIME+" "+(*comBean->getCarInfoFilePath())+" 文件复制成功!");
         }else
         {
@@ -658,7 +668,8 @@ void UIMethod::CreateSlot()
     //CarMap文件复制
     if(!comBean->getCarMapFilePath()->isEmpty()&&file->exists(*comBean->getCarMapFilePath()))
     {
-        if(QFile::copy(*comBean->getCarMapFilePath(),tmpPath+"/ソフト一式("+comBean->getID()+")")){
+        fileName=comBean->getCarMapFilePath()->mid(comBean->getCarMapFilePath()->lastIndexOf("/")+1);
+        if(QFile::copy(*comBean->getCarMapFilePath(),tmpPath+"/ソフト一式("+comBean->getID()+")/"+fileName)){
             this->getTextEdit()->append(DATETIME+" "+(*comBean->getCarMapFilePath())+" 文件复制成功!");
         }else
         {
@@ -668,7 +679,8 @@ void UIMethod::CreateSlot()
     //OSD文件复制
     if(!comBean->getCarOSDFilePath()->isEmpty()&&file->exists(*comBean->getCarOSDFilePath()))
     {
-        if(QFile::copy(*comBean->getCarOSDFilePath(),tmpPath+"/ソフト一式("+comBean->getID()+")")){
+        fileName=comBean->getCarOSDFilePath()->mid(comBean->getCarOSDFilePath()->lastIndexOf("/")+1);
+        if(QFile::copy(*comBean->getCarOSDFilePath(),tmpPath+"/ソフト一式("+comBean->getID()+")/"+fileName)){
             this->getTextEdit()->append(DATETIME+" "+(*comBean->getCarOSDFilePath())+" 文件复制成功!");
         }else
         {
@@ -676,9 +688,10 @@ void UIMethod::CreateSlot()
         }
     }
     //APPmot文件复制
-    if(!comBean->getAPPMot()->isEmpty()&&file->exists(*comBean->getAPPMot()))
+    if(!comBean->getAPPMot()->isEmpty()&&file->exists(*comBean->getAPPMot())&&!(*comBean->getAPPMot()).contains(".txt"))
     {
-        if(QFile::copy(*comBean->getAPPMot(),tmpPath+"/ソフト一式("+comBean->getID()+")")){
+        fileName=comBean->getAPPMot()->mid(comBean->getAPPMot()->lastIndexOf("/")+1);
+        if(QFile::copy(*comBean->getAPPMot(),tmpPath+"/ソフト一式("+comBean->getID()+")/"+fileName)){
             this->getTextEdit()->append(DATETIME+" "+(*comBean->getAPPMot())+" 文件复制成功!");
         }else
         {
@@ -687,7 +700,7 @@ void UIMethod::CreateSlot()
     }
 
     //INI文件复制
-    if(!comBean->getIniFilePath()->isEmpty()&&file->exists(*comBean->getIniFilePath())&&comBean->getSoftNumberTable()->size()>0)
+    if(!comBean->getIniFilePath()->isEmpty()&&file->exists(*comBean->getIniFilePath())&&!soft.ModelNumber.isEmpty())
     {
         fileName="LOGZONE_";
         if(*comBean->getIDType()=="EntryAVM2"){
@@ -698,16 +711,17 @@ void UIMethod::CreateSlot()
         fileName=fileName+comBean->getID()+"_2nd.ini";
         if(QFile::copy(*comBean->getIniFilePath(),tmpPath+"/ソフト一式("+comBean->getID()+")/結合版/"+fileName)){
             this->getTextEdit()->append(DATETIME+" "+(*comBean->getIniFilePath())+" 文件复制成功!");
-            //comBean->getComMethod()->INIFileWrite(tmpPath+"/ソフト一式("+comBean->getID()+")/結合版/"+fileName,comBean->getSoftNumberTable()->value(0).PartNumber,comBean->getSoftNumberTable()->value(0).DiagnosticCode);
+            comBean->getComMethod()->INIFileWrite(tmpPath+"/ソフト一式("+comBean->getID()+")/結合版/"+fileName,soft.PartNumber,soft.DiagnosticCode);
         }else
         {
             this->getTextEdit()->append(DATETIME+" "+(*comBean->getIniFilePath())+" 文件复制失败!");
         }
     }
     //Join Mot文件复制
-    if(!comBean->getJoinMot()->isEmpty()&&file->exists(*comBean->getJoinMot()))
+    if(!comBean->getJoinMot()->isEmpty()&&file->exists(*comBean->getJoinMot())&&!(*comBean->getJoinMot()).contains(".txt"))
     {
-        if(QFile::copy(*comBean->getJoinMot(),tmpPath+"/ソフト一式("+comBean->getID()+")/結合版")){
+        fileName=comBean->getJoinMot()->mid(comBean->getJoinMot()->lastIndexOf("/")+1);
+        if(QFile::copy(*comBean->getJoinMot(),tmpPath+"/ソフト一式("+comBean->getID()+")/結合版/"+fileName)){
             this->getTextEdit()->append(DATETIME+" "+(*comBean->getJoinMot())+" 文件复制成功!");
         }else
         {
@@ -718,7 +732,8 @@ void UIMethod::CreateSlot()
     //P票文件复制
     if(!comBean->getPFilePath()->isEmpty()&&file->exists(*comBean->getPFilePath())&&!(*comBean->getPFilePath()).contains(".txt"))
     {
-        if(QFile::copy(*comBean->getPFilePath(),tmpPath)){
+        fileName=comBean->getPFilePath()->mid(comBean->getPFilePath()->lastIndexOf("/")+1);
+        if(QFile::copy(*comBean->getPFilePath(),tmpPath+"/"+fileName)){
             this->getTextEdit()->append(DATETIME+" "+(*comBean->getPFilePath())+" 文件复制成功!");
         }else
         {
@@ -728,7 +743,8 @@ void UIMethod::CreateSlot()
     //SW确认文件复制
     if(!comBean->getSWFilePath()->isEmpty()&&file->exists(*comBean->getSWFilePath())&&!(*comBean->getSWFilePath()).contains(".txt"))
     {
-        if(QFile::copy(*comBean->getSWFilePath(),tmpPath)){
+        fileName=comBean->getSWFilePath()->mid(comBean->getSWFilePath()->lastIndexOf("/")+1);
+        if(QFile::copy(*comBean->getSWFilePath(),tmpPath+"/"+fileName)){
             this->getTextEdit()->append(DATETIME+" "+(*comBean->getSWFilePath())+" 文件复制成功!");
         }else
         {
@@ -738,7 +754,8 @@ void UIMethod::CreateSlot()
     //EntryAVM採用車種コンフィグ詳細_Ver2.26_20210416修正.xlsx文件复制
     if(!comBean->getConfigFilePath()->isEmpty()&&file->exists(*comBean->getConfigFilePath()))
     {
-        if(QFile::copy(*comBean->getConfigFilePath(),tmpPath)){
+        fileName=comBean->getConfigFilePath()->mid(comBean->getConfigFilePath()->lastIndexOf("/")+1);
+        if(QFile::copy(*comBean->getConfigFilePath(),tmpPath+"/"+fileName)){
             this->getTextEdit()->append(DATETIME+" "+(*comBean->getConfigFilePath())+" 文件复制成功!");
         }else
         {
@@ -762,8 +779,8 @@ void UIMethod::CreateSlot()
         }
     }
     //確認シート.xlsx文件复制
-    if(!comBean->getReadyFilePath()->isEmpty()&&file->exists(*comBean->getReadyFilePath())&&comBean->getSoftNumberTable()->size()>0){
-        fileName=comBean->getSoftNumberTable()->value(0).CarModels+" "+comBean->getSoftNumberTable()->value(0).PartNumber+"確認シート.xlsx";
+    if(!comBean->getReadyFilePath()->isEmpty()&&file->exists(*comBean->getReadyFilePath())&&!soft.ModelNumber.isEmpty()){
+        fileName=soft.CarModels+" "+soft.PartNumber+"確認シート.xlsx";
         if(QFile::copy(*comBean->getReadyFilePath(),tmpPath+"/"+fileName)){
             this->getTextEdit()->append(DATETIME+" "+(*comBean->getReadyFilePath())+" 文件成功!");
         }else
@@ -771,6 +788,7 @@ void UIMethod::CreateSlot()
             this->getTextEdit()->append(DATETIME+" "+(*comBean->getReadyFilePath())+" 文件失败!");
         }
     }
+   */
     this->getTextEdit()->append(DATETIME+" =======================================");
 }
 

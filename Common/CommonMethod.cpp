@@ -205,15 +205,38 @@ void CommonMethod::AnalyzeFilePath(const QStringList filePaths, QString *filePat
 void CommonMethod::INIFileWrite(const QString filePath, const QString PartNumber, const QString DiagnosticCode)
 {
     QLogHelper::instance()->LogInfo("CommonMethod->INIFileWrite() 函数执行!");
-    QFileInfo *file=new QFileInfo();
+    QString tmpPath="C:/Users/Administrator/Desktop/Deno.txt";
+    QFile *file=new QFile(tmpPath);
+    QString str,strlist;
     QString tmpString;
-    /*
-    if(file->exists(filePath))
+    QByteArray tmpByte=PartNumber.toLatin1();
+    char *tmp=tmpByte.data();
+    if(file->exists(tmpPath)&&file->open(QIODevice::ReadWrite))
     {
-        //tmpString="LOG_ZONE_IDENT_00="++"			;日産部番0, '"+tmp[0]+"'="+0x35;
-        QLogHelper::instance()->LogDebug(filePath[0]);
+        QTextStream out(file);
+        str=file->readLine();
+        while (!str.isNull()) {
+            if(str.contains("23")){
+                tmpString="LOG_ZONE_IDENT_00=0x"+QString("%1").arg(tmp[0], 2, 16,QChar('0'))+"			;日産部番0, '"+QString(tmp[0])+"'=0x"+QString("%1").arg(tmp[0], 2, 16,QChar('0'));
+                strlist.append(tmpString.toUtf8());
+            }else{
+                strlist.append(str);
+            }
+            str=file->readLine();
+        }
+        QLogHelper::instance()->LogDebug(strlist);
+        out <<strlist;
+        /*
+        tmpString="LOG_ZONE_IDENT_00=0x"+QString("%1").arg(tmp[0], 2, 16,QChar('0'))+"			;日産部番0, '"+QString(tmp[0])+"'=0x"+QString("%1").arg(tmp[0], 2, 16,QChar('0'));
+        if(str.contains("23"))
+        {
+            str.replace(QRegExp("23.*"),tmpString);
+        }
+        QTextStream out(file);
+        out << str;
+        */
+        file->close();
     }
-    */
 }
 /**
  * @def ini文件读取

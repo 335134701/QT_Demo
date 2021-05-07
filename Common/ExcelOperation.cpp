@@ -208,21 +208,44 @@ bool ExcelOperation::EEFileWrite(const QString filePath, const QString ID,const 
 {
     QLogHelper::instance()->LogInfo("ExcelOperation->EEFileWrite() 函数执行!");
     Sheet *sheetread;
+    QString tmp;
     QDateTime curDateTime=QDateTime::currentDateTime();
-    QString Years=curDateTime.toString("yyyy");
-    QString Mounth=curDateTime.toString("M");
-    QString Day=curDateTime.toString("d");
+    int Years=curDateTime.toString("yyyy").toInt();
+    int Mounth=curDateTime.toString("M").toInt();
+    int Day=curDateTime.toString("d").toInt();
     if(this->Init(filePath)&&book->load(filePath.toLocal8Bit()))
     {
         QLogHelper::instance()->LogDebug("-------------------------------");
         sheetread = book->getSheet(0);
-        QLogHelper::instance()->LogDebug("表格行数: "+QString::number(sheetread->lastRow())+"表格列数: "+QString::number(sheetread->lastCol()));
-        QLogHelper::instance()->LogDebug(sheetread->readStr(3,6));
-        sheetread->writeStr(3,4,Years.toLatin1().data());
-        sheetread->writeStr(3,6,Mounth.toLatin1().data());
-        sheetread->writeStr(3,9,Day.toLatin1().data());
-        QLogHelper::instance()->LogDebug(sheetread->readStr(3,6));
+        sheetread->writeNum(3,4,Years);
+        sheetread->writeNum(11,5,Years);
+        sheetread->writeNum(12,5,Years);
+        sheetread->writeNum(3,6,Mounth);
+        sheetread->writeNum(11,7,Mounth);
+        sheetread->writeNum(12,7,Mounth);
+        sheetread->writeNum(3,9,Day);
+        sheetread->writeNum(11,9,Day);
+        sheetread->writeNum(12,9,Day);
+        QLogHelper::instance()->LogDebug(sheetread->readStr(40,27));
+        QLogHelper::instance()->LogDebug(sheetread->readStr(40,28));
+        QLogHelper::instance()->LogDebug(sheetread->readStr(40,29));
+        sheetread->writeStr(7,6,ID.left(7).mid(2).toLatin1().data());
+        sheetread->writeStr(7,9,ID.right(1).toLatin1().data());
+        sheetread->writeStr(15,21,ID.left(7).mid(2).toLatin1().data());
+        sheetread->writeStr(15,24,ID.right(1).toLatin1().data());
+        if(softNumberTable->size()>0){
+            sheetread->writeStr(8,17,softNumberTable->value(0).CarModels.toLatin1().data());
+            tmp=softNumberTable->value(softNumberTable->size()-1).ApplicationVer;
+            sheetread->writeStr(10,23,(tmp.left(2)+"."+tmp.left(4).mid(2)+"."+tmp.right(2)).toLatin1().data());
+        }
+        if(IDType!="NextPh3")
+        {
+
+        }else{
+
+        }
     }
+    book->save(filePath.toLocal8Bit());
     book->release();
 }
 /**

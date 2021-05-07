@@ -622,7 +622,7 @@ void UIMethod::MessageViewModelEditedSlot(const QStandardItem *item)
 void UIMethod::CreateSlot()
 {
     QLogHelper::instance()->LogInfo("AutomationTool->CreateSlot() 函数触发执行!");
-    QString file="C:/Users/congz/Desktop/EE-A002-1000 DR会議運用手順_様式7_20190320_EntryAVM_EN3355PA_20210407.xlsx";
+    QString file="C:/Users/Administrator/Desktop/EE-A002-1000 DR会議運用手順_様式7_20190320_EntryAVM_EN3355PA_20210407.xlsx";
     if(!excelThread->isRunning()){
         excelThread->start();
         emit EEExcelWriteSignal(comBean->getExcelOption(),file,*(comBean->getID()),*(comBean->getIDType()),comBean->getSoftNumberTable());

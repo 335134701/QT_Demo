@@ -40,6 +40,10 @@ signals:
 
     void ExcelOperateThreadSignal(ExcelOperation *exl,const QString filePath,const QString ID,const QString IDType,unsigned int flag);
 
+    void EEExcelWriteSignal(ExcelOperation *exl, const QString filePath,const QString ID,const QString IDType, QList<SOFTNUMBERTable> *softNumberTable);
+
+    void ReadyExcelWriteSignal(ExcelOperation *exl, const QString filePath,const QString ID,const QString IDType, QList<SOFTNUMBERTable> *softNumberTable,QList<CONFIGTable> *configTable);
+
     void ShowIDmessageSignal(int flag);
 
 public slots:
@@ -56,7 +60,12 @@ public slots:
     void EndFindFileThreadSlot(QStringList st,unsigned int flag, bool goOn);
 
     void EndExcelOperateThreadSoftSlot(QList<SOFTNUMBERTable> list);
+
     void EndExcelOperateThreadConfSlot(QList<CONFIGTable> list);
+
+    void EndEEExcelWriteSlot(bool flag);
+
+    void EndReadyExcelWriteSlot(bool flag);
 
     void MessageViewModelEditedSlot(const QStandardItem *item);
 
@@ -79,6 +88,7 @@ private :
 
     QThread *excelThread;
 
+    QString carTmpPath;
 };
 
 #endif // UIMETHOD_H

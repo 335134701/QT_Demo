@@ -183,13 +183,15 @@ void CommonMethod::AnalyzeFilePath(const QStringList filePaths, QString *filePat
         if(filePaths.size()>0){path=filePaths[filePaths.size()-1];}
         break;
     case ReadyFileflag:
-        foreach (QString file, filePaths) {
-            QLogHelper::instance()->LogInfo(file);
-        }
+        if(filePaths.size()>0){path=filePaths[filePaths.size()-1];}
         break;
     case ConfigFileflag:
         foreach (QString file, filePaths) {
-            QLogHelper::instance()->LogInfo(file);
+            tmpsize=file.mid(file.indexOf(".")+1,2).toInt();
+            if(tmpsize>size){
+                size=tmpsize;
+                path=file;
+            }
         }
         break;
     }
@@ -205,36 +207,38 @@ void CommonMethod::AnalyzeFilePath(const QStringList filePaths, QString *filePat
 void CommonMethod::INIFileWrite(const QString filePath, const QString PartNumber, const QString DiagnosticCode)
 {
     QLogHelper::instance()->LogInfo("CommonMethod->INIFileWrite() 函数执行!");
-    QString tmpPath="C:/Users/Administrator/Desktop/Deno.txt";
-    QFile *file=new QFile(tmpPath);
-    QString str,strlist;
-    QString tmpString;
+    QFile *file=new QFile(filePath);
     QByteArray tmpByte=PartNumber.toLatin1();
     char *tmp=tmpByte.data();
-    if(file->exists(tmpPath)&&file->open(QIODevice::ReadWrite))
+    QString str,strList;
+    QTextStream out(file);
+    out.setCodec("Shift-JIS");
+    if(file->exists(filePath)&&file->open(QIODevice::ReadOnly))
     {
-        QTextStream out(file);
-        str=file->readLine();
+        str=out.readLine();
         while (!str.isNull()) {
-            if(str.contains("23")){
-                tmpString="LOG_ZONE_IDENT_00=0x"+QString("%1").arg(tmp[0], 2, 16,QChar('0'))+"			;日産部番0, '"+QString(tmp[0])+"'=0x"+QString("%1").arg(tmp[0], 2, 16,QChar('0'));
-                strlist.append(tmpString.toUtf8());
-            }else{
-                strlist.append(str);
+            if(str.contains("LOG_ZONE_IDENT_00"))
+            {
+                str="LOG_ZONE_IDENT_00=0x"+QString("%1").arg(tmp[0],2,16,QChar('0')).toUpper()+"			;日産部番0, '"+tmp[0]+"'=0x"+QString("%1").arg(tmp[0],2,16,QChar('0')).toUpper();
+            }else if (str.contains("LOG_ZONE_IDENT_01")) {
+                str="LOG_ZONE_IDENT_01=0x"+QString("%1").arg(tmp[1],2,16,QChar('0')).toUpper()+"			;日産部番0, '"+tmp[1]+"'=0x"+QString("%1").arg(tmp[1],2,16,QChar('0')).toUpper();
+            }else if (str.contains("LOG_ZONE_IDENT_02")) {
+                str="LOG_ZONE_IDENT_02=0x"+QString("%1").arg(tmp[2],2,16,QChar('0')).toUpper()+"			;日産部番0, '"+tmp[2]+"'=0x"+QString("%1").arg(tmp[2],2,16,QChar('0')).toUpper();
+            }else if (str.contains("LOG_ZONE_IDENT_03")) {
+                str="LOG_ZONE_IDENT_03=0x"+QString("%1").arg(tmp[3],2,16,QChar('0')).toUpper()+"			;日産部番0, '"+tmp[3]+"'=0x"+QString("%1").arg(tmp[3],2,16,QChar('0')).toUpper();
+            }else if (str.contains("LOG_ZONE_IDENT_04")) {
+                str="LOG_ZONE_IDENT_04=0x"+QString("%1").arg(tmp[4],2,16,QChar('0')).toUpper()+"			;日産部番0, '"+tmp[4]+"'=0x"+QString("%1").arg(tmp[4],2,16,QChar('0')).toUpper();
+            }else if (str.contains("LOG_ZONE_IDENT_05")) {
+                str="LOG_ZONE_IDENT_05="+DiagnosticCode+"			;診断識別コード, EntryAVM(0x09), SMB(0x80)";
             }
-            str=file->readLine();
+            strList.append(str+"\n");
+            str=out.readLine();
         }
-        QLogHelper::instance()->LogDebug(strlist);
-        out <<strlist;
-        /*
-        tmpString="LOG_ZONE_IDENT_00=0x"+QString("%1").arg(tmp[0], 2, 16,QChar('0'))+"			;日産部番0, '"+QString(tmp[0])+"'=0x"+QString("%1").arg(tmp[0], 2, 16,QChar('0'));
-        if(str.contains("23"))
-        {
-            str.replace(QRegExp("23.*"),tmpString);
-        }
-        QTextStream out(file);
-        out << str;
-        */
+        file->close();
+    }
+    if(file->exists(filePath)&&file->open(QIODevice::WriteOnly|QIODevice::Text))
+    {
+        out << strList;
         file->close();
     }
 }
@@ -249,7 +253,38 @@ void CommonMethod::INIFileWrite(const QString filePath, const QString PartNumber
 bool CommonMethod::INIFileRead(const QString filePath, const QString PartNumber, const QString DiagnosticCode)
 {
     QLogHelper::instance()->LogInfo("CommonMethod->INIFileRead() 函数执行!");
-    return false;
+    QFile *file=new QFile(filePath);
+    QByteArray tmpByte=PartNumber.toLatin1();
+    char *tmp=tmpByte.data();
+    QString tmpString,str;
+    QTextStream out(file);
+    out.setCodec("Shift-JIS");
+    if(file->exists(filePath)&&file->open(QIODevice::ReadOnly))
+    {
+        out.setCodec("Shift-JIS");
+        str=out.readLine();
+        while (!str.isNull()) {
+            if(str.contains("LOG_ZONE_IDENT_00"))
+            {
+                tmpString="LOG_ZONE_IDENT_00=0x"+QString("%1").arg(tmp[0],2,16,QChar('0')).toUpper()+"			;日産部番0, '"+tmp[0]+"'=0x"+QString("%1").arg(tmp[0],2,16,QChar('0')).toUpper();
+            }else if (str.contains("LOG_ZONE_IDENT_01")) {
+                tmpString="LOG_ZONE_IDENT_01=0x"+QString("%1").arg(tmp[1],2,16,QChar('0')).toUpper()+"			;日産部番0, '"+tmp[1]+"'=0x"+QString("%1").arg(tmp[1],2,16,QChar('0')).toUpper();
+            }else if (str.contains("LOG_ZONE_IDENT_02")) {
+                tmpString="LOG_ZONE_IDENT_02=0x"+QString("%1").arg(tmp[2],2,16,QChar('0')).toUpper()+"			;日産部番0, '"+tmp[2]+"'=0x"+QString("%1").arg(tmp[2],2,16,QChar('0')).toUpper();
+            }else if (str.contains("LOG_ZONE_IDENT_03")) {
+                tmpString="LOG_ZONE_IDENT_03=0x"+QString("%1").arg(tmp[3],2,16,QChar('0')).toUpper()+"			;日産部番0, '"+tmp[3]+"'=0x"+QString("%1").arg(tmp[3],2,16,QChar('0')).toUpper();
+            }else if (str.contains("LOG_ZONE_IDENT_04")) {
+                tmpString="LOG_ZONE_IDENT_04=0x"+QString("%1").arg(tmp[4],2,16,QChar('0')).toUpper()+"			;日産部番0, '"+tmp[4]+"'=0x"+QString("%1").arg(tmp[4],2,16,QChar('0')).toUpper();
+            }else if (str.contains("LOG_ZONE_IDENT_05")) {
+                tmpString="LOG_ZONE_IDENT_05="+DiagnosticCode+"			;診断識別コード, EntryAVM(0x09), SMB(0x80)";
+            }
+            if(!tmpString.isEmpty()&&str!=tmpString){return false;}
+            str=out.readLine();
+            tmpString="";
+        }
+        file->close();
+    }
+    return true;
 }
 
 

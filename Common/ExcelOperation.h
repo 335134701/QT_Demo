@@ -2,6 +2,7 @@
 #define EXCELOPERATION_H
 
 #include <QObject>
+#include <QDateTime>
 #include <QTextCodec>
 #include "libxl.h"
 #include "QLoghelper.h"
@@ -72,6 +73,10 @@ public:
     QList<SOFTNUMBERTable> ReadSoftExcel(const QString filePath,const QString ID,const QString IDType);
 
     QList<CONFIGTable> ReadConfExcel(const QString filePath,const QString ID);
+
+    bool EEFileWrite(const QString filePath,const QString ID,const QString IDType, QList<SOFTNUMBERTable> *softNumberTable);
+
+    bool ReadyFileWrite(const QString filePath,const QString ID,const QString IDType, QList<SOFTNUMBERTable> *softNumberTable,QList<CONFIGTable> *configTable);
 signals:
 
 public slots:

@@ -54,6 +54,19 @@ void CommonBean::Init()
 void CommonBean::ParameterInit()
 {
     QLogHelper::instance()->LogInfo("CommonBean->ParameterInit() 函数执行!");
+    errCode->clear();
+    *RelyFilePath="";
+    *IniFilePath="";
+    *PFilePath="";
+    *SWFilePath="";
+    *CarInfoFilePath="";
+    *CarMapFilePath="";
+    *CarOSDFilePath="";
+    *JoinMot="";
+    *APPMot="";
+    *EEFilePath="";
+    *ReadyFilePath="";
+    *ConfigFilePath="";
 }
 /**
  * @def 初始化错误码

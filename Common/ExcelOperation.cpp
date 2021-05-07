@@ -82,6 +82,7 @@ QList<SOFTNUMBERTable> ExcelOperation::ReadSoftExcel(const QString filePath, con
                 }
             }
         }
+        book->release();
     }
     return *softlist;
 }
@@ -105,7 +106,7 @@ QList<CONFIGTable> ExcelOperation::ReadConfExcel(const QString filePath, const Q
         int rowNum = sheetread->lastRow();
         for (int i = 1; i < rowNum; ++i)
         {
-            if(QString::fromLocal8Bit(sheetread->readStr(i,1)).contains(ID)){
+            if(QString::fromLocal8Bit(sheetread->readStr(i,2)).contains(ID)){
                 flag=true;
             }else{flag=false;}
             if(flag){
@@ -191,7 +192,50 @@ QList<CONFIGTable> ExcelOperation::ReadConfExcel(const QString filePath, const Q
                 conflist->append(conf);
             }
         }
+        book->release();
     }
     return *conflist;
+}
+/**
+ * @def EE-A002-1000 DR会議運用手順_様式7_20190320_Entry2AVM_EN3445PC_20210419.xlsx 文件写入
+ * @brief ExcelOperation::EEFileWrite
+ * @param filePath
+ * @param ID
+ * @param softNumberTable
+ * @return
+ */
+bool ExcelOperation::EEFileWrite(const QString filePath, const QString ID,const QString IDType, QList<SOFTNUMBERTable> *softNumberTable)
+{
+    QLogHelper::instance()->LogInfo("ExcelOperation->EEFileWrite() 函数执行!");
+    Sheet *sheetread;
+    QDateTime curDateTime=QDateTime::currentDateTime();
+    QString Years=curDateTime.toString("yyyy");
+    QString Mounth=curDateTime.toString("M");
+    QString Day=curDateTime.toString("d");
+    if(this->Init(filePath)&&book->load(filePath.toLocal8Bit()))
+    {
+        QLogHelper::instance()->LogDebug("-------------------------------");
+        sheetread = book->getSheet(0);
+        QLogHelper::instance()->LogDebug("表格行数: "+QString::number(sheetread->lastRow())+"表格列数: "+QString::number(sheetread->lastCol()));
+        QLogHelper::instance()->LogDebug(sheetread->readStr(3,6));
+        sheetread->writeStr(3,4,Years.toLatin1().data());
+        sheetread->writeStr(3,6,Mounth.toLatin1().data());
+        sheetread->writeStr(3,9,Day.toLatin1().data());
+        QLogHelper::instance()->LogDebug(sheetread->readStr(3,6));
+    }
+    book->release();
+}
+/**
+ * @def P02F-PRC 5R00A 確認シート.xlsx 文件写入
+ * @brief ExcelOperation::ReadyFileWrite
+ * @param filePath
+ * @param ID
+ * @param softNumberTable
+ * @param configTable
+ * @return
+ */
+bool ExcelOperation::ReadyFileWrite(const QString filePath, const QString ID,const QString IDType, QList<SOFTNUMBERTable> *softNumberTable, QList<CONFIGTable> *configTable)
+{
+    QLogHelper::instance()->LogInfo("ExcelOperation->ReadyFileWrite() 函数执行!");
 }
 

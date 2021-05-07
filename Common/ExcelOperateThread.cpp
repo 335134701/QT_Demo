@@ -13,16 +13,22 @@ void ExcelOperateThread::ExcelOperateThreadSlot(ExcelOperation *exl, const QStri
     QLogHelper::instance()->LogInfo("ExcelOperateThread->ExcelOperateThreadSlot() 函数执行!");
     QList<SOFTNUMBERTable> *softList=new QList<SOFTNUMBERTable>();
     QList<CONFIGTable> *confList=new QList<CONFIGTable>();
+    QFile *file=new QFile();
     if(flag==RelyFileflag){
-        (*softList)=exl->ReadSoftExcel(filePath,ID,IDType);
-        (*softList)=this->DealSoftTable(*(softList),IDType);
+        if(file->exists(filePath)){
+            (*softList)=exl->ReadSoftExcel(filePath,ID,IDType);
+            (*softList)=this->DealSoftTable(*(softList),IDType);
+        }
         emit EndExcelOperateThreadSoftSignal(*softList);
     }
-    else if(flag==14){
-        (*confList)=exl->ReadConfExcel(filePath,ID);
+    else if(flag==ConfigFileflag){
+        if(file->exists(filePath)){
+            (*confList)=exl->ReadConfExcel(filePath,ID);
+        }
         emit EndExcelOperateThreadConfSignal((*confList));
     }
 }
+
 /**
  * @def 获取的ソフトウエア部品番号管理表(量産)_AKM対応用表部分属性需要进一步处理
  *      本函数功能是对量产管理表获取的属性进一步处理
@@ -111,4 +117,32 @@ QList<SOFTNUMBERTable> ExcelOperateThread::DealSoftTable(QList<SOFTNUMBERTable> 
         list[i].DiagnosticCode=DiagnosticCode;
     }
     return list;
+}
+
+void ExcelOperateThread::EEExcelWriteSlot(ExcelOperation *exl, const QString filePath, const QString ID,const QString IDType, QList<SOFTNUMBERTable> *softNumberTable)
+{
+    QLogHelper::instance()->LogInfo("ExcelOperateThread->EEExcelWriteSlot() 函数执行!");
+    bool flag=true;
+    QFile *file=new QFile();
+    if(file->exists(filePath))
+    {
+        flag=exl->EEFileWrite(filePath,ID,IDType,softNumberTable);
+    }else{
+        flag=false;
+    }
+    emit EndEEExcelWriteSignal(flag);
+}
+
+void ExcelOperateThread::ReadyExcelWriteSlot(ExcelOperation *exl, const QString filePath, const QString ID,const QString IDType, QList<SOFTNUMBERTable> *softNumberTable, QList<CONFIGTable> *configTable)
+{
+    QLogHelper::instance()->LogInfo("ExcelOperateThread->ReadyExcelWriteSlot() 函数执行!");
+    bool flag=true;
+    QFile *file=new QFile();
+    if(file->exists(filePath))
+    {
+
+    }else{
+        flag=false;
+    }
+    emit EndReadyExcelWriteSignal(flag);
 }

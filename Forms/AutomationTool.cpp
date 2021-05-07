@@ -103,11 +103,11 @@ void AutomationTool::InitTableView()
     comBean->getMessageViewModel()->item(10,0)->setTextAlignment(Qt::AlignRight);
     comBean->getMessageViewModel()->item(10,0)->setEditable(false);
     comBean->getMessageViewModel()->setItem(10, 1, new QStandardItem(""));
-    comBean->getMessageViewModel()->setItem(11, 0, new QStandardItem("joinMot文件路径:"));
+    comBean->getMessageViewModel()->setItem(11, 0, new QStandardItem("appMot文件路径:"));
     comBean->getMessageViewModel()->item(11,0)->setTextAlignment(Qt::AlignRight);
     comBean->getMessageViewModel()->item(11,0)->setEditable(false);
     comBean->getMessageViewModel()->setItem(11, 1, new QStandardItem(""));
-    comBean->getMessageViewModel()->setItem(12, 0, new QStandardItem("appMot文件路径:"));
+    comBean->getMessageViewModel()->setItem(12, 0, new QStandardItem("joinMot文件路径:"));
     comBean->getMessageViewModel()->item(12,0)->setTextAlignment(Qt::AlignRight);
     comBean->getMessageViewModel()->item(12,0)->setEditable(false);
     comBean->getMessageViewModel()->setItem(12, 1, new QStandardItem(""));
@@ -119,7 +119,7 @@ void AutomationTool::InitTableView()
     comBean->getMessageViewModel()->item(14,0)->setTextAlignment(Qt::AlignRight);
     comBean->getMessageViewModel()->item(14,0)->setEditable(false);
     comBean->getMessageViewModel()->setItem(14, 1, new QStandardItem(""));
-    comBean->getMessageViewModel()->setItem(15, 0, new QStandardItem("EntryAVM採用車種文件路径:"));
+    comBean->getMessageViewModel()->setItem(15, 0, new QStandardItem("採用車種文件路径:"));
     comBean->getMessageViewModel()->item(15,0)->setTextAlignment(Qt::AlignRight);
     comBean->getMessageViewModel()->item(15,0)->setEditable(false);
     comBean->getMessageViewModel()->setItem(15, 1, new QStandardItem(""));
@@ -208,7 +208,9 @@ void AutomationTool::on_SVNButton_clicked()
     //获取相应文件路径
     emit SelectDirSignal(ui->SVNLabel,comBean->getSVNDirPath(),SVNDirError);
     if(comBean->getSVNDirPath()->isEmpty()||comBean->getID()->isEmpty()){return;}
-    emit SelectFileSignal(*(comBean->getSVNDirPath()),RelyFileflag,false);
+    //初始化相关参数
+    comBean->ParameterInit();
+    emit SelectFileSignal(*(comBean->getSVNDirPath()),RelyFileflag,true);
 }
 
 /**

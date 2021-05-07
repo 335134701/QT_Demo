@@ -2,6 +2,7 @@
 #define COMMONMETHOD_H
 
 #include <QObject>
+#include <QTextCodec>
 #include "XMLOperate.h"
 #include "QLoghelper.h"
 #include "DEFINE.h"
@@ -11,6 +12,8 @@ class CommonMethod : public QObject
     Q_OBJECT
 public:
     explicit CommonMethod(QObject *parent = nullptr);
+
+    QTextCodec *codec= QTextCodec::codecForName("GBK");
 
     QString JudgeIDType(const QString ID);
 

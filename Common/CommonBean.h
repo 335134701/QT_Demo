@@ -116,8 +116,8 @@ public:
     void setTableViewEditflag(bool value);
 
 private :
+    //当前程序操作状态码
     unsigned int statusflag;
-
     //TableView数据模型
     QStandardItemModel *messageViewModel;
 

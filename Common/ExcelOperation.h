@@ -31,6 +31,7 @@ typedef struct SoftNumberTable{
 
 typedef struct ConfigTable{
     QString Vehicletype;            //車種 Vehicle
+    QString CANGen;                 //CAN世代
     QString ITS;                    //ITS
     QString PickMethod;             //接続先・方式
     QString Destination;            //仕向け
@@ -51,6 +52,7 @@ typedef struct ConfigTable{
     QString MeterSW;                //メーターSW
     QString OFFROADMODE;            //OFF ROAD MODE
     QString Movingway;              //駆動方式
+    QString DAS;                    //DAS機能有無
     QString PSRfunction;            //PSR機能有無
     QString Rearnormalview;         //リアノーマルビュー有無
     QString Enginespecifications;   //エンジン仕様
@@ -76,13 +78,17 @@ public:
 
     bool EEFileWrite(const QString filePath,const QString ID,const QString IDType, QList<SOFTNUMBERTable> *softNumberTable);
 
-    bool ReadyFileWrite(const QString filePath,const QString ID,const QString IDType, QList<SOFTNUMBERTable> *softNumberTable,QList<CONFIGTable> *configTable);
+    bool ReadyFileWrite(const QString filePath,QList<SOFTNUMBERTable> *softNumberTable,QList<CONFIGTable> *configTable,QStringList DefineConfigList);
 signals:
 
 public slots:
 
 private :
    Book *book;
+
+   bool ReadyFileFirstSheet(const QString filePath, QList<SOFTNUMBERTable> *softNumberTable,QList<CONFIGTable> *configTable);
+   bool ReadyFileSecondSheet(const QString filePath,QList<CONFIGTable> *configTable);
+   bool ReadyFileThirdSheet(const QString filePath,QList<SOFTNUMBERTable> *softNumberTable,QStringList DefineConfigList,bool flag);
 };
 
 #endif // EXCELOPERATION_H

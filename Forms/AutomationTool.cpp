@@ -270,10 +270,10 @@ bool AutomationTool::MessageWarn()
             QMessageBox::warning(this,"Warn","正在执行文件查找任务，其他任务暂时无法执行!");
             break;
         case 2:
-            QMessageBox::warning(this,"Title","Error Message");
+            QMessageBox::warning(this,"Title","正在执行文件解析任务，其他任务暂时无法执行!");
             break;
         case 3:
-            QMessageBox::warning(this,"Title","Error Message");
+            QMessageBox::warning(this,"Title","正在执行生成任务，其他任务暂时无法执行!");
             break;
         default:
             break;

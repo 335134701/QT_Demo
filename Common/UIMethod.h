@@ -42,7 +42,7 @@ signals:
 
     void EEExcelWriteSignal(ExcelOperation *exl, const QString filePath,const QString ID,const QString IDType, QList<SOFTNUMBERTable> *softNumberTable);
 
-    void ReadyExcelWriteSignal(ExcelOperation *exl, const QString filePath,const QString ID,const QString IDType, QList<SOFTNUMBERTable> *softNumberTable,QList<CONFIGTable> *configTable);
+    void ReadyExcelWriteSignal(ExcelOperation *exl, const QString filePath, QList<SOFTNUMBERTable> *softNumberTable,QList<CONFIGTable> *configTable,QStringList DefineConfigList);
 
     void ShowIDmessageSignal(int flag);
 

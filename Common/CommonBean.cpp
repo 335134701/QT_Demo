@@ -362,3 +362,13 @@ void CommonBean::setTableViewEditflag(bool value)
     tableViewEditflag = value;
 }
 
+QStringList CommonBean::getDefineConfigList() const
+{
+    return DefineConfigList;
+}
+
+void CommonBean::setDefineConfigList(const QStringList &value)
+{
+    DefineConfigList = value;
+}
+

@@ -36,26 +36,6 @@ void ExcelOperateThread::ExcelOperateThreadSlot(ExcelOperation *exl, const QStri
  * @param list
  * @return
  */
-/*
-    QString ModelNumber;            //クラリオン機種番号
-    QString CarModels;              //車種仕向け
-    QString PartNumber;             //日産部番
-    QString CANGen;                 //CAN世代
-    QString Productionstage;        //生産段階
-    QString ApplicationPartNo;      //Application PartsNo
-    QString ApplicationVer;         //Application Ver
-    QString CarInfoPartNo;          //Car_Info PartsNo
-    QString CarInfoVer;             //Car_Info
-    QString CameraMAPPartNo;        //CameraMAP PartsNo
-    QString CameraMAPVer;           //CameraMAP Ver
-    QString OSDPartNo;              //OSD PartsNo
-    QString OSDVer;                 //OSD Ver
-    QString CANfblPartNo;           //CANfbl PartsNo
-    QString CANfblVer;              //CANfbl Ver
-    QString BootloaderPartNo;       //Bootloader PartsNo
-    QString BootloaderVer;          //Bootloader Ver
-    QString DiagnosticCode;         //診断識別コード
- */
 QList<SOFTNUMBERTable> ExcelOperateThread::DealSoftTable(QList<SOFTNUMBERTable> list,QString IDType)
 {
     QLogHelper::instance()->LogInfo("ExcelOperateThread->DealSoftTable() 函数执行!");
@@ -110,7 +90,7 @@ QList<SOFTNUMBERTable> ExcelOperateThread::DealSoftTable(QList<SOFTNUMBERTable> 
         if(IDType=="EntryAVM2"){DiagnosticCode=0x0A;}
         if(IDType=="EntryIPA"){DiagnosticCode=0x0C;}
         if(IDType=="FAP"){DiagnosticCode=0x09;}
-        if(IDType=="NextPH3"){DiagnosticCode=0x09;}
+        if(IDType=="NextPH3"){DiagnosticCode=0x0D;}
     }
     //填充所有诊断识别码
     for(int i=0;i<list.size();i++){
@@ -133,14 +113,14 @@ void ExcelOperateThread::EEExcelWriteSlot(ExcelOperation *exl, const QString fil
     emit EndEEExcelWriteSignal(flag);
 }
 
-void ExcelOperateThread::ReadyExcelWriteSlot(ExcelOperation *exl, const QString filePath, const QString ID,const QString IDType, QList<SOFTNUMBERTable> *softNumberTable, QList<CONFIGTable> *configTable)
+void ExcelOperateThread::ReadyExcelWriteSlot(ExcelOperation *exl, const QString filePath, QList<SOFTNUMBERTable> *softNumberTable, QList<CONFIGTable> *configTable,QStringList DefineConfigList)
 {
     QLogHelper::instance()->LogInfo("ExcelOperateThread->ReadyExcelWriteSlot() 函数执行!");
     bool flag=true;
     QFile *file=new QFile();
     if(file->exists(filePath))
     {
-
+        flag=exl->ReadyFileWrite(filePath,softNumberTable,configTable,DefineConfigList);
     }else{
         flag=false;
     }

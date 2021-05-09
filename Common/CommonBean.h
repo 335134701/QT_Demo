@@ -115,11 +115,16 @@ public:
     bool getTableViewEditflag() const;
     void setTableViewEditflag(bool value);
 
+    QStringList getDefineConfigList() const;
+    void setDefineConfigList(const QStringList &value);
+
 private :
     //当前程序操作状态码
     unsigned int statusflag;
     //TableView数据模型
     QStandardItemModel *messageViewModel;
+
+    QStringList DefineConfigList;
 
     QMap<QString,QString> RExpression;
     //错误状态码集合

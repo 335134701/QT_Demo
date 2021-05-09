@@ -6,9 +6,14 @@ ExcelOperateThread::ExcelOperateThread(QObject *parent) : QObject(parent)
 }
 /**
  * @brief ExcelOperateThread::ExcelOperateThreadSlot
+ * @param exl
  * @param filePath
+ * @param ID
+ * @param IDType
+ * @param RelyID
+ * @param flag
  */
-void ExcelOperateThread::ExcelOperateThreadSlot(ExcelOperation *exl, const QString filePath, const QString ID, const QString IDType, unsigned int flag)
+void ExcelOperateThread::ExcelOperateThreadSlot(ExcelOperation *exl, const QString filePath, const QString ID, const QString IDType,const QString RelyID, unsigned int flag)
 {
     QLogHelper::instance()->LogInfo("ExcelOperateThread->ExcelOperateThreadSlot() 函数执行!");
     QList<SOFTNUMBERTable> *softList=new QList<SOFTNUMBERTable>();
@@ -24,6 +29,10 @@ void ExcelOperateThread::ExcelOperateThreadSlot(ExcelOperation *exl, const QStri
     else if(flag==ConfigFileflag){
         if(file->exists(filePath)){
             (*confList)=exl->ReadConfExcel(filePath,ID);
+            //如果当前ID查询未空，则在依赖ID存在前提下，使用依赖ID搜索
+            if(confList->size()<=0&&!RelyID.isEmpty()){
+                (*confList)=exl->ReadConfExcel(filePath,RelyID);
+            }
         }
         emit EndExcelOperateThreadConfSignal((*confList));
     }

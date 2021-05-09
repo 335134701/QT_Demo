@@ -38,7 +38,7 @@ signals:
 
     void ActiveThreadSignal(QString dirPath,unsigned int flag, bool goOn);
 
-    void ExcelOperateThreadSignal(ExcelOperation *exl,const QString filePath,const QString ID,const QString IDType,unsigned int flag);
+    void ExcelOperateThreadSignal(ExcelOperation *exl,const QString filePath,const QString ID,const QString IDType,const QString RelyID,unsigned int flag);
 
     void EEExcelWriteSignal(ExcelOperation *exl, const QString filePath,const QString ID,const QString IDType, QList<SOFTNUMBERTable> *softNumberTable);
 

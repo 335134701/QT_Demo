@@ -478,7 +478,7 @@ void UIMethod::EndFindFileThreadSlot(QStringList st, unsigned int flag, bool goO
             if(!excelThread->isRunning()){
                 excelThread->start();
             }
-            emit ExcelOperateThreadSignal(comBean->getExcelOption(),*(comBean->getRelyFilePath()),*(comBean->getID()),*(comBean->getIDType()),flag);
+            emit ExcelOperateThreadSignal(comBean->getExcelOption(),*(comBean->getRelyFilePath()),*(comBean->getID()),*(comBean->getIDType()),*(comBean->getRelyID()),flag);
         }
         comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),RelyFileError,*(comBean->getRelyFilePath()),true);
         break;
@@ -539,7 +539,7 @@ void UIMethod::EndFindFileThreadSlot(QStringList st, unsigned int flag, bool goO
             if(!excelThread->isRunning()){
                 excelThread->start();
             }
-            emit ExcelOperateThreadSignal(comBean->getExcelOption(),*(comBean->getConfigFilePath()),*(comBean->getID()),*(comBean->getConfigFilePath()),flag);
+            emit ExcelOperateThreadSignal(comBean->getExcelOption(),*(comBean->getConfigFilePath()),*(comBean->getID()),*(comBean->getConfigFilePath()),*(comBean->getRelyID()),flag);
         }
         comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),ConfigFileError,*(comBean->getConfigFilePath()),true);
         goOn=false;

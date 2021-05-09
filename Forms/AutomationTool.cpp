@@ -39,13 +39,16 @@ void AutomationTool::Init()
 void AutomationTool::ConnectSlot()
 {
     QLogHelper::instance()->LogInfo("AutomationTool->ConnectSlot() 函数执行!");
+    //输入ID判断信号槽连接
     connect(this,&AutomationTool::JudgeIDSignal,this->uiMethod,&UIMethod::JudgeIDSlot);
+    //输入ID类型判断信号槽连接
     connect(this,&AutomationTool::JudgeIDTypeSignal,this->uiMethod,&UIMethod::JudgeIDTypeSlot);
+    //信息显示信号槽连接
     connect(this,&AutomationTool::ShowIDmessageSignal,this->uiMethod,&UIMethod::ShowIDmessageSlot);
     connect(this,&AutomationTool::SelectDirSignal,this->uiMethod,&UIMethod::SelectDirSlot);
     connect(logViewClearAction,&QAction::triggered,this,&AutomationTool::LogViewClearSlot);
     connect(this,&AutomationTool::SelectFileSignal,this->uiMethod,&UIMethod::SelectFileSlot);
-    connect(comBean->getMessageViewModel(),&QStandardItemModel::itemChanged,this->uiMethod,&UIMethod::MessageViewModelEditedSlot);
+    connect(comBean->getMessageViewModel(),&QStandardItemModel::itemChanged,uiMethod,&UIMethod::MessageViewModelEditedSlot);
     connect(this,&AutomationTool::CreateSignal,this->uiMethod,&UIMethod::CreateSlot);
 }
 
@@ -147,7 +150,7 @@ void AutomationTool::InitStyle()
     //设置TableView自适应
     ui->MessageView->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
     ui->MessageView->verticalHeader()->setStretchLastSection(false);
-    ui->MessageView->setSelectionBehavior(QAbstractItemView::SelectRows);
+    //ui->MessageView->setSelectionBehavior(QAbstractItemView::SelectRows);
 }
 
 /**
@@ -166,6 +169,7 @@ void AutomationTool::on_IDEdit_editingFinished()
     if(comBean->getID()->isEmpty()){return;}
     //分析机种类型
     emit JudgeIDTypeSignal(ui->IDEdit,comBean->getIDType(),comBean->getRelyIDType());
+    //如果ID和依赖ID类型不一致，则依赖ID会显示红色
     if(!comBean->getErrCode()->value(IDRelyID).ID.isEmpty()){
         ui->RelyIDEdit->setStyleSheet(QString(errFontColor));
     }else{
@@ -208,8 +212,7 @@ void AutomationTool::on_SVNButton_clicked()
     //获取相应文件路径
     emit SelectDirSignal(ui->SVNLabel,comBean->getSVNDirPath(),SVNDirError);
     if(comBean->getSVNDirPath()->isEmpty()||comBean->getID()->isEmpty()){return;}
-    //初始化相关参数
-    comBean->ParameterInit();
+    //错误码清除
     emit SelectFileSignal(*(comBean->getSVNDirPath()),RelyFileflag,true);
 }
 
@@ -290,7 +293,7 @@ void AutomationTool::on_MessageView_doubleClicked(const QModelIndex &index)
 {
     QLogHelper::instance()->LogInfo("AutomationTool->on_MessageView_doubleClicked() 函数触发执行!");
     QLogHelper::instance()->LogDebug("column: "+QString::number(index.column())+"    row:"+QString::number(index.row()));
-    if(!comBean->getTableViewEditflag()){
+    if(!comBean->getTableViewEditflag()&&index.row()>3&&index.column()>=1){
         comBean->setTableViewEditflag(true);
     }
 }

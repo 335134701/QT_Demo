@@ -27,8 +27,7 @@ public:
     const QString applicationDirPath=QApplication::applicationDirPath();
 
     const QString exampleDirPath=QApplication::applicationDirPath()+"/Example";
-    //一些特殊参数 初始化方法
-    void ParameterInit();
+
     //错误码初始化
     bool ErrorCodeInit();
 

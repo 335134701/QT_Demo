@@ -60,6 +60,13 @@ typedef struct ConfigTable{
     QString Configpartnumber;       //コンフィグ部番
 }CONFIGTable;
 
+typedef struct ErrorTable{
+    QString sheetName;
+    unsigned int row;
+    unsigned int col;
+    QString errMessage;
+}ERRORTable;
+
 using namespace libxl;
 
 class ExcelOperation : public QObject

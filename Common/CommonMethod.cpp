@@ -159,6 +159,7 @@ void CommonMethod::AnalyzeFilePath(const QStringList filePaths, QString *filePat
     int size=0,tmpsize=0;
     switch (flag) {
     case RelyFileflag:
+        if(filePath->size()==0){path="";}
         foreach (QString file, filePaths) {
             tmpsize=file.mid(file.lastIndexOf("_")+1,6).toInt();
             if(tmpsize>size){
@@ -174,18 +175,23 @@ void CommonMethod::AnalyzeFilePath(const QStringList filePaths, QString *filePat
     case CarMapFileflag:
     case CarOSDFileflag:
         if(filePaths.size()>0){path=filePaths[filePaths.size()-1];}
+        else{path="";}
         break;
     case JoinFileflag:
     case APPFileflag:
         if(filePaths.size()>0){path=filePaths[filePaths.size()-1];}
+        else{path="";}
         break;
     case EEFileflag:
         if(filePaths.size()>0){path=filePaths[filePaths.size()-1];}
+        else{path="";}
         break;
     case ReadyFileflag:
         if(filePaths.size()>0){path=filePaths[filePaths.size()-1];}
+        else{path="";}
         break;
     case ConfigFileflag:
+        if(filePath->size()==0){path="";}
         foreach (QString file, filePaths) {
             tmpsize=file.mid(file.indexOf(".")+1,2).toInt();
             if(tmpsize>size){
@@ -285,6 +291,25 @@ bool CommonMethod::INIFileRead(const QString filePath, const QString PartNumber,
         file->close();
     }
     return true;
+}
+/**
+ * @def 此函数主要对UIMethod.cpp 中 MessageViewModelEditedSlot() 函数进一步处理
+ * @brief CommonMethod::MessageTableChangeDeal
+ * @param item
+ * @param filePath
+ */
+void CommonMethod::MessageTableChangeDeal(QStandardItem *item, QString *filePath)
+{
+    QLogHelper::instance()->LogInfo("CommonMethod->MessageTableChangeDeal() 函数执行!");
+    QFile *file=new QFile();
+    if(item->text()!=(*filePath)){
+        if(file->exists(item->text())){
+            (*filePath)=item->text();
+        }else{
+            item->setText("");
+            (*filePath)="";
+        }
+    }
 }
 
 

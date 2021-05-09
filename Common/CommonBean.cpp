@@ -48,27 +48,6 @@ void CommonBean::Init()
     RExpression.insert("RelyIDEdit","^EN(3[3-7]|42)\\d\\dP[A-Z]");
 }
 /**
- * @def 程序运行过程中需要对部分参数进行初始化处理
- * @brief CommonBean::ParameterInit
- */
-void CommonBean::ParameterInit()
-{
-    QLogHelper::instance()->LogInfo("CommonBean->ParameterInit() 函数执行!");
-    errCode->clear();
-    *RelyFilePath="";
-    *IniFilePath="";
-    *PFilePath="";
-    *SWFilePath="";
-    *CarInfoFilePath="";
-    *CarMapFilePath="";
-    *CarOSDFilePath="";
-    *JoinMot="";
-    *APPMot="";
-    *EEFilePath="";
-    *ReadyFilePath="";
-    *ConfigFilePath="";
-}
-/**
  * @def 初始化错误码
  * @brief CommonBean::ErrorCodeInit
  * @return

@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QTextCodec>
+#include <QStandardItem>
 #include "XMLOperate.h"
 #include "QLoghelper.h"
 #include "DEFINE.h"
@@ -28,6 +29,8 @@ public:
     void INIFileWrite(const QString filePath,const QString PartNumber,const QString DiagnosticCode);
 
     bool INIFileRead(const QString filePath,const QString PartNumber,const QString DiagnosticCode);
+
+    void MessageTableChangeDeal(QStandardItem *item,QString *filePath);
 
 signals:
 

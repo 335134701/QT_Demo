@@ -625,12 +625,73 @@ void UIMethod::EndReadyExcelWriteSlot(bool flag)
  * @brief UIMethod::MessageViewModelEditedSlot
  * @param item
  */
-void UIMethod::MessageViewModelEditedSlot(const QStandardItem *item)
+void UIMethod::MessageViewModelEditedSlot(QStandardItem *item)
 {
     if(comBean->getTableViewEditflag()){
         QLogHelper::instance()->LogInfo("AutomationTool->MessageViewModelEditedSlot() 函数触发执行!");
         QLogHelper::instance()->LogDebug("column: "+QString::number(item->column())+"    row:"+QString::number(item->row()));
         QLogHelper::instance()->LogDebug(item->text());
+        if(item->column()==1){
+            switch (item->row()) {
+            case 4:
+                comBean->getComMethod()->MessageTableChangeDeal(item,comBean->getRelyFilePath());
+                break;
+            case 5:
+                comBean->getComMethod()->MessageTableChangeDeal(item,comBean->getIniFilePath());
+                break;
+            case 6:
+                comBean->getComMethod()->MessageTableChangeDeal(item,comBean->getPFilePath());
+                break;
+            case 7:
+                comBean->getComMethod()->MessageTableChangeDeal(item,comBean->getSWFilePath());
+                break;
+            case 8:
+                comBean->getComMethod()->MessageTableChangeDeal(item,comBean->getCarInfoFilePath());
+                break;
+            case 9:
+                comBean->getComMethod()->MessageTableChangeDeal(item,comBean->getCarMapFilePath());
+                break;
+            case 10:
+                comBean->getComMethod()->MessageTableChangeDeal(item,comBean->getCarOSDFilePath());
+                break;
+            case 11:
+                comBean->getComMethod()->MessageTableChangeDeal(item,comBean->getAPPMot());
+                break;
+            case 12:
+                comBean->getComMethod()->MessageTableChangeDeal(item,comBean->getJoinMot());
+                break;
+            case 13:
+                comBean->getComMethod()->MessageTableChangeDeal(item,comBean->getEEFilePath());
+                break;
+            case 14:
+                comBean->getComMethod()->MessageTableChangeDeal(item,comBean->getReadyFilePath());
+                break;
+            case 15:
+                comBean->getComMethod()->MessageTableChangeDeal(item,comBean->getConfigFilePath());
+                break;
+            }
+            comBean->getDefineConfigList()[1]="11111";
+        }
+        QLogHelper::instance()->LogDebug((*comBean->getRelyFilePath()));
+        /*
+        if(item->column()==1&&item->row()==4&&item->text()!=(*comBean->getRelyFilePath()))
+        {
+            if(file->exists(item->text())){
+                (*comBean->getRelyFilePath())=item->text();
+            }else{
+                item->setText("");
+                (*comBean->getRelyFilePath())="";
+            }
+        }
+        if(item->column()==1&&item->row()==5&&item->text()!=(*comBean->getRelyFilePath()))
+        {
+            if(file->exists(item->text())){
+                (*comBean->getRelyFilePath())=item->text();
+            }else{
+                item->setText("");
+                (*comBean->getRelyFilePath())="";
+            }
+        }*/
         comBean->setTableViewEditflag(false);
     }
 }
@@ -835,5 +896,7 @@ void UIMethod::CreateSlot()
     }
     */
     this->getTextEdit()->append(DATETIME+" =======================================");
+    //清除错误码
+    comBean->getErrCode()->clear();
 }
 

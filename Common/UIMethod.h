@@ -67,7 +67,7 @@ public slots:
 
     void EndReadyExcelWriteSlot(bool flag);
 
-    void MessageViewModelEditedSlot(const QStandardItem *item);
+    void MessageViewModelEditedSlot(QStandardItem *item);
 
     void CreateSlot();
 

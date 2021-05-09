@@ -121,7 +121,7 @@ QList<SOFTNUMBERTable> ExcelOperateThread::DealSoftTable(QList<SOFTNUMBERTable> 
 void ExcelOperateThread::EEExcelWriteSlot(ExcelOperation *exl, const QString filePath, const QString ID,const QString IDType,const QString RelyID, QList<SOFTNUMBERTable> *softNumberTable)
 {
     QLogHelper::instance()->LogInfo("ExcelOperateThread->EEExcelWriteSlot() 函数执行!");
-    QList<ErrorTable> *errTable=new QList<ErrorTable>();
+    QList<ERRORTable> *errTable=new QList<ERRORTable>();
     bool flag=true;
     QFile *file=new QFile();
     if(file->exists(filePath))
@@ -130,7 +130,7 @@ void ExcelOperateThread::EEExcelWriteSlot(ExcelOperation *exl, const QString fil
     }else{
         flag=false;
     }
-    emit EndEEExcelWriteSignal(flag,*errTable);
+    emit EndEEExcelWriteSignal(flag,errTable);
 }
 
 /**
@@ -143,17 +143,17 @@ void ExcelOperateThread::EEExcelWriteSlot(ExcelOperation *exl, const QString fil
  * @param DefineConfigList
  * @param RelyID
  */
-void ExcelOperateThread::ReadyExcelWriteSlot(ExcelOperation *exl, const QString filePath, QList<SOFTNUMBERTable> *softNumberTable, QList<CONFIGTable> *configTable,QStringList DefineConfigList,const QString RelyID)
+void ExcelOperateThread::ReadyExcelWriteSlot(ExcelOperation *exl, const QString filePath, QList<SOFTNUMBERTable> *softNumberTable, QList<CONFIGTable> *configTable,QStringList DefineConfigList,const QString RelyID,const QString IDType)
 {
     QLogHelper::instance()->LogInfo("ExcelOperateThread->ReadyExcelWriteSlot() 函数执行!");
-    QList<ErrorTable> *errTable=new QList<ErrorTable>();
+    QList<ERRORTable> *errTable=new QList<ERRORTable>();
     bool flag=true;
     QFile *file=new QFile();
     if(file->exists(filePath))
     {
-        flag=exl->ReadyFileWrite(filePath,softNumberTable,configTable,DefineConfigList,RelyID,errTable);
+        flag=exl->ReadyFileWrite(filePath,softNumberTable,configTable,DefineConfigList,IDType,RelyID,errTable);
     }else{
         flag=false;
     }
-    emit EndReadyExcelWriteSignal(flag,*errTable);
+    emit EndReadyExcelWriteSignal(flag,errTable);
 }

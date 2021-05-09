@@ -4,7 +4,6 @@
 #include <QObject>
 #include <QTextCodec>
 #include <QStandardItem>
-#include "XMLOperate.h"
 #include "QLoghelper.h"
 #include "ExcelOperation.h"
 #include "DEFINE.h"

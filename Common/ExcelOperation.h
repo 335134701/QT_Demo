@@ -84,9 +84,9 @@ public:
 
     QList<CONFIGTable> ReadConfExcel(const QString filePath,const QString ID);
 
-    bool EEFileWrite(const QString filePath,const QString ID,const QString IDType,const QString RelyID, QList<SOFTNUMBERTable> *softNumberTable,QList<ErrorTable> *errTable);
+    bool EEFileWrite(const QString filePath,const QString ID,const QString IDType,const QString RelyID, QList<SOFTNUMBERTable> *softNumberTable,QList<ERRORTable> *errTable);
 
-    bool ReadyFileWrite(const QString filePath,QList<SOFTNUMBERTable> *softNumberTable,QList<CONFIGTable> *configTable,QStringList DefineConfigList,const QString RelyID,QList<ErrorTable> *errTable);
+    bool ReadyFileWrite(const QString filePath,QList<SOFTNUMBERTable> *softNumberTable,QList<CONFIGTable> *configTable,QStringList DefineConfigList,const QString IDType,const QString RelyID,QList<ERRORTable> *errTable);
 signals:
 
 public slots:
@@ -94,9 +94,9 @@ public slots:
 private :
    Book *book;
 
-   bool ReadyFileFirstSheet(const QString filePath, QList<SOFTNUMBERTable> *softNumberTable,QList<CONFIGTable> *configTable,const QString RelyID,QList<ErrorTable> *errTable);
-   bool ReadyFileSecondSheet(const QString filePath,QList<CONFIGTable> *configTable,QList<ErrorTable> *errTable);
-   bool ReadyFileThirdSheet(const QString filePath,QList<SOFTNUMBERTable> *softNumberTable,QStringList DefineConfigList,bool flag,QList<ErrorTable> *errTable);
+   bool ReadyFileFirstSheet(const QString filePath, QList<SOFTNUMBERTable> *softNumberTable,QList<CONFIGTable> *configTable,const QString RelyID,QList<ERRORTable> *errTable);
+   bool ReadyFileSecondSheet(const QString filePath,QList<CONFIGTable> *configTable,QList<ERRORTable> *errTable);
+   bool ReadyFileThirdSheet(const QString filePath,QList<SOFTNUMBERTable> *softNumberTable,QStringList DefineConfigList,const QString IDType,bool flag,QList<ERRORTable> *errTable);
 };
 
 #endif // EXCELOPERATION_H

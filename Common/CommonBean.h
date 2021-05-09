@@ -7,7 +7,6 @@
 #include <QStandardItem>
 #include "QLoghelper.h"
 #include "CommonMethod.h"
-#include "XMLOperate.h"
 #include "ExcelOperation.h"
 #include "DEFINE.h"
 

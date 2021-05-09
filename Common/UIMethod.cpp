@@ -564,14 +564,11 @@ void UIMethod::EndExcelOperateThreadConfSlot(QList<CONFIGTable> list)
  * @param flag
  * @param errTable
  */
-void UIMethod::EndEEExcelWriteSlot(bool flag,QList<ErrorTable> errTable)
+void UIMethod::EndEEExcelWriteSlot(bool flag,QList<ERRORTable> *errTable)
 {
     QLogHelper::instance()->LogInfo("UIMethod->EndEEExcelWriteSlot() 函数执行!");
     //excelThread->quit();
     //excelThread->wait();
-    if(errTable.size()>0){
-
-    }
 }
 /**
  * @def *確認シート.xlsx 修改完成后回调函数
@@ -579,14 +576,11 @@ void UIMethod::EndEEExcelWriteSlot(bool flag,QList<ErrorTable> errTable)
  * @param flag
  * @param errTable
  */
-void UIMethod::EndReadyExcelWriteSlot(bool flag,QList<ErrorTable> errTable)
+void UIMethod::EndReadyExcelWriteSlot(bool flag,QList<ERRORTable> *errTable)
 {
     QLogHelper::instance()->LogInfo("UIMethod->EndReadyExcelWriteSlot() 函数执行!");
     excelThread->quit();
     excelThread->wait();
-    if(errTable.size()>0){
-
-    }
     comBean->setStatusflag(0);
 }
 
@@ -664,10 +658,10 @@ void UIMethod::MessageViewModelEditedSlot(QStandardItem *item)
 void UIMethod::CreateSlot()
 {
     QLogHelper::instance()->LogInfo("AutomationTool->CreateSlot() 函数触发执行!");
-    QString file="C:/Users/Administrator/Desktop/J32U-JPN 5TR0A 確認シート.xlsx";
+    QString file="C:/Users/Administrator/Desktop/X81C-JPN 5YE1A 確認シート.xlsx";
     if(!excelThread->isRunning()){
         excelThread->start();
-        emit ReadyExcelWriteSignal(comBean->getExcelOption(),file,comBean->getSoftNumberTable(),comBean->getConfigTable(),comBean->getDefineConfigList(),*(comBean->getRelyID()));
+        emit ReadyExcelWriteSignal(comBean->getExcelOption(),file,comBean->getSoftNumberTable(),comBean->getConfigTable(),comBean->getDefineConfigList(),*(comBean->getRelyID()),*(comBean->getIDType()));
     }
 /*
     QDir *folder = new QDir();
@@ -850,7 +844,7 @@ void UIMethod::CreateSlot()
              if(!excelThread->isRunning()){
                 excelThread->start();
              }
-             emit ReadyExcelWriteSignal(comBean->getExcelOption(),tmpPath+"/"+fileName,*(comBean->getID()),*(comBean->getIDType()),comBean->getSoftNumberTable(),comBean->getConfigTable(),*(comBean->getRelyID()));
+             emit ReadyExcelWriteSignal(comBean->getExcelOption(),tmpPath+"/"+fileName,*(comBean->getID()),*(comBean->getIDType()),comBean->getSoftNumberTable(),comBean->getConfigTable(),*(comBean->getRelyID(),*(comBean->getIDType()));
         }else
         {
             this->getTextEdit()->append(DATETIME+" "+(*comBean->getReadyFilePath())+" 文件失败!");

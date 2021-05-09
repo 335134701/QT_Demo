@@ -23,8 +23,8 @@ class UIMethod : public QObject
 {
     Q_OBJECT
 
-    #define errFontColor "color:red;"
-    #define nomFontColor "color:white;"
+#define errFontColor "color:red;"
+#define nomFontColor "color:white;"
 public:
     explicit UIMethod(QObject *parent = nullptr);
 
@@ -42,7 +42,7 @@ signals:
 
     void EEExcelWriteSignal(ExcelOperation *exl, const QString filePath,const QString ID,const QString IDType,const QString RelyID, QList<SOFTNUMBERTable> *softNumberTable);
 
-    void ReadyExcelWriteSignal(ExcelOperation *exl, const QString filePath, QList<SOFTNUMBERTable> *softNumberTable,QList<CONFIGTable> *configTable,QStringList DefineConfigList,const QString IDType);
+    void ReadyExcelWriteSignal(ExcelOperation *exl, const QString filePath, QList<SOFTNUMBERTable> *softNumberTable,QList<CONFIGTable> *configTable,QStringList DefineConfigList,const QString RelyID,const QString IDType);
 
     void ShowIDmessageSignal(int flag);
 
@@ -63,9 +63,9 @@ public slots:
 
     void EndExcelOperateThreadConfSlot(QList<CONFIGTable> list);
 
-    void EndEEExcelWriteSlot(bool flag,QList<ErrorTable> errTable);
+    void EndEEExcelWriteSlot(bool flag,QList<ERRORTable> *errTable);
 
-    void EndReadyExcelWriteSlot(bool flag,QList<ErrorTable> errTable);
+    void EndReadyExcelWriteSlot(bool flag,QList<ERRORTable> *errTable);
 
     void MessageViewModelEditedSlot(QStandardItem *item);
 

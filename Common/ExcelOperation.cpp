@@ -42,6 +42,7 @@ QList<SOFTNUMBERTable> ExcelOperation::ReadSoftExcel(const QString filePath, con
         }else{
             sheetread = book->getSheet(1);
         }
+        if(sheetread==NULL){return *softlist;}
         int rowNum = sheetread->lastRow();
         for (int i = 1; i < rowNum; ++i)
         {
@@ -103,6 +104,7 @@ QList<CONFIGTable> ExcelOperation::ReadConfExcel(const QString filePath, const Q
     if(this->Init(filePath)&&book->load(filePath.toLocal8Bit()))
     {
         sheetread = book->getSheet(1);
+        if(sheetread==NULL){return *conflist;}
         int rowNum = sheetread->lastRow();
         for (int i = 1; i < rowNum; ++i)
         {
@@ -213,10 +215,11 @@ QList<CONFIGTable> ExcelOperation::ReadConfExcel(const QString filePath, const Q
  * @param errTable
  * @return
  */
-bool ExcelOperation::EEFileWrite(const QString filePath, const QString ID,const QString IDType,const QString RelyID, QList<SOFTNUMBERTable> *softNumberTable,QList<ErrorTable> *errTable)
+bool ExcelOperation::EEFileWrite(const QString filePath, const QString ID,const QString IDType,const QString RelyID, QList<SOFTNUMBERTable> *softNumberTable,QList<ERRORTable> *errTable)
 {
     QLogHelper::instance()->LogInfo("ExcelOperation->EEFileWrite() 函数执行!");
     Sheet *sheetread;
+    ERRORTable *err=new ERRORTable();
     QDateTime curDateTime=QDateTime::currentDateTime();
     int Years=curDateTime.toString("yyyy").toInt();
     int Mounth=curDateTime.toString("M").toInt();
@@ -224,6 +227,13 @@ bool ExcelOperation::EEFileWrite(const QString filePath, const QString ID,const 
     if(this->Init(filePath)&&book->load(filePath.toLocal8Bit()))
     {
         sheetread = book->getSheet(0);
+        if(sheetread==NULL){
+            err=new ERRORTable();
+            err->fileName=filePath.mid(filePath.lastIndexOf("/")+1);
+            err->errMessage="模板格式错误!";
+            errTable->append(*err);
+            return false;
+        }
         sheetread->writeNum(3,4,Years);
         sheetread->writeNum(11,5,Years);
         sheetread->writeNum(12,5,Years);
@@ -259,9 +269,15 @@ bool ExcelOperation::EEFileWrite(const QString filePath, const QString ID,const 
                 sheetread->writeStr(43,29,  QString("Config情報　：　\\claris-si\\P_CAMERA_NISSAN_SH7766_PF\09_次世代PH3$01_project\11_車両日程_車両展開\01_工場コンフィグ").toLocal8Bit().data());
             }
         }
+        book->save(filePath.toLocal8Bit());
+        book->release();
+    }else{
+        err=new ERRORTable();
+        err->fileName=filePath.mid(filePath.lastIndexOf("/")+1);
+        err->errMessage="文件打开失败!";
+        errTable->append(*err);
+        return false;
     }
-    book->save(filePath.toLocal8Bit());
-    book->release();
     return true;
 }
 /**
@@ -274,12 +290,16 @@ bool ExcelOperation::EEFileWrite(const QString filePath, const QString ID,const 
  * @param RelyID
  * @return
  */
-bool ExcelOperation::ReadyFileWrite(const QString filePath, QList<SOFTNUMBERTable> *softNumberTable, QList<CONFIGTable> *configTable,QStringList DefineConfigList,const QString RelyID,QList<ErrorTable> *errTable)
+bool ExcelOperation::ReadyFileWrite(const QString filePath, QList<SOFTNUMBERTable> *softNumberTable, QList<CONFIGTable> *configTable,QStringList DefineConfigList,const QString IDType,const QString RelyID,QList<ERRORTable> *errTable)
 {
     QLogHelper::instance()->LogInfo("ExcelOperation->ReadyFileWrite() 函数执行!");
     //ReadyFileFirstSheet(filePath,softNumberTable,configTable,RelyID,errTable);
     //ReadyFileSecondSheet(filePath,configTable,errTable);
-    ReadyFileThirdSheet(filePath,softNumberTable,DefineConfigList,false,errTable);
+    if(RelyID.isEmpty()){
+        ReadyFileThirdSheet(filePath,softNumberTable,DefineConfigList,IDType,false,errTable);
+    }else{
+        ReadyFileThirdSheet(filePath,softNumberTable,DefineConfigList,IDType,true,errTable);
+    }
     return true;
 }
 /**
@@ -292,20 +312,20 @@ bool ExcelOperation::ReadyFileWrite(const QString filePath, QList<SOFTNUMBERTabl
  * @param errTable
  * @return
  */
-bool ExcelOperation::ReadyFileFirstSheet(const QString filePath, QList<SOFTNUMBERTable> *softNumberTable, QList<CONFIGTable> *configTable,const QString RelyID,QList<ErrorTable> *errTable)
+bool ExcelOperation::ReadyFileFirstSheet(const QString filePath, QList<SOFTNUMBERTable> *softNumberTable, QList<CONFIGTable> *configTable,const QString RelyID,QList<ERRORTable> *errTable)
 {
     QLogHelper::instance()->LogInfo("ExcelOperation->ReadyFileFirstSheet() 函数执行!");
     Sheet *sheetread;
     int firstCol=7;
     QString ConfigpartnumberList;
-    ERRORTable *err=new ErrorTable();
+    ERRORTable *err=new ERRORTable();
     int i=0;
     if(this->Init(filePath)&&book->load(filePath.toLocal8Bit()))
     {
         sheetread=book->getSheet(0);
         //最少两种状态，如果有更多状态，可以进一步处理
         if(sheetread->lastRow()<11||softNumberTable->size()<0){
-            err=new ErrorTable();
+            err=new ERRORTable();
             err->fileName=filePath.mid(filePath.lastIndexOf("/")+1);
             err->errMessage="模板格式错误!";
             errTable->append(*err);
@@ -384,9 +404,9 @@ bool ExcelOperation::ReadyFileFirstSheet(const QString filePath, QList<SOFTNUMBE
         book->save(filePath.toLocal8Bit());
         book->release();
     }else{
-        err=new ErrorTable();
+        err=new ERRORTable();
         err->fileName=filePath.mid(filePath.lastIndexOf("/")+1);
-        err->errMessage="模板格式错误!";
+        err->errMessage="文件打开失败!";
         errTable->append(*err);
         return false;
     }
@@ -400,13 +420,13 @@ bool ExcelOperation::ReadyFileFirstSheet(const QString filePath, QList<SOFTNUMBE
  * @param errTable
  * @return
  */
-bool ExcelOperation::ReadyFileSecondSheet(const QString filePath, QList<CONFIGTable> *configTable,QList<ErrorTable> *errTable)
+bool ExcelOperation::ReadyFileSecondSheet(const QString filePath, QList<CONFIGTable> *configTable,QList<ERRORTable> *errTable)
 {
     QLogHelper::instance()->LogInfo("ExcelOperation->ReadyFileSecondSheet() 函数执行!");
     int firstCol=12,i=0,row=0;
     QString ConfigpartnumberList;
     Sheet *sheetread;
-    ERRORTable *err=new ErrorTable();
+    ERRORTable *err=new ERRORTable();
     if(this->Init(filePath)&&book->load(filePath.toLocal8Bit()))
     {
         sheetread=book->getSheet(1);
@@ -418,7 +438,7 @@ bool ExcelOperation::ReadyFileSecondSheet(const QString filePath, QList<CONFIGTa
         row=sheetread->lastRow();
         //模板文件有问题，直接返回
         if(row<=12){
-            err=new ErrorTable();
+            err=new ERRORTable();
             err->fileName=filePath.mid(filePath.lastIndexOf("/")+1);
             err->errMessage="模板格式错误!";
             errTable->append(*err);
@@ -440,12 +460,12 @@ bool ExcelOperation::ReadyFileSecondSheet(const QString filePath, QList<CONFIGTa
             Format * format;
             for(i=0;i<(configTable->size()+12)-sheetread->lastRow();i++)
             {
-                 //QLogHelper::instance()->LogDebug("复制单元格："+QString::number(i));
-                 for(int j=0;j<sheetread->lastCol();j++)
-                 {
-                     format=sheetread->cellFormat(row-1,j);
-                     sheetread->writeStr(row+i,j,sheetread->readStr(row-1,j),format);
-                 }
+                //QLogHelper::instance()->LogDebug("复制单元格："+QString::number(i));
+                for(int j=0;j<sheetread->lastCol();j++)
+                {
+                    format=sheetread->cellFormat(row-1,j);
+                    sheetread->writeStr(row+i,j,sheetread->readStr(row-1,j),format);
+                }
             }
         }
         for(i=0;i<configTable->size();i++){
@@ -482,9 +502,9 @@ bool ExcelOperation::ReadyFileSecondSheet(const QString filePath, QList<CONFIGTa
         book->save(filePath.toLocal8Bit());
         book->release();
     }else{
-        err=new ErrorTable();
+        err=new ERRORTable();
         err->fileName=filePath.mid(filePath.lastIndexOf("/")+1);
-        err->errMessage="模板格式错误!";
+        err->errMessage="文件打开失败!";
         errTable->append(*err);
         return false;
     }
@@ -501,60 +521,188 @@ bool ExcelOperation::ReadyFileSecondSheet(const QString filePath, QList<CONFIGTa
  * @param errTable
  * @return
  */
-/*
-typedef struct SoftNumberTable{
-    QString ModelNumber;            //クラリオン機種番号
-    QString CarModels;              //車種仕向け
-    QString PartNumber;             //日産部番
-    QString CANGen;                 //CAN世代
-    QString Productionstage;        //生産段階
-    QString ApplicationPartNo;      //Application PartsNo
-    QString ApplicationVer;         //Application Ver
-    QString CarInfoPartNo;          //Car_Info PartsNo
-    QString CarInfoVer;             //Car_Info Ver
-    QString CameraMAPPartNo;        //CameraMAP PartsNo
-    QString CameraMAPVer;           //CameraMAP Ver
-    QString OSDPartNo;              //OSD PartsNo
-    QString OSDVer;                 //OSD Ver
-    QString CANfblPartNo;           //CANfbl PartsNo
-    QString CANfblVer;              //CANfbl Ver
-    QString BootloaderPartNo;       //Bootloader PartsNo
-    QString BootloaderVer;          //Bootloader Ver
-    QString DiagnosticCode;         //診断識別コード
-}SOFTNUMBERTable;
-*/
-bool ExcelOperation::ReadyFileThirdSheet(const QString filePath,QList<SOFTNUMBERTable> *softNumberTable,QStringList DefineConfigList,bool flag,QList<ErrorTable> *errTable)
+bool ExcelOperation::ReadyFileThirdSheet(const QString filePath,QList<SOFTNUMBERTable> *softNumberTable,QStringList DefineConfigList,const QString IDType,bool flag,QList<ERRORTable> *errTable)
 {
     QLogHelper::instance()->LogInfo("ExcelOperation->ReadyFileThirdSheet() 函数执行!");
     Sheet *sheetread;
-    ERRORTable *err=new ErrorTable();
-    int i=0;
+    ERRORTable *err=new ERRORTable();
+    int i=0,firstCol=4;
+    bool tmpflag=false;
+    QString Vehicletype;
     if(this->Init(filePath)&&book->load(filePath.toLocal8Bit()))
     {
         sheetread=book->getSheet(2);
         if(softNumberTable->size()<0){return false;}
-        QString Vehicletype=softNumberTable->value(0).CarModels.left(softNumberTable->value(0).CarModels.indexOf("_"));
-        sheetread->writeStr(1,2,Vehicletype.toLatin1().data());
-        sheetread->writeStr(1,15,Vehicletype.toLatin1().data());
-        sheetread->writeStr(1,16,Vehicletype.toLatin1().data());
-        sheetread->writeStr(1,24,Vehicletype.toLatin1().data());
-        sheetread->writeStr(1,32,Vehicletype.toLatin1().data());
-        sheetread->writeStr(1,40,Vehicletype.toLatin1().data());
-        sheetread->writeStr(3,1,Vehicletype.toLatin1().data());
- /*       for(i=0;i<softNumberTable->size();i++)
+        if(softNumberTable->value(0).CarModels.contains("-")){
+            Vehicletype=softNumberTable->value(0).CarModels.left(softNumberTable->value(0).CarModels.indexOf("-"));
+        }else if(softNumberTable->value(0).CarModels.contains("_"))
         {
+            Vehicletype=softNumberTable->value(0).CarModels.left(softNumberTable->value(0).CarModels.indexOf("_"));
+        }
+        sheetread->writeStr(1,2,Vehicletype.toLocal8Bit().data());
+        sheetread->writeStr(1,15,Vehicletype.toLocal8Bit().data());
+        sheetread->writeStr(1,16,Vehicletype.toLocal8Bit().data());
+        sheetread->writeStr(1,24,Vehicletype.toLocal8Bit().data());
+        sheetread->writeStr(1,32,Vehicletype.toLocal8Bit().data());
+        sheetread->writeStr(1,40,Vehicletype.toLocal8Bit().data());
+        sheetread->writeStr(3,1,Vehicletype.toLocal8Bit().data());
+        for(i=0;i<softNumberTable->size();i++)
+        {
+            SOFTNUMBERTable soft=softNumberTable->value(i);
+            sheetread->writeStr(firstCol+i,1,soft.Productionstage.toLocal8Bit().data());
+            if(soft.ApplicationVer.left(1)=="0"){
+                sheetread->writeStr(firstCol+i,2,(soft.ApplicationVer.left(2).mid(1)+"."+soft.ApplicationVer.left(4).mid(2)).toLocal8Bit().data());
+            }else{
+                sheetread->writeStr(firstCol+i,2,(soft.ApplicationVer.left(2)+"."+soft.ApplicationVer.left(4).mid(2)).toLocal8Bit().data());
+            }
+            if(i==0)
+            {
+                if(soft.CarModels.contains("_"))
+                {
+                    Vehicletype=soft.CarModels.replace(soft.CarModels.indexOf("_"),"-");
+                }
+                sheetread->writeStr(firstCol+i,3,(Vehicletype+"\n"+soft.Productionstage+"\n"+"("+soft.CANGen+"世代CAN)").toLocal8Bit().data());
+                sheetread->writeStr(firstCol+i,14,soft.CarInfoVer.toLocal8Bit().data());
+                sheetread->writeStr(firstCol+i,15,soft.CarInfoPartNo.toLocal8Bit().data());
+                sheetread->writeStr(firstCol+i,21,soft.CameraMAPVer.toLocal8Bit().data());
+                sheetread->writeStr(firstCol+i,22,soft.CameraMAPPartNo.toLocal8Bit().data());
+                sheetread->writeStr(firstCol+i,28,soft.OSDVer.toLocal8Bit().data());
+                sheetread->writeStr(firstCol+i,29,soft.OSDPartNo.toLocal8Bit().data());
+                sheetread->writeStr(firstCol+i,35,soft.CANfblVer.toLocal8Bit().data());
+                sheetread->writeStr(firstCol+i,36,soft.CANfblPartNo.toLocal8Bit().data());
+                sheetread->writeStr(firstCol+i,42,soft.BootloaderVer.toLocal8Bit().data());
+                sheetread->writeStr(firstCol+i,43,soft.BootloaderPartNo.toLocal8Bit().data());
+            }else{
+                sheetread->writeStr(firstCol+i,3,QString("変更無し").toLocal8Bit().data());
+                if(soft.CarInfoPartNo==softNumberTable->value(i-1).CarInfoPartNo&&soft.CarInfoVer==softNumberTable->value(i-1).CarInfoVer){
+                    sheetread->writeStr(firstCol+i,14,QString("-").toLocal8Bit().data());
+                    sheetread->writeStr(firstCol+i,15,QString("-").toLocal8Bit().data());
+                }else{
+                    sheetread->writeStr(firstCol+i,14,soft.CarInfoVer.toLocal8Bit().data());
+                    sheetread->writeStr(firstCol+i,15,soft.CarInfoPartNo.toLocal8Bit().data());
+                    sheetread->cellFormat(firstCol+i,16)->setPatternForegroundColor(COLOR_RED);
+                    sheetread->cellFormat(firstCol+i,17)->setPatternForegroundColor(COLOR_RED);
+                    sheetread->cellFormat(firstCol+i,18)->setPatternForegroundColor(COLOR_RED);
+                    sheetread->cellFormat(firstCol+i,19)->setPatternForegroundColor(COLOR_RED);
+                    sheetread->cellFormat(firstCol+i,20)->setPatternForegroundColor(COLOR_RED);
+                }
+                if(soft.CameraMAPPartNo==softNumberTable->value(i-1).CameraMAPPartNo&&soft.CameraMAPVer==softNumberTable->value(i-1).CameraMAPVer){
+                    sheetread->writeStr(firstCol+i,21,QString("-").toLocal8Bit().data());
+                    sheetread->writeStr(firstCol+i,22,QString("-").toLocal8Bit().data());
+                }else{
+                    sheetread->writeStr(firstCol+i,21,soft.CameraMAPVer.toLocal8Bit().data());
+                    sheetread->writeStr(firstCol+i,22,soft.CameraMAPPartNo.toLocal8Bit().data());
+                    sheetread->cellFormat(firstCol+i,23)->setPatternForegroundColor(COLOR_RED);
+                    sheetread->cellFormat(firstCol+i,24)->setPatternForegroundColor(COLOR_RED);
+                    sheetread->cellFormat(firstCol+i,25)->setPatternForegroundColor(COLOR_RED);
+                    sheetread->cellFormat(firstCol+i,26)->setPatternForegroundColor(COLOR_RED);
+                    sheetread->cellFormat(firstCol+i,27)->setPatternForegroundColor(COLOR_RED);
+                }
+                if(soft.OSDPartNo==softNumberTable->value(i-1).OSDPartNo&&soft.OSDVer==softNumberTable->value(i-1).OSDVer){
+                    sheetread->writeStr(firstCol+i,28,QString("-").toLocal8Bit().data());
+                    sheetread->writeStr(firstCol+i,29,QString("-").toLocal8Bit().data());
+                }else{
+                    sheetread->writeStr(firstCol+i,28,soft.OSDVer.toLatin1().data());
+                    sheetread->writeStr(firstCol+i,29,soft.OSDPartNo.toLocal8Bit().data());
+                    sheetread->cellFormat(firstCol+i,30)->setPatternForegroundColor(COLOR_RED);
+                    sheetread->cellFormat(firstCol+i,31)->setPatternForegroundColor(COLOR_RED);
+                    sheetread->cellFormat(firstCol+i,32)->setPatternForegroundColor(COLOR_RED);
+                    sheetread->cellFormat(firstCol+i,33)->setPatternForegroundColor(COLOR_RED);
+                    sheetread->cellFormat(firstCol+i,34)->setPatternForegroundColor(COLOR_RED);
+                }
+                if(soft.CANfblPartNo==softNumberTable->value(i-1).CANfblPartNo&&soft.CANfblVer==softNumberTable->value(i-1).CANfblVer){
+                    sheetread->writeStr(firstCol+i,35,QString("-").toLocal8Bit().data());
+                    sheetread->writeStr(firstCol+i,36,QString("-").toLocal8Bit().data());
+                }else{
+                    sheetread->writeStr(firstCol+i,35,soft.CANfblVer.toLocal8Bit().data());
+                    sheetread->writeStr(firstCol+i,36,soft.CANfblPartNo.toLocal8Bit().data());
+                    sheetread->cellFormat(firstCol+i,37)->setPatternForegroundColor(COLOR_RED);
+                    sheetread->cellFormat(firstCol+i,38)->setPatternForegroundColor(COLOR_RED);
+                    sheetread->cellFormat(firstCol+i,39)->setPatternForegroundColor(COLOR_RED);
+                    sheetread->cellFormat(firstCol+i,40)->setPatternForegroundColor(COLOR_RED);
+                    sheetread->cellFormat(firstCol+i,41)->setPatternForegroundColor(COLOR_RED);
+                }
+                if(soft.BootloaderPartNo==softNumberTable->value(i-1).BootloaderPartNo&&soft.BootloaderVer==softNumberTable->value(i-1).BootloaderVer){
+                    sheetread->writeStr(firstCol+i,42,QString("-").toLocal8Bit().data());
+                    sheetread->writeStr(firstCol+i,43,QString("-").toLocal8Bit().data());
+                }else{
+                    sheetread->writeStr(firstCol+i,42,soft.BootloaderVer.toLocal8Bit().data());
+                    sheetread->writeStr(firstCol+i,43,soft.BootloaderPartNo.toLocal8Bit().data());
+                    sheetread->cellFormat(firstCol+i,44)->setPatternForegroundColor(COLOR_RED);
+                    sheetread->cellFormat(firstCol+i,45)->setPatternForegroundColor(COLOR_RED);
+                    sheetread->cellFormat(firstCol+i,46)->setPatternForegroundColor(COLOR_RED);
+                    sheetread->cellFormat(firstCol+i,47)->setPatternForegroundColor(COLOR_RED);
+                    sheetread->cellFormat(firstCol+i,48)->setPatternForegroundColor(COLOR_RED);
+                }
+            }
             if(!flag){
-
-
+                if(i==0){
+                    sheetread->writeStr(firstCol+i,4,soft.ApplicationPartNo.toLocal8Bit().data());
+                }else{
+                    if(soft.ApplicationPartNo==softNumberTable->value(i-1).ApplicationPartNo){
+                        sheetread->writeStr(firstCol+i,4,QString("変更無し").toLocal8Bit().data());
+                    }else{
+                        sheetread->writeStr(firstCol+i,4,soft.ApplicationPartNo.toLocal8Bit().data());
+                    }
+                    if(soft.Productionstage=="AKM対応")
+                    {
+                        if((soft.ApplicationVer.left(1)=="A"&&softNumberTable->value(i-1).ApplicationVer.left(1)!=0)||(soft.ApplicationVer.left(1)=="B"&&softNumberTable->value(i-1).ApplicationVer.left(1)!=1)){tmpflag=true;}
+                        if(tmpflag){
+                            sheetread->cellFormat(firstCol+i,6)->setPatternForegroundColor(COLOR_RED);
+                            sheetread->cellFormat(firstCol+i,7)->setPatternForegroundColor(COLOR_RED);
+                            sheetread->cellFormat(firstCol+i,9)->setPatternForegroundColor(COLOR_RED);
+                        }
+                        sheetread->writeStr(firstCol+i,6,soft.Productionstage.toLocal8Bit().data());
+                        Vehicletype="";
+                        /*Vehicletype="旭化成工場火災の影響でvideo encoderが、\n"+ \
+                                "AK8817VQからML86640TBZ0AXに変更されるため、\n"+ \
+                                "対応するソフトウエアを変更\n"+ \
+                                " ・エンコーダ用I2Cスレーブアドレス設定変更\n"+ \
+                                " ・エンコーダのレジスタ設定変更\n"+ \
+                                " ・エンコーダー用ポート設定変更";*/
+                        sheetread->writeStr(firstCol+i,7,Vehicletype.toLocal8Bit().data());
+                        if(IDType=="EntryAVM"||IDType=="EntryAVM2"){
+                            Vehicletype="";
+                           /* Vehicletype="Changed paths:\n"+ \
+                                    "   Application/view/src/vi_app_i2c.c\n"+ \
+                                    "   Application/view/src/vi_main.c\n"+ \
+                                    "   common/include/CL_Ver_ex.h\n"+ \
+                                    "   common/include/gpiow_wrapper_ex.h\n"+ \
+                                    "   common/include/i2cw_wrapper_ex.h\n"+ \
+                                    "   common/include/vi_common_ex.h\n"+ \
+                                    "   LMiddle/i2c_wrapper/src/i2cw_wrapper.c";*/
+                            sheetread->writeStr(firstCol+i,9,Vehicletype.toLocal8Bit().data());
+                        }else{
+                            Vehicletype="";
+                           /* Vehicletype="Changed paths:\n"+ \
+                                    "   Application/view/src/vi_app_i2c.c\n"+ \
+                                    "   Application/view/src/vi_main.c\n"+ \
+                                    "   common/include/CL_Ver_ex.h\n"+ \
+                                    "   common/include/gpiow_wrapper_ex.h\n"+ \
+                                    "   common/include/i2cw_wrapper_ex.h\n"+ \
+                                    "   common/include/vi_common_ex.h\n"+ \
+                                    "   LMiddle/i2c_wrapper/src/i2cw_wrapper.c";*/
+                           sheetread->writeStr(firstCol+i,9,Vehicletype.toLocal8Bit().data());
+                        }
+                    }else{
+                        sheetread->cellFormat(firstCol+i,6)->setPatternForegroundColor(COLOR_RED);
+                        sheetread->cellFormat(firstCol+i,7)->setPatternForegroundColor(COLOR_RED);
+                        sheetread->cellFormat(firstCol+i,9)->setPatternForegroundColor(COLOR_RED);
+                        sheetread->cellFormat(firstCol+i,12)->setPatternForegroundColor(COLOR_RED);
+                        sheetread->cellFormat(firstCol+i,13)->setPatternForegroundColor(COLOR_RED);
+                    }
+                    sheetread->cellFormat(firstCol+i,10)->setPatternForegroundColor(Color::COLOR_BLUE);
+                    sheetread->cellFormat(firstCol+i,11)->setPatternForegroundColor(COLOR_RED);
+                }
+                sheetread->writeStr(firstCol+i,5,DefineConfigList.value(i).toLocal8Bit().data());
             }
         }
-        */
         book->save(filePath.toLocal8Bit());
         book->release();
     }else{
-        err=new ErrorTable();
+        err=new ERRORTable();
         err->fileName=filePath.mid(filePath.lastIndexOf("/")+1);
-        err->errMessage="模板格式错误!";
+        err->errMessage="文件打开失败!";
         errTable->append(*err);
         return false;
     }

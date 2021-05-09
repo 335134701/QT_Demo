@@ -63,6 +63,24 @@
        </property>
        <item row="0" column="0">
         <widget class="QTableView" name="MessageView">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>0</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>16777215</height>
+          </size>
+         </property>
          <attribute name="horizontalHeaderVisible">
           <bool>false</bool>
          </attribute>
@@ -74,7 +92,7 @@
        <item row="1" column="0">
         <widget class="QTextEdit" name="LogView">
          <property name="sizePolicy">
-          <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
            <horstretch>0</horstretch>
            <verstretch>0</verstretch>
           </sizepolicy>
@@ -82,13 +100,13 @@
          <property name="minimumSize">
           <size>
            <width>0</width>
-           <height>100</height>
+           <height>0</height>
           </size>
          </property>
          <property name="maximumSize">
           <size>
            <width>16777215</width>
-           <height>500</height>
+           <height>16777215</height>
           </size>
          </property>
          <property name="contextMenuPolicy">

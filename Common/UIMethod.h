@@ -63,9 +63,9 @@ public slots:
 
     void EndExcelOperateThreadConfSlot(QList<CONFIGTable> list);
 
-    void EndEEExcelWriteSlot(bool flag);
+    void EndEEExcelWriteSlot(bool flag,QList<ErrorTable> errTable);
 
-    void EndReadyExcelWriteSlot(bool flag);
+    void EndReadyExcelWriteSlot(bool flag,QList<ErrorTable> errTable);
 
     void MessageViewModelEditedSlot(QStandardItem *item);
 

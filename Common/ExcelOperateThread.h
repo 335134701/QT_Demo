@@ -15,8 +15,8 @@ public:
 signals:
     void EndExcelOperateThreadSoftSignal(QList<SOFTNUMBERTable> list);
     void EndExcelOperateThreadConfSignal(QList<CONFIGTable> list);
-    void EndEEExcelWriteSignal(bool flag);
-    void EndReadyExcelWriteSignal(bool flag);
+    void EndEEExcelWriteSignal(bool flag,QList<ErrorTable> errTable);
+    void EndReadyExcelWriteSignal(bool flag,QList<ErrorTable> errTable);
 
 public slots:
     void ExcelOperateThreadSlot(ExcelOperation *exl,const QString filePath,const QString ID,const QString IDType,const QString RelyID,unsigned int flag);

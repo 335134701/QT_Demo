@@ -591,8 +591,9 @@ void UIMethod::EndExcelOperateThreadConfSlot(QList<CONFIGTable> list)
  * @def EE-A002-1000 DR会議運用手順_様式7_20190320*.xlsx表 修改完成后回调函数
  * @brief UIMethod::EndEEExcelWriteSlot
  * @param flag
+ * @param errTable
  */
-void UIMethod::EndEEExcelWriteSlot(bool flag)
+void UIMethod::EndEEExcelWriteSlot(bool flag,QList<ErrorTable> errTable)
 {
     QLogHelper::instance()->LogInfo("UIMethod->EndEEExcelWriteSlot() 函数执行!");
     //excelThread->quit();
@@ -607,8 +608,9 @@ void UIMethod::EndEEExcelWriteSlot(bool flag)
  * @def *確認シート.xlsx 修改完成后回调函数
  * @brief UIMethod::EndReadyExcelWriteSlot
  * @param flag
+ * @param errTable
  */
-void UIMethod::EndReadyExcelWriteSlot(bool flag)
+void UIMethod::EndReadyExcelWriteSlot(bool flag,QList<ErrorTable> errTable)
 {
     QLogHelper::instance()->LogInfo("UIMethod->EndReadyExcelWriteSlot() 函数执行!");
     excelThread->quit();

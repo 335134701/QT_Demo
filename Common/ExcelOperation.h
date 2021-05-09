@@ -84,9 +84,9 @@ public:
 
     QList<CONFIGTable> ReadConfExcel(const QString filePath,const QString ID);
 
-    bool EEFileWrite(const QString filePath,const QString ID,const QString IDType,const QString RelyID, QList<SOFTNUMBERTable> *softNumberTable);
+    bool EEFileWrite(const QString filePath,const QString ID,const QString IDType,const QString RelyID, QList<SOFTNUMBERTable> *softNumberTable,QList<ErrorTable> *errTable);
 
-    bool ReadyFileWrite(const QString filePath,QList<SOFTNUMBERTable> *softNumberTable,QList<CONFIGTable> *configTable,QStringList DefineConfigList,const QString RelyID);
+    bool ReadyFileWrite(const QString filePath,QList<SOFTNUMBERTable> *softNumberTable,QList<CONFIGTable> *configTable,QStringList DefineConfigList,const QString RelyID,QList<ErrorTable> *errTable);
 signals:
 
 public slots:

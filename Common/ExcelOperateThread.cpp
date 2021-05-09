@@ -121,15 +121,16 @@ QList<SOFTNUMBERTable> ExcelOperateThread::DealSoftTable(QList<SOFTNUMBERTable> 
 void ExcelOperateThread::EEExcelWriteSlot(ExcelOperation *exl, const QString filePath, const QString ID,const QString IDType,const QString RelyID, QList<SOFTNUMBERTable> *softNumberTable)
 {
     QLogHelper::instance()->LogInfo("ExcelOperateThread->EEExcelWriteSlot() 函数执行!");
+    QList<ErrorTable> *errTable=new QList<ErrorTable>();
     bool flag=true;
     QFile *file=new QFile();
     if(file->exists(filePath))
     {
-        flag=exl->EEFileWrite(filePath,ID,IDType,RelyID,softNumberTable);
+        flag=exl->EEFileWrite(filePath,ID,IDType,RelyID,softNumberTable,errTable);
     }else{
         flag=false;
     }
-    emit EndEEExcelWriteSignal(flag);
+    emit EndEEExcelWriteSignal(flag,*errTable);
 }
 
 /**
@@ -145,13 +146,14 @@ void ExcelOperateThread::EEExcelWriteSlot(ExcelOperation *exl, const QString fil
 void ExcelOperateThread::ReadyExcelWriteSlot(ExcelOperation *exl, const QString filePath, QList<SOFTNUMBERTable> *softNumberTable, QList<CONFIGTable> *configTable,QStringList DefineConfigList,const QString RelyID)
 {
     QLogHelper::instance()->LogInfo("ExcelOperateThread->ReadyExcelWriteSlot() 函数执行!");
+    QList<ErrorTable> *errTable=new QList<ErrorTable>();
     bool flag=true;
     QFile *file=new QFile();
     if(file->exists(filePath))
     {
-        flag=exl->ReadyFileWrite(filePath,softNumberTable,configTable,DefineConfigList,RelyID);
+        flag=exl->ReadyFileWrite(filePath,softNumberTable,configTable,DefineConfigList,RelyID,errTable);
     }else{
         flag=false;
     }
-    emit EndReadyExcelWriteSignal(flag);
+    emit EndReadyExcelWriteSignal(flag,*errTable);
 }

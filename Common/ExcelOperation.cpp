@@ -212,7 +212,7 @@ QList<CONFIGTable> ExcelOperation::ReadConfExcel(const QString filePath, const Q
  * @param softNumberTable
  * @return
  */
-bool ExcelOperation::EEFileWrite(const QString filePath, const QString ID,const QString IDType,const QString RelyID, QList<SOFTNUMBERTable> *softNumberTable)
+bool ExcelOperation::EEFileWrite(const QString filePath, const QString ID,const QString IDType,const QString RelyID, QList<SOFTNUMBERTable> *softNumberTable,QList<ErrorTable> *errTable)
 {
     QLogHelper::instance()->LogInfo("ExcelOperation->EEFileWrite() 函数执行!");
     Sheet *sheetread;
@@ -273,7 +273,7 @@ bool ExcelOperation::EEFileWrite(const QString filePath, const QString ID,const 
  * @param RelyID
  * @return
  */
-bool ExcelOperation::ReadyFileWrite(const QString filePath, QList<SOFTNUMBERTable> *softNumberTable, QList<CONFIGTable> *configTable,QStringList DefineConfigList,const QString RelyID)
+bool ExcelOperation::ReadyFileWrite(const QString filePath, QList<SOFTNUMBERTable> *softNumberTable, QList<CONFIGTable> *configTable,QStringList DefineConfigList,const QString RelyID,QList<ErrorTable> *errTable)
 {
     QLogHelper::instance()->LogInfo("ExcelOperation->ReadyFileWrite() 函数执行!");
     ReadyFileFirstSheet(filePath,softNumberTable,configTable,RelyID);

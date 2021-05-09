@@ -210,6 +210,7 @@ QList<CONFIGTable> ExcelOperation::ReadConfExcel(const QString filePath, const Q
  * @param IDType
  * @param RelyID
  * @param softNumberTable
+ * @param errTable
  * @return
  */
 bool ExcelOperation::EEFileWrite(const QString filePath, const QString ID,const QString IDType,const QString RelyID, QList<SOFTNUMBERTable> *softNumberTable,QList<ErrorTable> *errTable)
@@ -276,9 +277,9 @@ bool ExcelOperation::EEFileWrite(const QString filePath, const QString ID,const 
 bool ExcelOperation::ReadyFileWrite(const QString filePath, QList<SOFTNUMBERTable> *softNumberTable, QList<CONFIGTable> *configTable,QStringList DefineConfigList,const QString RelyID,QList<ErrorTable> *errTable)
 {
     QLogHelper::instance()->LogInfo("ExcelOperation->ReadyFileWrite() 函数执行!");
-    ReadyFileFirstSheet(filePath,softNumberTable,configTable,RelyID);
-    //ReadyFileSecondSheet(filePath,configTable);
-    //ReadyFileThirdSheet(filePath,softNumberTable,DefineConfigList,false);
+    //ReadyFileFirstSheet(filePath,softNumberTable,configTable,RelyID,errTable);
+    //ReadyFileSecondSheet(filePath,configTable,errTable);
+    ReadyFileThirdSheet(filePath,softNumberTable,DefineConfigList,false,errTable);
     return true;
 }
 /**
@@ -288,20 +289,28 @@ bool ExcelOperation::ReadyFileWrite(const QString filePath, QList<SOFTNUMBERTabl
  * @param softNumberTable
  * @param configTable
  * @param RelyID
+ * @param errTable
  * @return
  */
-bool ExcelOperation::ReadyFileFirstSheet(const QString filePath, QList<SOFTNUMBERTable> *softNumberTable, QList<CONFIGTable> *configTable,const QString RelyID)
+bool ExcelOperation::ReadyFileFirstSheet(const QString filePath, QList<SOFTNUMBERTable> *softNumberTable, QList<CONFIGTable> *configTable,const QString RelyID,QList<ErrorTable> *errTable)
 {
     QLogHelper::instance()->LogInfo("ExcelOperation->ReadyFileFirstSheet() 函数执行!");
     Sheet *sheetread;
     int firstCol=7;
     QString ConfigpartnumberList;
+    ERRORTable *err=new ErrorTable();
     int i=0;
     if(this->Init(filePath)&&book->load(filePath.toLocal8Bit()))
     {
         sheetread=book->getSheet(0);
         //最少两种状态，如果有更多状态，可以进一步处理
-        if(sheetread->lastRow()<11||softNumberTable->size()<0){return false;}
+        if(sheetread->lastRow()<11||softNumberTable->size()<0){
+            err=new ErrorTable();
+            err->fileName=filePath.mid(filePath.lastIndexOf("/")+1);
+            err->errMessage="模板格式错误!";
+            errTable->append(*err);
+            return false;
+        }
         for(i=0;i<configTable->size();i++){
             ConfigpartnumberList.append(configTable->value(i).Configpartnumber+"\n");
         }
@@ -374,6 +383,12 @@ bool ExcelOperation::ReadyFileFirstSheet(const QString filePath, QList<SOFTNUMBE
         }
         book->save(filePath.toLocal8Bit());
         book->release();
+    }else{
+        err=new ErrorTable();
+        err->fileName=filePath.mid(filePath.lastIndexOf("/")+1);
+        err->errMessage="模板格式错误!";
+        errTable->append(*err);
+        return false;
     }
     return true;
 }
@@ -382,15 +397,16 @@ bool ExcelOperation::ReadyFileFirstSheet(const QString filePath, QList<SOFTNUMBE
  * @brief ExcelOperation::ReadyFileSecondSheet
  * @param filePath
  * @param configTable
+ * @param errTable
  * @return
  */
-bool ExcelOperation::ReadyFileSecondSheet(const QString filePath, QList<CONFIGTable> *configTable)
+bool ExcelOperation::ReadyFileSecondSheet(const QString filePath, QList<CONFIGTable> *configTable,QList<ErrorTable> *errTable)
 {
     QLogHelper::instance()->LogInfo("ExcelOperation->ReadyFileSecondSheet() 函数执行!");
-    int firstCol=12,i=0;
+    int firstCol=12,i=0,row=0;
     QString ConfigpartnumberList;
     Sheet *sheetread;
-    int row=0;
+    ERRORTable *err=new ErrorTable();
     if(this->Init(filePath)&&book->load(filePath.toLocal8Bit()))
     {
         sheetread=book->getSheet(1);
@@ -402,6 +418,10 @@ bool ExcelOperation::ReadyFileSecondSheet(const QString filePath, QList<CONFIGTa
         row=sheetread->lastRow();
         //模板文件有问题，直接返回
         if(row<=12){
+            err=new ErrorTable();
+            err->fileName=filePath.mid(filePath.lastIndexOf("/")+1);
+            err->errMessage="模板格式错误!";
+            errTable->append(*err);
             return false;
         }
         //如果解析出来无数据
@@ -462,16 +482,23 @@ bool ExcelOperation::ReadyFileSecondSheet(const QString filePath, QList<CONFIGTa
         book->save(filePath.toLocal8Bit());
         book->release();
     }else{
+        err=new ErrorTable();
+        err->fileName=filePath.mid(filePath.lastIndexOf("/")+1);
+        err->errMessage="模板格式错误!";
+        errTable->append(*err);
         return false;
     }
     return true;
 }
+
 /**
  * @def 確認シート.xlsx 表第三个sheet修改
  * @brief ExcelOperation::ReadyFileThirdSheet
  * @param filePath
  * @param softNumberTable
  * @param DefineConfigList
+ * @param flag
+ * @param errTable
  * @return
  */
 /*
@@ -496,10 +523,11 @@ typedef struct SoftNumberTable{
     QString DiagnosticCode;         //診断識別コード
 }SOFTNUMBERTable;
 */
-bool ExcelOperation::ReadyFileThirdSheet(const QString filePath,QList<SOFTNUMBERTable> *softNumberTable,QStringList DefineConfigList,bool flag)
+bool ExcelOperation::ReadyFileThirdSheet(const QString filePath,QList<SOFTNUMBERTable> *softNumberTable,QStringList DefineConfigList,bool flag,QList<ErrorTable> *errTable)
 {
     QLogHelper::instance()->LogInfo("ExcelOperation->ReadyFileThirdSheet() 函数执行!");
     Sheet *sheetread;
+    ERRORTable *err=new ErrorTable();
     int i=0;
     if(this->Init(filePath)&&book->load(filePath.toLocal8Bit()))
     {
@@ -523,6 +551,12 @@ bool ExcelOperation::ReadyFileThirdSheet(const QString filePath,QList<SOFTNUMBER
         */
         book->save(filePath.toLocal8Bit());
         book->release();
+    }else{
+        err=new ErrorTable();
+        err->fileName=filePath.mid(filePath.lastIndexOf("/")+1);
+        err->errMessage="模板格式错误!";
+        errTable->append(*err);
+        return false;
     }
     return true;
 }

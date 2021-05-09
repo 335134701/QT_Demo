@@ -94,9 +94,9 @@ public slots:
 private :
    Book *book;
 
-   bool ReadyFileFirstSheet(const QString filePath, QList<SOFTNUMBERTable> *softNumberTable,QList<CONFIGTable> *configTable,const QString RelyID);
-   bool ReadyFileSecondSheet(const QString filePath,QList<CONFIGTable> *configTable);
-   bool ReadyFileThirdSheet(const QString filePath,QList<SOFTNUMBERTable> *softNumberTable,QStringList DefineConfigList,bool flag);
+   bool ReadyFileFirstSheet(const QString filePath, QList<SOFTNUMBERTable> *softNumberTable,QList<CONFIGTable> *configTable,const QString RelyID,QList<ErrorTable> *errTable);
+   bool ReadyFileSecondSheet(const QString filePath,QList<CONFIGTable> *configTable,QList<ErrorTable> *errTable);
+   bool ReadyFileThirdSheet(const QString filePath,QList<SOFTNUMBERTable> *softNumberTable,QStringList DefineConfigList,bool flag,QList<ErrorTable> *errTable);
 };
 
 #endif // EXCELOPERATION_H

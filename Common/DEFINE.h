@@ -24,6 +24,10 @@
 *      17   宏定义
 *      18   解析量产管理表内容
 *      19   解析採用車種コンフィグ詳細表内容
+*      20   写入EE文件结束状态
+*      21   写入确认表返回值状态
+*
+*
 */
 #define SUCCESS             0
 #define IDflag              1
@@ -45,6 +49,8 @@
 #define DefineConfig        17
 #define RelyMessageflag     18
 #define ConfigMessageflag   19
+#define EEFileWrieflag      20
+#define ReadyFileWriteflag   21
 
 #define DATETIME                QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss")
 #define DATAStytle              "[ "+DATETIME+" ] "
@@ -62,5 +68,4 @@
 #define EEFileError             "EEFileError"
 #define ReadyFileError          "ReadyFileError"
 #define ConfigFileError         "ConfigFileError"
-
 #endif // DEFINE_H

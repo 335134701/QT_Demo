@@ -288,20 +288,15 @@ void UIMethod::JudgeIDSlot(QLineEdit *Edit,QString *objectID)
     QRegExp rx(comBean->getRExpression().value(Edit->objectName()));
     if(rx.indexIn(Edit->text())!=0){
         Edit->setStyleSheet(QString(errFontColor)); //字体相关设置;
-        //如果错误码不存在，则添加错误码
-        comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),Edit->objectName(),NULL,true);
         return;
     }
     //对指定对象赋值
     *objectID=Edit->text();
     Edit->setStyleSheet(QString(nomFontColor)); //字体相关设置;
-    //如果存在错误码,则移除错误码
-    comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),Edit->objectName(),NULL,false);
 }
 /**
  * @def 判断机种类型
  *      以作成机种(ID)为主导地位
- *      以依赖机种(RelyID)为辅导地位
  *      对比依赖机种与作成机种的类型是否一致
  *      如果不一致，则依赖机种显示红色字体
  * @brief UIMethod::JudgeIDTypeSlot
@@ -317,26 +312,21 @@ void UIMethod::JudgeIDTypeSlot(QLineEdit *Edit,QString *srcobject,QString *desob
     //对比机种不为空，当前机种类型和对比机种不一致
     if(!(*desobject).isEmpty()&&ret!=(*desobject))
     {
-        if(Edit->objectName()!="IDEdit"){
-            Edit->setStyleSheet(QString(errFontColor));
-            (*srcobject)="";
-        }
-        //错误处理，添加错误码
-        comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),IDRelyID,NULL,true);
+        //错误处理，设置标记位false
+        comBean->setIDRelyIDflag(false);
         return;
     }
     Edit->setStyleSheet(QString(nomFontColor));
-    //正确处理，如果存在错误码，则移除
-    comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),IDRelyID,NULL,false);
+    //正确处理，设置标记位true
+    comBean->setIDRelyIDflag(true);
 }
 /**
  * @def 按钮选择目录并赋值
- * @brief UIMethod::SelectDir
+ * @brief UIMethod::SelectDirSlot
  * @param label
- * @param destDirPath
- * @param dirPath
+ * @param objectID
  */
-void UIMethod::SelectDirSlot(QLabel *label,QString *objectID,const QString errName)
+void UIMethod::SelectDirSlot(QLabel *label,QString *objectID)
 {
     QLogHelper::instance()->LogInfo("UIMethod->SelectDirSlot() 函数执行!");
     label->setText("");
@@ -344,14 +334,10 @@ void UIMethod::SelectDirSlot(QLabel *label,QString *objectID,const QString errNa
     if (dirName.isEmpty()) {
         *objectID="";
         label->setStyleSheet(QString(errFontColor));
-        //如果错误码不存在，则添加错误码
-        comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),errName,NULL,true);
         QMessageBox::warning(label, "Warn", tr("No directory selected!"));
         return;
     }
     label->setStyleSheet(QString(nomFontColor));
-    //正确处理，如果存在错误码，则移除
-    comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),errName,NULL,false);
     label->setText(dirName);
     *objectID=dirName;
 }
@@ -364,7 +350,6 @@ void UIMethod::SelectFileSlot(QString dirPath,unsigned int flag, bool goOn)
 {
     QLogHelper::instance()->LogInfo("UIMethod->SelectFileSlot() 函数执行!");
     if(!QDir(dirPath).exists()){
-        comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),*(comBean->getSVNDirPath()),NULL,true);
         return;
     }
     QStringList filters;
@@ -480,56 +465,45 @@ void UIMethod::EndFindFileThreadSlot(QStringList st, unsigned int flag, bool goO
             }
             emit ExcelOperateThreadSignal(comBean->getExcelOption(),*(comBean->getRelyFilePath()),*(comBean->getID()),*(comBean->getIDType()),*(comBean->getRelyID()),flag);
         }
-        comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),RelyFileError,*(comBean->getRelyFilePath()),true);
         break;
     case IniFileflag:
         comBean->getComMethod()->AnalyzeFilePath(st,comBean->getIniFilePath(),flag);
-        comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),IniFileError,*(comBean->getIniFilePath()),true);
         break;
     case PFileflag:
         comBean->getComMethod()->AnalyzeFilePath(st,comBean->getPFilePath(),flag);
-        comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),PFileError,*(comBean->getPFilePath()),true);
         break;
     case SWFileflag:
         comBean->getComMethod()->AnalyzeFilePath(st,comBean->getSWFilePath(),flag);
-        comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),SWFileError,*(comBean->getSWFilePath()),true);
         break;
     case CarInfoFileflag:
         comBean->getComMethod()->AnalyzeFilePath(st,comBean->getCarInfoFilePath(),flag);
-        comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),CarInfoFileError,*(comBean->getCarInfoFilePath()),true);
         if(carTmpPath.isEmpty()&&!comBean->getCarInfoFilePath()->isEmpty()){
             carTmpPath=*comBean->getCarInfoFilePath();
         }
         break;
     case CarMapFileflag:
         comBean->getComMethod()->AnalyzeFilePath(st,comBean->getCarMapFilePath(),flag);
-        comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),CarMapFileError,*(comBean->getCarMapFilePath()),true);
         if(carTmpPath.isEmpty()&&!comBean->getCarMapFilePath()->isEmpty()){
             carTmpPath=*comBean->getCarMapFilePath();
         }
         break;
     case CarOSDFileflag:
         comBean->getComMethod()->AnalyzeFilePath(st,comBean->getCarOSDFilePath(),flag);
-        comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),CarOSDFileError,*(comBean->getCarOSDFilePath()),true);
         if(carTmpPath.isEmpty()&&!comBean->getCarOSDFilePath()->isEmpty()){
             carTmpPath=*comBean->getCarOSDFilePath();
         }
         break;
     case JoinFileflag:
         comBean->getComMethod()->AnalyzeFilePath(st,comBean->getJoinMot(),flag);
-        comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),JoinFileError,*(comBean->getJoinMot()),true);
         break;
     case APPFileflag:
         comBean->getComMethod()->AnalyzeFilePath(st,comBean->getAPPMot(),flag);
-        comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),APPFileError,*(comBean->getAPPMot()),true);
         break;
     case EEFileflag:
         comBean->getComMethod()->AnalyzeFilePath(st,comBean->getEEFilePath(),flag);
-        comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),EEFileError,*(comBean->getEEFilePath()),true);
         break;
     case ReadyFileflag:
         comBean->getComMethod()->AnalyzeFilePath(st,comBean->getReadyFilePath(),flag);
-        comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),ReadyFileError,*(comBean->getReadyFilePath()),true);
         break;
     case ConfigFileflag:
         comBean->getComMethod()->AnalyzeFilePath(st,comBean->getConfigFilePath(),flag);
@@ -541,7 +515,6 @@ void UIMethod::EndFindFileThreadSlot(QStringList st, unsigned int flag, bool goO
             }
             emit ExcelOperateThreadSignal(comBean->getExcelOption(),*(comBean->getConfigFilePath()),*(comBean->getID()),*(comBean->getConfigFilePath()),*(comBean->getRelyID()),flag);
         }
-        comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),ConfigFileError,*(comBean->getConfigFilePath()),true);
         goOn=false;
         break;
     }
@@ -566,7 +539,6 @@ void UIMethod::EndExcelOperateThreadSoftSlot(QList<SOFTNUMBERTable> list)
     QLogHelper::instance()->LogInfo("UIMethod->EndExcelOperateThreadSoftSlot() 函数执行!");
     //QLogHelper::instance()->LogDebug(QString::number(list.size()));
     *(comBean->getSoftNumberTable())=list;
-    comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),ConfigFileError,QString::number(comBean->getSoftNumberTable()->size()),true);
     emit ShowIDmessageSignal(DefineConfig);
     emit ShowIDmessageSignal(RelyMessageflag);;
     excelThread->quit();
@@ -583,7 +555,6 @@ void UIMethod::EndExcelOperateThreadConfSlot(QList<CONFIGTable> list)
     //QLogHelper::instance()->LogDebug(QString::number(list.size()));
     *(comBean->getConfigTable())=list;
     emit ShowIDmessageSignal(ConfigMessageflag);
-    comBean->getComMethod()->ErrorCodeDeal(comBean->getErrCode(),comBean->getXmlOperate()->getErrCodeType(),ConfigFileError,QString::number(comBean->getConfigTable()->size()),true);
     excelThread->quit();
     excelThread->wait();
 }
@@ -598,9 +569,7 @@ void UIMethod::EndEEExcelWriteSlot(bool flag,QList<ErrorTable> errTable)
     QLogHelper::instance()->LogInfo("UIMethod->EndEEExcelWriteSlot() 函数执行!");
     //excelThread->quit();
     //excelThread->wait();
-    if(flag){
-
-    }else{
+    if(errTable.size()>0){
 
     }
 }
@@ -615,8 +584,7 @@ void UIMethod::EndReadyExcelWriteSlot(bool flag,QList<ErrorTable> errTable)
     QLogHelper::instance()->LogInfo("UIMethod->EndReadyExcelWriteSlot() 函数执行!");
     excelThread->quit();
     excelThread->wait();
-    if(flag)
-    {
+    if(errTable.size()>0){
 
     }
     comBean->setStatusflag(0);
@@ -890,7 +858,5 @@ void UIMethod::CreateSlot()
     }
 */
     this->getTextEdit()->append(DATETIME+" =======================================");
-    //清除错误码
-    comBean->getErrCode()->clear();
 }
 

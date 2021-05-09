@@ -68,7 +68,7 @@ signals:
 
     void ShowIDmessageSignal(int flag);
 
-    void SelectDirSignal(QLabel *label,QString *objectID,const QString errName);
+    void SelectDirSignal(QLabel *label,QString *objectID);
 
     void SelectFileSignal(QString dirPath,unsigned int flag, bool goOn);
 

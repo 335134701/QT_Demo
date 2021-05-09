@@ -44,30 +44,6 @@ QString CommonMethod::JudgeIDType(const QString ID)
     }
     return ret;
 }
-
-/**
- * @def   处理关于错误码的赋值，删除，以及不确定赋值或者删除操作
- * @brief CommonMethod::ErrorCodeDeal
- * @param errCode
- * @param errCodeType
- * @param objectName
- * @param condition
- * @param flag
- */
-void CommonMethod::ErrorCodeDeal(QMap<QString, ERRCODETYPE> *errCode, QMap<QString,ERRCODETYPE> errCodeType,const QString objectName, const QString condition, bool flag)
-{
-    QLogHelper::instance()->LogInfo("CommonMethod->ErrorCodeDeal() 函数执行!");
-    if(errCode==NULL){return;}
-    if((flag&&errCode->value(objectName).ID.isEmpty())&&(condition.isEmpty()||condition=="0")){
-        QLogHelper::instance()->LogDebug("CommonMethod->ErrorCodeDeal() 添加错误码!");
-        //如果错误码不存在，则添加错误码
-        errCode->insert(objectName,errCodeType.value(objectName));
-    }else if(!errCode->value(objectName).ID.isEmpty()||!condition.isEmpty()){
-        QLogHelper::instance()->LogDebug("CommonMethod->ErrorCodeDeal() 移除错误码!");
-        //如果存在错误码则移除错误码
-        errCode->remove(objectName);
-    }
-}
 /**
  * @def 根据条件找到对应的文件
  *      dir 文件所在的路径

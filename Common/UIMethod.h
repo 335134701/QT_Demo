@@ -53,7 +53,7 @@ public slots:
 
     void ShowIDmessageSlot(int flag);
 
-    void SelectDirSlot(QLabel *label,QString *objectID,const QString errName);
+    void SelectDirSlot(QLabel *label,QString *objectID);
 
     void SelectFileSlot(QString dirPath,unsigned int flag, bool goOn);
 

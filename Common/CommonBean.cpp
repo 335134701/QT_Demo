@@ -5,7 +5,6 @@ CommonBean::CommonBean(QObject *parent) : QObject(parent)
 {
     QLogHelper::instance()->LogInfo("CommonBean() 构造函数执行!");
     this->Init();
-    this->ErrorCodeInit();
 }
 
 
@@ -18,10 +17,8 @@ void CommonBean::Init()
 {
     QLogHelper::instance()->LogInfo("CommonBean->Init() 函数执行!");
     comMethod=new CommonMethod();
-    errCode=new QMap<QString,ERRCODETYPE>();
     softNumberTable=new QList<SOFTNUMBERTable>();
     configTable=new QList<CONFIGTable>();
-    xmlOperate=new XMLOperate();            //初始化设置Error Code，通过解析XML方式获取错误码
     excelOption=new ExcelOperation();
     ID=new QString();
     RelyID=new QString();
@@ -43,22 +40,10 @@ void CommonBean::Init()
     ConfigFilePath=new QString();
     messageViewModel=new QStandardItemModel();
     statusflag=false;
+    IDRelyIDflag=true;
     //初始化错误码
     RExpression.insert("IDEdit","^EN(3[3-7]|42)\\d\\dP[A-Z]");
     RExpression.insert("RelyIDEdit","^EN(3[3-7]|42)\\d\\dP[A-Z]");
-}
-/**
- * @def 初始化错误码
- * @brief CommonBean::ErrorCodeInit
- * @return
- */
-bool CommonBean::ErrorCodeInit()
-{
-    bool ret=false;
-    if(getXmlOperate()->getErrCodeType().count()>0){
-        //this->getErrCode()->insert(IDRelyID,this->getXmlOperate()->getErrCodeType().value(IDRelyID));
-    }
-    return ret;
 }
 
 QMap<QString, QString> CommonBean::getRExpression() const
@@ -69,16 +54,6 @@ QMap<QString, QString> CommonBean::getRExpression() const
 void CommonBean::setRExpression(const QMap<QString, QString> &value)
 {
     RExpression = value;
-}
-
-QMap<QString, ERRCODETYPE> *CommonBean::getErrCode() const
-{
-    return errCode;
-}
-
-void CommonBean::setErrCode(QMap<QString, ERRCODETYPE> *value)
-{
-    errCode = value;
 }
 
 QString *CommonBean::getID() const
@@ -241,16 +216,6 @@ void CommonBean::setComMethod(CommonMethod *value)
     comMethod = value;
 }
 
-XMLOperate *CommonBean::getXmlOperate() const
-{
-    return xmlOperate;
-}
-
-void CommonBean::setXmlOperate(XMLOperate *value)
-{
-    xmlOperate = value;
-}
-
 unsigned int CommonBean::getStatusflag() const
 {
     return statusflag;
@@ -351,3 +316,12 @@ void CommonBean::setDefineConfigList(const QStringList &value)
     DefineConfigList = value;
 }
 
+bool CommonBean::getIDRelyIDflag() const
+{
+    return IDRelyIDflag;
+}
+
+void CommonBean::setIDRelyIDflag(bool value)
+{
+    IDRelyIDflag = value;
+}

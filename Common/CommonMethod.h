@@ -21,8 +21,6 @@ public:
 
     QString AnalyzePath(const QString dirPath,const QString ID,QString IDType,const QString RelyID,unsigned int flag);
 
-    void ErrorCodeDeal(QMap<QString,ERRCODETYPE> *errCode,QMap<QString,ERRCODETYPE> errCodeType,const QString objectName,const QString condition,bool flag);
-
     QStringList FindFile(const QString dirPath,QStringList filters);
 
     void AnalyzeFilePath(const QStringList filePaths,QString *filePath,unsigned int flag);

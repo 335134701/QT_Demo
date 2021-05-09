@@ -28,14 +28,8 @@ public:
 
     const QString exampleDirPath=QApplication::applicationDirPath()+"/Example";
 
-    //错误码初始化
-    bool ErrorCodeInit();
-
     QMap<QString, QString> getRExpression() const;
     void setRExpression(const QMap<QString, QString> &value);
-
-    QMap<QString, ERRCODETYPE> *getErrCode() const;
-    void setErrCode(QMap<QString, ERRCODETYPE> *value);
 
     QString *getID() const;
     void setID(QString *value);
@@ -85,9 +79,6 @@ public:
     CommonMethod *getComMethod() const;
     void setComMethod(CommonMethod *value);
 
-    XMLOperate *getXmlOperate() const;
-    void setXmlOperate(XMLOperate *value);
-
     unsigned int getStatusflag() const;
     void setStatusflag(unsigned int value);
 
@@ -117,17 +108,19 @@ public:
     QStringList getDefineConfigList() const;
     void setDefineConfigList(const QStringList &value);
 
+
+    bool getIDRelyIDflag() const;
+    void setIDRelyIDflag(bool value);
+
 private :
     //当前程序操作状态码
     unsigned int statusflag;
     //TableView数据模型
     QStandardItemModel *messageViewModel;
-
+    //宏定义集合
     QStringList DefineConfigList;
-
+    //正则表达式
     QMap<QString,QString> RExpression;
-    //错误状态码集合
-    QMap<QString,ERRCODETYPE> *errCode;
     //ソフトウエア部品番号管理表(量産)_AKM対応用解析集合
     QList<SOFTNUMBERTable> *softNumberTable;
     //採用車種コンフィグ詳細文件解析集合
@@ -136,6 +129,8 @@ private :
     QString *ID;
     //依赖机种番号
     QString *RelyID;
+    //判断ID与依赖ID是否同一种类型
+    bool IDRelyIDflag;
     //SVN路径
     QString *SVNDirPath;
     //生成文件路径
@@ -170,8 +165,6 @@ private :
     QString *ConfigFilePath;
     //公共的方法类对象
     CommonMethod *comMethod;
-    //处理XML的对象
-    XMLOperate *xmlOperate;
     //Excel操作函数
     ExcelOperation *excelOption;
     //TableViewEditflag

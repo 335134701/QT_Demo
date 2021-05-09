@@ -294,22 +294,89 @@ bool CommonMethod::INIFileRead(const QString filePath, const QString PartNumber,
 }
 /**
  * @def 此函数主要对UIMethod.cpp 中 MessageViewModelEditedSlot() 函数进一步处理
- * @brief CommonMethod::MessageTableChangeDeal
+ * @brief CommonMethod::MessageFileTableChangeDeal
  * @param item
  * @param filePath
  */
-void CommonMethod::MessageTableChangeDeal(QStandardItem *item, QString *filePath)
+void CommonMethod::MessageFileTableChangeDeal(QStandardItem *item, QString *filePath)
 {
     QLogHelper::instance()->LogInfo("CommonMethod->MessageTableChangeDeal() 函数执行!");
     QFile *file=new QFile();
-    if(item->text()!=(*filePath)){
-        if(file->exists(item->text())){
-            (*filePath)=item->text();
-        }else{
-            item->setText("");
-            (*filePath)="";
-        }
+    if(file->exists(item->text())){
+        (*filePath)=item->text();
+    }else{
+        item->setText("");
+        (*filePath)="";
     }
+}
+/**
+ * @def 此函数主要对UIMethod.cpp 中 MessageViewModelEditedSlot() 函数进一步处理
+ * @brief CommonMethod::MessageSoftTableChangeDeal
+ * @param item
+ * @param soft
+ * @param index
+ * @return
+ */
+SOFTNUMBERTable CommonMethod::MessageSoftTableChangeDeal(const QStandardItem *item,const SOFTNUMBERTable soft,int index)
+{
+    SOFTNUMBERTable tmpsoft=soft;
+    switch (index) {
+    case 0:
+        tmpsoft.ModelNumber=item->text();
+        break;
+    case 1:
+        tmpsoft.CarModels=item->text();
+        break;
+    case 2:
+        tmpsoft.PartNumber=item->text();
+        break;
+    case 3:
+        tmpsoft.CANGen=item->text();
+        break;
+    case 4:
+        tmpsoft.Productionstage=item->text();
+        break;
+    case 5:
+        tmpsoft.ApplicationPartNo=item->text();
+        break;
+    case 6:
+        tmpsoft.ApplicationVer=item->text();
+        break;
+    case 7:
+        tmpsoft.CarInfoPartNo=item->text();
+        break;
+    case 8:
+        tmpsoft.CarInfoVer=item->text();
+        break;
+    case 9:
+        tmpsoft.CameraMAPPartNo=item->text();
+        break;
+    case 10:
+        tmpsoft.CameraMAPVer=item->text();
+        break;
+    case 11:
+        tmpsoft.OSDPartNo=item->text();
+        break;
+    case 12:
+        tmpsoft.OSDVer=item->text();
+        break;
+    case 13:
+        tmpsoft.CANfblPartNo=item->text();
+        break;
+    case 14:
+        tmpsoft.CANfblVer=item->text();
+        break;
+    case 15:
+        tmpsoft.BootloaderPartNo=item->text();
+        break;
+    case 16:
+        tmpsoft.BootloaderVer=item->text();
+        break;
+    case 17:
+        tmpsoft.DiagnosticCode=item->text();
+        break;
+    }
+    return tmpsoft;
 }
 
 

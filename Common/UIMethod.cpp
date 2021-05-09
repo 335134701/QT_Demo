@@ -627,6 +627,7 @@ void UIMethod::EndReadyExcelWriteSlot(bool flag)
  */
 void UIMethod::MessageViewModelEditedSlot(QStandardItem *item)
 {
+    QStringList tmp;
     if(comBean->getTableViewEditflag()){
         QLogHelper::instance()->LogInfo("AutomationTool->MessageViewModelEditedSlot() 函数触发执行!");
         QLogHelper::instance()->LogDebug("column: "+QString::number(item->column())+"    row:"+QString::number(item->row()));
@@ -634,64 +635,55 @@ void UIMethod::MessageViewModelEditedSlot(QStandardItem *item)
         if(item->column()==1){
             switch (item->row()) {
             case 4:
-                comBean->getComMethod()->MessageTableChangeDeal(item,comBean->getRelyFilePath());
+                comBean->getComMethod()->MessageFileTableChangeDeal(item,comBean->getRelyFilePath());
                 break;
             case 5:
-                comBean->getComMethod()->MessageTableChangeDeal(item,comBean->getIniFilePath());
+                comBean->getComMethod()->MessageFileTableChangeDeal(item,comBean->getIniFilePath());
                 break;
             case 6:
-                comBean->getComMethod()->MessageTableChangeDeal(item,comBean->getPFilePath());
+                comBean->getComMethod()->MessageFileTableChangeDeal(item,comBean->getPFilePath());
                 break;
             case 7:
-                comBean->getComMethod()->MessageTableChangeDeal(item,comBean->getSWFilePath());
+                comBean->getComMethod()->MessageFileTableChangeDeal(item,comBean->getSWFilePath());
                 break;
             case 8:
-                comBean->getComMethod()->MessageTableChangeDeal(item,comBean->getCarInfoFilePath());
+                comBean->getComMethod()->MessageFileTableChangeDeal(item,comBean->getCarInfoFilePath());
                 break;
             case 9:
-                comBean->getComMethod()->MessageTableChangeDeal(item,comBean->getCarMapFilePath());
+                comBean->getComMethod()->MessageFileTableChangeDeal(item,comBean->getCarMapFilePath());
                 break;
             case 10:
-                comBean->getComMethod()->MessageTableChangeDeal(item,comBean->getCarOSDFilePath());
+                comBean->getComMethod()->MessageFileTableChangeDeal(item,comBean->getCarOSDFilePath());
                 break;
             case 11:
-                comBean->getComMethod()->MessageTableChangeDeal(item,comBean->getAPPMot());
+                comBean->getComMethod()->MessageFileTableChangeDeal(item,comBean->getAPPMot());
                 break;
             case 12:
-                comBean->getComMethod()->MessageTableChangeDeal(item,comBean->getJoinMot());
+                comBean->getComMethod()->MessageFileTableChangeDeal(item,comBean->getJoinMot());
                 break;
             case 13:
-                comBean->getComMethod()->MessageTableChangeDeal(item,comBean->getEEFilePath());
+                comBean->getComMethod()->MessageFileTableChangeDeal(item,comBean->getEEFilePath());
                 break;
             case 14:
-                comBean->getComMethod()->MessageTableChangeDeal(item,comBean->getReadyFilePath());
+                comBean->getComMethod()->MessageFileTableChangeDeal(item,comBean->getReadyFilePath());
                 break;
             case 15:
-                comBean->getComMethod()->MessageTableChangeDeal(item,comBean->getConfigFilePath());
+                comBean->getComMethod()->MessageFileTableChangeDeal(item,comBean->getConfigFilePath());
                 break;
             }
-            comBean->getDefineConfigList()[1]="11111";
-        }
-        QLogHelper::instance()->LogDebug((*comBean->getRelyFilePath()));
-        /*
-        if(item->column()==1&&item->row()==4&&item->text()!=(*comBean->getRelyFilePath()))
-        {
-            if(file->exists(item->text())){
-                (*comBean->getRelyFilePath())=item->text();
-            }else{
-                item->setText("");
-                (*comBean->getRelyFilePath())="";
+            if(item->row()>15&&item->row()<=(comBean->getSoftNumberTable()->size()+15)){
+                tmp=comBean->getDefineConfigList();
+                tmp.insert(item->row()-16,item->text());
+                comBean->setDefineConfigList(tmp);
+            }
+            for(int i=0;i<comBean->getSoftNumberTable()->size();i++)
+            {
+                if(item->row()>(15+comBean->getSoftNumberTable()->size()+i*18)&&item->row()<=(15+comBean->getSoftNumberTable()->size()+(i+1)*18))
+                {
+                    (*comBean->getSoftNumberTable()).insert(i,comBean->getComMethod()->MessageSoftTableChangeDeal(item,comBean->getSoftNumberTable()->value(i),(item->row()-(15+comBean->getSoftNumberTable()->size()+i*18+1))));
+                }
             }
         }
-        if(item->column()==1&&item->row()==5&&item->text()!=(*comBean->getRelyFilePath()))
-        {
-            if(file->exists(item->text())){
-                (*comBean->getRelyFilePath())=item->text();
-            }else{
-                item->setText("");
-                (*comBean->getRelyFilePath())="";
-            }
-        }*/
         comBean->setTableViewEditflag(false);
     }
 }
@@ -707,7 +699,7 @@ void UIMethod::CreateSlot()
         excelThread->start();
         emit ReadyExcelWriteSignal(comBean->getExcelOption(),file,comBean->getSoftNumberTable(),comBean->getConfigTable(),comBean->getDefineConfigList());
     }
-/*
+    /*
     QDir *folder = new QDir();
     QFile *file=new QFile();
     QString fileName,tmpPath;

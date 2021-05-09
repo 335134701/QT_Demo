@@ -6,6 +6,7 @@
 #include <QStandardItem>
 #include "XMLOperate.h"
 #include "QLoghelper.h"
+#include "ExcelOperation.h"
 #include "DEFINE.h"
 
 class CommonMethod : public QObject
@@ -30,7 +31,9 @@ public:
 
     bool INIFileRead(const QString filePath,const QString PartNumber,const QString DiagnosticCode);
 
-    void MessageTableChangeDeal(QStandardItem *item,QString *filePath);
+    void MessageFileTableChangeDeal(QStandardItem *item,QString *filePath);
+
+    SOFTNUMBERTable MessageSoftTableChangeDeal(const QStandardItem *item,const SOFTNUMBERTable soft,int index);
 
 signals:
 

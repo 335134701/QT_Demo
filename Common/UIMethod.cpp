@@ -456,7 +456,7 @@ void UIMethod::SelectFileSlot(QString dirPath,unsigned int flag, bool goOn)
         filters.append(*(comBean->getIDType())+"*採用車種コンフィグ詳細*.xlsx");
         break;
     }
-    dirPath=comBean->getComMethod()->AnalyzePath(dirPath,*(comBean->getID()),*(comBean->getIDType()),flag);
+    dirPath=comBean->getComMethod()->AnalyzePath(dirPath,*(comBean->getID()),*(comBean->getIDType()),*(comBean->getRelyID()),flag);
     QLogHelper::instance()->LogDebug("寻找文件序号:"+QString::number(flag)+"   "+dirPath);
     //根据需求发送
     emit FindFileThreadSignal(dirPath,comBean->getComMethod(),filters,flag,goOn);
@@ -697,9 +697,9 @@ void UIMethod::CreateSlot()
     QString file="C:/Users/Administrator/Desktop/J32U-JPN 5TR0A 確認シート.xlsx";
     if(!excelThread->isRunning()){
         excelThread->start();
-        emit ReadyExcelWriteSignal(comBean->getExcelOption(),file,comBean->getSoftNumberTable(),comBean->getConfigTable(),comBean->getDefineConfigList());
+        emit ReadyExcelWriteSignal(comBean->getExcelOption(),file,comBean->getSoftNumberTable(),comBean->getConfigTable(),comBean->getDefineConfigList(),*(comBean->getRelyID()));
     }
-    /*
+/*
     QDir *folder = new QDir();
     QFile *file=new QFile();
     QString fileName,tmpPath;
@@ -866,7 +866,7 @@ void UIMethod::CreateSlot()
             if(!excelThread->isRunning()){
                 excelThread->start();
              }
-             emit EEExcelWriteSignal(comBean->getExcelOption(),tmpPath+"/"+fileName,*(comBean->getID()),*(comBean->getIDType()),comBean->getSoftNumberTable());
+             emit EEExcelWriteSignal(comBean->getExcelOption(),tmpPath+"/"+fileName,*(comBean->getID()),*(comBean->getIDType()),*(comBean->getRelyID()),comBean->getSoftNumberTable());
         }else
         {
             this->getTextEdit()->append(DATETIME+" "+(*comBean->getEEFilePath())+" 文件失败!");
@@ -880,13 +880,13 @@ void UIMethod::CreateSlot()
              if(!excelThread->isRunning()){
                 excelThread->start();
              }
-             emit ReadyExcelWriteSignal(comBean->getExcelOption(),tmpPath+"/"+fileName,*(comBean->getID()),*(comBean->getIDType()),comBean->getSoftNumberTable(),comBean->getConfigTable());
+             emit ReadyExcelWriteSignal(comBean->getExcelOption(),tmpPath+"/"+fileName,*(comBean->getID()),*(comBean->getIDType()),comBean->getSoftNumberTable(),comBean->getConfigTable(),*(comBean->getRelyID()));
         }else
         {
             this->getTextEdit()->append(DATETIME+" "+(*comBean->getReadyFilePath())+" 文件失败!");
         }
     }
-    */
+*/
     this->getTextEdit()->append(DATETIME+" =======================================");
     //清除错误码
     comBean->getErrCode()->clear();

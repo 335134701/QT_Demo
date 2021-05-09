@@ -207,10 +207,12 @@ QList<CONFIGTable> ExcelOperation::ReadConfExcel(const QString filePath, const Q
  * @brief ExcelOperation::EEFileWrite
  * @param filePath
  * @param ID
+ * @param IDType
+ * @param RelyID
  * @param softNumberTable
  * @return
  */
-bool ExcelOperation::EEFileWrite(const QString filePath, const QString ID,const QString IDType, QList<SOFTNUMBERTable> *softNumberTable)
+bool ExcelOperation::EEFileWrite(const QString filePath, const QString ID,const QString IDType,const QString RelyID, QList<SOFTNUMBERTable> *softNumberTable)
 {
     QLogHelper::instance()->LogInfo("ExcelOperation->EEFileWrite() 函数执行!");
     Sheet *sheetread;
@@ -232,7 +234,12 @@ bool ExcelOperation::EEFileWrite(const QString filePath, const QString ID,const 
         sheetread->writeNum(12,9,Day);
         sheetread->writeStr(7,6,ID.left(7).mid(2).toLocal8Bit().data());
         sheetread->writeStr(7,9,ID.right(1).toLocal8Bit().data());
+
+        //此处需要确认是否为母体，如果为母体，则需要写入母体，而不是当前ID
+        if(!RelyID.isEmpty()){}
         sheetread->writeStr(15,21,ID.left(7).mid(2).toLocal8Bit().data());
+
+
         sheetread->writeStr(15,24,ID.right(1).toLocal8Bit().data());
         sheetread->writeStr(9,4,("[　"+IDType+"　　　　　　　　　　　　　　]").toLocal8Bit().data());
         if(softNumberTable->size()>0){
@@ -260,16 +267,17 @@ bool ExcelOperation::EEFileWrite(const QString filePath, const QString ID,const 
  * @def P02F-PRC 5R00A 確認シート.xlsx 文件写入
  * @brief ExcelOperation::ReadyFileWrite
  * @param filePath
- * @param ID
  * @param softNumberTable
  * @param configTable
+ * @param DefineConfigList
+ * @param RelyID
  * @return
  */
-bool ExcelOperation::ReadyFileWrite(const QString filePath, QList<SOFTNUMBERTable> *softNumberTable, QList<CONFIGTable> *configTable,QStringList DefineConfigList)
+bool ExcelOperation::ReadyFileWrite(const QString filePath, QList<SOFTNUMBERTable> *softNumberTable, QList<CONFIGTable> *configTable,QStringList DefineConfigList,const QString RelyID)
 {
     QLogHelper::instance()->LogInfo("ExcelOperation->ReadyFileWrite() 函数执行!");
-    //ReadyFileFirstSheet(filePath,softNumberTable,configTable);
-    ReadyFileSecondSheet(filePath,configTable);
+    ReadyFileFirstSheet(filePath,softNumberTable,configTable,RelyID);
+    //ReadyFileSecondSheet(filePath,configTable);
     //ReadyFileThirdSheet(filePath,softNumberTable,DefineConfigList,false);
     return true;
 }
@@ -277,13 +285,12 @@ bool ExcelOperation::ReadyFileWrite(const QString filePath, QList<SOFTNUMBERTabl
  * @def 確認シート.xlsx 表第一个sheet修改
  * @brief ExcelOperation::ReadyFileFirstSheet
  * @param filePath
- * @param ID
- * @param IDType
  * @param softNumberTable
  * @param configTable
+ * @param RelyID
  * @return
  */
-bool ExcelOperation::ReadyFileFirstSheet(const QString filePath, QList<SOFTNUMBERTable> *softNumberTable, QList<CONFIGTable> *configTable)
+bool ExcelOperation::ReadyFileFirstSheet(const QString filePath, QList<SOFTNUMBERTable> *softNumberTable, QList<CONFIGTable> *configTable,const QString RelyID)
 {
     QLogHelper::instance()->LogInfo("ExcelOperation->ReadyFileFirstSheet() 函数执行!");
     Sheet *sheetread;
@@ -320,6 +327,12 @@ bool ExcelOperation::ReadyFileFirstSheet(const QString filePath, QList<SOFTNUMBE
             sheetread->writeStr(firstCol+i*2,7,soft.ApplicationVer.toLocal8Bit().data());
             if(soft.Productionstage=="AKM対応"){
                 sheetread->writeStr(firstCol+i*2,8,QString("AKM対応").toLocal8Bit().data());
+            }else{
+                if(!RelyID.isEmpty()){
+                    sheetread->writeStr(firstCol+i*2,8,(RelyID+"と共通").toLocal8Bit().data());
+                }else{
+                    sheetread->writeStr(firstCol+i*2,8,QString("母体").toLocal8Bit().data());
+                }
             }
             sheetread->writeStr(firstCol+i*2,9,soft.CarInfoPartNo.toLocal8Bit().data());
             sheetread->writeStr(firstCol+i*2,10,soft.CarInfoVer.toLocal8Bit().data());

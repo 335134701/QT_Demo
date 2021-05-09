@@ -40,9 +40,9 @@ signals:
 
     void ExcelOperateThreadSignal(ExcelOperation *exl,const QString filePath,const QString ID,const QString IDType,const QString RelyID,unsigned int flag);
 
-    void EEExcelWriteSignal(ExcelOperation *exl, const QString filePath,const QString ID,const QString IDType, QList<SOFTNUMBERTable> *softNumberTable);
+    void EEExcelWriteSignal(ExcelOperation *exl, const QString filePath,const QString ID,const QString IDType,const QString RelyID, QList<SOFTNUMBERTable> *softNumberTable);
 
-    void ReadyExcelWriteSignal(ExcelOperation *exl, const QString filePath, QList<SOFTNUMBERTable> *softNumberTable,QList<CONFIGTable> *configTable,QStringList DefineConfigList);
+    void ReadyExcelWriteSignal(ExcelOperation *exl, const QString filePath, QList<SOFTNUMBERTable> *softNumberTable,QList<CONFIGTable> *configTable,QStringList DefineConfigList,const QString IDType);
 
     void ShowIDmessageSignal(int flag);
 

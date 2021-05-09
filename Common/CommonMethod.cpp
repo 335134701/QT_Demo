@@ -94,9 +94,13 @@ QStringList CommonMethod::FindFile(const QString dirPath,QStringList filters)
  * @def 对传入路径进行解析，并组装成指定的路径
  * @brief CommonMethod::AnalyzePath
  * @param dirPath
+ * @param ID
+ * @param IDType
+ * @param RelyID
+ * @param flag
  * @return
  */
-QString CommonMethod::AnalyzePath(const QString dirPath,const QString ID,QString IDType,unsigned int flag)
+QString CommonMethod::AnalyzePath(const QString dirPath,const QString ID,QString IDType,const QString RelyID,unsigned int flag)
 {
     QLogHelper::instance()->LogInfo("CommonMethod->AnalyzePath() 函数执行!");
     QString pathName=dirPath;
@@ -113,7 +117,6 @@ QString CommonMethod::AnalyzePath(const QString dirPath,const QString ID,QString
             break;
         case IniFileflag:
         case EEFileflag:
-        case ReadyFileflag:
             if(pathName.mid(pathName.lastIndexOf("/")+1)=="01REQ"&&QDir(pathName+"/0101Model").exists()){pathName=pathName+"/0101Model";}
             if(pathName.mid(pathName.lastIndexOf("/")+1)=="0101Model"&&QDir(pathName+"/按类型归档").exists()){pathName=pathName+"/按类型归档";}
             if(pathName.mid(pathName.lastIndexOf("/")+1)=="按类型归档"&&QDir(pathName+"/旭化成工場 火事対応").exists()){pathName=pathName+"/旭化成工場 火事対応";}
@@ -133,6 +136,18 @@ QString CommonMethod::AnalyzePath(const QString dirPath,const QString ID,QString
         case CarInfoFileflag:
         case CarMapFileflag:
         case CarOSDFileflag:
+            break;
+        case ReadyFileflag:
+            if(pathName.mid(pathName.lastIndexOf("/")+1)=="01REQ"&&QDir(pathName+"/0101Model").exists()){pathName=pathName+"/0101Model";}
+            if(pathName.mid(pathName.lastIndexOf("/")+1)=="0101Model"&&QDir(pathName+"/按类型归档").exists()){pathName=pathName+"/按类型归档";}
+            if(pathName.mid(pathName.lastIndexOf("/")+1)=="按类型归档"&&QDir(pathName+"/旭化成工場 火事対応").exists()){pathName=pathName+"/旭化成工場 火事対応";}
+            if(pathName.mid(pathName.lastIndexOf("/")+1)=="旭化成工場 火事対応"&&QDir(pathName+"/入检资料作成情報").exists()){pathName=pathName+"/入检资料作成情報";}
+            if(pathName.mid(pathName.lastIndexOf("/")+1)=="入检资料作成情報"&&QDir(pathName+"/入检资料讲解").exists()){pathName=pathName+"/入检资料讲解";}
+            if(!RelyID.isEmpty()){
+                if(pathName.mid(pathName.lastIndexOf("/")+1)=="入检资料讲解"&&QDir(pathName+"/03单纯流用").exists()){pathName=pathName+"/03单纯流用";}
+            }else{
+                if(pathName.mid(pathName.lastIndexOf("/")+1)=="入检资料讲解"&&QDir(pathName+"/01模板").exists()){pathName=pathName+"/01模板";}
+            }
             break;
         case ConfigFileflag:
             if(pathName.mid(pathName.lastIndexOf("/")+1)=="01REQ"&&QDir(pathName+"/0101Model").exists()){pathName=pathName+"/0101Model";}

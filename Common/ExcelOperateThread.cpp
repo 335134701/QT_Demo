@@ -108,28 +108,48 @@ QList<SOFTNUMBERTable> ExcelOperateThread::DealSoftTable(QList<SOFTNUMBERTable> 
     return list;
 }
 
-void ExcelOperateThread::EEExcelWriteSlot(ExcelOperation *exl, const QString filePath, const QString ID,const QString IDType, QList<SOFTNUMBERTable> *softNumberTable)
+/**
+ * @def EE-A002-1000 DR会議運用手順_様式7_20190320_EntryAVM_EN3358PB_20210407.xlsx 文件填写槽函数
+ * @brief ExcelOperateThread::EEExcelWriteSlot
+ * @param exl
+ * @param filePath
+ * @param ID
+ * @param IDType
+ * @param RelyID
+ * @param softNumberTable
+ */
+void ExcelOperateThread::EEExcelWriteSlot(ExcelOperation *exl, const QString filePath, const QString ID,const QString IDType,const QString RelyID, QList<SOFTNUMBERTable> *softNumberTable)
 {
     QLogHelper::instance()->LogInfo("ExcelOperateThread->EEExcelWriteSlot() 函数执行!");
     bool flag=true;
     QFile *file=new QFile();
     if(file->exists(filePath))
     {
-        flag=exl->EEFileWrite(filePath,ID,IDType,softNumberTable);
+        flag=exl->EEFileWrite(filePath,ID,IDType,RelyID,softNumberTable);
     }else{
         flag=false;
     }
     emit EndEEExcelWriteSignal(flag);
 }
 
-void ExcelOperateThread::ReadyExcelWriteSlot(ExcelOperation *exl, const QString filePath, QList<SOFTNUMBERTable> *softNumberTable, QList<CONFIGTable> *configTable,QStringList DefineConfigList)
+/**
+ * @def U60-EUR 5JN0A 確認シート.xlsx 文件填写槽函数
+ * @brief ExcelOperateThread::ReadyExcelWriteSlot
+ * @param exl
+ * @param filePath
+ * @param softNumberTable
+ * @param configTable
+ * @param DefineConfigList
+ * @param RelyID
+ */
+void ExcelOperateThread::ReadyExcelWriteSlot(ExcelOperation *exl, const QString filePath, QList<SOFTNUMBERTable> *softNumberTable, QList<CONFIGTable> *configTable,QStringList DefineConfigList,const QString RelyID)
 {
     QLogHelper::instance()->LogInfo("ExcelOperateThread->ReadyExcelWriteSlot() 函数执行!");
     bool flag=true;
     QFile *file=new QFile();
     if(file->exists(filePath))
     {
-        flag=exl->ReadyFileWrite(filePath,softNumberTable,configTable,DefineConfigList);
+        flag=exl->ReadyFileWrite(filePath,softNumberTable,configTable,DefineConfigList,RelyID);
     }else{
         flag=false;
     }

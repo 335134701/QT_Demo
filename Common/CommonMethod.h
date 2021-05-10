@@ -4,8 +4,8 @@
 #include <QObject>
 #include <QTextCodec>
 #include <QStandardItem>
+#include <QDateTime>
 #include "QLoghelper.h"
-#include "ExcelOperation.h"
 #include "DEFINE.h"
 
 class CommonMethod : public QObject
@@ -31,6 +31,10 @@ public:
     void MessageFileTableChangeDeal(QStandardItem *item,QString *filePath);
 
     SOFTNUMBERTable MessageSoftTableChangeDeal(const QStandardItem *item,const SOFTNUMBERTable soft,int index);
+
+    static QStringList GetDate();
+
+    static void SetErrorTable(QList<ERRORTable> *errTableList,const QString fileName,const QString sheetName,const unsigned int row,const unsigned int col,const QString errMessage);
 
 signals:
 

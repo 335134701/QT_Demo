@@ -75,6 +75,8 @@ signals:
     void MessageViewModelEditedSignal(const QStandardItem *item);
 
     void CreateSignal();
+
+    void CheckSignal();
 };
 
 #endif // AUTOMATIONTOOL_H

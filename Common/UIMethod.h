@@ -44,6 +44,10 @@ signals:
 
     void ReadyExcelWriteSignal(ExcelOperation *exl, const QString filePath, QList<SOFTNUMBERTable> *softNumberTable,QList<CONFIGTable> *configTable,QStringList DefineConfigList,const QString RelyID,const QString IDType);
 
+    void EEExcelReadSignal(ExcelOperation *exl, const QString filePath,const QString ID,const QString IDType,const QString RelyID, QList<SOFTNUMBERTable> *softNumberTable);
+
+    void ReadyExcelReadSignal(ExcelOperation *exl, const QString filePath, QList<SOFTNUMBERTable> *softNumberTable,QList<CONFIGTable> *configTable,QStringList DefineConfigList,const QString RelyID,const QString IDType);
+
     void ShowIDmessageSignal(int flag);
 
 public slots:
@@ -63,13 +67,19 @@ public slots:
 
     void EndExcelOperateThreadConfSlot(QList<CONFIGTable> list);
 
-    void EndEEExcelWriteSlot(bool flag,QList<ERRORTable> *errTable);
+    void EndEEExcelWriteSlot(QList<ERRORTable> *errTableList);
 
-    void EndReadyExcelWriteSlot(bool flag,QList<ERRORTable> *errTable);
+    void EndReadyExcelWriteSlot(QList<ERRORTable> *errTableList);
+
+    void EndEEExcelReadSlot(QList<ERRORTable> *errTableList);
+
+    void EndReadyExcelReadSlot(QList<ERRORTable> *errTableList);
 
     void MessageViewModelEditedSlot(QStandardItem *item);
 
     void CreateSlot();
+
+    void CheckSlot();
 
 private :
     void Init();
@@ -89,6 +99,8 @@ private :
     QThread *excelThread;
 
     QString carTmpPath;
+
+    QList<ERRORTable> *errList;
 };
 
 #endif // UIMETHOD_H

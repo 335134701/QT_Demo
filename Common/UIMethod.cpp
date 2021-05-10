@@ -11,6 +11,7 @@ UIMethod::UIMethod(QObject *parent) : QObject(parent)
  */
 void UIMethod::Init()
 {
+    errList=new QList<ERRORTable>();
     fileThread=new FileThread();
     dealFileFileThread=new QThread();
     fileThread->moveToThread(dealFileFileThread);
@@ -34,11 +35,17 @@ void UIMethod::Init()
     connect(this,&UIMethod::ExcelOperateThreadSignal,excelOperateThread,&ExcelOperateThread::ExcelOperateThreadSlot);
     connect(this,&UIMethod::EEExcelWriteSignal,excelOperateThread,&ExcelOperateThread::EEExcelWriteSlot);
     connect(this,&UIMethod::ReadyExcelWriteSignal,excelOperateThread,&ExcelOperateThread::ReadyExcelWriteSlot);
+    //check功能比对函数
+    connect(this,&UIMethod::EEExcelReadSignal,excelOperateThread,&ExcelOperateThread::EEExcelReadSlot);
+    connect(this,&UIMethod::ReadyExcelReadSignal,excelOperateThread,&ExcelOperateThread::ReadyExcelReadSlot);
     //解析excel完成后回调函数连接，以信号槽的方式
     connect(excelOperateThread,&ExcelOperateThread::EndExcelOperateThreadSoftSignal,this,&UIMethod::EndExcelOperateThreadSoftSlot);
     connect(excelOperateThread,&ExcelOperateThread::EndExcelOperateThreadConfSignal,this,&UIMethod::EndExcelOperateThreadConfSlot);
     connect(excelOperateThread,&ExcelOperateThread::EndEEExcelWriteSignal,this,&UIMethod::EndEEExcelWriteSlot);
     connect(excelOperateThread,&ExcelOperateThread::EndReadyExcelWriteSignal,this,&UIMethod::EndReadyExcelWriteSlot);
+    //check功能回调函数
+    connect(excelOperateThread,&ExcelOperateThread::EndEEExcelReadSignal,this,&UIMethod::EndEEExcelReadSlot);
+    connect(excelOperateThread,&ExcelOperateThread::EndReadyExcelReadSignal,this,&UIMethod::EndReadyExcelReadSlot);
 }
 
 QTextEdit *UIMethod::getTextEdit() const
@@ -64,7 +71,11 @@ void UIMethod::setComBean(CommonBean *value)
  */
 void UIMethod::ShowIDmessageSlot(int flag)
 {
-    if(flag!=DefineConfig)this->getTextEdit()->append(DATETIME+" =======================================");
+    bool tmpflag=true;
+    if(flag==DefineConfig){
+        tmpflag=false;
+    }
+    if(tmpflag)this->getTextEdit()->append(DATETIME+" =======================================");
     int i=0,tmp=0;
     switch (flag) {
     case IDflag:
@@ -270,8 +281,27 @@ void UIMethod::ShowIDmessageSlot(int flag)
             i++;
         }
         break;
+    case EEFileWrieflag:
+    case ReadyFileWriteflag:
+    case EEFileReadflag:
+    case ReadyFileReadflag:
+        foreach (ERRORTable err, *errList) {
+            this->getTextEdit()->append(DATETIME+"  文件名称: "+err.fileName);
+            if(!err.sheetName.isEmpty()){
+                this->getTextEdit()->append(DATETIME+"  sheet名称: "+err.sheetName);
+            }
+            if(err.row!=0||err.col!=0)
+            {
+                this->getTextEdit()->append(DATETIME+"  第: "+QString::number(err.row)+ " 行, 第: "+QString::number(err.col)+" 列");
+            }
+            this->getTextEdit()->append(DATETIME+"  错误描述: "+err.errMessage);
+            if(i!=(errList->size()-1))this->getTextEdit()->append("");
+            i++;
+        }
+        errList->clear();
+        break;
     }
-    if(flag!=DefineConfig)this->getTextEdit()->append(DATETIME+" =======================================");
+    if(tmpflag)this->getTextEdit()->append(DATETIME+" =======================================");
 }
 /**
  * @def 判断机种名称是否符合要求
@@ -507,7 +537,6 @@ void UIMethod::EndFindFileThreadSlot(QStringList st, unsigned int flag, bool goO
         break;
     case ConfigFileflag:
         comBean->getComMethod()->AnalyzeFilePath(st,comBean->getConfigFilePath(),flag);
-        QLogHelper::instance()->LogDebug(QString::number(comBean->getConfigFilePath()->isEmpty())+"   "+QString::number(excelThread->isRunning()));
         //如果文件存在，则开启线程解析文件表
         if(!comBean->getConfigFilePath()->isEmpty()){
             if(!excelThread->isRunning()){
@@ -520,8 +549,8 @@ void UIMethod::EndFindFileThreadSlot(QStringList st, unsigned int flag, bool goO
     }
     emit ShowIDmessageSignal(flag);
     if(goOn){
-        //emit ActiveThreadSignal(*(comBean->getSVNDirPath()),flag+1,goOn);
-        emit ActiveThreadSignal(*(comBean->getSVNDirPath()),ConfigFileflag,goOn);
+        emit ActiveThreadSignal(*(comBean->getSVNDirPath()),flag+1,goOn);
+        //emit ActiveThreadSignal(*(comBean->getSVNDirPath()),ConfigFileflag,goOn);
     }
     else{
         dealFileFileThread->quit();
@@ -540,7 +569,7 @@ void UIMethod::EndExcelOperateThreadSoftSlot(QList<SOFTNUMBERTable> list)
     //QLogHelper::instance()->LogDebug(QString::number(list.size()));
     *(comBean->getSoftNumberTable())=list;
     emit ShowIDmessageSignal(DefineConfig);
-    emit ShowIDmessageSignal(RelyMessageflag);;
+    emit ShowIDmessageSignal(RelyMessageflag);
     excelThread->quit();
     excelThread->wait();
 }
@@ -561,27 +590,61 @@ void UIMethod::EndExcelOperateThreadConfSlot(QList<CONFIGTable> list)
 /**
  * @def EE-A002-1000 DR会議運用手順_様式7_20190320*.xlsx表 修改完成后回调函数
  * @brief UIMethod::EndEEExcelWriteSlot
- * @param flag
- * @param errTable
+ * @param errTableList
  */
-void UIMethod::EndEEExcelWriteSlot(bool flag,QList<ERRORTable> *errTable)
+void UIMethod::EndEEExcelWriteSlot(QList<ERRORTable> *errTableList)
 {
     QLogHelper::instance()->LogInfo("UIMethod->EndEEExcelWriteSlot() 函数执行!");
+    this->getTextEdit()->append(DATETIME+" =======================================");
+    this->getTextEdit()->append(DATETIME+comBean->getEEFilePath()->mid(comBean->getEEFilePath()->lastIndexOf("/")+1)+" 文件写入完成");
+    this->getTextEdit()->append(DATETIME+" =======================================");
+    emit ShowIDmessageSignal(EEFileWrieflag);
+    (*errList)=(*errTableList);
     //excelThread->quit();
     //excelThread->wait();
 }
 /**
  * @def *確認シート.xlsx 修改完成后回调函数
  * @brief UIMethod::EndReadyExcelWriteSlot
- * @param flag
- * @param errTable
+ * @param errTableList
  */
-void UIMethod::EndReadyExcelWriteSlot(bool flag,QList<ERRORTable> *errTable)
+void UIMethod::EndReadyExcelWriteSlot(QList<ERRORTable> *errTableList)
 {
     QLogHelper::instance()->LogInfo("UIMethod->EndReadyExcelWriteSlot() 函数执行!");
     excelThread->quit();
     excelThread->wait();
+    this->getTextEdit()->append(DATETIME+" =======================================");
+    this->getTextEdit()->append(DATETIME+comBean->getReadyFilePath()->mid(comBean->getReadyFilePath()->lastIndexOf("/")+1)+" 文件写入完成");
+    this->getTextEdit()->append(DATETIME+" =======================================");
+    (*errList)=(*errTableList);
+    emit ShowIDmessageSignal(ReadyFileWriteflag);
     comBean->setStatusflag(0);
+}
+/**
+ * @brief UIMethod::EndEEExcelReadSlot
+ * @param errTableList
+ */
+void UIMethod::EndEEExcelReadSlot(QList<ERRORTable> *errTableList)
+{
+    QLogHelper::instance()->LogInfo("UIMethod->EndEEExcelReadSlot() 函数执行!");
+    this->getTextEdit()->append(DATETIME+" =======================================");
+    this->getTextEdit()->append(DATETIME+comBean->getEEFilePath()->mid(comBean->getEEFilePath()->lastIndexOf("/")+1)+" 文件写入完成");
+    this->getTextEdit()->append(DATETIME+" =======================================");
+    (*errList)=(*errTableList);
+    emit ShowIDmessageSignal(EEFileReadflag);
+}
+/**
+ * @brief UIMethod::EndReadyExcelReadSlot
+ * @param errTableList
+ */
+void UIMethod::EndReadyExcelReadSlot(QList<ERRORTable> *errTableList)
+{
+    QLogHelper::instance()->LogInfo("UIMethod->EndReadyExcelReadSlot() 函数执行!");
+    this->getTextEdit()->append(DATETIME+" =======================================");
+    this->getTextEdit()->append(DATETIME+comBean->getReadyFilePath()->mid(comBean->getReadyFilePath()->lastIndexOf("/")+1)+" 文件写入完成");
+    this->getTextEdit()->append(DATETIME+" =======================================");
+    (*errList)=(*errTableList);
+    emit ShowIDmessageSignal(ReadyFileReadflag);
 }
 
 /**
@@ -658,12 +721,7 @@ void UIMethod::MessageViewModelEditedSlot(QStandardItem *item)
 void UIMethod::CreateSlot()
 {
     QLogHelper::instance()->LogInfo("AutomationTool->CreateSlot() 函数触发执行!");
-    QString file="C:/Users/Administrator/Desktop/X81C-JPN 5YE1A 確認シート.xlsx";
-    if(!excelThread->isRunning()){
-        excelThread->start();
-        emit ReadyExcelWriteSignal(comBean->getExcelOption(),file,comBean->getSoftNumberTable(),comBean->getConfigTable(),comBean->getDefineConfigList(),*(comBean->getRelyID()),*(comBean->getIDType()));
-    }
-/*
+    this->getTextEdit()->append(DATETIME+" =======================================");
     QDir *folder = new QDir();
     QFile *file=new QFile();
     QString fileName,tmpPath;
@@ -689,15 +747,7 @@ void UIMethod::CreateSlot()
     flag=folder->mkpath(tmpPath);
     if(!flag){this->getTextEdit()->append(DATETIME+" "+tmpPath+" 目录文件夹创建失败!");return;}
     this->getTextEdit()->append(DATETIME+" "+tmpPath+" 目录文件夹创建成功!");
-    if(!comBean->getRelyID()->isEmpty()||(*comBean->getPFilePath()).contains(".txt")||(*comBean->getSWFilePath()).contains(".txt")||(*comBean->getAPPMot()).contains(".txt")){
-        tmpPath=tmpPath+"/02_AKM対応";
-    }else{
-        tmpPath=tmpPath+"/01_AKM対応";
-    }
-    if(folder->exists(tmpPath))
-    {
-        folder->rmpath(tmpPath);
-    }
+    tmpPath=tmpPath+"/01_AKM対応";
     flag=folder->mkpath(tmpPath);
     if(!flag){this->getTextEdit()->append(DATETIME+" "+tmpPath+" 目录文件夹创建失败!");return;}
     this->getTextEdit()->append(DATETIME+" "+tmpPath+" 目录文件夹创建成功!");
@@ -722,7 +772,7 @@ void UIMethod::CreateSlot()
     //CarMap文件复制
     if(!comBean->getCarMapFilePath()->isEmpty()&&file->exists(*comBean->getCarMapFilePath()))
     {
-       fileName=(*comBean->getCarMapFilePath()).mid((*comBean->getCarMapFilePath()).lastIndexOf("/")+1);
+        fileName=(*comBean->getCarMapFilePath()).mid((*comBean->getCarMapFilePath()).lastIndexOf("/")+1);
         if(QFile::copy(*comBean->getCarMapFilePath(),tmpPath+"/ソフト一式("+comBean->getID()+")/"+fileName)){
             this->getTextEdit()->append(DATETIME+" "+(*comBean->getCarMapFilePath())+" 文件复制成功!");
         }else
@@ -829,8 +879,8 @@ void UIMethod::CreateSlot()
             this->getTextEdit()->append(DATETIME+" "+(*comBean->getEEFilePath())+" 文件成功!");
             if(!excelThread->isRunning()){
                 excelThread->start();
-             }
-             emit EEExcelWriteSignal(comBean->getExcelOption(),tmpPath+"/"+fileName,*(comBean->getID()),*(comBean->getIDType()),*(comBean->getRelyID()),comBean->getSoftNumberTable());
+            }
+            emit EEExcelWriteSignal(comBean->getExcelOption(),tmpPath+"/"+fileName,*(comBean->getID()),*(comBean->getIDType()),*(comBean->getRelyID()),comBean->getSoftNumberTable());
         }else
         {
             this->getTextEdit()->append(DATETIME+" "+(*comBean->getEEFilePath())+" 文件失败!");
@@ -841,16 +891,26 @@ void UIMethod::CreateSlot()
         fileName=soft.CarModels+" "+soft.PartNumber+"確認シート.xlsx";
         if(QFile::copy(*comBean->getReadyFilePath(),tmpPath+"/"+fileName)){
             this->getTextEdit()->append(DATETIME+" "+(*comBean->getReadyFilePath())+" 文件成功!");
-             if(!excelThread->isRunning()){
+            if(!excelThread->isRunning()){
                 excelThread->start();
-             }
-             emit ReadyExcelWriteSignal(comBean->getExcelOption(),tmpPath+"/"+fileName,*(comBean->getID()),*(comBean->getIDType()),comBean->getSoftNumberTable(),comBean->getConfigTable(),*(comBean->getRelyID(),*(comBean->getIDType()));
+            }
+            emit ReadyExcelWriteSignal(comBean->getExcelOption(),tmpPath+"/"+fileName,comBean->getSoftNumberTable(),comBean->getConfigTable(),comBean->getDefineConfigList(),*(comBean->getRelyID()),*(comBean->getIDType()));
+            //emit ReadyExcelWriteSignal(comBean->getExcelOption(),tmpPath+"/"+fileName,*(comBean->getID()),*(comBean->getIDType()),comBean->getSoftNumberTable(),comBean->getConfigTable(),*(comBean->getRelyID(),*(comBean->getIDType())));
         }else
         {
             this->getTextEdit()->append(DATETIME+" "+(*comBean->getReadyFilePath())+" 文件失败!");
         }
     }
-*/
     this->getTextEdit()->append(DATETIME+" =======================================");
+}
+/**
+ * @brief UIMethod::CheckSlot
+ */
+void UIMethod::CheckSlot()
+{
+    QLogHelper::instance()->LogInfo("AutomationTool->CheckSlot() 函数触发执行!");
+    QDir *folder = new QDir();
+    QFile *file=new QFile();
+    QString fileName,tmpPath;
 }
 

@@ -174,12 +174,13 @@ void CommonMethod::AnalyzeFilePath(const QStringList filePaths, QString *filePat
         else{path="";}
         break;
     case EEFileflag:
-        if(filePaths.size()>0){path=filePaths[filePaths.size()-1];}
-        else{path="";}
-        break;
     case ReadyFileflag:
-        if(filePaths.size()>0){path=filePaths[filePaths.size()-1];}
-        else{path="";}
+        if(filePath->size()==0){path="";}
+        foreach (QString file, filePaths) {
+            if(!file.contains("~$")){
+                path=file;
+            }
+        }
         break;
     case ConfigFileflag:
         if(filePath->size()==0){path="";}
@@ -370,4 +371,72 @@ SOFTNUMBERTable CommonMethod::MessageSoftTableChangeDeal(const QStandardItem *it
     return tmpsoft;
 }
 
+
+/**
+ * @def 获取当前天数往后推四天后的日期
+ * @brief CommonMethod::GetDate
+ * @return
+ */
+QStringList CommonMethod::GetDate()
+{
+    QLogHelper::instance()->LogInfo("CommonMethod->GetDate() 函数执行!");
+    QStringList strList;
+    QDateTime currenttime = QDateTime::currentDateTime();
+    QString currentYear=currenttime.toString("yyyy");
+    QString currentWeek=currenttime.toString("ddd");
+    QString currentMouth=currenttime.toString("M");
+    QString currentDay=currenttime.toString("d");
+    int currentMouthNumber=31;
+    if(currentMouth.toInt()==2){
+        currentMouthNumber=28;
+        if((currentYear.toInt()%100==0&&currentMouth.toInt()%400==0)||(currentYear.toInt()%100!=0&&currentMouth.toInt()%4==0)){
+            currentMouthNumber=29;
+        }
+    }
+    if(currentMouth.toInt()==4||currentMouth.toInt()==6||currentMouth.toInt()==9||currentMouth.toInt()==11){
+        currentMouthNumber=30;
+    }
+    if(currentWeek=="周一"){
+        if(currentDay.toInt()+4<=currentMouthNumber)
+        {
+            currentDay=QString::number(currentDay.toInt()+4);
+        }else{
+            currentMouth=QString::number(currentDay.toInt()+4);
+            currentDay=QString::number(currentDay.toInt()+4-currentMouthNumber);
+        }
+    }
+    if(currentWeek=="周二"||currentWeek=="周三"||currentWeek=="周四"||currentWeek=="周五"){
+        if(currentDay.toInt()+6<currentMouthNumber)
+        {
+            currentDay=QString::number(currentDay.toInt()+6);
+        }else{
+            currentMouth=QString::number(currentDay.toInt()+6);
+            currentDay=QString::number(currentDay.toInt()+6-currentMouthNumber);
+        }
+    }
+    strList.append(currentMouth);
+    strList.append(currentDay);
+    return strList;
+}
+/**
+ * @def 错误信息添加
+ * @brief CommonMethod::SetErrorTable
+ * @param errTableList
+ * @param fileName
+ * @param sheetName
+ * @param row
+ * @param col
+ * @param errMessage
+ */
+void CommonMethod::SetErrorTable(QList<ERRORTable> *errTableList, const QString fileName, const QString sheetName, const unsigned int row, const unsigned int col, const QString errMessage)
+{
+    ERRORTable err;
+    QLogHelper::instance()->LogDebug(QString::number(row)+"  "+QString::number(col));
+    err.fileName=fileName.mid(fileName.lastIndexOf("/")+1);
+    err.sheetName=sheetName;
+    err.row=row;
+    err.col=col;
+    err.errMessage=errMessage;
+    errTableList->append(err);
+}
 

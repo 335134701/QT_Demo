@@ -232,7 +232,7 @@
           <string notr="true"/>
          </property>
          <property name="text">
-          <string>EN3302PA</string>
+          <string/>
          </property>
          <property name="maxLength">
           <number>8</number>
@@ -408,7 +408,7 @@
           <string notr="true"/>
          </property>
          <property name="text">
-          <string>输出/校验路径</string>
+          <string>输出路径</string>
          </property>
         </widget>
        </item>
@@ -440,34 +440,6 @@
       </property>
       <property name="text">
        <string>自动生成</string>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="0">
-     <widget class="QPushButton" name="CheckButton">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>0</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>16777215</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true"/>
-      </property>
-      <property name="text">
-       <string>Ckeck</string>
       </property>
      </widget>
     </item>

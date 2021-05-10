@@ -163,16 +163,3 @@ void ExcelOperateThread::ReadyExcelWriteSlot(ExcelOperation *exl, const QString 
     }
     emit EndReadyExcelWriteSignal(errTableList);
 }
-
-void ExcelOperateThread::EEExcelReadSlot(ExcelOperation *exl, const QString filePath, const QString ID, const QString IDType, const QString RelyID, QList<SOFTNUMBERTable> *softNumberTable)
-{
-    QLogHelper::instance()->LogInfo("ExcelOperateThread->EEExcelReadSlot() 函数执行!");
-    QList<ERRORTable> *errTableList=new QList<ERRORTable>();
-}
-
-void ExcelOperateThread::ReadyExcelReadSlot(ExcelOperation *exl, const QString filePath, QList<SOFTNUMBERTable> *softNumberTable, QList<CONFIGTable> *configTable, QStringList DefineConfigList, const QString RelyID, const QString IDType)
-{
-    QLogHelper::instance()->LogInfo("ExcelOperateThread->ReadyExcelReadSlot() 函数执行!");
-    QList<ERRORTable> *errTableList=new QList<ERRORTable>();
-    //emit;
-}

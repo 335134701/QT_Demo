@@ -39,8 +39,6 @@ private slots:
 
     void LogViewClearSlot();
 
-    void on_CheckButton_clicked();
-
     void on_MessageView_doubleClicked(const QModelIndex &index);
 
 private:
@@ -75,8 +73,6 @@ signals:
     void MessageViewModelEditedSignal(const QStandardItem *item);
 
     void CreateSignal();
-
-    void CheckSignal();
 };
 
 #endif // AUTOMATIONTOOL_H

@@ -35,17 +35,11 @@ void UIMethod::Init()
     connect(this,&UIMethod::ExcelOperateThreadSignal,excelOperateThread,&ExcelOperateThread::ExcelOperateThreadSlot);
     connect(this,&UIMethod::EEExcelWriteSignal,excelOperateThread,&ExcelOperateThread::EEExcelWriteSlot);
     connect(this,&UIMethod::ReadyExcelWriteSignal,excelOperateThread,&ExcelOperateThread::ReadyExcelWriteSlot);
-    //check功能比对函数
-    connect(this,&UIMethod::EEExcelReadSignal,excelOperateThread,&ExcelOperateThread::EEExcelReadSlot);
-    connect(this,&UIMethod::ReadyExcelReadSignal,excelOperateThread,&ExcelOperateThread::ReadyExcelReadSlot);
     //解析excel完成后回调函数连接，以信号槽的方式
     connect(excelOperateThread,&ExcelOperateThread::EndExcelOperateThreadSoftSignal,this,&UIMethod::EndExcelOperateThreadSoftSlot);
     connect(excelOperateThread,&ExcelOperateThread::EndExcelOperateThreadConfSignal,this,&UIMethod::EndExcelOperateThreadConfSlot);
     connect(excelOperateThread,&ExcelOperateThread::EndEEExcelWriteSignal,this,&UIMethod::EndEEExcelWriteSlot);
     connect(excelOperateThread,&ExcelOperateThread::EndReadyExcelWriteSignal,this,&UIMethod::EndReadyExcelWriteSlot);
-    //check功能回调函数
-    connect(excelOperateThread,&ExcelOperateThread::EndEEExcelReadSignal,this,&UIMethod::EndEEExcelReadSlot);
-    connect(excelOperateThread,&ExcelOperateThread::EndReadyExcelReadSignal,this,&UIMethod::EndReadyExcelReadSlot);
 }
 
 QTextEdit *UIMethod::getTextEdit() const
@@ -620,32 +614,6 @@ void UIMethod::EndReadyExcelWriteSlot(QList<ERRORTable> *errTableList)
     emit ShowIDmessageSignal(ReadyFileWriteflag);
     comBean->setStatusflag(0);
 }
-/**
- * @brief UIMethod::EndEEExcelReadSlot
- * @param errTableList
- */
-void UIMethod::EndEEExcelReadSlot(QList<ERRORTable> *errTableList)
-{
-    QLogHelper::instance()->LogInfo("UIMethod->EndEEExcelReadSlot() 函数执行!");
-    this->getTextEdit()->append(DATETIME+" =======================================");
-    this->getTextEdit()->append(DATETIME+comBean->getEEFilePath()->mid(comBean->getEEFilePath()->lastIndexOf("/")+1)+" 文件写入完成");
-    this->getTextEdit()->append(DATETIME+" =======================================");
-    (*errList)=(*errTableList);
-    emit ShowIDmessageSignal(EEFileReadflag);
-}
-/**
- * @brief UIMethod::EndReadyExcelReadSlot
- * @param errTableList
- */
-void UIMethod::EndReadyExcelReadSlot(QList<ERRORTable> *errTableList)
-{
-    QLogHelper::instance()->LogInfo("UIMethod->EndReadyExcelReadSlot() 函数执行!");
-    this->getTextEdit()->append(DATETIME+" =======================================");
-    this->getTextEdit()->append(DATETIME+comBean->getReadyFilePath()->mid(comBean->getReadyFilePath()->lastIndexOf("/")+1)+" 文件写入完成");
-    this->getTextEdit()->append(DATETIME+" =======================================");
-    (*errList)=(*errTableList);
-    emit ShowIDmessageSignal(ReadyFileReadflag);
-}
 
 /**
  * @def MessageView单元格数据修改触发函数
@@ -902,15 +870,5 @@ void UIMethod::CreateSlot()
         }
     }
     this->getTextEdit()->append(DATETIME+" =======================================");
-}
-/**
- * @brief UIMethod::CheckSlot
- */
-void UIMethod::CheckSlot()
-{
-    QLogHelper::instance()->LogInfo("AutomationTool->CheckSlot() 函数触发执行!");
-    QDir *folder = new QDir();
-    QFile *file=new QFile();
-    QString fileName,tmpPath;
 }
 

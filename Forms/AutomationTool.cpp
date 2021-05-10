@@ -50,7 +50,6 @@ void AutomationTool::ConnectSlot()
     connect(this,&AutomationTool::SelectFileSignal,this->uiMethod,&UIMethod::SelectFileSlot);
     connect(comBean->getMessageViewModel(),&QStandardItemModel::itemChanged,uiMethod,&UIMethod::MessageViewModelEditedSlot);
     connect(this,&AutomationTool::CreateSignal,this->uiMethod,&UIMethod::CreateSlot);
-    connect(this,&AutomationTool::CheckSignal,uiMethod,&UIMethod::CheckSlot);
 }
 
 /**
@@ -250,16 +249,6 @@ void AutomationTool::LogViewClearSlot()
 {
     QLogHelper::instance()->LogInfo("AutomationTool->LogViewClearSlot() 函数触发执行!");
     ui->LogView->clear();
-}
-
-/**
- * @brief AutomationTool::on_CheckButton_clicked
- */
-void AutomationTool::on_CheckButton_clicked()
-{
-    QLogHelper::instance()->LogInfo("AutomationTool->on_CheckButton_clicked() 函数触发执行!");
-    if(comBean==NULL||comBean->getID()->isEmpty()||MessageWarn()){return;}
-    emit CheckSignal();
 }
 /**
  * @def 执行某项操作时,其他操作不可执行提示

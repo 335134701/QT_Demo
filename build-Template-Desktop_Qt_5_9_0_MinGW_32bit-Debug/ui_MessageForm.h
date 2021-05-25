@@ -32,9 +32,19 @@ public:
             MessageForm->setObjectName(QStringLiteral("MessageForm"));
         MessageForm->resize(400, 300);
         verticalLayout = new QVBoxLayout(MessageForm);
+        verticalLayout->setSpacing(1);
         verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
+        verticalLayout->setContentsMargins(1, 1, 1, 1);
         listView = new QListView(MessageForm);
         listView->setObjectName(QStringLiteral("listView"));
+        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(listView->sizePolicy().hasHeightForWidth());
+        listView->setSizePolicy(sizePolicy);
+        listView->setMinimumSize(QSize(0, 0));
+        listView->setMaximumSize(QSize(16777215, 16777215));
+        listView->setStyleSheet(QStringLiteral("background-color: rgb(85, 255, 0);"));
 
         verticalLayout->addWidget(listView);
 

@@ -13,9 +13,9 @@
 #include <QtWidgets/QAction>
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QButtonGroup>
+#include <QtWidgets/QGridLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QTabWidget>
-#include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 #include "MessageForm.h"
 #include "SIForm.h"
@@ -25,34 +25,45 @@ QT_BEGIN_NAMESPACE
 class Ui_MainForm
 {
 public:
-    QVBoxLayout *verticalLayout;
-    QTabWidget *tabWidget;
-    SIForm *tab;
+    QGridLayout *gridLayout;
+    MessageForm *widget_2;
+    QTabWidget *FunctionWidget;
+    SIForm *SI;
     QWidget *tab_2;
-    MessageForm *widget;
 
     void setupUi(QWidget *MainForm)
     {
         if (MainForm->objectName().isEmpty())
             MainForm->setObjectName(QStringLiteral("MainForm"));
-        MainForm->resize(779, 439);
-        verticalLayout = new QVBoxLayout(MainForm);
-        verticalLayout->setObjectName(QStringLiteral("verticalLayout"));
-        tabWidget = new QTabWidget(MainForm);
-        tabWidget->setObjectName(QStringLiteral("tabWidget"));
-        tab = new SIForm();
-        tab->setObjectName(QStringLiteral("tab"));
-        tabWidget->addTab(tab, QString());
+        MainForm->resize(800, 600);
+        MainForm->setMinimumSize(QSize(800, 600));
+        gridLayout = new QGridLayout(MainForm);
+        gridLayout->setSpacing(3);
+        gridLayout->setObjectName(QStringLiteral("gridLayout"));
+        gridLayout->setContentsMargins(6, 6, 6, 6);
+        widget_2 = new MessageForm(MainForm);
+        widget_2->setObjectName(QStringLiteral("widget_2"));
+        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy.setHorizontalStretch(0);
+        sizePolicy.setVerticalStretch(0);
+        sizePolicy.setHeightForWidth(widget_2->sizePolicy().hasHeightForWidth());
+        widget_2->setSizePolicy(sizePolicy);
+        widget_2->setMinimumSize(QSize(0, 200));
+        widget_2->setMaximumSize(QSize(16777215, 400));
+        widget_2->setStyleSheet(QStringLiteral(""));
+
+        gridLayout->addWidget(widget_2, 1, 0, 1, 1);
+
+        FunctionWidget = new QTabWidget(MainForm);
+        FunctionWidget->setObjectName(QStringLiteral("FunctionWidget"));
+        SI = new SIForm();
+        SI->setObjectName(QStringLiteral("SI"));
+        FunctionWidget->addTab(SI, QString());
         tab_2 = new QWidget();
         tab_2->setObjectName(QStringLiteral("tab_2"));
-        tabWidget->addTab(tab_2, QString());
+        FunctionWidget->addTab(tab_2, QString());
 
-        verticalLayout->addWidget(tabWidget);
-
-        widget = new MessageForm(MainForm);
-        widget->setObjectName(QStringLiteral("widget"));
-
-        verticalLayout->addWidget(widget);
+        gridLayout->addWidget(FunctionWidget, 0, 0, 1, 1);
 
 
         retranslateUi(MainForm);
@@ -63,8 +74,8 @@ public:
     void retranslateUi(QWidget *MainForm)
     {
         MainForm->setWindowTitle(QApplication::translate("MainForm", "Form", Q_NULLPTR));
-        tabWidget->setTabText(tabWidget->indexOf(tab), QApplication::translate("MainForm", "Tab 1", Q_NULLPTR));
-        tabWidget->setTabText(tabWidget->indexOf(tab_2), QApplication::translate("MainForm", "Tab 2", Q_NULLPTR));
+        FunctionWidget->setTabText(FunctionWidget->indexOf(SI), QApplication::translate("MainForm", "SI", Q_NULLPTR));
+        FunctionWidget->setTabText(FunctionWidget->indexOf(tab_2), QApplication::translate("MainForm", "Tab 2", Q_NULLPTR));
     } // retranslateUi
 
 };

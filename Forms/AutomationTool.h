@@ -41,6 +41,8 @@ private slots:
 
     void on_MessageView_doubleClicked(const QModelIndex &index);
 
+    void on_FileSearchButton_clicked();
+
 private:
     Ui::AutomationTool *ui;
 

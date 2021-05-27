@@ -44,6 +44,8 @@ signals:
 
     void ReadyExcelWriteSignal(ExcelOperation *exl, const QString filePath, QList<SOFTNUMBERTable> *softNumberTable,QList<CONFIGTable> *configTable,QStringList DefineConfigList,const QString RelyID,const QString IDType);
 
+    void FileCompressionSignal(const QString exeFilePath,const QString dirPath);
+
     void ShowIDmessageSignal(int flag);
 
 public slots:
@@ -69,6 +71,8 @@ public slots:
 
     void MessageViewModelEditedSlot(QStandardItem *item);
 
+    void EndFileCompressionSlot(const QString filePath);
+
     void CreateSlot();
 
 
@@ -89,7 +93,10 @@ private :
 
     QThread *excelThread;
 
+    //临时全局路径变量，主要用于同一文件第二次查询使用
     QString carTmpPath;
+    //临时全局路径变量标记，主要用于同一文件第二次查询使用
+    bool carTmpPathflag;
 
     QList<ERRORTable> *errList;
 };

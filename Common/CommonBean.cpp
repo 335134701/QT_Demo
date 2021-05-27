@@ -1,9 +1,10 @@
 #include "CommonBean.h"
 
-
 CommonBean::CommonBean(QObject *parent) : QObject(parent)
 {
     QLogHelper::instance()->LogInfo("CommonBean() 构造函数执行!");
+    //此变量与其他变量在生成新的机种时不需要初始化
+    OutputDirPath=new QString();
     this->Init();
 }
 
@@ -24,8 +25,6 @@ void CommonBean::Init()
     RelyID=new QString();
     IDType=new QString();
     RelyIDType=new QString();
-    SVNDirPath=new QString();
-    OutputDirPath=new QString();
     RelyFilePath=new QString();
     IniFilePath=new QString();
     PFilePath=new QString();
@@ -38,8 +37,8 @@ void CommonBean::Init()
     EEFilePath=new QString();
     ReadyFilePath=new QString();
     ConfigFilePath=new QString();
-    messageViewModel=new QStandardItemModel();
-    statusflag=false;
+    ZIPFilePath=new QString();
+    statusflag=0;
     IDRelyIDflag=true;
     //初始化错误码
     RExpression.insert("IDEdit","^EN(3[3-7]|42)\\d\\dP[A-Z]");
@@ -324,4 +323,14 @@ bool CommonBean::getIDRelyIDflag() const
 void CommonBean::setIDRelyIDflag(bool value)
 {
     IDRelyIDflag = value;
+}
+
+QString *CommonBean::getZIPFilePath() const
+{
+    return ZIPFilePath;
+}
+
+void CommonBean::setZIPFilePath(QString *value)
+{
+    ZIPFilePath = value;
 }

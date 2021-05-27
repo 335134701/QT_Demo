@@ -13,7 +13,7 @@ QAbstractButton{
     border-radius:5px;
     background:qlineargradient(spread:pad,x1:0,y1:0,x2:0,y2:1,stop:0 #484848,stop:1 #383838);
 }
-QAbstractButton#CreateButton,#CheckButton{
+QAbstractButton#CreateButton,#FileSearchButton{
     font: 75 15pt "微软雅黑";
 }
 

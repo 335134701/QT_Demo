@@ -104,10 +104,12 @@ QString CommonMethod::AnalyzePath(const QString dirPath,const QString ID,QString
         case APPFileflag:
             if(pathName.mid(pathName.lastIndexOf("/")+1)=="01REQ"&&QDir(pathName+"/0102Report").exists()){pathName=pathName+"/0102Report";}
             if(pathName.mid(pathName.lastIndexOf("/")+1)=="0102Report"&&QDir(pathName+"/00成果物").exists()){pathName=pathName+"/00成果物";}
+            /*
             if(pathName.mid(pathName.lastIndexOf("/")+1)=="00成果物"&&QDir(pathName+"/旭化成工場 火事対応").exists()){pathName=pathName+"/旭化成工場 火事対応";}
             if(IDType=="EntryAVM"){IDType="Entry";}
             if(pathName.mid(pathName.lastIndexOf("/")+1)=="旭化成工場 火事対応"&&QDir(pathName+"/"+IDType).exists()){pathName=pathName+"/"+IDType;}
             if(pathName.mid(pathName.lastIndexOf("/")+1)==IDType&&QDir(pathName+"/"+ID).exists()){pathName=pathName+"/"+ID;}
+            */
             break;
         case CarInfoFileflag:
         case CarMapFileflag:
@@ -141,9 +143,9 @@ QString CommonMethod::AnalyzePath(const QString dirPath,const QString ID,QString
  * @param filePaths
  * @param filePath
  * @param flag
- * @return
+ * @param ID
  */
-void CommonMethod::AnalyzeFilePath(const QStringList filePaths, QString *filePath, unsigned int flag)
+void CommonMethod::AnalyzeFilePath(const QStringList filePaths, QString *filePath, unsigned int flag,const QString ID)
 {
     QLogHelper::instance()->LogInfo("CommonMethod->AnalyzeFilePath() 函数执行!");
     QString path;
@@ -165,13 +167,44 @@ void CommonMethod::AnalyzeFilePath(const QStringList filePaths, QString *filePat
     case CarInfoFileflag:
     case CarMapFileflag:
     case CarOSDFileflag:
-        if(filePaths.size()>0){path=filePaths[filePaths.size()-1];}
-        else{path="";}
+        foreach (QString filePath, filePaths) {
+            if(!filePath.contains(".txt")&&filePath.contains(ID)){
+                QFileInfo file(filePath);
+                if(tmpsize==0||file.lastModified().toString("yyMMddhhmm").toInt()>tmpsize){
+                    path=filePath;
+                    tmpsize=file.lastModified().toString("yyMMddhhmm").toInt();
+                }
+            }
+        }
+        if(path.isEmpty()&&filePaths.size()>0){
+            foreach (QString filePath, filePaths) {
+                if(!filePath.contains(".txt")&&!filePath.contains(ID)){
+                    QFileInfo file(filePath);
+                    if(tmpsize==0||file.lastModified().toString("yyMMddhhmm").toInt()>tmpsize){
+                        path=filePath;
+                        tmpsize=file.lastModified().toString("yyMMddhhmm").toInt();
+                    }
+                }
+            }
+            if(path.isEmpty()){path=filePaths[filePaths.size()-1];}
+        }
+        if(filePaths.size()==0){path="";}
         break;
     case JoinFileflag:
     case APPFileflag:
-        if(filePaths.size()>0){path=filePaths[filePaths.size()-1];}
-        else{path="";}
+        foreach (QString filePath, filePaths) {
+            if(!filePath.contains(".txt")){
+                QFileInfo file(filePath);
+                if(tmpsize==0||file.lastModified().toString("yyMMddhhmm").toInt()>tmpsize){
+                    path=filePath;
+                    tmpsize=file.lastModified().toString("yyMMddhhmm").toInt();
+                }
+            }
+        }
+        if(path.isEmpty()&&filePaths.size()>0){
+            path=filePaths[filePaths.size()-1];
+        }
+        if(filePaths.size()==0){path="";}
         break;
     case EEFileflag:
     case ReadyFileflag:
@@ -297,8 +330,7 @@ void CommonMethod::MessageFileTableChangeDeal(QStandardItem *item, QString *file
     if(file->exists(item->text())){
         (*filePath)=item->text();
     }else{
-        item->setText("");
-        (*filePath)="";
+        item->setText(*filePath);
     }
 }
 /**
@@ -311,6 +343,7 @@ void CommonMethod::MessageFileTableChangeDeal(QStandardItem *item, QString *file
  */
 SOFTNUMBERTable CommonMethod::MessageSoftTableChangeDeal(const QStandardItem *item,const SOFTNUMBERTable soft,int index)
 {
+    QLogHelper::instance()->LogInfo("CommonMethod->MessageSoftTableChangeDeal() 函数执行!");
     SOFTNUMBERTable tmpsoft=soft;
     switch (index) {
     case 0:
@@ -431,12 +464,44 @@ QStringList CommonMethod::GetDate()
 void CommonMethod::SetErrorTable(QList<ERRORTable> *errTableList, const QString fileName, const QString sheetName, const unsigned int row, const unsigned int col, const QString errMessage)
 {
     ERRORTable err;
-    QLogHelper::instance()->LogDebug(QString::number(row)+"  "+QString::number(col));
+    //QLogHelper::instance()->LogDebug(QString::number(row)+"  "+QString::number(col));
     err.fileName=fileName.mid(fileName.lastIndexOf("/")+1);
     err.sheetName=sheetName;
     err.row=row;
     err.col=col;
     err.errMessage=errMessage;
     errTableList->append(err);
+}
+
+/**
+ * @def 获取本机7z程序安装位置
+ * @brief CommonMethod::Get7zInstallPath
+ * @return
+ */
+QString CommonMethod::Get7zInstallPath()
+{
+    QLogHelper::instance()->LogInfo("CommonMethod->Get7zInstallPath() 函数执行!");
+    QSettings settings("HKEY_LOCAL_MACHINE\\SOFTWARE\\WOW6432Node\\7-Zip",QSettings::NativeFormat);
+    return settings.value("Path").toString()+"7z.exe";
+}
+/**
+ * @def 字符串整体替换
+ * @brief CommonMethod::StringALLReplace
+ * @param str
+ * @param befstr
+ * @param aftstr
+ * @return
+ */
+QString CommonMethod::StringALLReplace(const QString str, const QString befstr, const QString aftstr)
+{
+    QStringList tmp;
+    QString strtmp;
+    tmp=str.split(befstr);
+    for(int i=0;i<tmp.size();i++)
+    {
+         strtmp=strtmp+tmp[i]+aftstr;
+    }
+    strtmp=strtmp.left(strtmp.lastIndexOf(aftstr));
+    return strtmp;
 }
 

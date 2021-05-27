@@ -27,6 +27,9 @@ public:
 
     const QString exampleDirPath=QApplication::applicationDirPath()+"/Example";
 
+    //初始化函数
+    void Init();
+
     QMap<QString, QString> getRExpression() const;
     void setRExpression(const QMap<QString, QString> &value);
 
@@ -110,6 +113,8 @@ public:
 
     bool getIDRelyIDflag() const;
     void setIDRelyIDflag(bool value);
+    QString *getZIPFilePath() const;
+    void setZIPFilePath(QString *value);
 
 private :
     //当前程序操作状态码
@@ -166,10 +171,10 @@ private :
     CommonMethod *comMethod;
     //Excel操作函数
     ExcelOperation *excelOption;
+    //7z生成压缩文件路径
+    QString *ZIPFilePath;
     //TableViewEditflag
     bool tableViewEditflag=false;
-    //初始化函数
-    void Init();
 
 };
 

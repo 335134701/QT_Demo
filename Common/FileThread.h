@@ -14,8 +14,12 @@ public:
 signals:
     void EndFindFileThreadSignal(QStringList st,unsigned int flag, bool goOn);
 
+    void EndFileCompressionSignal(const QString filePath);
+
 public slots:
     void FindFileThreadSlot(const QString dirPath,CommonMethod *commonMethod,const QStringList filters,unsigned int flag, bool goOn);
+
+    void FileCompressionSlot(const QString exeFilePath,const QString dirPath);
 };
 
 #endif // MYTHREAD_H

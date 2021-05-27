@@ -35,7 +35,7 @@ public slots:
 private :
    Book *book;
    void SetPatternForegroundColor(Sheet *sheetread,const int row,const int col,const Color color);
-   void ReadyFileFirstSheet(const QString filePath, QList<SOFTNUMBERTable> *softNumberTable,QList<CONFIGTable> *configTable,QList<ERRORTable> *errTableList);
+   void ReadyFileFirstSheet(const QString filePath,const QString IDType, QList<SOFTNUMBERTable> *softNumberTable,QList<CONFIGTable> *configTable,QList<ERRORTable> *errTableList);
    void ReadyFileSecondSheet(const QString filePath,QList<CONFIGTable> *configTable,QList<ERRORTable> *errTableList);
    void ReadyFileThirdSheet(const QString filePath,QList<SOFTNUMBERTable> *softNumberTable,QStringList DefineConfigList,const QString IDType,bool flag,QList<ERRORTable> *errTableList);
 };

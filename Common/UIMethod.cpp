@@ -11,6 +11,8 @@ UIMethod::UIMethod(QObject *parent) : QObject(parent)
  */
 void UIMethod::Init()
 {
+    carTmpPath="";
+    carTmpPathflag=false;
     errList=new QList<ERRORTable>();
     fileThread=new FileThread();
     dealFileFileThread=new QThread();
@@ -40,6 +42,10 @@ void UIMethod::Init()
     connect(excelOperateThread,&ExcelOperateThread::EndExcelOperateThreadConfSignal,this,&UIMethod::EndExcelOperateThreadConfSlot);
     connect(excelOperateThread,&ExcelOperateThread::EndEEExcelWriteSignal,this,&UIMethod::EndEEExcelWriteSlot);
     connect(excelOperateThread,&ExcelOperateThread::EndReadyExcelWriteSignal,this,&UIMethod::EndReadyExcelWriteSlot);
+
+    //连接文件打包信号槽，子线程处理
+    connect(this,&UIMethod::FileCompressionSignal,fileThread,&FileThread::FileCompressionSlot);
+    connect(fileThread,&FileThread::EndFileCompressionSignal,this,&UIMethod::EndFileCompressionSlot);
 }
 
 QTextEdit *UIMethod::getTextEdit() const
@@ -294,6 +300,13 @@ void UIMethod::ShowIDmessageSlot(int flag)
         }
         errList->clear();
         break;
+    case ZIPFile:
+        if(!comBean->getZIPFilePath()->isEmpty()){
+            this->getTextEdit()->append(DATETIME+"  ソフト一式("+comBean->getID()+") 压缩成功");
+        }else{
+            this->getTextEdit()->append(DATETIME+"  ソフト一式("+comBean->getID()+") 压缩失败");
+        }
+        break;
     }
     if(tmpflag)this->getTextEdit()->append(DATETIME+" =======================================");
 }
@@ -307,7 +320,9 @@ void UIMethod::ShowIDmessageSlot(int flag)
 void UIMethod::JudgeIDSlot(QLineEdit *Edit,QString *objectID)
 {
     QLogHelper::instance()->LogInfo("UIMethod->JudgeIDSlot() 函数执行!");
-    *objectID="";
+    //每次更新机种番号，临时的变量需要初始化
+    carTmpPath="";
+    carTmpPathflag=false;
     //设置正则表达式对象
     QRegExp rx(comBean->getRExpression().value(Edit->objectName()));
     if(rx.indexIn(Edit->text())!=0){
@@ -356,7 +371,6 @@ void UIMethod::SelectDirSlot(QLabel *label,QString *objectID)
     label->setText("");
     QString dirName =  QFileDialog::getExistingDirectory(label, tr("Open Directory"),comBean->desktopDirPath,QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
     if (dirName.isEmpty()) {
-        *objectID="";
         label->setStyleSheet(QString(errFontColor));
         QMessageBox::warning(label, "Warn", tr("No directory selected!"));
         return;
@@ -384,7 +398,11 @@ void UIMethod::SelectFileSlot(QString dirPath,unsigned int flag, bool goOn)
     }
     switch (flag) {
     case RelyFileflag:
-        filters.append(*(comBean->getIDType())+"*ソフトウエア部品番号管理表(量産)_AKM対応用*.xls");
+        if(*comBean->getIDType()=="EntryAVM2"){
+            filters.append("*EntryAVM*ソフトウエア部品番号管理表(量産)_AKM対応用*.xls");
+        }else{
+            filters.append("*"+*(comBean->getIDType())+"*ソフトウエア部品番号管理表(量産)_AKM対応用*.xls");
+        }
         break;
     case IniFileflag:
         filters.append("LOGZONE_*_2nd.ini");
@@ -395,6 +413,7 @@ void UIMethod::SelectFileSlot(QString dirPath,unsigned int flag, bool goOn)
             filters.append(*(comBean->getRelyID())+"*と共有する.txt");
         }else{
             filters.append("*_"+*(comBean->getID())+"_AKM火災対応_P票.xls");
+            //filters.append("*と共有する.txt");
         }
         break;
     case SWFileflag:
@@ -403,10 +422,10 @@ void UIMethod::SelectFileSlot(QString dirPath,unsigned int flag, bool goOn)
             filters.append(*(comBean->getRelyID())+"*と共有する.txt");
         }else{
             filters.append("コンパイルSW確認結果_*"+*(comBean->getID())+".xlsx");
+            //filters.append("*と共有する.txt");
         }
         break;
     case CarInfoFileflag:
-        carTmpPath="";
         if(!carTmpPath.isEmpty()){
             dirPath=carTmpPath.left(carTmpPath.lastIndexOf("/"));
             filters.append("*_CarInfo.mot");
@@ -446,11 +465,17 @@ void UIMethod::SelectFileSlot(QString dirPath,unsigned int flag, bool goOn)
         }
         break;
     case JoinFileflag:
-        filters.append("join_*.mot");
+        filters.append("join_*"+*comBean->getID()+"*.mot");
         break;
     case APPFileflag:
-        filters.append("APP_*.mot");
-        filters.append("App.motは*共有する.txt");
+        if(carTmpPath.contains(comBean->getRelyID())&&carTmpPathflag){
+            filters.append("APP_*"+*comBean->getRelyID()+"*.mot");
+        }else{
+            filters.append("APP_*"+*comBean->getID()+"*.mot");
+        }
+        if(!comBean->getRelyID()->isEmpty()){
+            filters.append("*"+*comBean->getRelyID()+"*.txt");
+        }
         break;
     case EEFileflag:
         filters.append("EE-A002-1000 DR会議運用手順_様式7_20190320_EntryAVM*.xlsx");
@@ -460,9 +485,9 @@ void UIMethod::SelectFileSlot(QString dirPath,unsigned int flag, bool goOn)
         break;
     case ConfigFileflag:
         if(*comBean->getIDType()=="EntryAVM2"){
-            filters.append("EntryAVM採用車種コンフィグ詳細*.xlsx");
+            filters.append("*EntryAVM採用車種コンフィグ詳細*.xlsx");
         }
-        filters.append(*(comBean->getIDType())+"*採用車種コンフィグ詳細*.xlsx");
+        filters.append("*"+*(comBean->getIDType())+"*採用車種コンフィグ詳細*.xlsx");
         break;
     }
     dirPath=comBean->getComMethod()->AnalyzePath(dirPath,*(comBean->getID()),*(comBean->getIDType()),*(comBean->getRelyID()),flag);
@@ -481,7 +506,7 @@ void UIMethod::EndFindFileThreadSlot(QStringList st, unsigned int flag, bool goO
     QLogHelper::instance()->LogInfo("UIMethod->EndFindFileThreadSignal() 函数执行!");
     switch (flag) {
     case RelyFileflag:
-        comBean->getComMethod()->AnalyzeFilePath(st,comBean->getRelyFilePath(),flag);
+        comBean->getComMethod()->AnalyzeFilePath(st,comBean->getRelyFilePath(),flag,*comBean->getID());
         //如果文件存在，则开启线程解析文件表
         if(!comBean->getRelyFilePath()->isEmpty()){
             if(!excelThread->isRunning()){
@@ -491,46 +516,70 @@ void UIMethod::EndFindFileThreadSlot(QStringList st, unsigned int flag, bool goO
         }
         break;
     case IniFileflag:
-        comBean->getComMethod()->AnalyzeFilePath(st,comBean->getIniFilePath(),flag);
+        comBean->getComMethod()->AnalyzeFilePath(st,comBean->getIniFilePath(),flag,*comBean->getID());
         break;
     case PFileflag:
-        comBean->getComMethod()->AnalyzeFilePath(st,comBean->getPFilePath(),flag);
+        comBean->getComMethod()->AnalyzeFilePath(st,comBean->getPFilePath(),flag,*comBean->getID());
         break;
     case SWFileflag:
-        comBean->getComMethod()->AnalyzeFilePath(st,comBean->getSWFilePath(),flag);
+        comBean->getComMethod()->AnalyzeFilePath(st,comBean->getSWFilePath(),flag,*comBean->getID());
         break;
     case CarInfoFileflag:
-        comBean->getComMethod()->AnalyzeFilePath(st,comBean->getCarInfoFilePath(),flag);
+        comBean->getComMethod()->AnalyzeFilePath(st,comBean->getCarInfoFilePath(),flag,*comBean->getID());
         if(carTmpPath.isEmpty()&&!comBean->getCarInfoFilePath()->isEmpty()){
             carTmpPath=*comBean->getCarInfoFilePath();
+        }else if(!carTmpPath.isEmpty()&&comBean->getCarInfoFilePath()->isEmpty()){
+            carTmpPath="";
         }
         break;
     case CarMapFileflag:
-        comBean->getComMethod()->AnalyzeFilePath(st,comBean->getCarMapFilePath(),flag);
+        comBean->getComMethod()->AnalyzeFilePath(st,comBean->getCarMapFilePath(),flag,*comBean->getID());
         if(carTmpPath.isEmpty()&&!comBean->getCarMapFilePath()->isEmpty()){
             carTmpPath=*comBean->getCarMapFilePath();
+        }else if(!carTmpPath.isEmpty()&&comBean->getCarMapFilePath()->isEmpty()){
+            carTmpPath="";
         }
         break;
     case CarOSDFileflag:
-        comBean->getComMethod()->AnalyzeFilePath(st,comBean->getCarOSDFilePath(),flag);
+        comBean->getComMethod()->AnalyzeFilePath(st,comBean->getCarOSDFilePath(),flag,*comBean->getID());
         if(carTmpPath.isEmpty()&&!comBean->getCarOSDFilePath()->isEmpty()){
             carTmpPath=*comBean->getCarOSDFilePath();
+        }else if(!carTmpPath.isEmpty()&&comBean->getCarOSDFilePath()->isEmpty()){
+            carTmpPath="";
         }
+        //再次对没有找到的文件进行查找处理
+        if((comBean->getCarInfoFilePath()->isEmpty()||comBean->getCarMapFilePath()->isEmpty()||comBean->getCarOSDFilePath()->isEmpty())&&!carTmpPath.isEmpty()&&!carTmpPathflag)
+        {
+            flag=flag-2;
+            carTmpPathflag=true;
+            emit ActiveThreadSignal(*(comBean->getSVNDirPath()),flag,goOn);
+            return;
+        }
+        if(carTmpPathflag){carTmpPathflag=false;carTmpPath="";}
         break;
     case JoinFileflag:
-        comBean->getComMethod()->AnalyzeFilePath(st,comBean->getJoinMot(),flag);
+        comBean->getComMethod()->AnalyzeFilePath(st,comBean->getJoinMot(),flag,*comBean->getID());
         break;
     case APPFileflag:
-        comBean->getComMethod()->AnalyzeFilePath(st,comBean->getAPPMot(),flag);
+        comBean->getComMethod()->AnalyzeFilePath(st,comBean->getAPPMot(),flag,*comBean->getID());
+        //说明有留用关系，app.mot需要使用留用的app.mot
+        if(comBean->getAPPMot()->contains(".txt")&&!carTmpPathflag)
+        {
+            carTmpPath=*comBean->getRelyID();
+            carTmpPathflag=true;
+            emit ActiveThreadSignal(*(comBean->getSVNDirPath()),flag,goOn);
+            return;
+        }
+        if(carTmpPathflag){carTmpPathflag=false;}
         break;
     case EEFileflag:
-        comBean->getComMethod()->AnalyzeFilePath(st,comBean->getEEFilePath(),flag);
+        comBean->getComMethod()->AnalyzeFilePath(st,comBean->getEEFilePath(),flag,*comBean->getID());
         break;
     case ReadyFileflag:
-        comBean->getComMethod()->AnalyzeFilePath(st,comBean->getReadyFilePath(),flag);
+        comBean->getComMethod()->AnalyzeFilePath(st,comBean->getReadyFilePath(),flag,*comBean->getID());
         break;
     case ConfigFileflag:
-        comBean->getComMethod()->AnalyzeFilePath(st,comBean->getConfigFilePath(),flag);
+        comBean->getComMethod()->AnalyzeFilePath(st,comBean->getConfigFilePath(),flag,*comBean->getID());
         //如果文件存在，则开启线程解析文件表
         if(!comBean->getConfigFilePath()->isEmpty()){
             if(!excelThread->isRunning()){
@@ -552,68 +601,6 @@ void UIMethod::EndFindFileThreadSlot(QStringList st, unsigned int flag, bool goO
         comBean->setStatusflag(0);
     }
 }
-/**
- * @def 量产管理表解析完成后回调函数
- * @brief UIMethod::EndExcelOperateThreadSoftSlot
- * @param list
- */
-void UIMethod::EndExcelOperateThreadSoftSlot(QList<SOFTNUMBERTable> list)
-{
-    QLogHelper::instance()->LogInfo("UIMethod->EndExcelOperateThreadSoftSlot() 函数执行!");
-    //QLogHelper::instance()->LogDebug(QString::number(list.size()));
-    *(comBean->getSoftNumberTable())=list;
-    emit ShowIDmessageSignal(DefineConfig);
-    emit ShowIDmessageSignal(RelyMessageflag);
-    excelThread->quit();
-    excelThread->wait();
-}
-/**
- * @def EntryAVM採用車種コンフィグ詳細表解析完成后回调函数
- * @brief UIMethod::EndExcelOperateThreadConfSlot
- * @param list
- */
-void UIMethod::EndExcelOperateThreadConfSlot(QList<CONFIGTable> list)
-{
-    QLogHelper::instance()->LogInfo("UIMethod->EndExcelOperateThreadConfSlot() 函数执行!");
-    //QLogHelper::instance()->LogDebug(QString::number(list.size()));
-    *(comBean->getConfigTable())=list;
-    emit ShowIDmessageSignal(ConfigMessageflag);
-    excelThread->quit();
-    excelThread->wait();
-}
-/**
- * @def EE-A002-1000 DR会議運用手順_様式7_20190320*.xlsx表 修改完成后回调函数
- * @brief UIMethod::EndEEExcelWriteSlot
- * @param errTableList
- */
-void UIMethod::EndEEExcelWriteSlot(QList<ERRORTable> *errTableList)
-{
-    QLogHelper::instance()->LogInfo("UIMethod->EndEEExcelWriteSlot() 函数执行!");
-    this->getTextEdit()->append(DATETIME+" =======================================");
-    this->getTextEdit()->append(DATETIME+comBean->getEEFilePath()->mid(comBean->getEEFilePath()->lastIndexOf("/")+1)+" 文件写入完成");
-    this->getTextEdit()->append(DATETIME+" =======================================");
-    emit ShowIDmessageSignal(EEFileWrieflag);
-    (*errList)=(*errTableList);
-    //excelThread->quit();
-    //excelThread->wait();
-}
-/**
- * @def *確認シート.xlsx 修改完成后回调函数
- * @brief UIMethod::EndReadyExcelWriteSlot
- * @param errTableList
- */
-void UIMethod::EndReadyExcelWriteSlot(QList<ERRORTable> *errTableList)
-{
-    QLogHelper::instance()->LogInfo("UIMethod->EndReadyExcelWriteSlot() 函数执行!");
-    excelThread->quit();
-    excelThread->wait();
-    this->getTextEdit()->append(DATETIME+" =======================================");
-    this->getTextEdit()->append(DATETIME+comBean->getReadyFilePath()->mid(comBean->getReadyFilePath()->lastIndexOf("/")+1)+" 文件写入完成");
-    this->getTextEdit()->append(DATETIME+" =======================================");
-    (*errList)=(*errTableList);
-    emit ShowIDmessageSignal(ReadyFileWriteflag);
-    comBean->setStatusflag(0);
-}
 
 /**
  * @def MessageView单元格数据修改触发函数
@@ -623,65 +610,85 @@ void UIMethod::EndReadyExcelWriteSlot(QList<ERRORTable> *errTableList)
 void UIMethod::MessageViewModelEditedSlot(QStandardItem *item)
 {
     QStringList tmp;
-    if(comBean->getTableViewEditflag()){
+    QString demo;
+    if(comBean->getTableViewEditflag()&&!comBean->getID()->isEmpty()){
         QLogHelper::instance()->LogInfo("AutomationTool->MessageViewModelEditedSlot() 函数触发执行!");
         QLogHelper::instance()->LogDebug("column: "+QString::number(item->column())+"    row:"+QString::number(item->row()));
-        QLogHelper::instance()->LogDebug(item->text());
+        if(item->text().contains("\\")){
+            item->setText(comBean->getComMethod()->StringALLReplace(item->text(),"\\","/"));
+        }
         if(item->column()==1){
             switch (item->row()) {
-            case 4:
+            case (RelyFileflag-1):
                 comBean->getComMethod()->MessageFileTableChangeDeal(item,comBean->getRelyFilePath());
+                //如果文件存在，则开启线程解析文件表
+                if(!comBean->getRelyFilePath()->isEmpty()&&comBean->getRelyFilePath()->contains("ソフトウエア部品番号管理表(量産)_AKM対応用")&&comBean->getRelyFilePath()->contains(".xls")){
+                    if(!excelThread->isRunning()){
+                        excelThread->start();
+                    }
+                    emit ExcelOperateThreadSignal(comBean->getExcelOption(),*(comBean->getRelyFilePath()),*(comBean->getID()),*(comBean->getIDType()),*(comBean->getRelyID()),RelyFileflag);
+                }
                 break;
-            case 5:
+            case (IniFileflag-1):
                 comBean->getComMethod()->MessageFileTableChangeDeal(item,comBean->getIniFilePath());
                 break;
-            case 6:
+            case (PFileflag-1):
                 comBean->getComMethod()->MessageFileTableChangeDeal(item,comBean->getPFilePath());
                 break;
-            case 7:
+            case (SWFileflag-1):
                 comBean->getComMethod()->MessageFileTableChangeDeal(item,comBean->getSWFilePath());
                 break;
-            case 8:
+            case (CarInfoFileflag-1):
                 comBean->getComMethod()->MessageFileTableChangeDeal(item,comBean->getCarInfoFilePath());
                 break;
-            case 9:
+            case (CarMapFileflag-1):
                 comBean->getComMethod()->MessageFileTableChangeDeal(item,comBean->getCarMapFilePath());
                 break;
-            case 10:
+            case (CarOSDFileflag-1):
                 comBean->getComMethod()->MessageFileTableChangeDeal(item,comBean->getCarOSDFilePath());
                 break;
-            case 11:
+            case (APPFileflag-1):
                 comBean->getComMethod()->MessageFileTableChangeDeal(item,comBean->getAPPMot());
                 break;
-            case 12:
+            case (JoinFileflag-1):
                 comBean->getComMethod()->MessageFileTableChangeDeal(item,comBean->getJoinMot());
                 break;
-            case 13:
+            case (EEFileflag-1):
                 comBean->getComMethod()->MessageFileTableChangeDeal(item,comBean->getEEFilePath());
                 break;
-            case 14:
+            case (ReadyFileflag-1):
                 comBean->getComMethod()->MessageFileTableChangeDeal(item,comBean->getReadyFilePath());
                 break;
-            case 15:
+            case (ConfigFileflag-1):
                 comBean->getComMethod()->MessageFileTableChangeDeal(item,comBean->getConfigFilePath());
+                //如果文件存在，则开启线程解析文件表
+                if(!comBean->getConfigFilePath()->isEmpty()&&comBean->getConfigFilePath()->contains("採用車種コンフィグ詳細")&&comBean->getConfigFilePath()->contains(".xlsx")){
+                    if(!excelThread->isRunning()){
+                        excelThread->start();
+                    }
+                    emit ExcelOperateThreadSignal(comBean->getExcelOption(),*(comBean->getConfigFilePath()),*(comBean->getID()),*(comBean->getConfigFilePath()),*(comBean->getRelyID()),ConfigFileflag);
+                }
                 break;
             }
-            if(item->row()>15&&item->row()<=(comBean->getSoftNumberTable()->size()+15)){
+            if(item->row()>DefineTableSize&&item->row()<=(comBean->getSoftNumberTable()->size()+DefineTableSize)){
                 tmp=comBean->getDefineConfigList();
-                tmp.insert(item->row()-16,item->text());
+                tmp.insert(item->row()-DefineTableSize-1,item->text());
                 comBean->setDefineConfigList(tmp);
             }
             for(int i=0;i<comBean->getSoftNumberTable()->size();i++)
             {
-                if(item->row()>(15+comBean->getSoftNumberTable()->size()+i*18)&&item->row()<=(15+comBean->getSoftNumberTable()->size()+(i+1)*18))
+                if(item->row()>(DefineTableSize+comBean->getSoftNumberTable()->size()+i*18)&&item->row()<=(DefineTableSize+comBean->getSoftNumberTable()->size()+(i+1)*18))
                 {
-                    (*comBean->getSoftNumberTable()).insert(i,comBean->getComMethod()->MessageSoftTableChangeDeal(item,comBean->getSoftNumberTable()->value(i),(item->row()-(15+comBean->getSoftNumberTable()->size()+i*18+1))));
+                    (*comBean->getSoftNumberTable()).insert(i,comBean->getComMethod()->MessageSoftTableChangeDeal(item,comBean->getSoftNumberTable()->value(i),(item->row()-(DefineTableSize+comBean->getSoftNumberTable()->size()+i*18+1))));
                 }
             }
         }
-        comBean->setTableViewEditflag(false);
+    }else if(comBean->getTableViewEditflag()&&comBean->getID()->isEmpty()){
+        item->setText("");
     }
+    comBean->setTableViewEditflag(false);
 }
+
 /**
  * @def 接收Button按钮传输信号
  * @brief UIMethod::CreateSlot
@@ -735,6 +742,7 @@ void UIMethod::CreateSlot()
         }else
         {
             this->getTextEdit()->append(DATETIME+" "+(*comBean->getCarInfoFilePath())+" 文件复制失败!");
+            flag=false;
         }
     }
     //CarMap文件复制
@@ -746,6 +754,7 @@ void UIMethod::CreateSlot()
         }else
         {
             this->getTextEdit()->append(DATETIME+" "+(*comBean->getCarMapFilePath())+" 文件复制失败!");
+            flag=false;
         }
     }
     //OSD文件复制
@@ -757,6 +766,7 @@ void UIMethod::CreateSlot()
         }else
         {
             this->getTextEdit()->append(DATETIME+" "+(*comBean->getCarOSDFilePath())+" 文件复制失败!");
+            flag=false;
         }
     }
     //APPmot文件复制
@@ -768,9 +778,9 @@ void UIMethod::CreateSlot()
         }else
         {
             this->getTextEdit()->append(DATETIME+" "+(*comBean->getAPPMot())+" 文件复制失败!");
+            flag=false;
         }
     }
-
     //INI文件复制
     if(!comBean->getIniFilePath()->isEmpty()&&file->exists(*comBean->getIniFilePath())&&!soft.PartNumber.isEmpty())
     {
@@ -787,6 +797,7 @@ void UIMethod::CreateSlot()
         }else
         {
             this->getTextEdit()->append(DATETIME+" "+(*comBean->getIniFilePath())+" 文件复制失败!");
+            flag=false;
         }
     }
     //Join Mot文件复制
@@ -795,6 +806,13 @@ void UIMethod::CreateSlot()
         fileName=(*comBean->getJoinMot()).mid((*comBean->getJoinMot()).lastIndexOf("/")+1);
         if(QFile::copy(*comBean->getJoinMot(),tmpPath+"/ソフト一式("+comBean->getID()+")/結合版/"+fileName)){
             this->getTextEdit()->append(DATETIME+" "+(*comBean->getJoinMot())+" 文件复制成功!");
+            *(comBean->getZIPFilePath())="";
+            if(!dealFileFileThread->isRunning())
+            {
+                dealFileFileThread->start();
+            }
+            //打包文件
+            emit FileCompressionSignal(comBean->getComMethod()->Get7zInstallPath(),tmpPath+"/ソフト一式("+comBean->getID()+")");
         }else
         {
             this->getTextEdit()->append(DATETIME+" "+(*comBean->getJoinMot())+" 文件复制失败!");
@@ -844,21 +862,25 @@ void UIMethod::CreateSlot()
         }
         fileName=fileName+comBean->getID()+"_"+current_date_time.toString("yyyyMMdd")+".xlsx";
         if(QFile::copy(*comBean->getEEFilePath(),tmpPath+"/"+fileName)){
-            this->getTextEdit()->append(DATETIME+" "+(*comBean->getEEFilePath())+" 文件成功!");
+            this->getTextEdit()->append(DATETIME+" "+(*comBean->getEEFilePath())+" 文件复制成功!");
             if(!excelThread->isRunning()){
                 excelThread->start();
             }
             emit EEExcelWriteSignal(comBean->getExcelOption(),tmpPath+"/"+fileName,*(comBean->getID()),*(comBean->getIDType()),*(comBean->getRelyID()),comBean->getSoftNumberTable());
         }else
         {
-            this->getTextEdit()->append(DATETIME+" "+(*comBean->getEEFilePath())+" 文件失败!");
+            this->getTextEdit()->append(DATETIME+" "+(*comBean->getEEFilePath())+" 文件复制失败!");
         }
     }
     //確認シート.xlsx文件复制
     if(!comBean->getReadyFilePath()->isEmpty()&&file->exists(*comBean->getReadyFilePath())&&!soft.PartNumber.isEmpty()){
-        fileName=soft.CarModels+" "+soft.PartNumber+"確認シート.xlsx";
+        if(!soft.CarModels.isEmpty()){
+            fileName=soft.CarModels+" "+soft.PartNumber+"確認シート.xlsx";
+        }else{
+            fileName="確認シート.xlsx";
+        }
         if(QFile::copy(*comBean->getReadyFilePath(),tmpPath+"/"+fileName)){
-            this->getTextEdit()->append(DATETIME+" "+(*comBean->getReadyFilePath())+" 文件成功!");
+            this->getTextEdit()->append(DATETIME+" "+(*comBean->getReadyFilePath())+" 文件复制成功!");
             if(!excelThread->isRunning()){
                 excelThread->start();
             }
@@ -866,9 +888,96 @@ void UIMethod::CreateSlot()
             //emit ReadyExcelWriteSignal(comBean->getExcelOption(),tmpPath+"/"+fileName,*(comBean->getID()),*(comBean->getIDType()),comBean->getSoftNumberTable(),comBean->getConfigTable(),*(comBean->getRelyID(),*(comBean->getIDType())));
         }else
         {
-            this->getTextEdit()->append(DATETIME+" "+(*comBean->getReadyFilePath())+" 文件失败!");
+            this->getTextEdit()->append(DATETIME+" "+(*comBean->getReadyFilePath())+" 文件复制失败!");
         }
     }
     this->getTextEdit()->append(DATETIME+" =======================================");
 }
 
+
+/**
+ * @def 量产管理表解析完成后回调函数
+ * @brief UIMethod::EndExcelOperateThreadSoftSlot
+ * @param list
+ */
+void UIMethod::EndExcelOperateThreadSoftSlot(QList<SOFTNUMBERTable> list)
+{
+    QLogHelper::instance()->LogInfo("UIMethod->EndExcelOperateThreadSoftSlot() 函数执行!");
+    //QLogHelper::instance()->LogDebug(QString::number(list.size()));
+    *(comBean->getSoftNumberTable())=list;
+    emit ShowIDmessageSignal(DefineConfig);
+    emit ShowIDmessageSignal(RelyMessageflag);
+    excelThread->quit();
+    excelThread->wait();
+}
+/**
+ * @def EntryAVM採用車種コンフィグ詳細表解析完成后回调函数
+ * @brief UIMethod::EndExcelOperateThreadConfSlot
+ * @param list
+ */
+void UIMethod::EndExcelOperateThreadConfSlot(QList<CONFIGTable> list)
+{
+    QLogHelper::instance()->LogInfo("UIMethod->EndExcelOperateThreadConfSlot() 函数执行!");
+    //QLogHelper::instance()->LogDebug(QString::number(list.size()));
+    *(comBean->getConfigTable())=list;
+    emit ShowIDmessageSignal(ConfigMessageflag);
+    excelThread->quit();
+    excelThread->wait();
+}
+/**
+ * @def EE-A002-1000 DR会議運用手順_様式7_20190320*.xlsx表 修改完成后回调函数
+ * @brief UIMethod::EndEEExcelWriteSlot
+ * @param errTableList
+ */
+void UIMethod::EndEEExcelWriteSlot(QList<ERRORTable> *errTableList)
+{
+    QLogHelper::instance()->LogInfo("UIMethod->EndEEExcelWriteSlot() 函数执行!");
+    this->getTextEdit()->append(DATETIME+" =======================================");
+    this->getTextEdit()->append(DATETIME+comBean->getEEFilePath()->mid(comBean->getEEFilePath()->lastIndexOf("/")+1)+" 文件写入完成");
+    this->getTextEdit()->append(DATETIME+" =======================================");
+    (*errList)=(*errTableList);
+    emit ShowIDmessageSignal(EEFileWrieflag);
+    //excelThread->quit();
+    //excelThread->wait();
+}
+/**
+ * @def *確認シート.xlsx 修改完成后回调函数
+ * @brief UIMethod::EndReadyExcelWriteSlot
+ * @param errTableList
+ */
+void UIMethod::EndReadyExcelWriteSlot(QList<ERRORTable> *errTableList)
+{
+    QLogHelper::instance()->LogInfo("UIMethod->EndReadyExcelWriteSlot() 函数执行!");
+    //QLogHelper::instance()->LogDebug("excelThread-------"+QString::number(excelThread->isFinished()));
+    //QLogHelper::instance()->LogDebug("excelThread-------"+QString::number(excelThread->isRunning()));
+    excelThread->quit();
+    excelThread->wait();
+    this->getTextEdit()->append(DATETIME+" =======================================");
+    this->getTextEdit()->append(DATETIME+comBean->getReadyFilePath()->mid(comBean->getReadyFilePath()->lastIndexOf("/")+1)+" 文件写入完成");
+    this->getTextEdit()->append(DATETIME+" =======================================");
+    (*errList)=(*errTableList);
+    emit ShowIDmessageSignal(ReadyFileWriteflag);
+    if(!dealFileFileThread->isRunning()){
+        comBean->setStatusflag(0);
+    }
+}
+/**
+ * @def 文件压缩完成后回调函数
+ * @brief UIMethod::EndFileCompressionSlot
+ * @param filePath
+ */
+void UIMethod::EndFileCompressionSlot(const QString filePath)
+{
+    QLogHelper::instance()->LogInfo("AutomationTool->EndFileCompressionSlot() 函数触发执行!");
+    //QLogHelper::instance()->LogDebug("dealFileFileThread-------"+QString::number(dealFileFileThread->isFinished()));
+    //QLogHelper::instance()->LogDebug("dealFileFileThread-------"+QString::number(dealFileFileThread->isRunning()));
+    dealFileFileThread->quit();
+    dealFileFileThread->wait();
+    if(!excelThread->isRunning()){
+        comBean->setStatusflag(0);
+    }
+    if(!filePath.isEmpty()){
+        *(comBean->getZIPFilePath())=filePath;
+    }
+    emit ShowIDmessageSignal(ZIPFile);
+}

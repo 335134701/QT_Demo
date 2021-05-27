@@ -31,6 +31,8 @@
 *      24   写入确认表返回值状态
 *
 */
+
+
 #define SUCCESS             0
 #define IDflag              1
 #define IDTypeflag          2
@@ -56,9 +58,11 @@
 #define FileCheck           22
 #define EEFileReadflag      23
 #define ReadyFileReadflag   24
+#define ZIPFile             25
 
 #define DATETIME                QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss")
 #define DATAStytle              "[ "+DATETIME+" ] "
+#define DefineTableSize     15
 
 
 typedef struct SoftNumberTable{

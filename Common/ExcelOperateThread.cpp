@@ -29,7 +29,7 @@ void ExcelOperateThread::ExcelOperateThreadSlot(ExcelOperation *exl, const QStri
     else if(flag==ConfigFileflag){
         if(file->exists(filePath)){
             (*confList)=exl->ReadConfExcel(filePath,ID);
-            //如果当前ID查询未空，则在依赖ID存在前提下，使用依赖ID搜索
+            //如果当前ID查询为空，则在依赖ID存在前提下，使用依赖ID搜索
             if(confList->size()<=0&&!RelyID.isEmpty()){
                 (*confList)=exl->ReadConfExcel(filePath,RelyID);
             }

@@ -4,7 +4,10 @@
 #include <QObject>
 #include <QTextCodec>
 #include <QStandardItem>
+#include <QProcess>
+#include <QSettings>
 #include <QDateTime>
+#include <QMessageBox>
 #include "QLoghelper.h"
 #include "DEFINE.h"
 
@@ -22,7 +25,7 @@ public:
 
     QStringList FindFile(const QString dirPath,QStringList filters);
 
-    void AnalyzeFilePath(const QStringList filePaths,QString *filePath,unsigned int flag);
+    void AnalyzeFilePath(const QStringList filePaths,QString *filePath,unsigned int flag,const QString ID);
 
     void INIFileWrite(const QString filePath,const QString PartNumber,const QString DiagnosticCode);
 
@@ -35,6 +38,10 @@ public:
     static QStringList GetDate();
 
     static void SetErrorTable(QList<ERRORTable> *errTableList,const QString fileName,const QString sheetName,const unsigned int row,const unsigned int col,const QString errMessage);
+
+    QString Get7zInstallPath();
+
+    QString StringALLReplace(const QString str,const QString befstr,const QString aftstr);
 
 signals:
 

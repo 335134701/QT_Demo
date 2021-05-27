@@ -48,7 +48,6 @@ void AutomationTool::ConnectSlot()
     connect(this,&AutomationTool::SelectDirSignal,this->uiMethod,&UIMethod::SelectDirSlot);
     connect(logViewClearAction,&QAction::triggered,this,&AutomationTool::LogViewClearSlot);
     connect(this,&AutomationTool::SelectFileSignal,this->uiMethod,&UIMethod::SelectFileSlot);
-    connect(comBean->getMessageViewModel(),&QStandardItemModel::itemChanged,uiMethod,&UIMethod::MessageViewModelEditedSlot);
     connect(this,&AutomationTool::CreateSignal,this->uiMethod,&UIMethod::CreateSlot);
 }
 
@@ -57,6 +56,7 @@ void AutomationTool::ConnectSlot()
  */
 void AutomationTool::InitTableView()
 {
+    comBean->setMessageViewModel(new QStandardItemModel());
     ui->MessageView->setModel(comBean->getMessageViewModel());
     comBean->getMessageViewModel()->setItem(0, 0, new QStandardItem("机种番号:"));
     comBean->getMessageViewModel()->item(0,0)->setTextAlignment(Qt::AlignRight);
@@ -129,6 +129,7 @@ void AutomationTool::InitTableView()
     ui->MessageView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
     ui->MessageView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);//对第0列单独设置固定宽度
     ui->MessageView->setColumnWidth(0,220);
+    connect(comBean->getMessageViewModel(),&QStandardItemModel::itemChanged,uiMethod,&UIMethod::MessageViewModelEditedSlot);
 }
 /**
  * @def UI界面初始化函数，主要功能是美化UI
@@ -164,6 +165,10 @@ void AutomationTool::on_IDEdit_editingFinished()
 {
     QLogHelper::instance()->LogInfo("AutomationTool->on_IDEdit_editingFinished() 函数触发执行!");
     if(comBean==NULL||MessageWarn()){return;}
+    //如果机种番号变更，则需要重新初始化
+    comBean->Init();
+    //初始化TableView显示
+    InitTableView();
     //判断机种名称是否符合要求
     emit JudgeIDSignal(ui->IDEdit,comBean->getID());
     if(comBean->getID()->isEmpty()){return;}
@@ -214,11 +219,9 @@ void AutomationTool::on_SVNButton_clicked()
 {
     QLogHelper::instance()->LogInfo("AutomationTool->on_SVNButton_clicked() 函数触发执行!");
     if(comBean==NULL||MessageWarn()){return;}
+    comBean->setSVNDirPath(new QString());
     //获取相应文件路径
     emit SelectDirSignal(ui->SVNLabel,comBean->getSVNDirPath());
-    if(comBean->getSVNDirPath()->isEmpty()||comBean->getID()->isEmpty()){return;}
-    //错误码清除
-    emit SelectFileSignal(*(comBean->getSVNDirPath()),RelyFileflag,true);
 }
 
 /**
@@ -290,8 +293,22 @@ bool AutomationTool::MessageWarn()
 void AutomationTool::on_MessageView_doubleClicked(const QModelIndex &index)
 {
     QLogHelper::instance()->LogInfo("AutomationTool->on_MessageView_doubleClicked() 函数触发执行!");
-    QLogHelper::instance()->LogDebug("column: "+QString::number(index.column())+"    row:"+QString::number(index.row()));
     if(!comBean->getTableViewEditflag()&&index.row()>3&&index.column()>=1){
         comBean->setTableViewEditflag(true);
     }
+}
+/**
+ * @def 文件检索触发槽函数
+ * @brief AutomationTool::on_FileSearchButton_clicked
+ */
+void AutomationTool::on_FileSearchButton_clicked()
+{
+    QLogHelper::instance()->LogInfo("AutomationTool->on_FileSearchButton_clicked() 函数触发执行!");
+    if(comBean==NULL||MessageWarn()){return;}
+    if(comBean->getID()->isEmpty()||comBean->getSVNDirPath()->isEmpty()){
+        QMessageBox::warning(this,"Title","机种番号为空或SVN路径为空!");
+        return;
+    }
+    //发送信号，执行文件检索任务
+    emit SelectFileSignal(*(comBean->getSVNDirPath()),RelyFileflag,true);
 }

@@ -28,7 +28,13 @@
     <bool>false</bool>
    </property>
    <layout class="QGridLayout" name="gridLayout">
-    <item row="3" column="0">
+    <property name="horizontalSpacing">
+     <number>5</number>
+    </property>
+    <property name="verticalSpacing">
+     <number>15</number>
+    </property>
+    <item row="5" column="0">
      <widget class="QPushButton" name="CreateButton">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
@@ -351,7 +357,7 @@
       </layout>
      </widget>
     </item>
-    <item row="0" column="2" rowspan="5">
+    <item row="0" column="2" rowspan="6">
      <widget class="QWidget" name="widget" native="true">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
@@ -443,7 +449,7 @@
       </layout>
      </widget>
     </item>
-    <item row="2" column="0">
+    <item row="4" column="0">
      <widget class="QPushButton" name="FileSearchButton">
       <property name="text">
        <string>文件检索</string>

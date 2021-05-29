@@ -36,13 +36,13 @@ public:
         if (MainForm->objectName().isEmpty())
             MainForm->setObjectName(QStringLiteral("MainForm"));
         MainForm->setEnabled(true);
-        MainForm->resize(800, 700);
+        MainForm->resize(900, 700);
         QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(MainForm->sizePolicy().hasHeightForWidth());
         MainForm->setSizePolicy(sizePolicy);
-        MainForm->setMinimumSize(QSize(800, 700));
+        MainForm->setMinimumSize(QSize(900, 700));
         gridLayout = new QGridLayout(MainForm);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
         gridLayout->setHorizontalSpacing(5);
@@ -82,7 +82,7 @@ public:
     {
         MainForm->setWindowTitle(QApplication::translate("MainForm", "Tool", Q_NULLPTR));
         FunctionWgedit->setTabText(FunctionWgedit->indexOf(SI), QApplication::translate("MainForm", "SI\345\267\245\345\205\267", Q_NULLPTR));
-        FunctionWgedit->setTabText(FunctionWgedit->indexOf(tab), QApplication::translate("MainForm", "\351\241\265", Q_NULLPTR));
+        FunctionWgedit->setTabText(FunctionWgedit->indexOf(tab), QApplication::translate("MainForm", "\345\205\245\346\243\200\350\265\204\346\226\231\350\207\252\345\212\250\345\214\226\345\267\245\345\205\267", Q_NULLPTR));
     } // retranslateUi
 
 };

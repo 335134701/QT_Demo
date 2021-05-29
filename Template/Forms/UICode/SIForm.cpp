@@ -104,31 +104,36 @@ void SIForm::Init()
 void SIForm::ConnectSlot()
 {
     QLogHelper::instance()->LogInfo("SIForm->ConnectSlot() 函数执行!");
+    //机种番号处理相关槽函数
     connect(this,&SIForm::JudgeIDSignal,this->siFormMethod,&SIFormMethod::JudgeIDSlot);
     connect(this,&SIForm::JudgeIDTypeSignal,this->siFormMethod,&SIFormMethod::JudgeIDTypeSlot);
     connect(this,&SIForm::ShowMessageProcessSignal,this->siFormMethod,&SIFormMethod::ShowMessageProcessSlot);
+    //路径处理相关槽函数
+    connect(this,&SIForm::SelectDirSignal,this->siFormMethod,&SIFormMethod::SelectDirSlot);
+    
 }
 
 /**
  * @brief SIForm::on_IDEdit_editingFinished
  */
-void SIForm::on_IDEdit_editingFinished()
+void SIForm::on_SIIDEdit_editingFinished()
 {
     QLogHelper::instance()->LogInfo("SIForm->on_IDEdit_editingFinished() 函数触发执行!");
     if(PromptInformation()){return;}
     //初始化机种相关信息
     siFormBean->ResetParameter(RET_ID);
+    this->siFormMethod->InitTableView();
     //初始化Table UI显示
-    emit JudgeIDSignal(ui->IDEdit,siFormBean->getID());
+    emit JudgeIDSignal(ui->SIIDEdit,siFormBean->getID());
     if(siFormBean->getID()->isEmpty()){return;}
     //判断机种类型
-    emit JudgeIDTypeSignal(ui->IDEdit,siFormBean->getIDType(),siFormBean->getRelyIDType());
+    emit JudgeIDTypeSignal(ui->SIIDEdit,siFormBean->getIDType(),siFormBean->getRelyIDType());
     //如果ID和依赖ID类型不一致，则依赖ID会显示红色
     if(!siFormBean->getIDRelyIDflag()){
-        ui->RelyIDEdit->setStyleSheet(QString(errFontColor));
+        ui->SIRelyIDEdit->setStyleSheet(QString(errFontColor));
         siFormBean->setIDRelyIDflag(true);
     }else{
-        ui->RelyIDEdit->setStyleSheet(QString(nomFontColor));
+        ui->SIRelyIDEdit->setStyleSheet(QString(nomFontColor));
     }
     emit ShowMessageProcessSignal(IDflag,LOG_LOG);
 }
@@ -136,26 +141,26 @@ void SIForm::on_IDEdit_editingFinished()
 /**
  * @brief SIForm::on_RelyIDEdit_editingFinished
  */
-void SIForm::on_RelyIDEdit_editingFinished()
+void SIForm::on_SIRelyIDEdit_editingFinished()
 {
     QLogHelper::instance()->LogInfo("SIForm->on_RelyIDEdit_editingFinished() 函数触发执行!");
     if(PromptInformation()){return;}
     //如果RelyIDEdit文本输入为空或者ID与依赖ID一致，则说明不依赖任何机种
-    if(ui->RelyIDEdit->text().isEmpty()||ui->RelyIDEdit->text()==(*siFormBean->getID())){
-        ui->RelyIDEdit->setText("");
+    if(ui->SIRelyIDEdit->text().isEmpty()||ui->SIRelyIDEdit->text()==(*siFormBean->getID())){
+        ui->SIRelyIDEdit->setText("");
         return;
     }
     //判断机种名称是否符合要求
-    emit JudgeIDSignal(ui->RelyIDEdit,siFormBean->getRelyID());
+    emit JudgeIDSignal(ui->SIRelyIDEdit,siFormBean->getRelyID());
     if(siFormBean->getRelyID()->isEmpty()){return;}
     //判断依赖机种是否和作成机种同一种类型
-    emit JudgeIDTypeSignal(ui->RelyIDEdit,siFormBean->getRelyIDType(),siFormBean->getIDType());
+    emit JudgeIDTypeSignal(ui->SIRelyIDEdit,siFormBean->getRelyIDType(),siFormBean->getIDType());
     //如果当前机种与依赖机种类型不一致，则设置依赖机种字体为红色字体
     if(!siFormBean->getIDRelyIDflag()){
-        ui->RelyIDEdit->setStyleSheet(QString(errFontColor));
+        ui->SIRelyIDEdit->setStyleSheet(QString(errFontColor));
         siFormBean->setIDRelyIDflag(true);
     }else{
-        ui->RelyIDEdit->setStyleSheet(QString(nomFontColor));
+        ui->SIRelyIDEdit->setStyleSheet(QString(nomFontColor));
     }
     emit ShowMessageProcessSignal(RelyIDflag,LOG_ALL);
 }
@@ -163,22 +168,24 @@ void SIForm::on_RelyIDEdit_editingFinished()
 /**
  * @brief SIForm::on_SVNButton_clicked
  */
-void SIForm::on_SVNButton_clicked()
+void SIForm::on_SISVNButton_clicked()
 {
     QLogHelper::instance()->LogInfo("SIForm->on_SVNButton_clicked() 函数触发执行!");
     if(PromptInformation()){return;}
-    emit ShowMessageProcessSignal(IDflag,LOG_ALL);
+    siFormBean->ResetParameter(RET_SVNFilePath);
+    emit SelectDirSignal(ui->SISVNLabel,siFormBean->getSVNDirPath());
 }
 
 /**
  * @brief SIForm::on_OutputButton_clicked
  */
-void SIForm::on_OutputButton_clicked()
+void SIForm::on_SIOutputButton_clicked()
 {
     QLogHelper::instance()->LogInfo("SIForm->on_OutputButton_clicked() 函数触发执行!");
     if(PromptInformation()){return;}
+    siFormBean->ResetParameter(RET_OutPutFilePath);
+    emit SelectDirSignal(ui->SIOutputLabel,siFormBean->getOutputDirPath());
 }
-
 
 /**
  * @def 执行某项操作时,其他操作不可执行提示
@@ -212,12 +219,3 @@ bool SIForm::PromptInformation()
     }
     return false;
 }
-
-
-
-
-
-
-
-
-

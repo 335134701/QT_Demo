@@ -83,7 +83,7 @@ QWidget#SITableWidget{
     border:1px solid #242424;
 }
 
-QAbstractButton#SIFileCompression,#SIFileSearchButton,#SIPretreatmentButton,#OutputButton,#SVNButton{
+QAbstractButton#SIFileCompression,#SIFileSearchButton,#SIPretreatmentButton,#SIOutputButton,#SISVNButton{
     font: 75 12pt "微软雅黑";
     border-style:none;
     border:1px solid #242424;
@@ -97,16 +97,16 @@ QAbstractButton#SIFileCompression,#SIFileSearchButton,#SIPretreatmentButton{
     font: 75 15pt "微软雅黑";
 }
 
-QAbstractButton#SIFileCompression:hover,#SIFileSearchButton:hover,#SIPretreatmentButton:hover,#OutputButton:hover,#SVNButton:hover{
+QAbstractButton#SIFileCompression:hover,#SIFileSearchButton:hover,#SIPretreatmentButton:hover,#SIOutputButton:hover,#SISVNButton:hover{
     color:#FFFFFF;
     background-color:#636363;
 }
-QAbstractButton#SIFileCompression:pressed,#SIFileSearchButton:pressed,#SIPretreatmentButton:pressed,#OutputButton:pressed,#SVNButton:pressed{
+QAbstractButton#SIFileCompression:pressed,#SIFileSearchButton:pressed,#SIPretreatmentButton:pressed,#SIOutputButton:pressed,#SISVNButton:pressed{
     color:#FFFFFF;
     background-color:#484848;
 }
 
-QLineEdit#IDEdit,#RelyIDEdit{
+QLineEdit#SIIDEdit,#SIRelyIDEdit{
     font: 75 14pt "微软雅黑";
     font-weight: bold;
     padding:3px;
@@ -114,14 +114,14 @@ QLineEdit#IDEdit,#RelyIDEdit{
     background:#484848;
 }
 
-QLabel#IDLabel,#RelyIDLabel{
+QLabel#SIIDLabel,#SIRelyIDLabel{
     font: 75 13pt "微软雅黑";
     font-weight: bold;
     background:#484848;
     color: rgb(255, 255, 255);
 }
 
-QLabel#SVNLabel,#OutputLabel{
-    font: 75 10pt "微软雅黑";
+QLabel#SISVNLabel,#SIOutputLabel{
+    font: 75 8pt "微软雅黑";
     background:#484848;
 }

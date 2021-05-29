@@ -186,3 +186,24 @@ void SIFormMethod::ShowTableView(const QStringList message, const unsigned int f
 {
     QLogHelper::instance()->LogInfo("SIFormMethod->ShowTableView() 函数执行!");
 }
+
+/**
+ * @def 处理文件搜索内容相关操作
+ * @brief SIFormMethod::SelectDirSlot
+ * @param label
+ * @param objectDir
+ */
+void SIFormMethod::SelectDirSlot(QLabel *label, QString *objectDir)
+{
+    QLogHelper::instance()->LogInfo("SIFormMethod->SelectDirSlot() 函数执行!");
+    QString dirName =  QFileDialog::getExistingDirectory(label, tr("Open Directory"),siFormBean->getCommonMethod()->desktopDirPath,QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+    if (dirName.isEmpty()) {
+        label->setStyleSheet(QString(errFontColor));
+        QMessageBox::warning(label, "Warn", tr("No directory selected!"));
+        return;
+    }
+    label->setStyleSheet(QString(nomFontColor));
+    label->setText(dirName);
+    *objectDir=dirName;
+}
+

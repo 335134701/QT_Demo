@@ -11,8 +11,9 @@
  * @brief The RestParameter enum
  */
 enum RestParameter{
-    RET_ID      =   1,
-    RET_PATH    =   2
+    RET_ID                  =   1,
+    RET_SVNFilePath         =   2,
+    RET_OutPutFilePath      =   3
 };
 
 /**

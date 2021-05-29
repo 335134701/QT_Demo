@@ -39,15 +39,17 @@ signals:
 
     void ShowMessageProcessSignal(const unsigned int flag, const unsigned int Log_Flag);
 
+    void SelectDirSignal(QLabel *label,QString *objectDir);
+
 private slots:
 
-    void on_SVNButton_clicked();
+    void on_SIIDEdit_editingFinished();
 
-    void on_IDEdit_editingFinished();
+    void on_SIRelyIDEdit_editingFinished();
 
-    void on_RelyIDEdit_editingFinished();
+    void on_SISVNButton_clicked();
 
-    void on_OutputButton_clicked();
+    void on_SIOutputButton_clicked();
 
 private:
     Ui::SIForm *ui;

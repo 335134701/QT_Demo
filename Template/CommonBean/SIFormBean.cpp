@@ -200,8 +200,11 @@ void SIFormBean::ResetParameter(unsigned int flag)
         SWFilePath=new QString();
         CarInfoFilePath=new QString();
         break;
-    case RET_PATH:
-
+    case RET_SVNFilePath:
+        SVNDirPath=new QString();
+        break;
+    case RET_OutPutFilePath:
+        OutputDirPath=new QString();
         break;
     default:
         break;

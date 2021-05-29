@@ -3,6 +3,8 @@
 
 #include <QObject>
 #include <QLineEdit>
+#include <QFileDialog>
+#include <QLabel>
 #include "COMMONDEFINE.h"
 #include "SIFormBean.h"
 #include "LogFormMetod.h"
@@ -40,6 +42,8 @@ public slots:
     void JudgeIDTypeSlot(QLineEdit *Edit,QString *srcobject,QString *desobject);
 
     void ShowMessageProcessSlot(const unsigned int flag, const unsigned int Log_Flag);
+
+    void SelectDirSlot(QLabel *label,QString *objectDir);
 
 private :
 

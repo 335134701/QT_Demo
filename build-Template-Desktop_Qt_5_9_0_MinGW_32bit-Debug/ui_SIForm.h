@@ -30,16 +30,16 @@ public:
     QWidget *SITableWidget;
     QWidget *SIMemuWidget;
     QGridLayout *gridLayout_2;
-    QPushButton *OutputButton;
-    QPushButton *SVNButton;
-    QLabel *IDLabel;
-    QLineEdit *IDEdit;
-    QLabel *RelyIDLabel;
-    QLineEdit *RelyIDEdit;
-    QLabel *SVNLabel;
-    QSpacerItem *verticalSpacer;
-    QLabel *OutputLabel;
-    QSpacerItem *horizontalSpacer;
+    QPushButton *SIOutputButton;
+    QPushButton *SISVNButton;
+    QLabel *SIIDLabel;
+    QLineEdit *SIIDEdit;
+    QLabel *SIRelyIDLabel;
+    QLineEdit *SIRelyIDEdit;
+    QLabel *SISVNLabel;
+    QSpacerItem *SIverticalSpacer;
+    QLabel *SIOutputLabel;
+    QSpacerItem *SIhorizontalSpacer;
     QPushButton *SIFileCompression;
     QPushButton *SIPretreatmentButton;
     QPushButton *SIFileSearchButton;
@@ -69,72 +69,72 @@ public:
         SIMemuWidget->setObjectName(QStringLiteral("SIMemuWidget"));
         sizePolicy.setHeightForWidth(SIMemuWidget->sizePolicy().hasHeightForWidth());
         SIMemuWidget->setSizePolicy(sizePolicy);
-        SIMemuWidget->setMinimumSize(QSize(200, 0));
-        SIMemuWidget->setMaximumSize(QSize(400, 16777215));
+        SIMemuWidget->setMinimumSize(QSize(350, 0));
+        SIMemuWidget->setMaximumSize(QSize(550, 16777215));
         gridLayout_2 = new QGridLayout(SIMemuWidget);
         gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
         gridLayout_2->setHorizontalSpacing(10);
         gridLayout_2->setVerticalSpacing(20);
         gridLayout_2->setContentsMargins(20, 30, 10, 10);
-        OutputButton = new QPushButton(SIMemuWidget);
-        OutputButton->setObjectName(QStringLiteral("OutputButton"));
+        SIOutputButton = new QPushButton(SIMemuWidget);
+        SIOutputButton->setObjectName(QStringLiteral("SIOutputButton"));
 
-        gridLayout_2->addWidget(OutputButton, 3, 0, 1, 1);
+        gridLayout_2->addWidget(SIOutputButton, 3, 0, 1, 1);
 
-        SVNButton = new QPushButton(SIMemuWidget);
-        SVNButton->setObjectName(QStringLiteral("SVNButton"));
+        SISVNButton = new QPushButton(SIMemuWidget);
+        SISVNButton->setObjectName(QStringLiteral("SISVNButton"));
 
-        gridLayout_2->addWidget(SVNButton, 2, 0, 1, 1);
+        gridLayout_2->addWidget(SISVNButton, 2, 0, 1, 1);
 
-        IDLabel = new QLabel(SIMemuWidget);
-        IDLabel->setObjectName(QStringLiteral("IDLabel"));
-        IDLabel->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+        SIIDLabel = new QLabel(SIMemuWidget);
+        SIIDLabel->setObjectName(QStringLiteral("SIIDLabel"));
+        SIIDLabel->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout_2->addWidget(IDLabel, 0, 0, 1, 1);
+        gridLayout_2->addWidget(SIIDLabel, 0, 0, 1, 1);
 
-        IDEdit = new QLineEdit(SIMemuWidget);
-        IDEdit->setObjectName(QStringLiteral("IDEdit"));
+        SIIDEdit = new QLineEdit(SIMemuWidget);
+        SIIDEdit->setObjectName(QStringLiteral("SIIDEdit"));
         QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Preferred);
         sizePolicy1.setHorizontalStretch(0);
         sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(IDEdit->sizePolicy().hasHeightForWidth());
-        IDEdit->setSizePolicy(sizePolicy1);
-        IDEdit->setMaximumSize(QSize(120, 16777215));
-        IDEdit->setStyleSheet(QStringLiteral(""));
-        IDEdit->setMaxLength(8);
+        sizePolicy1.setHeightForWidth(SIIDEdit->sizePolicy().hasHeightForWidth());
+        SIIDEdit->setSizePolicy(sizePolicy1);
+        SIIDEdit->setMaximumSize(QSize(120, 16777215));
+        SIIDEdit->setStyleSheet(QStringLiteral(""));
+        SIIDEdit->setMaxLength(8);
 
-        gridLayout_2->addWidget(IDEdit, 0, 2, 1, 1);
+        gridLayout_2->addWidget(SIIDEdit, 0, 2, 1, 1);
 
-        RelyIDLabel = new QLabel(SIMemuWidget);
-        RelyIDLabel->setObjectName(QStringLiteral("RelyIDLabel"));
-        RelyIDLabel->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
+        SIRelyIDLabel = new QLabel(SIMemuWidget);
+        SIRelyIDLabel->setObjectName(QStringLiteral("SIRelyIDLabel"));
+        SIRelyIDLabel->setAlignment(Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter);
 
-        gridLayout_2->addWidget(RelyIDLabel, 1, 0, 1, 1);
+        gridLayout_2->addWidget(SIRelyIDLabel, 1, 0, 1, 1);
 
-        RelyIDEdit = new QLineEdit(SIMemuWidget);
-        RelyIDEdit->setObjectName(QStringLiteral("RelyIDEdit"));
-        RelyIDEdit->setMaximumSize(QSize(120, 16777215));
-        RelyIDEdit->setMaxLength(8);
+        SIRelyIDEdit = new QLineEdit(SIMemuWidget);
+        SIRelyIDEdit->setObjectName(QStringLiteral("SIRelyIDEdit"));
+        SIRelyIDEdit->setMaximumSize(QSize(120, 16777215));
+        SIRelyIDEdit->setMaxLength(8);
 
-        gridLayout_2->addWidget(RelyIDEdit, 1, 2, 1, 1);
+        gridLayout_2->addWidget(SIRelyIDEdit, 1, 2, 1, 1);
 
-        SVNLabel = new QLabel(SIMemuWidget);
-        SVNLabel->setObjectName(QStringLiteral("SVNLabel"));
+        SISVNLabel = new QLabel(SIMemuWidget);
+        SISVNLabel->setObjectName(QStringLiteral("SISVNLabel"));
 
-        gridLayout_2->addWidget(SVNLabel, 2, 2, 1, 1);
+        gridLayout_2->addWidget(SISVNLabel, 2, 2, 1, 1);
 
-        verticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        SIverticalSpacer = new QSpacerItem(20, 40, QSizePolicy::Minimum, QSizePolicy::Expanding);
 
-        gridLayout_2->addItem(verticalSpacer, 4, 0, 1, 1);
+        gridLayout_2->addItem(SIverticalSpacer, 4, 0, 1, 1);
 
-        OutputLabel = new QLabel(SIMemuWidget);
-        OutputLabel->setObjectName(QStringLiteral("OutputLabel"));
+        SIOutputLabel = new QLabel(SIMemuWidget);
+        SIOutputLabel->setObjectName(QStringLiteral("SIOutputLabel"));
 
-        gridLayout_2->addWidget(OutputLabel, 3, 2, 1, 1);
+        gridLayout_2->addWidget(SIOutputLabel, 3, 2, 1, 1);
 
-        horizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
+        SIhorizontalSpacer = new QSpacerItem(40, 20, QSizePolicy::Expanding, QSizePolicy::Minimum);
 
-        gridLayout_2->addItem(horizontalSpacer, 2, 3, 1, 1);
+        gridLayout_2->addItem(SIhorizontalSpacer, 2, 3, 1, 1);
 
 
         gridLayout->addWidget(SIMemuWidget, 0, 0, 1, 1);
@@ -172,12 +172,12 @@ public:
     void retranslateUi(QWidget *SIForm)
     {
         SIForm->setWindowTitle(QApplication::translate("SIForm", "Form", Q_NULLPTR));
-        OutputButton->setText(QApplication::translate("SIForm", "\350\276\223\345\207\272\350\267\257\345\276\204", Q_NULLPTR));
-        SVNButton->setText(QApplication::translate("SIForm", "SVN\350\267\257\345\276\204", Q_NULLPTR));
-        IDLabel->setText(QApplication::translate("SIForm", "\346\234\272\347\247\215\347\225\252\345\217\267:", Q_NULLPTR));
-        RelyIDLabel->setText(QApplication::translate("SIForm", "\344\276\235\350\265\226\346\234\272\347\247\215\347\225\252\345\217\267:", Q_NULLPTR));
-        SVNLabel->setText(QString());
-        OutputLabel->setText(QString());
+        SIOutputButton->setText(QApplication::translate("SIForm", "\350\276\223\345\207\272\350\267\257\345\276\204", Q_NULLPTR));
+        SISVNButton->setText(QApplication::translate("SIForm", "SVN\350\267\257\345\276\204", Q_NULLPTR));
+        SIIDLabel->setText(QApplication::translate("SIForm", "\346\234\272\347\247\215\347\225\252\345\217\267:", Q_NULLPTR));
+        SIRelyIDLabel->setText(QApplication::translate("SIForm", "\344\276\235\350\265\226\346\234\272\347\247\215\347\225\252\345\217\267:", Q_NULLPTR));
+        SISVNLabel->setText(QString());
+        SIOutputLabel->setText(QString());
         SIFileCompression->setText(QApplication::translate("SIForm", "SI\346\226\207\344\273\266\345\216\213\347\274\251", Q_NULLPTR));
         SIPretreatmentButton->setText(QApplication::translate("SIForm", "SI\351\242\204\345\244\204\347\220\206", Q_NULLPTR));
         SIFileSearchButton->setText(QApplication::translate("SIForm", "SI\346\226\207\344\273\266\346\243\200\347\264\242", Q_NULLPTR));

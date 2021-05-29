@@ -32,16 +32,42 @@
    <property name="verticalSpacing">
     <number>10</number>
    </property>
-   <item row="0" column="1" rowspan="6">
-    <widget class="QWidget" name="SITableWidget" native="true">
+   <item row="3" column="0">
+    <widget class="QPushButton" name="SIPretreatmentButton">
      <property name="sizePolicy">
-      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
-     <property name="styleSheet">
-      <string notr="true"/>
+     <property name="text">
+      <string>SI预处理</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0">
+    <widget class="QPushButton" name="SIFileCompression">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="text">
+      <string>SI文件压缩</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0" rowspan="2">
+    <widget class="QPushButton" name="SIFileSearchButton">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="text">
+      <string>SI文件检索</string>
      </property>
     </widget>
    </item>
@@ -55,13 +81,13 @@
      </property>
      <property name="minimumSize">
       <size>
-       <width>200</width>
+       <width>350</width>
        <height>0</height>
       </size>
      </property>
      <property name="maximumSize">
       <size>
-       <width>400</width>
+       <width>550</width>
        <height>16777215</height>
       </size>
      </property>
@@ -85,21 +111,21 @@
        <number>20</number>
       </property>
       <item row="3" column="0">
-       <widget class="QPushButton" name="OutputButton">
+       <widget class="QPushButton" name="SIOutputButton">
         <property name="text">
          <string>输出路径</string>
         </property>
        </widget>
       </item>
       <item row="2" column="0">
-       <widget class="QPushButton" name="SVNButton">
+       <widget class="QPushButton" name="SISVNButton">
         <property name="text">
          <string>SVN路径</string>
         </property>
        </widget>
       </item>
       <item row="0" column="0">
-       <widget class="QLabel" name="IDLabel">
+       <widget class="QLabel" name="SIIDLabel">
         <property name="text">
          <string>机种番号:</string>
         </property>
@@ -109,7 +135,7 @@
        </widget>
       </item>
       <item row="0" column="2">
-       <widget class="QLineEdit" name="IDEdit">
+       <widget class="QLineEdit" name="SIIDEdit">
         <property name="sizePolicy">
          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
           <horstretch>0</horstretch>
@@ -131,7 +157,7 @@
        </widget>
       </item>
       <item row="1" column="0">
-       <widget class="QLabel" name="RelyIDLabel">
+       <widget class="QLabel" name="SIRelyIDLabel">
         <property name="text">
          <string>依赖机种番号:</string>
         </property>
@@ -141,7 +167,7 @@
        </widget>
       </item>
       <item row="1" column="2">
-       <widget class="QLineEdit" name="RelyIDEdit">
+       <widget class="QLineEdit" name="SIRelyIDEdit">
         <property name="maximumSize">
          <size>
           <width>120</width>
@@ -154,14 +180,14 @@
        </widget>
       </item>
       <item row="2" column="2">
-       <widget class="QLabel" name="SVNLabel">
+       <widget class="QLabel" name="SISVNLabel">
         <property name="text">
          <string/>
         </property>
        </widget>
       </item>
       <item row="4" column="0">
-       <spacer name="verticalSpacer">
+       <spacer name="SIverticalSpacer">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
         </property>
@@ -174,14 +200,14 @@
        </spacer>
       </item>
       <item row="3" column="2">
-       <widget class="QLabel" name="OutputLabel">
+       <widget class="QLabel" name="SIOutputLabel">
         <property name="text">
          <string/>
         </property>
        </widget>
       </item>
       <item row="2" column="3">
-       <spacer name="horizontalSpacer">
+       <spacer name="SIhorizontalSpacer">
         <property name="orientation">
          <enum>Qt::Horizontal</enum>
         </property>
@@ -196,42 +222,16 @@
      </layout>
     </widget>
    </item>
-   <item row="4" column="0">
-    <widget class="QPushButton" name="SIFileCompression">
+   <item row="0" column="1" rowspan="6">
+    <widget class="QWidget" name="SITableWidget" native="true">
      <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+      <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
        <horstretch>0</horstretch>
        <verstretch>0</verstretch>
       </sizepolicy>
      </property>
-     <property name="text">
-      <string>SI文件压缩</string>
-     </property>
-    </widget>
-   </item>
-   <item row="3" column="0">
-    <widget class="QPushButton" name="SIPretreatmentButton">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>SI预处理</string>
-     </property>
-    </widget>
-   </item>
-   <item row="1" column="0" rowspan="2">
-    <widget class="QPushButton" name="SIFileSearchButton">
-     <property name="sizePolicy">
-      <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
-       <horstretch>0</horstretch>
-       <verstretch>0</verstretch>
-      </sizepolicy>
-     </property>
-     <property name="text">
-      <string>SI文件检索</string>
+     <property name="styleSheet">
+      <string notr="true"/>
      </property>
     </widget>
    </item>

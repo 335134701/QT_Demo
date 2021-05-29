@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_SIForm_t {
-    QByteArrayData data[21];
-    char stringdata0[276];
+    QByteArrayData data[26];
+    char stringdata0[391];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -48,19 +48,28 @@ QT_MOC_LITERAL(13, 127, 15), // "SelectDirSignal"
 QT_MOC_LITERAL(14, 143, 7), // "QLabel*"
 QT_MOC_LITERAL(15, 151, 5), // "label"
 QT_MOC_LITERAL(16, 157, 9), // "objectDir"
-QT_MOC_LITERAL(17, 167, 27), // "on_SIIDEdit_editingFinished"
-QT_MOC_LITERAL(18, 195, 31), // "on_SIRelyIDEdit_editingFinished"
-QT_MOC_LITERAL(19, 227, 22), // "on_SISVNButton_clicked"
-QT_MOC_LITERAL(20, 250, 25) // "on_SIOutputButton_clicked"
+QT_MOC_LITERAL(17, 167, 16), // "SearchFileSignal"
+QT_MOC_LITERAL(18, 184, 6), // "isGoON"
+QT_MOC_LITERAL(19, 191, 27), // "on_SIIDEdit_editingFinished"
+QT_MOC_LITERAL(20, 219, 31), // "on_SIRelyIDEdit_editingFinished"
+QT_MOC_LITERAL(21, 251, 22), // "on_SISVNButton_clicked"
+QT_MOC_LITERAL(22, 274, 25), // "on_SIOutputButton_clicked"
+QT_MOC_LITERAL(23, 300, 29), // "on_SIFileSearchButton_clicked"
+QT_MOC_LITERAL(24, 330, 31), // "on_SIPretreatmentButton_clicked"
+QT_MOC_LITERAL(25, 362, 28) // "on_SIFileCompression_clicked"
 
     },
     "SIForm\0JudgeIDSignal\0\0QLineEdit*\0Edit\0"
     "QString*\0ID\0JudgeIDTypeSignal\0srcobject\0"
     "desobject\0ShowMessageProcessSignal\0"
     "flag\0Log_Flag\0SelectDirSignal\0QLabel*\0"
-    "label\0objectDir\0on_SIIDEdit_editingFinished\0"
+    "label\0objectDir\0SearchFileSignal\0"
+    "isGoON\0on_SIIDEdit_editingFinished\0"
     "on_SIRelyIDEdit_editingFinished\0"
-    "on_SISVNButton_clicked\0on_SIOutputButton_clicked"
+    "on_SISVNButton_clicked\0on_SIOutputButton_clicked\0"
+    "on_SIFileSearchButton_clicked\0"
+    "on_SIPretreatmentButton_clicked\0"
+    "on_SIFileCompression_clicked"
 };
 #undef QT_MOC_LITERAL
 
@@ -70,32 +79,40 @@ static const uint qt_meta_data_SIForm[] = {
        7,       // revision
        0,       // classname
        0,    0, // classinfo
-       8,   14, // methods
+      12,   14, // methods
        0,    0, // properties
        0,    0, // enums/sets
        0,    0, // constructors
        0,       // flags
-       4,       // signalCount
+       5,       // signalCount
 
  // signals: name, argc, parameters, tag, flags
-       1,    2,   54,    2, 0x06 /* Public */,
-       7,    3,   59,    2, 0x06 /* Public */,
-      10,    2,   66,    2, 0x06 /* Public */,
-      13,    2,   71,    2, 0x06 /* Public */,
+       1,    2,   74,    2, 0x06 /* Public */,
+       7,    3,   79,    2, 0x06 /* Public */,
+      10,    2,   86,    2, 0x06 /* Public */,
+      13,    2,   91,    2, 0x06 /* Public */,
+      17,    2,   96,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      17,    0,   76,    2, 0x08 /* Private */,
-      18,    0,   77,    2, 0x08 /* Private */,
-      19,    0,   78,    2, 0x08 /* Private */,
-      20,    0,   79,    2, 0x08 /* Private */,
+      19,    0,  101,    2, 0x08 /* Private */,
+      20,    0,  102,    2, 0x08 /* Private */,
+      21,    0,  103,    2, 0x08 /* Private */,
+      22,    0,  104,    2, 0x08 /* Private */,
+      23,    0,  105,    2, 0x08 /* Private */,
+      24,    0,  106,    2, 0x08 /* Private */,
+      25,    0,  107,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3, 0x80000000 | 5,    4,    6,
     QMetaType::Void, 0x80000000 | 3, 0x80000000 | 5, 0x80000000 | 5,    4,    8,    9,
     QMetaType::Void, QMetaType::UInt, QMetaType::UInt,   11,   12,
     QMetaType::Void, 0x80000000 | 14, 0x80000000 | 5,   15,   16,
+    QMetaType::Void, QMetaType::UInt, QMetaType::Bool,   11,   18,
 
  // slots: parameters
+    QMetaType::Void,
+    QMetaType::Void,
+    QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
@@ -114,10 +131,14 @@ void SIForm::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
         case 1: _t->JudgeIDTypeSignal((*reinterpret_cast< QLineEdit*(*)>(_a[1])),(*reinterpret_cast< QString*(*)>(_a[2])),(*reinterpret_cast< QString*(*)>(_a[3]))); break;
         case 2: _t->ShowMessageProcessSignal((*reinterpret_cast< const uint(*)>(_a[1])),(*reinterpret_cast< const uint(*)>(_a[2]))); break;
         case 3: _t->SelectDirSignal((*reinterpret_cast< QLabel*(*)>(_a[1])),(*reinterpret_cast< QString*(*)>(_a[2]))); break;
-        case 4: _t->on_SIIDEdit_editingFinished(); break;
-        case 5: _t->on_SIRelyIDEdit_editingFinished(); break;
-        case 6: _t->on_SISVNButton_clicked(); break;
-        case 7: _t->on_SIOutputButton_clicked(); break;
+        case 4: _t->SearchFileSignal((*reinterpret_cast< uint(*)>(_a[1])),(*reinterpret_cast< bool(*)>(_a[2]))); break;
+        case 5: _t->on_SIIDEdit_editingFinished(); break;
+        case 6: _t->on_SIRelyIDEdit_editingFinished(); break;
+        case 7: _t->on_SISVNButton_clicked(); break;
+        case 8: _t->on_SIOutputButton_clicked(); break;
+        case 9: _t->on_SIFileSearchButton_clicked(); break;
+        case 10: _t->on_SIPretreatmentButton_clicked(); break;
+        case 11: _t->on_SIFileCompression_clicked(); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
@@ -176,6 +197,13 @@ void SIForm::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
                 return;
             }
         }
+        {
+            typedef void (SIForm::*_t)(unsigned int , bool );
+            if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&SIForm::SearchFileSignal)) {
+                *result = 4;
+                return;
+            }
+        }
     }
 }
 
@@ -204,13 +232,13 @@ int SIForm::qt_metacall(QMetaObject::Call _c, int _id, void **_a)
     if (_id < 0)
         return _id;
     if (_c == QMetaObject::InvokeMetaMethod) {
-        if (_id < 8)
+        if (_id < 12)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 8;
+        _id -= 12;
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {
-        if (_id < 8)
+        if (_id < 12)
             qt_static_metacall(this, _c, _id, _a);
-        _id -= 8;
+        _id -= 12;
     }
     return _id;
 }
@@ -241,6 +269,13 @@ void SIForm::SelectDirSignal(QLabel * _t1, QString * _t2)
 {
     void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)) };
     QMetaObject::activate(this, &staticMetaObject, 3, _a);
+}
+
+// SIGNAL 4
+void SIForm::SearchFileSignal(unsigned int _t1, bool _t2)
+{
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)) };
+    QMetaObject::activate(this, &staticMetaObject, 4, _a);
 }
 QT_WARNING_POP
 QT_END_MOC_NAMESPACE

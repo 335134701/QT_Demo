@@ -41,6 +41,9 @@ signals:
 
     void SelectDirSignal(QLabel *label,QString *objectDir);
 
+    void SearchFileSignal(unsigned int flag, bool isGoON);
+
+
 private slots:
 
     void on_SIIDEdit_editingFinished();
@@ -50,6 +53,13 @@ private slots:
     void on_SISVNButton_clicked();
 
     void on_SIOutputButton_clicked();
+
+    void on_SIFileSearchButton_clicked();
+
+    void on_SIPretreatmentButton_clicked();
+
+    void on_SIFileCompression_clicked();
+
 
 private:
     Ui::SIForm *ui;
@@ -65,7 +75,7 @@ private:
     void Init();
 
     void ConnectSlot();
-    
+
     bool PromptInformation();
 };
 

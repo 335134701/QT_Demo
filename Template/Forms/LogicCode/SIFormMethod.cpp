@@ -188,7 +188,7 @@ void SIFormMethod::ShowTableView(const QStringList message, const unsigned int f
 }
 
 /**
- * @def 处理文件搜索内容相关操作
+ * @def 处理路径选择相关操作
  * @brief SIFormMethod::SelectDirSlot
  * @param label
  * @param objectDir
@@ -206,4 +206,21 @@ void SIFormMethod::SelectDirSlot(QLabel *label, QString *objectDir)
     label->setText(dirName);
     *objectDir=dirName;
 }
+
+/**
+ * @def 处理文件搜索相关操作
+ * @brief SIFormMethod::SearchFileSlot
+ * @param flag
+ * @param isGoON
+ */
+void SIFormMethod::SearchFileSlot(unsigned int flag, bool isGoON)
+{
+    QLogHelper::instance()->LogInfo("SIFormMethod->SearchFileSlot() 函数执行!");
+    //校验SVN路径是否存在
+    if(!QDir(siFormBean->getSVNDirPath()).exists()){return;}
+    //文件检索过滤器
+    QStringList filters;
+
+}
+
 

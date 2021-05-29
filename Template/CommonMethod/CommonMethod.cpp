@@ -22,6 +22,18 @@ QString CommonMethod::Get7zInstallPath()
 }
 
 /**
+ * @def 获取本机svn程序安装位置
+ * @brief CommonMethod::GetSVNInstallPath
+ * @return
+ */
+QString CommonMethod::GetSVNInstallPath()
+{
+    QLogHelper::instance()->LogInfo("CommonMethod->GetSVNInstallPath() 函数执行!");
+    QSettings settings("HKEY_LOCAL_MACHINE\\SOFTWARE\\WOW6432Node\\7-Zip",QSettings::NativeFormat);
+    return settings.value("Path").toString()+"7z.exe";
+}
+
+/**
  * @def 判断机种类型
  *      根据ID字符串，第三四位字符判断
  * @brief CommonMethod::JudgeIDType

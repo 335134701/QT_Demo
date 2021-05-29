@@ -568,6 +568,10 @@ debug/moc_SIForm.cpp: D:/QT/5.9/mingw53_32/include/QtWidgets/QWidget \
 		D:/QT/5.9/mingw53_32/include/QtGui/qtextformat.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qpen.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qtextoption.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QFileDialog \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qfiledialog.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QLabel \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qlabel.h \
 		../Template/Forms/LogicCode/LogFormMetod.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QStringListModel \
 		D:/QT/5.9/mingw53_32/include/QtCore/qstringlistmodel.h \
@@ -579,6 +583,7 @@ debug/moc_SIForm.cpp: D:/QT/5.9/mingw53_32/include/QtWidgets/QWidget \
 		D:/QT/5.9/mingw53_32/include/QtGui/qtextdocument.h \
 		../Template/CommonMethod/SIForm/ExcelOperateThread.h \
 		../Template/CommonMethod/SIForm/FileOperateThread.h \
+		../Template/Forms/UICode/SIForm.h \
 		../Template/Forms/UICode/SIForm.h \
 		debug/moc_predefs.h \
 		D:/QT/5.9/mingw53_32/bin/moc.exe
@@ -1319,17 +1324,22 @@ debug/moc_SIFormMethod.cpp: D:/QT/5.9/mingw53_32/include/QtCore/QObject \
 		D:/QT/5.9/mingw53_32/include/QtGui/qtextformat.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qpen.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qtextoption.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QFileDialog \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qfiledialog.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qdir.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qfileinfo.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qdialog.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QLabel \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qlabel.h \
 		../Template/COMMONDEFINE.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/QMessageBox \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qmessagebox.h \
-		D:/QT/5.9/mingw53_32/include/QtWidgets/qdialog.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QDebug \
 		D:/QT/5.9/mingw53_32/include/QtCore/QDateTime \
 		D:/QT/5.9/mingw53_32/include/QtCore/qdatetime.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QMap \
 		../Template/QLog/QLoghelper.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QFileInfo \
-		D:/QT/5.9/mingw53_32/include/QtCore/qfileinfo.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/QApplication \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qapplication.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qcoreapplication.h \
@@ -1338,7 +1348,6 @@ debug/moc_SIFormMethod.cpp: D:/QT/5.9/mingw53_32/include/QtCore/QObject \
 		D:/QT/5.9/mingw53_32/include/QtGui/qguiapplication.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qinputmethod.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QDir \
-		D:/QT/5.9/mingw53_32/include/QtCore/qdir.h \
 		../Template/QLog/log4qt/logger.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QAtomicPointer \
 		D:/QT/5.9/mingw53_32/include/QtCore/QList \
@@ -1375,6 +1384,9 @@ debug/moc_SIFormMethod.cpp: D:/QT/5.9/mingw53_32/include/QtCore/QObject \
 		D:/QT/5.9/mingw53_32/include/QtGui/qtextdocument.h \
 		../Template/CommonMethod/SIForm/ExcelOperateThread.h \
 		../Template/CommonMethod/SIForm/FileOperateThread.h \
+		../Template/Forms/UICode/SIForm.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QWidget \
+		../Template/Forms/LogicCode/SIFormMethod.h \
 		../Template/Forms/LogicCode/SIFormMethod.h \
 		debug/moc_predefs.h \
 		D:/QT/5.9/mingw53_32/bin/moc.exe
@@ -4356,6 +4368,10 @@ ui_MainForm.h: ../Template/Forms/MainForm.ui \
 		D:/QT/5.9/mingw53_32/include/QtGui/qtextformat.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qpen.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qtextoption.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QFileDialog \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qfiledialog.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QLabel \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qlabel.h \
 		../Template/Forms/LogicCode/LogFormMetod.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QStringListModel \
 		D:/QT/5.9/mingw53_32/include/QtCore/qstringlistmodel.h \
@@ -4367,6 +4383,7 @@ ui_MainForm.h: ../Template/Forms/MainForm.ui \
 		D:/QT/5.9/mingw53_32/include/QtGui/qtextdocument.h \
 		../Template/CommonMethod/SIForm/ExcelOperateThread.h \
 		../Template/CommonMethod/SIForm/FileOperateThread.h \
+		../Template/Forms/UICode/SIForm.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/QWidget \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qwidget.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qtwidgetsglobal.h \
@@ -5004,6 +5021,10 @@ debug/SIForm.o: ../Template/Forms/UICode/SIForm.cpp ../Template/Forms/UICode/SIF
 		D:/QT/5.9/mingw53_32/include/QtGui/qtextformat.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qpen.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qtextoption.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QFileDialog \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qfiledialog.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QLabel \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qlabel.h \
 		../Template/Forms/LogicCode/LogFormMetod.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QStringListModel \
 		D:/QT/5.9/mingw53_32/include/QtCore/qstringlistmodel.h \
@@ -5597,17 +5618,22 @@ debug/SIFormMethod.o: ../Template/Forms/LogicCode/SIFormMethod.cpp ../Template/F
 		D:/QT/5.9/mingw53_32/include/QtGui/qtextformat.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qpen.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qtextoption.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QFileDialog \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qfiledialog.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qdir.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qfileinfo.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qdialog.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QLabel \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qlabel.h \
 		../Template/COMMONDEFINE.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/QMessageBox \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qmessagebox.h \
-		D:/QT/5.9/mingw53_32/include/QtWidgets/qdialog.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QDebug \
 		D:/QT/5.9/mingw53_32/include/QtCore/QDateTime \
 		D:/QT/5.9/mingw53_32/include/QtCore/qdatetime.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QMap \
 		../Template/QLog/QLoghelper.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QFileInfo \
-		D:/QT/5.9/mingw53_32/include/QtCore/qfileinfo.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/QApplication \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qapplication.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qcoreapplication.h \
@@ -5616,7 +5642,6 @@ debug/SIFormMethod.o: ../Template/Forms/LogicCode/SIFormMethod.cpp ../Template/F
 		D:/QT/5.9/mingw53_32/include/QtGui/qguiapplication.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qinputmethod.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QDir \
-		D:/QT/5.9/mingw53_32/include/QtCore/qdir.h \
 		../Template/QLog/log4qt/logger.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QAtomicPointer \
 		D:/QT/5.9/mingw53_32/include/QtCore/QList \
@@ -5652,7 +5677,9 @@ debug/SIFormMethod.o: ../Template/Forms/LogicCode/SIFormMethod.cpp ../Template/F
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qabstractscrollarea.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qtextdocument.h \
 		../Template/CommonMethod/SIForm/ExcelOperateThread.h \
-		../Template/CommonMethod/SIForm/FileOperateThread.h
+		../Template/CommonMethod/SIForm/FileOperateThread.h \
+		../Template/Forms/UICode/SIForm.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QWidget
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\SIFormMethod.o ..\Template\Forms\LogicCode\SIFormMethod.cpp
 
 debug/QLoghelper.o: ../Template/QLog/QLoghelper.cpp ../Template/QLog/QLogHelper.h \

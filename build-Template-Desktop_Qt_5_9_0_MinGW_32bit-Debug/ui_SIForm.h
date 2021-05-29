@@ -27,7 +27,9 @@ class Ui_SIForm
 {
 public:
     QGridLayout *gridLayout;
-    QWidget *SITableWidget;
+    QPushButton *SIPretreatmentButton;
+    QPushButton *SIFileCompression;
+    QPushButton *SIFileSearchButton;
     QWidget *SIMemuWidget;
     QGridLayout *gridLayout_2;
     QPushButton *SIOutputButton;
@@ -40,9 +42,7 @@ public:
     QSpacerItem *SIverticalSpacer;
     QLabel *SIOutputLabel;
     QSpacerItem *SIhorizontalSpacer;
-    QPushButton *SIFileCompression;
-    QPushButton *SIPretreatmentButton;
-    QPushButton *SIFileSearchButton;
+    QWidget *SITableWidget;
 
     void setupUi(QWidget *SIForm)
     {
@@ -54,21 +54,37 @@ public:
         gridLayout->setHorizontalSpacing(15);
         gridLayout->setVerticalSpacing(10);
         gridLayout->setContentsMargins(5, 5, 5, 5);
-        SITableWidget = new QWidget(SIForm);
-        SITableWidget->setObjectName(QStringLiteral("SITableWidget"));
-        QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        SIPretreatmentButton = new QPushButton(SIForm);
+        SIPretreatmentButton->setObjectName(QStringLiteral("SIPretreatmentButton"));
+        QSizePolicy sizePolicy(QSizePolicy::Minimum, QSizePolicy::Fixed);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(SITableWidget->sizePolicy().hasHeightForWidth());
-        SITableWidget->setSizePolicy(sizePolicy);
-        SITableWidget->setStyleSheet(QStringLiteral(""));
+        sizePolicy.setHeightForWidth(SIPretreatmentButton->sizePolicy().hasHeightForWidth());
+        SIPretreatmentButton->setSizePolicy(sizePolicy);
 
-        gridLayout->addWidget(SITableWidget, 0, 1, 6, 1);
+        gridLayout->addWidget(SIPretreatmentButton, 3, 0, 1, 1);
+
+        SIFileCompression = new QPushButton(SIForm);
+        SIFileCompression->setObjectName(QStringLiteral("SIFileCompression"));
+        sizePolicy.setHeightForWidth(SIFileCompression->sizePolicy().hasHeightForWidth());
+        SIFileCompression->setSizePolicy(sizePolicy);
+
+        gridLayout->addWidget(SIFileCompression, 4, 0, 1, 1);
+
+        SIFileSearchButton = new QPushButton(SIForm);
+        SIFileSearchButton->setObjectName(QStringLiteral("SIFileSearchButton"));
+        sizePolicy.setHeightForWidth(SIFileSearchButton->sizePolicy().hasHeightForWidth());
+        SIFileSearchButton->setSizePolicy(sizePolicy);
+
+        gridLayout->addWidget(SIFileSearchButton, 1, 0, 2, 1);
 
         SIMemuWidget = new QWidget(SIForm);
         SIMemuWidget->setObjectName(QStringLiteral("SIMemuWidget"));
-        sizePolicy.setHeightForWidth(SIMemuWidget->sizePolicy().hasHeightForWidth());
-        SIMemuWidget->setSizePolicy(sizePolicy);
+        QSizePolicy sizePolicy1(QSizePolicy::Expanding, QSizePolicy::Expanding);
+        sizePolicy1.setHorizontalStretch(0);
+        sizePolicy1.setVerticalStretch(0);
+        sizePolicy1.setHeightForWidth(SIMemuWidget->sizePolicy().hasHeightForWidth());
+        SIMemuWidget->setSizePolicy(sizePolicy1);
         SIMemuWidget->setMinimumSize(QSize(350, 0));
         SIMemuWidget->setMaximumSize(QSize(550, 16777215));
         gridLayout_2 = new QGridLayout(SIMemuWidget);
@@ -94,11 +110,11 @@ public:
 
         SIIDEdit = new QLineEdit(SIMemuWidget);
         SIIDEdit->setObjectName(QStringLiteral("SIIDEdit"));
-        QSizePolicy sizePolicy1(QSizePolicy::Preferred, QSizePolicy::Preferred);
-        sizePolicy1.setHorizontalStretch(0);
-        sizePolicy1.setVerticalStretch(0);
-        sizePolicy1.setHeightForWidth(SIIDEdit->sizePolicy().hasHeightForWidth());
-        SIIDEdit->setSizePolicy(sizePolicy1);
+        QSizePolicy sizePolicy2(QSizePolicy::Preferred, QSizePolicy::Preferred);
+        sizePolicy2.setHorizontalStretch(0);
+        sizePolicy2.setVerticalStretch(0);
+        sizePolicy2.setHeightForWidth(SIIDEdit->sizePolicy().hasHeightForWidth());
+        SIIDEdit->setSizePolicy(sizePolicy2);
         SIIDEdit->setMaximumSize(QSize(120, 16777215));
         SIIDEdit->setStyleSheet(QStringLiteral(""));
         SIIDEdit->setMaxLength(8);
@@ -139,29 +155,13 @@ public:
 
         gridLayout->addWidget(SIMemuWidget, 0, 0, 1, 1);
 
-        SIFileCompression = new QPushButton(SIForm);
-        SIFileCompression->setObjectName(QStringLiteral("SIFileCompression"));
-        QSizePolicy sizePolicy2(QSizePolicy::Minimum, QSizePolicy::Fixed);
-        sizePolicy2.setHorizontalStretch(0);
-        sizePolicy2.setVerticalStretch(0);
-        sizePolicy2.setHeightForWidth(SIFileCompression->sizePolicy().hasHeightForWidth());
-        SIFileCompression->setSizePolicy(sizePolicy2);
+        SITableWidget = new QWidget(SIForm);
+        SITableWidget->setObjectName(QStringLiteral("SITableWidget"));
+        sizePolicy1.setHeightForWidth(SITableWidget->sizePolicy().hasHeightForWidth());
+        SITableWidget->setSizePolicy(sizePolicy1);
+        SITableWidget->setStyleSheet(QStringLiteral(""));
 
-        gridLayout->addWidget(SIFileCompression, 4, 0, 1, 1);
-
-        SIPretreatmentButton = new QPushButton(SIForm);
-        SIPretreatmentButton->setObjectName(QStringLiteral("SIPretreatmentButton"));
-        sizePolicy2.setHeightForWidth(SIPretreatmentButton->sizePolicy().hasHeightForWidth());
-        SIPretreatmentButton->setSizePolicy(sizePolicy2);
-
-        gridLayout->addWidget(SIPretreatmentButton, 3, 0, 1, 1);
-
-        SIFileSearchButton = new QPushButton(SIForm);
-        SIFileSearchButton->setObjectName(QStringLiteral("SIFileSearchButton"));
-        sizePolicy2.setHeightForWidth(SIFileSearchButton->sizePolicy().hasHeightForWidth());
-        SIFileSearchButton->setSizePolicy(sizePolicy2);
-
-        gridLayout->addWidget(SIFileSearchButton, 1, 0, 2, 1);
+        gridLayout->addWidget(SITableWidget, 0, 1, 6, 1);
 
 
         retranslateUi(SIForm);
@@ -172,15 +172,15 @@ public:
     void retranslateUi(QWidget *SIForm)
     {
         SIForm->setWindowTitle(QApplication::translate("SIForm", "Form", Q_NULLPTR));
+        SIPretreatmentButton->setText(QApplication::translate("SIForm", "SI\351\242\204\345\244\204\347\220\206", Q_NULLPTR));
+        SIFileCompression->setText(QApplication::translate("SIForm", "SI\346\226\207\344\273\266\345\216\213\347\274\251", Q_NULLPTR));
+        SIFileSearchButton->setText(QApplication::translate("SIForm", "SI\346\226\207\344\273\266\346\243\200\347\264\242", Q_NULLPTR));
         SIOutputButton->setText(QApplication::translate("SIForm", "\350\276\223\345\207\272\350\267\257\345\276\204", Q_NULLPTR));
         SISVNButton->setText(QApplication::translate("SIForm", "SVN\350\267\257\345\276\204", Q_NULLPTR));
         SIIDLabel->setText(QApplication::translate("SIForm", "\346\234\272\347\247\215\347\225\252\345\217\267:", Q_NULLPTR));
         SIRelyIDLabel->setText(QApplication::translate("SIForm", "\344\276\235\350\265\226\346\234\272\347\247\215\347\225\252\345\217\267:", Q_NULLPTR));
         SISVNLabel->setText(QString());
         SIOutputLabel->setText(QString());
-        SIFileCompression->setText(QApplication::translate("SIForm", "SI\346\226\207\344\273\266\345\216\213\347\274\251", Q_NULLPTR));
-        SIPretreatmentButton->setText(QApplication::translate("SIForm", "SI\351\242\204\345\244\204\347\220\206", Q_NULLPTR));
-        SIFileSearchButton->setText(QApplication::translate("SIForm", "SI\346\226\207\344\273\266\346\243\200\347\264\242", Q_NULLPTR));
     } // retranslateUi
 
 };

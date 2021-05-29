@@ -110,6 +110,8 @@ void SIForm::ConnectSlot()
     connect(this,&SIForm::ShowMessageProcessSignal,this->siFormMethod,&SIFormMethod::ShowMessageProcessSlot);
     //路径处理相关槽函数
     connect(this,&SIForm::SelectDirSignal,this->siFormMethod,&SIFormMethod::SelectDirSlot);
+    //文件查找处理相关槽函数
+    connect(this,&SIForm::SearchFileSignal,this->siFormMethod,&SIFormMethod::SearchFileSlot);
     
 }
 
@@ -188,6 +190,39 @@ void SIForm::on_SIOutputButton_clicked()
 }
 
 /**
+ * @brief SIForm::on_SIFileSearchButton_clicked
+ */
+void SIForm::on_SIFileSearchButton_clicked()
+{
+     QLogHelper::instance()->LogInfo("SIForm->on_SIFileSearchButton_clicked() 函数触发执行!");
+     if(PromptInformation()){return;}
+     if(siFormBean->getSVNDirPath()->isEmpty()){
+         QMessageBox::warning(this,"Warn","未设置SVN路径,无法执行文件检索任务!");
+         return;
+     }
+     emit SearchFileSignal(RelyFileflag,false);
+}
+
+/**
+ * @brief SIForm::on_SIPretreatmentButton_clicked
+ */
+void SIForm::on_SIPretreatmentButton_clicked()
+{
+     QLogHelper::instance()->LogInfo("SIForm->on_SIPretreatmentButton_clicked() 函数触发执行!");
+     if(PromptInformation()){return;}
+}
+
+
+/**
+ * @brief SIForm::on_SIFileCompression_clicked
+ */
+void SIForm::on_SIFileCompression_clicked()
+{
+     QLogHelper::instance()->LogInfo("SIForm->on_SIFileCompression_clicked() 函数触发执行!");
+     if(PromptInformation()){return;}
+}
+
+/**
  * @def 执行某项操作时,其他操作不可执行提示
  *      关于 Statusflag 表示说明：
  *          0 表示无任何操作
@@ -219,3 +254,4 @@ bool SIForm::PromptInformation()
     }
     return false;
 }
+

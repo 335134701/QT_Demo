@@ -21,6 +21,8 @@ public:
 
     QString Get7zInstallPath();
 
+    QString GetSVNInstallPath();
+
     QString JudgeIDType(const QString ID);
 
 signals:

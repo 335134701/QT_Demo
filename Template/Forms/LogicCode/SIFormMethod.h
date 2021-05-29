@@ -45,6 +45,8 @@ public slots:
 
     void SelectDirSlot(QLabel *label,QString *objectDir);
 
+    void SearchFileSlot(unsigned int flag, bool isGoON);
+
 private :
 
     SIFormBean *siFormBean;

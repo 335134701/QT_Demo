@@ -17,7 +17,7 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QWidget>
-#include "MessageForm.h"
+#include "LogForm.h"
 #include "SIForm.h"
 
 QT_BEGIN_NAMESPACE
@@ -26,56 +26,63 @@ class Ui_MainForm
 {
 public:
     QGridLayout *gridLayout;
-    MessageForm *widget_2;
-    QTabWidget *FunctionWidget;
+    LogForm *LogWgedit;
+    QTabWidget *FunctionWgedit;
     SIForm *SI;
-    QWidget *tab_2;
+    QWidget *tab;
 
     void setupUi(QWidget *MainForm)
     {
         if (MainForm->objectName().isEmpty())
             MainForm->setObjectName(QStringLiteral("MainForm"));
+        MainForm->setEnabled(true);
         MainForm->resize(800, 600);
-        MainForm->setMinimumSize(QSize(800, 600));
-        gridLayout = new QGridLayout(MainForm);
-        gridLayout->setSpacing(3);
-        gridLayout->setObjectName(QStringLiteral("gridLayout"));
-        gridLayout->setContentsMargins(6, 6, 6, 6);
-        widget_2 = new MessageForm(MainForm);
-        widget_2->setObjectName(QStringLiteral("widget_2"));
         QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
-        sizePolicy.setHeightForWidth(widget_2->sizePolicy().hasHeightForWidth());
-        widget_2->setSizePolicy(sizePolicy);
-        widget_2->setMinimumSize(QSize(0, 200));
-        widget_2->setMaximumSize(QSize(16777215, 400));
-        widget_2->setStyleSheet(QStringLiteral(""));
+        sizePolicy.setHeightForWidth(MainForm->sizePolicy().hasHeightForWidth());
+        MainForm->setSizePolicy(sizePolicy);
+        MainForm->setMinimumSize(QSize(800, 600));
+        gridLayout = new QGridLayout(MainForm);
+        gridLayout->setObjectName(QStringLiteral("gridLayout"));
+        gridLayout->setHorizontalSpacing(5);
+        gridLayout->setVerticalSpacing(3);
+        gridLayout->setContentsMargins(5, 5, 5, 5);
+        LogWgedit = new LogForm(MainForm);
+        LogWgedit->setObjectName(QStringLiteral("LogWgedit"));
+        sizePolicy.setHeightForWidth(LogWgedit->sizePolicy().hasHeightForWidth());
+        LogWgedit->setSizePolicy(sizePolicy);
+        LogWgedit->setMinimumSize(QSize(0, 150));
+        LogWgedit->setMaximumSize(QSize(16777215, 300));
 
-        gridLayout->addWidget(widget_2, 1, 0, 1, 1);
+        gridLayout->addWidget(LogWgedit, 1, 0, 1, 1);
 
-        FunctionWidget = new QTabWidget(MainForm);
-        FunctionWidget->setObjectName(QStringLiteral("FunctionWidget"));
+        FunctionWgedit = new QTabWidget(MainForm);
+        FunctionWgedit->setObjectName(QStringLiteral("FunctionWgedit"));
+        FunctionWgedit->setStyleSheet(QStringLiteral(""));
         SI = new SIForm();
         SI->setObjectName(QStringLiteral("SI"));
-        FunctionWidget->addTab(SI, QString());
-        tab_2 = new QWidget();
-        tab_2->setObjectName(QStringLiteral("tab_2"));
-        FunctionWidget->addTab(tab_2, QString());
+        FunctionWgedit->addTab(SI, QString());
+        tab = new QWidget();
+        tab->setObjectName(QStringLiteral("tab"));
+        FunctionWgedit->addTab(tab, QString());
 
-        gridLayout->addWidget(FunctionWidget, 0, 0, 1, 1);
+        gridLayout->addWidget(FunctionWgedit, 0, 0, 1, 1);
 
 
         retranslateUi(MainForm);
+
+        FunctionWgedit->setCurrentIndex(0);
+
 
         QMetaObject::connectSlotsByName(MainForm);
     } // setupUi
 
     void retranslateUi(QWidget *MainForm)
     {
-        MainForm->setWindowTitle(QApplication::translate("MainForm", "Form", Q_NULLPTR));
-        FunctionWidget->setTabText(FunctionWidget->indexOf(SI), QApplication::translate("MainForm", "SI", Q_NULLPTR));
-        FunctionWidget->setTabText(FunctionWidget->indexOf(tab_2), QApplication::translate("MainForm", "Tab 2", Q_NULLPTR));
+        MainForm->setWindowTitle(QApplication::translate("MainForm", "Tool", Q_NULLPTR));
+        FunctionWgedit->setTabText(FunctionWgedit->indexOf(SI), QApplication::translate("MainForm", "SI\345\267\245\345\205\267", Q_NULLPTR));
+        FunctionWgedit->setTabText(FunctionWgedit->indexOf(tab), QApplication::translate("MainForm", "\351\241\265", Q_NULLPTR));
     } // retranslateUi
 
 };

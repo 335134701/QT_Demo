@@ -5,6 +5,9 @@
 
 
 #include "COMMONDEFINE.h"
+#include "LogFormMetod.h"
+#include "AutomationFormBean.h"
+#include "AutomationFormMethod.h"
 
 namespace Ui {
 class AutomationForm;
@@ -18,8 +21,23 @@ public:
     explicit AutomationForm(QWidget *parent = 0);
     ~AutomationForm();
 
+    AutomationFormBean *getAutomationFormBean() const;
+    void setAutomationFormBean(AutomationFormBean *value);
+
+    AutomationFormMethod *getAutomationFormMethod() const;
+    void setAutomationFormMethod(AutomationFormMethod *value);
+
+    LogFormMetod *getLogFormMethod() const;
+    void setLogFormMethod(LogFormMetod *value);
+
 private:
     Ui::AutomationForm *ui;
+
+    AutomationFormBean *automationFormBean;
+
+    AutomationFormMethod *automationFormMethod;
+
+    LogFormMetod *logFormMethod;
 
 
     void InitStytle();

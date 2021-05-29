@@ -84,7 +84,7 @@ void SIFormMethod::ConnectOtherUISlot()
  */
 void SIFormMethod::InitTableView()
 {
-
+    QLogHelper::instance()->LogInfo("SIFormMethod->InitTableView() 函数执行!");
 }
 
 /**

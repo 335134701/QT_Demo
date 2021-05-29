@@ -65,6 +65,11 @@ void MainForm::BetweenUI_Init()
     ui->SI->getSiFormMethod()->setLogFormMethod(ui->LogWgedit->getLogFormMethod());
     ui->SI->getSiFormBean()->setCommonMethod(mainFormBean->getCommonMethod());
     ui->SI->getSiFormMethod()->ConnectOtherUISlot();
+
+    ui->Automation->setLogFormMethod(ui->LogWgedit->getLogFormMethod());
+    ui->Automation->getAutomationFormMethod()->setLogFormMethod(ui->LogWgedit->getLogFormMethod());
+    ui->Automation->getAutomationFormBean()->setCommonMethod(mainFormBean->getCommonMethod());
+    ui->Automation->getAutomationFormMethod()->ConnectOtherUISlot();
 }
 
 /**

@@ -17,6 +17,7 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QTabWidget>
 #include <QtWidgets/QWidget>
+#include "AutomationForm.h"
 #include "LogForm.h"
 #include "SIForm.h"
 
@@ -29,7 +30,7 @@ public:
     LogForm *LogWgedit;
     QTabWidget *FunctionWgedit;
     SIForm *SI;
-    QWidget *tab;
+    AutomationForm *Automation;
 
     void setupUi(QWidget *MainForm)
     {
@@ -63,16 +64,16 @@ public:
         SI = new SIForm();
         SI->setObjectName(QStringLiteral("SI"));
         FunctionWgedit->addTab(SI, QString());
-        tab = new QWidget();
-        tab->setObjectName(QStringLiteral("tab"));
-        FunctionWgedit->addTab(tab, QString());
+        Automation = new AutomationForm();
+        Automation->setObjectName(QStringLiteral("Automation"));
+        FunctionWgedit->addTab(Automation, QString());
 
         gridLayout->addWidget(FunctionWgedit, 0, 0, 1, 1);
 
 
         retranslateUi(MainForm);
 
-        FunctionWgedit->setCurrentIndex(0);
+        FunctionWgedit->setCurrentIndex(1);
 
 
         QMetaObject::connectSlotsByName(MainForm);
@@ -82,7 +83,7 @@ public:
     {
         MainForm->setWindowTitle(QApplication::translate("MainForm", "Tool", Q_NULLPTR));
         FunctionWgedit->setTabText(FunctionWgedit->indexOf(SI), QApplication::translate("MainForm", "SI\345\267\245\345\205\267", Q_NULLPTR));
-        FunctionWgedit->setTabText(FunctionWgedit->indexOf(tab), QApplication::translate("MainForm", "\345\205\245\346\243\200\350\265\204\346\226\231\350\207\252\345\212\250\345\214\226\345\267\245\345\205\267", Q_NULLPTR));
+        FunctionWgedit->setTabText(FunctionWgedit->indexOf(Automation), QApplication::translate("MainForm", "\345\205\245\346\243\200\350\265\204\346\226\231\350\207\252\345\212\250\345\214\226\345\267\245\345\205\267", Q_NULLPTR));
     } // retranslateUi
 
 };

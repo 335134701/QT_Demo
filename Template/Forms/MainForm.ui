@@ -75,14 +75,14 @@
       <string notr="true"/>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="SIForm" name="SI">
       <attribute name="title">
        <string>SI工具</string>
       </attribute>
      </widget>
-     <widget class="QWidget" name="tab">
+     <widget class="AutomationForm" name="Automation">
       <attribute name="title">
        <string>入检资料自动化工具</string>
       </attribute>
@@ -102,6 +102,12 @@
    <class>LogForm</class>
    <extends>QWidget</extends>
    <header>LogForm.h</header>
+   <container>1</container>
+  </customwidget>
+  <customwidget>
+   <class>AutomationForm</class>
+   <extends>QWidget</extends>
+   <header>AutomationForm.h</header>
    <container>1</container>
   </customwidget>
  </customwidgets>

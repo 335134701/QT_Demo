@@ -81,6 +81,7 @@ QTextEdit#LogView{
 /*********************************** SIForm界面美化 ***********************************/
 QWidget#SITableWidget{
     border:1px solid #242424;
+    background:#484848;
 }
 
 QAbstractButton#SIFileCompression,#SIFileSearchButton,#SIPretreatmentButton,#SIOutputButton,#SISVNButton{
@@ -110,7 +111,7 @@ QLineEdit#SIIDEdit,#SIRelyIDEdit{
     font: 75 14pt "微软雅黑";
     font-weight: bold;
     padding:3px;
-    color: rgb(255, 255, 255);
+    color:#FFFFFF;
     background:#484848;
 }
 
@@ -118,10 +119,62 @@ QLabel#SIIDLabel,#SIRelyIDLabel{
     font: 75 13pt "微软雅黑";
     font-weight: bold;
     background:#484848;
-    color: rgb(255, 255, 255);
+    color:#FFFFFF;
 }
 
 QLabel#SISVNLabel,#SIOutputLabel{
     font: 75 8pt "微软雅黑";
     background:#484848;
+    color:#FFFFFF;
+}
+
+
+/*********************************** AutomationForm界面美化 ***********************************/
+QWidget#AuTableWidget{
+    border:1px solid #242424;
+    background:#484848;
+}
+
+QAbstractButton#AuSVNButton,#AuOutputButton,#AuFileSearchButton,#AuCreateButton{
+    font: 75 12pt "微软雅黑";
+    border-style:none;
+    border:1px solid #242424;
+    color:#DCDCDC;
+    padding:5px;
+    min-height:15px;
+    border-radius:5px;
+    background:qlineargradient(spread:pad,x1:0,y1:0,x2:0,y2:1,stop:0 #484848,stop:1 #383838);
+}
+QAbstractButton#AuFileSearchButton,#AuCreateButton{
+    font: 75 15pt "微软雅黑";
+}
+
+QAbstractButton#AuSVNButton:hover,#AuOutputButton:hover,#AuFileSearchButton:hover,#AuCreateButton:hover{
+    color:#FFFFFF;
+    background-color:#636363;
+}
+QAbstractButton#AuSVNButton:pressed,#AuOutputButton:pressed,#AuFileSearchButton:pressed,#AuCreateButton:pressed{
+    color:#FFFFFF;
+    background-color:#484848;
+}
+
+QLineEdit#AuIDEdit,#AuRelyIDEdit{
+    font: 75 14pt "微软雅黑";
+    font-weight: bold;
+    padding:3px;
+    color:#FFFFFF;
+    background:#484848;
+}
+
+QLabel#AuIDLabel,#AuRelyIDLabel{
+    font: 75 13pt "微软雅黑";
+    font-weight: bold;
+    background:#484848;
+    color:#FFFFFF;
+}
+
+QLabel#AuSVNLabel,#AuOutputLabel{
+    font: 75 8pt "微软雅黑";
+    background:#484848;
+    color:#FFFFFF;
 }

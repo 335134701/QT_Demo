@@ -48,7 +48,7 @@ public:
     {
         if (SIForm->objectName().isEmpty())
             SIForm->setObjectName(QStringLiteral("SIForm"));
-        SIForm->resize(535, 397);
+        SIForm->resize(767, 460);
         gridLayout = new QGridLayout(SIForm);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
         gridLayout->setHorizontalSpacing(15);

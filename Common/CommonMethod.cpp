@@ -494,6 +494,7 @@ QString CommonMethod::Get7zInstallPath()
  */
 QString CommonMethod::StringALLReplace(const QString str, const QString befstr, const QString aftstr)
 {
+    QLogHelper::instance()->LogInfo("CommonMethod->StringALLReplace() 函数执行!");
     QStringList tmp;
     QString strtmp;
     tmp=str.split(befstr);
@@ -504,4 +505,3 @@ QString CommonMethod::StringALLReplace(const QString str, const QString befstr, 
     strtmp=strtmp.left(strtmp.lastIndexOf(aftstr));
     return strtmp;
 }
-

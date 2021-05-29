@@ -42,7 +42,6 @@ public:
     QString Get7zInstallPath();
 
     QString StringALLReplace(const QString str,const QString befstr,const QString aftstr);
-
 signals:
 
 public slots:

@@ -311,5 +311,5 @@ void AutomationTool::on_FileSearchButton_clicked()
         return;
     }
     //发送信号，执行文件检索任务
-    emit SelectFileSignal(*(comBean->getSVNDirPath()),RelyFileflag,true);
+    emit SelectFileSignal(*(comBean->getSVNDirPath()),RelyFileflag,false);
 }

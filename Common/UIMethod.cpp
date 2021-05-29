@@ -328,7 +328,7 @@ void UIMethod::ShowIDmessageSlot(int flag)
         }
         break;
     }
-    if(tmpflag)this->getTextEdit()->append(DATAStytle+" =======================================");
+    if(tmpflag)this->getTextEdit()->append(DATAStytle+"=======================================");
 }
 /**
  * @def 判断机种名称是否符合要求
@@ -389,7 +389,6 @@ void UIMethod::JudgeIDTypeSlot(QLineEdit *Edit,QString *srcobject,QString *desob
 void UIMethod::SelectDirSlot(QLabel *label,QString *objectID)
 {
     QLogHelper::instance()->LogInfo("UIMethod->SelectDirSlot() 函数执行!");
-    label->setText("");
     QString dirName =  QFileDialog::getExistingDirectory(label, tr("Open Directory"),comBean->desktopDirPath,QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
     if (dirName.isEmpty()) {
         label->setStyleSheet(QString(errFontColor));

@@ -217,7 +217,7 @@ void SIFormMethod::SearchFileSlot(unsigned int flag, bool isGoON)
 {
     QLogHelper::instance()->LogInfo("SIFormMethod->SearchFileSlot() 函数执行!");
     //校验SVN路径是否存在
-    if(!QDir(siFormBean->getSVNDirPath()).exists()){return;}
+    if(!QDir(*siFormBean->getSVNDirPath()).exists()){return;}
     //文件检索过滤器
     QStringList filters;
 

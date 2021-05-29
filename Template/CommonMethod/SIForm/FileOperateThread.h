@@ -3,6 +3,8 @@
 
 #include <QObject>
 
+#include "COMMONDEFINE.h"
+
 class FileOperateThread : public QObject
 {
     Q_OBJECT

@@ -3,46 +3,7 @@
 CommonBean::CommonBean(QObject *parent) : QObject(parent)
 {
     QLogHelper::instance()->LogInfo("CommonBean() 构造函数执行!");
-    //此变量与其他变量在生成新的机种时不需要初始化
-    OutputDirPath=new QString();
     this->Init();
-}
-
-
-
-/**
- * @def 程序启动时初始化相关参数
- * @brief CommonBean::Init
- */
-void CommonBean::Init()
-{
-    QLogHelper::instance()->LogInfo("CommonBean->Init() 函数执行!");
-    comMethod=new CommonMethod();
-    softNumberTable=new QList<SOFTNUMBERTable>();
-    configTable=new QList<CONFIGTable>();
-    excelOption=new ExcelOperation();
-    ID=new QString();
-    RelyID=new QString();
-    IDType=new QString();
-    RelyIDType=new QString();
-    RelyFilePath=new QString();
-    IniFilePath=new QString();
-    PFilePath=new QString();
-    SWFilePath=new QString();
-    CarInfoFilePath=new QString();
-    CarMapFilePath=new QString();
-    CarOSDFilePath=new QString();
-    JoinMot=new QString();
-    APPMot=new QString();
-    EEFilePath=new QString();
-    ReadyFilePath=new QString();
-    ConfigFilePath=new QString();
-    ZIPFilePath=new QString();
-    statusflag=0;
-    IDRelyIDflag=true;
-    //初始化错误码
-    RExpression.insert("IDEdit","^EN(3[3-7]|42)\\d\\dP[A-Z]");
-    RExpression.insert("RelyIDEdit","^EN(3[3-7]|42)\\d\\dP[A-Z]");
 }
 
 QMap<QString, QString> CommonBean::getRExpression() const
@@ -333,4 +294,69 @@ QString *CommonBean::getZIPFilePath() const
 void CommonBean::setZIPFilePath(QString *value)
 {
     ZIPFilePath = value;
+}
+
+/**
+ * @def 程序启动时初始化相关参数
+ * @brief CommonBean::Init
+ */
+void CommonBean::Init()
+{
+    QLogHelper::instance()->LogInfo("CommonBean->Init() 函数执行!");
+    comMethod=new CommonMethod();
+    softNumberTable=new QList<SOFTNUMBERTable>();
+    configTable=new QList<CONFIGTable>();
+    excelOption=new ExcelOperation();
+    ID=new QString();
+    RelyID=new QString();
+    IDType=new QString();
+    RelyIDType=new QString();
+    RelyFilePath=new QString();
+    IniFilePath=new QString();
+    PFilePath=new QString();
+    SWFilePath=new QString();
+    //此变量与其他变量在生成新的机种时不需要初始化
+    OutputDirPath=new QString();
+    CarInfoFilePath=new QString();
+    CarMapFilePath=new QString();
+    CarOSDFilePath=new QString();
+    JoinMot=new QString();
+    APPMot=new QString();
+    EEFilePath=new QString();
+    ReadyFilePath=new QString();
+    ConfigFilePath=new QString();
+    ZIPFilePath=new QString();
+    statusflag=0;
+    IDRelyIDflag=true;
+    //初始化错误码
+    RExpression.insert("IDEdit","^EN(3[3-7]|42)\\d\\dP[A-Z]");
+    RExpression.insert("RelyIDEdit","^EN(3[3-7]|42)\\d\\dP[A-Z]");
+}
+
+/**
+ * @def 程序执行过程中初始化相关参数
+ * @brief CommonBean::ResetParameter
+ */
+void CommonBean::ResetParameter()
+{
+    QLogHelper::instance()->LogInfo("CommonBean->ResetParameter() 函数执行!");
+    softNumberTable=new QList<SOFTNUMBERTable>();
+    configTable=new QList<CONFIGTable>();
+    excelOption=new ExcelOperation();
+    ID=new QString();
+    IDType=new QString();
+    RelyFilePath=new QString();
+    IniFilePath=new QString();
+    PFilePath=new QString();
+    SWFilePath=new QString();
+    CarInfoFilePath=new QString();
+    CarMapFilePath=new QString();
+    CarOSDFilePath=new QString();
+    JoinMot=new QString();
+    APPMot=new QString();
+    EEFilePath=new QString();
+    ReadyFilePath=new QString();
+    ConfigFilePath=new QString();
+    statusflag=0;
+    IDRelyIDflag=true;
 }

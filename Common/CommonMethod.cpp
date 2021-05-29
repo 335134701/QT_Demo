@@ -16,7 +16,7 @@ CommonMethod::CommonMethod(QObject *parent) : QObject(parent)
  */
 QString CommonMethod::JudgeIDType(const QString ID)
 {
-    QLogHelper::instance()->LogInfo("UIMethod->JudgeIDType() 函数执行!");
+    QLogHelper::instance()->LogInfo("CommonMethod->JudgeIDType() 函数执行!");
     QString ret;
     if(!ID.contains("EN")){return NULL;}
     //字符转数字

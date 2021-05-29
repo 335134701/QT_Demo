@@ -11,8 +11,6 @@
 #include "DEFINE.h"
 
 
-
-
 class CommonBean : public QObject
 {
     Q_OBJECT
@@ -24,11 +22,6 @@ public:
     const QString desktopDirPath = QStandardPaths::writableLocation(QStandardPaths::DesktopLocation);
 
     const QString applicationDirPath=QApplication::applicationDirPath();
-
-    const QString exampleDirPath=QApplication::applicationDirPath()+"/Example";
-
-    //初始化函数
-    void Init();
 
     QMap<QString, QString> getRExpression() const;
     void setRExpression(const QMap<QString, QString> &value);
@@ -116,6 +109,9 @@ public:
     QString *getZIPFilePath() const;
     void setZIPFilePath(QString *value);
 
+
+    void ResetParameter();
+
 private :
     //当前程序操作状态码
     unsigned int statusflag;
@@ -176,6 +172,8 @@ private :
     //TableViewEditflag
     bool tableViewEditflag=false;
 
+    //初始化函数
+    void Init();
 };
 
 #endif // COMMONBEAN_H

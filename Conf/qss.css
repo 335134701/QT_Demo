@@ -29,21 +29,21 @@ QAbstractButton:pressed{
 QLineEdit{
     font: 75 12pt "微软雅黑";
     padding:3px;
-    color: rgb(255, 255, 255);
+    color: #FFFFFF;
 }
 
 QLabel#IDLabel,#RelyIDLabel{
     font: 75 11pt "微软雅黑";
 }
 QTableView{
-    border-color: rgb(0, 170, 0);
+    border-color: #00AA00;
     font: 75 12pt "微软雅黑";
     padding:3px;
-    color: rgb(255, 255, 255);
+    color: #FFFFFF;
 }
 QTextEdit{
-    border-color: rgb(0, 170, 0);
+    border-color: #00AA00;
     font: 75 11pt "微软雅黑";
     padding:3px;
-    color: rgb(255, 255, 255);
+    color: #FFFFFF;
 }

@@ -166,7 +166,7 @@ void AutomationTool::on_IDEdit_editingFinished()
     QLogHelper::instance()->LogInfo("AutomationTool->on_IDEdit_editingFinished() 函数触发执行!");
     if(comBean==NULL||MessageWarn()){return;}
     //如果机种番号变更，则需要重新初始化
-    comBean->Init();
+    comBean->ResetParameter();
     //初始化TableView显示
     InitTableView();
     //判断机种名称是否符合要求
@@ -232,6 +232,7 @@ void AutomationTool::on_OutputButton_clicked()
 {
     QLogHelper::instance()->LogInfo("AutomationTool->on_OutputButton_clicked() 函数触发执行!");
     if(comBean==NULL||MessageWarn()){return;}
+    comBean->setOutputDirPath(new QString());
     //生成路径获取
     emit SelectDirSignal(ui->OutputLabel,comBean->getOutputDirPath());
 }
@@ -260,7 +261,6 @@ void AutomationTool::LogViewClearSlot()
  *          1 表示正在查找文件
  *          2 表示正在解析文件
  *          3 表示正在生成相应的文件目录结构
- *          4 表示正在Check 相应的文件
  * @brief AutomationTool::MessageWarn
  * @return
  */
@@ -274,10 +274,10 @@ bool AutomationTool::MessageWarn()
             QMessageBox::warning(this,"Warn","正在执行文件查找任务，其他任务暂时无法执行!");
             break;
         case 2:
-            QMessageBox::warning(this,"Title","正在执行文件解析任务，其他任务暂时无法执行!");
+            QMessageBox::warning(this,"Warn","正在执行文件解析任务，其他任务暂时无法执行!");
             break;
         case 3:
-            QMessageBox::warning(this,"Title","正在执行生成任务，其他任务暂时无法执行!");
+            QMessageBox::warning(this,"Warn","正在执行生成任务，其他任务暂时无法执行!");
             break;
         default:
             break;
@@ -293,7 +293,8 @@ bool AutomationTool::MessageWarn()
 void AutomationTool::on_MessageView_doubleClicked(const QModelIndex &index)
 {
     QLogHelper::instance()->LogInfo("AutomationTool->on_MessageView_doubleClicked() 函数触发执行!");
-    if(!comBean->getTableViewEditflag()&&index.row()>3&&index.column()>=1){
+    if(comBean==NULL||MessageWarn()){return;}
+    if(!comBean->getTableViewEditflag()&&(index.row()>3&&index.column()>=1)&&index.row()<=(DefineTableSize+comBean->getSoftNumberTable()->size())){
         comBean->setTableViewEditflag(true);
     }
 }

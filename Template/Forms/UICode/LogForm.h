@@ -3,7 +3,6 @@
 
 #include <QWidget>
 
-
 #include "COMMONDEFINE.h"
 #include "LogFormBean.h"
 #include "LogFormMetod.h"
@@ -20,20 +19,26 @@ public:
     explicit LogForm(QWidget *parent = 0);
     ~LogForm();
 
-
     LogFormMetod *getLogFormMethod() const;
     void setLogFormMethod(LogFormMetod *value);
 
     LogFormBean *getLogFormBean() const;
     void setLogFormBean(LogFormBean *value);
 
+public slots:
+    void LogViewClearSlot();
+
 private:
     Ui::LogForm *ui;
+
+    QAction *logViewClearAction;
 
     LogFormBean *logFormBean;
 
 
     LogFormMetod *logFormMethod;
+
+    void InitStytle();
 
     void Init();
 

@@ -24,10 +24,14 @@ public:
 
     void ConnectOtherUISlot();
 
+    void InitTableView();
+
+    void ShowTableView(const QStringList message, const unsigned int flag);
+
 signals:
     void ShowLogMessageSignal(const QStringList message,const unsigned int level);
 
-    void ShowMessageProcessSignal(const unsigned int flag);
+    void ShowMessageProcessSignal(const unsigned int flag, const unsigned int Log_Flag);
 
 public slots:
 
@@ -35,7 +39,7 @@ public slots:
 
     void JudgeIDTypeSlot(QLineEdit *Edit,QString *srcobject,QString *desobject);
 
-    void ShowMessageProcessSlot(const unsigned int flag);
+    void ShowMessageProcessSlot(const unsigned int flag, const unsigned int Log_Flag);
 
 private :
 

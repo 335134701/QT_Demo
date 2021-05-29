@@ -17,7 +17,7 @@ public:
     LogFormBean *getLogFormBean() const;
     void setLogFormBean(LogFormBean *value);
 
-    void PrintMessage(const QStringList message,const unsigned int level);
+    void PrintMessage(QStringList message, const unsigned int level);
 
 signals:
 

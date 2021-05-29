@@ -37,7 +37,7 @@ signals:
 
     void JudgeIDTypeSignal(QLineEdit *Edit,QString *srcobject,QString *desobject);
 
-    void ShowMessageProcessSignal(const unsigned int flag);
+    void ShowMessageProcessSignal(const unsigned int flag, const unsigned int Log_Flag);
 
 private slots:
 
@@ -57,6 +57,8 @@ private:
     SIFormMethod *siFormMethod;
 
     LogFormMetod *logFormMethod;
+
+    void InitStytle();
 
     void Init();
 

@@ -11,6 +11,7 @@ SIForm::SIForm(QWidget *parent) :
 {
     QLogHelper::instance()->LogInfo("SIForm() 构造函数执行!");
     ui->setupUi(this);
+    this->InitStytle();
     this->Init();
     this->ConnectSlot();
 }
@@ -76,6 +77,13 @@ void SIForm::setSiFormBean(SIFormBean *value)
     siFormBean = value;
 }
 
+/**
+ * @brief SIForm::InitStytle
+ */
+void SIForm::InitStytle()
+{
+    QLogHelper::instance()->LogInfo("SIForm->InitStytle() 函数执行!");
+}
 
 /**
  * @def 初始化函数
@@ -122,7 +130,7 @@ void SIForm::on_IDEdit_editingFinished()
     }else{
         ui->RelyIDEdit->setStyleSheet(QString(nomFontColor));
     }
-    emit ShowMessageProcessSignal(IDflag);
+    emit ShowMessageProcessSignal(IDflag,LOG_LOG);
 }
 
 /**
@@ -149,7 +157,7 @@ void SIForm::on_RelyIDEdit_editingFinished()
     }else{
         ui->RelyIDEdit->setStyleSheet(QString(nomFontColor));
     }
-    emit ShowMessageProcessSignal(RelyIDflag);
+    emit ShowMessageProcessSignal(RelyIDflag,LOG_ALL);
 }
 
 /**
@@ -159,7 +167,7 @@ void SIForm::on_SVNButton_clicked()
 {
     QLogHelper::instance()->LogInfo("SIForm->on_SVNButton_clicked() 函数触发执行!");
     if(PromptInformation()){return;}
-    emit ShowMessageProcessSignal(IDflag);
+    emit ShowMessageProcessSignal(IDflag,LOG_ALL);
 }
 
 /**
@@ -170,6 +178,7 @@ void SIForm::on_OutputButton_clicked()
     QLogHelper::instance()->LogInfo("SIForm->on_OutputButton_clicked() 函数触发执行!");
     if(PromptInformation()){return;}
 }
+
 
 /**
  * @def 执行某项操作时,其他操作不可执行提示

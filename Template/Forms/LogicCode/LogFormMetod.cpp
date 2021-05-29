@@ -48,35 +48,6 @@ void LogFormMetod::ConnectSlot()
 }
 
 /**
- * @brief LogFormMetod::PrintMessage
- * @param message
- * @param level
- */
-void LogFormMetod::PrintMessage(const QStringList message,const unsigned int level)
-{
-    QLogHelper::instance()->LogInfo("LogFormMetod->PrintMessage() 函数执行!");
-    QStringList tmplist;
-    switch (level) {
-    case LOG_INFO:
-        foreach (QString str, message) {
-               logFormBean->getLogView()->append(str);
-        }
-        break;
-    case LOG_DEBUG:
-
-        break;
-    case LOG_WARN:
-
-        break;
-    case LOG_ERROR:
-
-        break;
-    default:
-        break;
-    }
-}
-
-/**
  * @brief LogFormMetod::ShowLogMessageSlot
  * @param message
  * @param level
@@ -90,3 +61,42 @@ void LogFormMetod::ShowLogMessageSlot(const QStringList message,const unsigned i
     }
 }
 
+/**
+ * @brief LogFormMetod::PrintMessage
+ * @param message
+ * @param level
+ */
+void LogFormMetod::PrintMessage(QStringList message,const unsigned int level)
+{
+    QLogHelper::instance()->LogInfo("LogFormMetod->PrintMessage() 函数执行!");
+    unsigned int i=0;
+    message.insert(0,"===================================================");
+    message.insert(message.size(),"===================================================");
+    foreach (QString str, message) {
+        if(i==0||i==(message.size()-1))
+        {
+            logFormBean->getLogView()->setTextColor(0x00FF00);
+            logFormBean->getLogView()->append(DATAStytle+str);
+        }else{
+            logFormBean->getLogView()->setTextColor(0x00FF00);
+            logFormBean->getLogView()->append(DATAStytle);
+            switch (level) {
+            case LOG_INFO:
+                logFormBean->getLogView()->setTextColor(0x00FFFF);
+                break;
+            case LOG_DEBUG:
+                logFormBean->getLogView()->setTextColor(0x0000FF);
+                break;
+            case LOG_WARN:
+                logFormBean->getLogView()->setTextColor(0xFFFF00);
+                break;
+            case LOG_ERROR:
+                logFormBean->getLogView()->setTextColor(0xFF0000);
+                break;
+            }
+            logFormBean->getLogView()->insertPlainText(str);
+        }
+        i++;
+    }
+    logFormBean->getLogView()->setTextColor(0xFFFFFF);
+}

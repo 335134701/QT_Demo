@@ -31,6 +31,15 @@
    </property>
    <item row="0" column="0">
     <widget class="QTextEdit" name="LogView">
+     <property name="focusPolicy">
+      <enum>Qt::StrongFocus</enum>
+     </property>
+     <property name="contextMenuPolicy">
+      <enum>Qt::ActionsContextMenu</enum>
+     </property>
+     <property name="lineWrapMode">
+      <enum>QTextEdit::WidgetWidth</enum>
+     </property>
      <property name="readOnly">
       <bool>true</bool>
      </property>

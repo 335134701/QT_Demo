@@ -37,6 +37,9 @@ public:
         gridLayout->setContentsMargins(0, 0, 0, 0);
         LogView = new QTextEdit(LogForm);
         LogView->setObjectName(QStringLiteral("LogView"));
+        LogView->setFocusPolicy(Qt::StrongFocus);
+        LogView->setContextMenuPolicy(Qt::ActionsContextMenu);
+        LogView->setLineWrapMode(QTextEdit::WidgetWidth);
         LogView->setReadOnly(true);
 
         gridLayout->addWidget(LogView, 0, 0, 1, 1);

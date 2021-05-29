@@ -21,8 +21,8 @@ QT_BEGIN_MOC_NAMESPACE
 QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_SIForm_t {
-    QByteArrayData data[16];
-    char stringdata0[219];
+    QByteArrayData data[17];
+    char stringdata0[228];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -43,16 +43,17 @@ QT_MOC_LITERAL(8, 68, 9), // "srcobject"
 QT_MOC_LITERAL(9, 78, 9), // "desobject"
 QT_MOC_LITERAL(10, 88, 24), // "ShowMessageProcessSignal"
 QT_MOC_LITERAL(11, 113, 4), // "flag"
-QT_MOC_LITERAL(12, 118, 20), // "on_SVNButton_clicked"
-QT_MOC_LITERAL(13, 139, 25), // "on_IDEdit_editingFinished"
-QT_MOC_LITERAL(14, 165, 29), // "on_RelyIDEdit_editingFinished"
-QT_MOC_LITERAL(15, 195, 23) // "on_OutputButton_clicked"
+QT_MOC_LITERAL(12, 118, 8), // "Log_Flag"
+QT_MOC_LITERAL(13, 127, 20), // "on_SVNButton_clicked"
+QT_MOC_LITERAL(14, 148, 25), // "on_IDEdit_editingFinished"
+QT_MOC_LITERAL(15, 174, 29), // "on_RelyIDEdit_editingFinished"
+QT_MOC_LITERAL(16, 204, 23) // "on_OutputButton_clicked"
 
     },
     "SIForm\0JudgeIDSignal\0\0QLineEdit*\0Edit\0"
     "QString*\0ID\0JudgeIDTypeSignal\0srcobject\0"
     "desobject\0ShowMessageProcessSignal\0"
-    "flag\0on_SVNButton_clicked\0"
+    "flag\0Log_Flag\0on_SVNButton_clicked\0"
     "on_IDEdit_editingFinished\0"
     "on_RelyIDEdit_editingFinished\0"
     "on_OutputButton_clicked"
@@ -75,18 +76,18 @@ static const uint qt_meta_data_SIForm[] = {
  // signals: name, argc, parameters, tag, flags
        1,    2,   49,    2, 0x06 /* Public */,
        7,    3,   54,    2, 0x06 /* Public */,
-      10,    1,   61,    2, 0x06 /* Public */,
+      10,    2,   61,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      12,    0,   64,    2, 0x08 /* Private */,
-      13,    0,   65,    2, 0x08 /* Private */,
-      14,    0,   66,    2, 0x08 /* Private */,
-      15,    0,   67,    2, 0x08 /* Private */,
+      13,    0,   66,    2, 0x08 /* Private */,
+      14,    0,   67,    2, 0x08 /* Private */,
+      15,    0,   68,    2, 0x08 /* Private */,
+      16,    0,   69,    2, 0x08 /* Private */,
 
  // signals: parameters
     QMetaType::Void, 0x80000000 | 3, 0x80000000 | 5,    4,    6,
     QMetaType::Void, 0x80000000 | 3, 0x80000000 | 5, 0x80000000 | 5,    4,    8,    9,
-    QMetaType::Void, QMetaType::UInt,   11,
+    QMetaType::Void, QMetaType::UInt, QMetaType::UInt,   11,   12,
 
  // slots: parameters
     QMetaType::Void,
@@ -105,7 +106,7 @@ void SIForm::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
         switch (_id) {
         case 0: _t->JudgeIDSignal((*reinterpret_cast< QLineEdit*(*)>(_a[1])),(*reinterpret_cast< QString*(*)>(_a[2]))); break;
         case 1: _t->JudgeIDTypeSignal((*reinterpret_cast< QLineEdit*(*)>(_a[1])),(*reinterpret_cast< QString*(*)>(_a[2])),(*reinterpret_cast< QString*(*)>(_a[3]))); break;
-        case 2: _t->ShowMessageProcessSignal((*reinterpret_cast< const uint(*)>(_a[1]))); break;
+        case 2: _t->ShowMessageProcessSignal((*reinterpret_cast< const uint(*)>(_a[1])),(*reinterpret_cast< const uint(*)>(_a[2]))); break;
         case 3: _t->on_SVNButton_clicked(); break;
         case 4: _t->on_IDEdit_editingFinished(); break;
         case 5: _t->on_RelyIDEdit_editingFinished(); break;
@@ -148,7 +149,7 @@ void SIForm::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
             }
         }
         {
-            typedef void (SIForm::*_t)(const unsigned int );
+            typedef void (SIForm::*_t)(const unsigned int , const unsigned int );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&SIForm::ShowMessageProcessSignal)) {
                 *result = 2;
                 return;
@@ -208,9 +209,9 @@ void SIForm::JudgeIDTypeSignal(QLineEdit * _t1, QString * _t2, QString * _t3)
 }
 
 // SIGNAL 2
-void SIForm::ShowMessageProcessSignal(const unsigned int _t1)
+void SIForm::ShowMessageProcessSignal(const unsigned int _t1, const unsigned int _t2)
 {
-    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)) };
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)) };
     QMetaObject::activate(this, &staticMetaObject, 2, _a);
 }
 QT_WARNING_POP

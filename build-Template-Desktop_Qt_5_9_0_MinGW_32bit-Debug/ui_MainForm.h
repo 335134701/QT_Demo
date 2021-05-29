@@ -36,13 +36,13 @@ public:
         if (MainForm->objectName().isEmpty())
             MainForm->setObjectName(QStringLiteral("MainForm"));
         MainForm->setEnabled(true);
-        MainForm->resize(800, 600);
+        MainForm->resize(800, 700);
         QSizePolicy sizePolicy(QSizePolicy::Expanding, QSizePolicy::Expanding);
         sizePolicy.setHorizontalStretch(0);
         sizePolicy.setVerticalStretch(0);
         sizePolicy.setHeightForWidth(MainForm->sizePolicy().hasHeightForWidth());
         MainForm->setSizePolicy(sizePolicy);
-        MainForm->setMinimumSize(QSize(800, 600));
+        MainForm->setMinimumSize(QSize(800, 700));
         gridLayout = new QGridLayout(MainForm);
         gridLayout->setObjectName(QStringLiteral("gridLayout"));
         gridLayout->setHorizontalSpacing(5);

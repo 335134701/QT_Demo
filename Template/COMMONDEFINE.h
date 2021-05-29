@@ -48,10 +48,10 @@
 #define DATAStytle              "[ "+DATETIME+" ] "
 
 enum Log_Level{
-    LOG_INFO    =   0,
-    LOG_WARN    =   1,
-    LOG_DEBUG   =   2,
-    LOG_ERROR   =   3
+    LOG_INFO    =   1,
+    LOG_WARN    =   2,
+    LOG_DEBUG   =   3,
+    LOG_ERROR   =   4
 };
 
 #endif // COMMONDEFINE_H

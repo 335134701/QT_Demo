@@ -6,10 +6,23 @@
 #include "COMMONDEFINE.h"
 #include "CommonMethod.h"
 
-
+/**
+ * @def 初始化标记位，根据标记位，初始化相关参数
+ * @brief The RestParameter enum
+ */
 enum RestParameter{
     RET_ID      =   1,
     RET_PATH    =   2
+};
+
+/**
+ * @def 标记位，Log 全部显示，Log输出显示，Table显示
+ * @brief The Log_Flag enum
+ */
+enum Log_Flag{
+    LOG_ALL     =   1,
+    LOG_LOG     =   2,
+    LOG_TABLE   =   3
 };
 
 class SIFormBean : public QObject

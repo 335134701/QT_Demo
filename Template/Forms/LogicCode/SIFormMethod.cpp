@@ -79,6 +79,15 @@ void SIFormMethod::ConnectOtherUISlot()
 }
 
 /**
+ * @def Table界面初始化显示
+ * @brief SIFormMethod::InitTableView
+ */
+void SIFormMethod::InitTableView()
+{
+
+}
+
+/**
  * @def 判断机种名称是否符合要求
  *      如果机种符合要求，则记录下来，字体设置为正常，如果存在错误码则移除错误码
  *      如果机种不符合要求，记录为空，字体设置为红色，设置错误码
@@ -129,13 +138,14 @@ void SIFormMethod::JudgeIDTypeSlot(QLineEdit *Edit, QString *srcobject, QString 
  * @def 关于Log信息打包出来
  * @brief SIFormMethod::ShowMessageProcessSlot
  * @param flag
+ * @param Log_Flag
  */
-void SIFormMethod::ShowMessageProcessSlot(const unsigned int flag)
+void SIFormMethod::ShowMessageProcessSlot(const unsigned int flag, const unsigned int Log_Flag)
 {
     QLogHelper::instance()->LogInfo("SIFormMethod->ShowLogMessageProcess() 函数执行!");
     unsigned int level;
-
     QStringList message;
+    //对数据包进行处理
     switch (flag) {
     case IDflag:
         level=LOG_INFO;
@@ -144,9 +154,35 @@ void SIFormMethod::ShowMessageProcessSlot(const unsigned int flag)
         break;
     case RelyIDflag:
         level=LOG_INFO;
+        message.append("依赖机种番号: "+*siFormBean->getID());
+        message.append("依赖机种类型: "+*siFormBean->getIDType());
         break;
     default:
         break;
     }
-    emit ShowLogMessageSignal(message,level);
+    switch (Log_Flag) {
+    case LOG_ALL:
+        //判断显示处理
+        this->ShowTableView(message,flag);
+        emit ShowLogMessageSignal(message,level);
+        break;
+    case LOG_LOG:
+        //判断显示处理
+        emit ShowLogMessageSignal(message,level);
+        break;
+    case LOG_TABLE:
+        this->ShowTableView(message,flag);
+        break;
+    }
+}
+
+/**
+ * @def 当前界面TableView显示
+ * @brief SIFormMethod::ShowTableView
+ * @param message
+ * @param flag
+ */
+void SIFormMethod::ShowTableView(const QStringList message, const unsigned int flag)
+{
+    QLogHelper::instance()->LogInfo("SIFormMethod->ShowTableView() 函数执行!");
 }

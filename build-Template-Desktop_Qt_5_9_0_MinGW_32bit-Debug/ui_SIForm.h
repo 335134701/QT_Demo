@@ -99,7 +99,7 @@ public:
         sizePolicy1.setVerticalStretch(0);
         sizePolicy1.setHeightForWidth(IDEdit->sizePolicy().hasHeightForWidth());
         IDEdit->setSizePolicy(sizePolicy1);
-        IDEdit->setMaximumSize(QSize(105, 16777215));
+        IDEdit->setMaximumSize(QSize(120, 16777215));
         IDEdit->setStyleSheet(QStringLiteral(""));
         IDEdit->setMaxLength(8);
 
@@ -113,7 +113,7 @@ public:
 
         RelyIDEdit = new QLineEdit(SIMemuWidget);
         RelyIDEdit->setObjectName(QStringLiteral("RelyIDEdit"));
-        RelyIDEdit->setMaximumSize(QSize(105, 16777215));
+        RelyIDEdit->setMaximumSize(QSize(120, 16777215));
         RelyIDEdit->setMaxLength(8);
 
         gridLayout_2->addWidget(RelyIDEdit, 1, 2, 1, 1);

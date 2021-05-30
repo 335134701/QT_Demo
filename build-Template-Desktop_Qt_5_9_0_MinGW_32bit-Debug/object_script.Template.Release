@@ -55,6 +55,7 @@ INPUT(
 ./release\SIFileOperateMethod.o
 ./release\SIExcelOperateThread.o
 ./release\SIExcelOperateMethod.o
+./release\AuExcelOperateMethod.o
 ./release\LogFormBean.o
 ./release\SIFormBean.o
 ./release\MainFormBean.o
@@ -97,6 +98,7 @@ INPUT(
 ./release\moc_SIExcelOperateThread.o
 ./release\moc_SIFileOperateThread.o
 ./release\moc_SIFileOperateMethod.o
+./release\moc_AuExcelOperateMethod.o
 ./release\moc_LogFormBean.o
 ./release\moc_SIFormBean.o
 ./release\moc_MainFormBean.o

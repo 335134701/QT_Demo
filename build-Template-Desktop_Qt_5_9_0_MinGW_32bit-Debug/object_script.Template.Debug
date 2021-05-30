@@ -55,6 +55,7 @@ INPUT(
 ./debug\SIFileOperateMethod.o
 ./debug\SIExcelOperateThread.o
 ./debug\SIExcelOperateMethod.o
+./debug\AuExcelOperateMethod.o
 ./debug\LogFormBean.o
 ./debug\SIFormBean.o
 ./debug\MainFormBean.o
@@ -97,6 +98,7 @@ INPUT(
 ./debug\moc_SIExcelOperateThread.o
 ./debug\moc_SIFileOperateThread.o
 ./debug\moc_SIFileOperateMethod.o
+./debug\moc_AuExcelOperateMethod.o
 ./debug\moc_LogFormBean.o
 ./debug\moc_SIFormBean.o
 ./debug\moc_MainFormBean.o

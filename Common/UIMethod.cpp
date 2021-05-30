@@ -389,6 +389,8 @@ void UIMethod::JudgeIDTypeSlot(QLineEdit *Edit,QString *srcobject,QString *desob
 void UIMethod::SelectDirSlot(QLabel *label,QString *objectID)
 {
     QLogHelper::instance()->LogInfo("UIMethod->SelectDirSlot() 函数执行!");
+    (*objectID)="";
+    label->setText("");
     QString dirName =  QFileDialog::getExistingDirectory(label, tr("Open Directory"),comBean->desktopDirPath,QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
     if (dirName.isEmpty()) {
         label->setStyleSheet(QString(errFontColor));

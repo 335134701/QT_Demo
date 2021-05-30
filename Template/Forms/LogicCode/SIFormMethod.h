@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QLineEdit>
+#include <QTableView>
 #include <QFileDialog>
 #include <QLabel>
 #include "COMMONDEFINE.h"
@@ -17,6 +18,9 @@ class SIFormMethod : public QObject
     Q_OBJECT
 public:
     explicit SIFormMethod(QObject *parent = nullptr);
+
+    QTableView *getTableView() const;
+    void setTableView(QTableView *value);
 
     SIFormBean *getSiFormBean() const;
     void setSiFormBean(SIFormBean *value);
@@ -48,6 +52,8 @@ public slots:
     void SearchFileSlot(unsigned int flag, bool isGoON);
 
 private :
+
+    QTableView *tableView;
 
     SIFormBean *siFormBean;
 

@@ -79,7 +79,7 @@ QTextEdit#LogView{
 }
 
 /*********************************** SIForm界面美化 ***********************************/
-QWidget#SITableWidget{
+QWidget#SITableView{
     border:1px solid #242424;
     background:#484848;
 }
@@ -130,7 +130,7 @@ QLabel#SISVNLabel,#SIOutputLabel{
 
 
 /*********************************** AutomationForm界面美化 ***********************************/
-QWidget#AuTableWidget{
+QWidget#AuTableView{
     border:1px solid #242424;
     background:#484848;
 }

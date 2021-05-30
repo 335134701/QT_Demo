@@ -94,6 +94,7 @@ void SIForm::Init()
     QLogHelper::instance()->LogInfo("SIForm->Init() 函数执行!");
     siFormBean  = new SIFormBean();
     siFormMethod = new SIFormMethod();
+    //siFormMethod->setTableView(ui->sit);
     siFormMethod->setSiFormBean(siFormBean);
 }
 

@@ -9,8 +9,26 @@ SIFormMethod::SIFormMethod(QObject *parent) : QObject(parent)
     QLogHelper::instance()->LogInfo("SIFormMethod 构造函数执行!");
     this->Init();
     this->ConnectSlot();
+    this->InitTableView();
 }
 
+/**
+ * @brief SIFormMethod::getTableView
+ * @return
+ */
+QTableView *SIFormMethod::getTableView() const
+{
+    return tableView;
+}
+
+/**
+ * @brief SIFormMethod::setTableView
+ * @param value
+ */
+void SIFormMethod::setTableView(QTableView *value)
+{
+    tableView = value;
+}
 /**
  * @brief SIFormMethod::getSiFormBean
  * @return
@@ -179,6 +197,7 @@ void SIFormMethod::ShowMessageProcessSlot(const unsigned int flag, const unsigne
 /**
  * @def 当前界面TableView显示
  * @brief SIFormMethod::ShowTableView
+ * @param tableView
  * @param message
  * @param flag
  */
@@ -222,5 +241,6 @@ void SIFormMethod::SearchFileSlot(unsigned int flag, bool isGoON)
     QStringList filters;
 
 }
+
 
 

@@ -7,5 +7,5 @@
  */
 AuFileOperateMethod::AuFileOperateMethod(QObject *parent) : QObject(parent)
 {
-    QLogHelper::instance()->LogInfo("SICommonMethod 构造函数执行!");
+    QLogHelper::instance()->LogInfo("AuFileOperateMethod 构造函数执行!");
 }

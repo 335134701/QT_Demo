@@ -183,7 +183,7 @@
     </widget>
    </item>
    <item row="0" column="2" rowspan="3">
-    <widget class="QTableView" name="AuTableWidget"/>
+    <widget class="QTableView" name="AuTableView"/>
    </item>
   </layout>
  </widget>

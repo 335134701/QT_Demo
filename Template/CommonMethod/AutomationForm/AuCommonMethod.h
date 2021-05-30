@@ -3,6 +3,8 @@
 
 #include <QObject>
 
+#include "COMMONDEFINE.h"
+
 class AuCommonMethod : public QObject
 {
     Q_OBJECT

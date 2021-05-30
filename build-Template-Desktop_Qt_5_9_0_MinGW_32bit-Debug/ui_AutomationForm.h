@@ -42,7 +42,7 @@ public:
     QLineEdit *AuRelyIDEdit;
     QSpacerItem *horizontalSpacer;
     QPushButton *AuCreateButton;
-    QTableView *AuTableWidget;
+    QTableView *AuTableView;
 
     void setupUi(QWidget *AutomationForm)
     {
@@ -133,10 +133,10 @@ public:
 
         gridLayout->addWidget(AuCreateButton, 2, 1, 1, 1);
 
-        AuTableWidget = new QTableView(AutomationForm);
-        AuTableWidget->setObjectName(QStringLiteral("AuTableWidget"));
+        AuTableView = new QTableView(AutomationForm);
+        AuTableView->setObjectName(QStringLiteral("AuTableView"));
 
-        gridLayout->addWidget(AuTableWidget, 0, 2, 3, 1);
+        gridLayout->addWidget(AuTableView, 0, 2, 3, 1);
 
 
         retranslateUi(AutomationForm);

@@ -7,5 +7,5 @@
  */
 AuExcelOperateThread::AuExcelOperateThread(QObject *parent) : QObject(parent)
 {
-    QLogHelper::instance()->LogInfo("SICommonMethod 构造函数执行!");
+    QLogHelper::instance()->LogInfo("AuExcelOperateThread 构造函数执行!");
 }

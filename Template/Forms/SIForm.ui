@@ -46,7 +46,7 @@
     </widget>
    </item>
    <item row="4" column="0">
-    <widget class="QPushButton" name="SIFileCompression">
+    <widget class="QPushButton" name="SIFileCompressionButton">
      <property name="sizePolicy">
       <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
        <horstretch>0</horstretch>

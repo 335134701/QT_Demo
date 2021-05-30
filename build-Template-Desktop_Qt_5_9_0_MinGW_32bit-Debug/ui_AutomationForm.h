@@ -150,10 +150,10 @@ public:
         AuFileSearchButton->setText(QApplication::translate("AutomationForm", "\346\226\207\344\273\266\346\243\200\347\264\242", Q_NULLPTR));
         AuIDLabel->setText(QApplication::translate("AutomationForm", "\346\234\272\347\247\215\347\225\252\345\217\267:", Q_NULLPTR));
         AuRelyIDLabel->setText(QApplication::translate("AutomationForm", "\344\276\235\350\265\226\346\234\272\347\247\215\347\225\252\345\217\267:", Q_NULLPTR));
-        AuSVNLabel->setText(QApplication::translate("AutomationForm", "TextLabel", Q_NULLPTR));
+        AuSVNLabel->setText(QString());
         AuSVNButton->setText(QApplication::translate("AutomationForm", "SVN\350\267\257\345\276\204", Q_NULLPTR));
         AuOutputButton->setText(QApplication::translate("AutomationForm", "\350\276\223\345\207\272\350\267\257\345\276\204", Q_NULLPTR));
-        AuOutputLabel->setText(QApplication::translate("AutomationForm", "TextLabel", Q_NULLPTR));
+        AuOutputLabel->setText(QString());
         AuCreateButton->setText(QApplication::translate("AutomationForm", "\350\207\252\345\212\250\347\224\237\346\210\220", Q_NULLPTR));
     } // retranslateUi
 

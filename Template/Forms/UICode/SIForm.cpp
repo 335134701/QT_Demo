@@ -121,7 +121,7 @@ void SIForm::ConnectSlot()
 void SIForm::on_SIIDEdit_editingFinished()
 {
     QLogHelper::instance()->LogInfo("SIForm->on_IDEdit_editingFinished() 函数触发执行!");
-    if(PromptInformation()){return;}
+    if(!PromptInformation()){return;}
     //初始化机种相关信息
     siFormBean->ResetParameter(RET_ID);
     this->siFormMethod->InitTableView();
@@ -146,7 +146,7 @@ void SIForm::on_SIIDEdit_editingFinished()
 void SIForm::on_SIRelyIDEdit_editingFinished()
 {
     QLogHelper::instance()->LogInfo("SIForm->on_RelyIDEdit_editingFinished() 函数触发执行!");
-    if(PromptInformation()){return;}
+    if(!PromptInformation()){return;}
     //如果RelyIDEdit文本输入为空或者ID与依赖ID一致，则说明不依赖任何机种
     if(ui->SIRelyIDEdit->text().isEmpty()||ui->SIRelyIDEdit->text()==(*siFormBean->getID())){
         ui->SIRelyIDEdit->setText("");
@@ -173,8 +173,9 @@ void SIForm::on_SIRelyIDEdit_editingFinished()
 void SIForm::on_SISVNButton_clicked()
 {
     QLogHelper::instance()->LogInfo("SIForm->on_SVNButton_clicked() 函数触发执行!");
-    if(PromptInformation()){return;}
+    if(!PromptInformation()){return;}
     siFormBean->ResetParameter(RET_SVNFilePath);
+    ui->SISVNLabel->setText(*siFormBean->getSVNDirPath());
     emit SelectDirSignal(ui->SISVNLabel,siFormBean->getSVNDirPath());
 }
 
@@ -184,8 +185,9 @@ void SIForm::on_SISVNButton_clicked()
 void SIForm::on_SIOutputButton_clicked()
 {
     QLogHelper::instance()->LogInfo("SIForm->on_OutputButton_clicked() 函数触发执行!");
-    if(PromptInformation()){return;}
+    if(!PromptInformation()){return;}
     siFormBean->ResetParameter(RET_OutPutFilePath);
+    ui->SIOutputLabel->setText(*siFormBean->getOutputDirPath());
     emit SelectDirSignal(ui->SIOutputLabel,siFormBean->getOutputDirPath());
 }
 
@@ -195,11 +197,7 @@ void SIForm::on_SIOutputButton_clicked()
 void SIForm::on_SIFileSearchButton_clicked()
 {
      QLogHelper::instance()->LogInfo("SIForm->on_SIFileSearchButton_clicked() 函数触发执行!");
-     if(PromptInformation()){return;}
-     if(siFormBean->getSVNDirPath()->isEmpty()){
-         QMessageBox::warning(this,"Warn","未设置SVN路径,无法执行文件检索任务!");
-         return;
-     }
+     if(!PromptInformation()||!CheckMessage(SI_CHECKMESSAGE_FileSearch)){return;}
      emit SearchFileSignal(RelyFileflag,false);
 }
 
@@ -209,17 +207,17 @@ void SIForm::on_SIFileSearchButton_clicked()
 void SIForm::on_SIPretreatmentButton_clicked()
 {
      QLogHelper::instance()->LogInfo("SIForm->on_SIPretreatmentButton_clicked() 函数触发执行!");
-     if(PromptInformation()){return;}
+     if(!PromptInformation()||!CheckMessage(SI_CHECKMESSAGE_Pretreatment)){return;}
 }
 
 
 /**
- * @brief SIForm::on_SIFileCompression_clicked
+ * @brief SIForm::on_SIFileCompressionButton_clicked
  */
-void SIForm::on_SIFileCompression_clicked()
+void SIForm::on_SIFileCompressionButton_clicked()
 {
-     QLogHelper::instance()->LogInfo("SIForm->on_SIFileCompression_clicked() 函数触发执行!");
-     if(PromptInformation()){return;}
+     QLogHelper::instance()->LogInfo("SIForm->on_SIFileCompressionButton_clicked() 函数触发执行!");
+     if(!PromptInformation()||!CheckMessage(SI_CHECKMESSAGE_FileCompression)){return;}
 }
 
 /**
@@ -250,8 +248,37 @@ bool SIForm::PromptInformation()
         default:
             break;
         }
-        return true;
+        return false;
     }
-    return false;
+    return true;
 }
 
+/**
+ * @def 按钮按下时检查机种番号等信息是否填写
+ * @brief SIForm::CheckMessage
+ * @return
+ */
+bool SIForm::CheckMessage(const unsigned int flag)
+{
+    QLogHelper::instance()->LogInfo("SIForm->CheckMessage() 函数执行!");
+    if(siFormBean->getID()->isEmpty()){
+        QMessageBox::warning(this,"Warn","未设置机种番号,无法执行文件检索任务!");
+        return false;
+    }
+    if(siFormBean->getSVNDirPath()->isEmpty()){
+        QMessageBox::warning(this,"Warn","未设置SVN路径,无法执行文件检索任务!");
+        return false;
+    }
+    switch (flag) {
+    case SI_CHECKMESSAGE_FileSearch:
+
+        break;
+    case SI_CHECKMESSAGE_Pretreatment:
+
+        break;
+    case SI_CHECKMESSAGE_FileCompression:
+
+        break;
+    }
+    return true;
+}

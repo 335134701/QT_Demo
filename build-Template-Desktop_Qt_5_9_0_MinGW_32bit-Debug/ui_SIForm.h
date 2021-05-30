@@ -28,7 +28,7 @@ class Ui_SIForm
 public:
     QGridLayout *gridLayout;
     QPushButton *SIPretreatmentButton;
-    QPushButton *SIFileCompression;
+    QPushButton *SIFileCompressionButton;
     QPushButton *SIFileSearchButton;
     QWidget *SIMemuWidget;
     QGridLayout *gridLayout_2;
@@ -64,12 +64,12 @@ public:
 
         gridLayout->addWidget(SIPretreatmentButton, 3, 0, 1, 1);
 
-        SIFileCompression = new QPushButton(SIForm);
-        SIFileCompression->setObjectName(QStringLiteral("SIFileCompression"));
-        sizePolicy.setHeightForWidth(SIFileCompression->sizePolicy().hasHeightForWidth());
-        SIFileCompression->setSizePolicy(sizePolicy);
+        SIFileCompressionButton = new QPushButton(SIForm);
+        SIFileCompressionButton->setObjectName(QStringLiteral("SIFileCompressionButton"));
+        sizePolicy.setHeightForWidth(SIFileCompressionButton->sizePolicy().hasHeightForWidth());
+        SIFileCompressionButton->setSizePolicy(sizePolicy);
 
-        gridLayout->addWidget(SIFileCompression, 4, 0, 1, 1);
+        gridLayout->addWidget(SIFileCompressionButton, 4, 0, 1, 1);
 
         SIFileSearchButton = new QPushButton(SIForm);
         SIFileSearchButton->setObjectName(QStringLiteral("SIFileSearchButton"));
@@ -173,7 +173,7 @@ public:
     {
         SIForm->setWindowTitle(QApplication::translate("SIForm", "Form", Q_NULLPTR));
         SIPretreatmentButton->setText(QApplication::translate("SIForm", "SI\351\242\204\345\244\204\347\220\206", Q_NULLPTR));
-        SIFileCompression->setText(QApplication::translate("SIForm", "SI\346\226\207\344\273\266\345\216\213\347\274\251", Q_NULLPTR));
+        SIFileCompressionButton->setText(QApplication::translate("SIForm", "SI\346\226\207\344\273\266\345\216\213\347\274\251", Q_NULLPTR));
         SIFileSearchButton->setText(QApplication::translate("SIForm", "SI\346\226\207\344\273\266\346\243\200\347\264\242", Q_NULLPTR));
         SIOutputButton->setText(QApplication::translate("SIForm", "\350\276\223\345\207\272\350\267\257\345\276\204", Q_NULLPTR));
         SISVNButton->setText(QApplication::translate("SIForm", "SVN\350\267\257\345\276\204", Q_NULLPTR));

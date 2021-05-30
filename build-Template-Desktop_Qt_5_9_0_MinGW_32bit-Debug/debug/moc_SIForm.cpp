@@ -22,7 +22,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_SIForm_t {
     QByteArrayData data[26];
-    char stringdata0[391];
+    char stringdata0[397];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -56,7 +56,7 @@ QT_MOC_LITERAL(21, 251, 22), // "on_SISVNButton_clicked"
 QT_MOC_LITERAL(22, 274, 25), // "on_SIOutputButton_clicked"
 QT_MOC_LITERAL(23, 300, 29), // "on_SIFileSearchButton_clicked"
 QT_MOC_LITERAL(24, 330, 31), // "on_SIPretreatmentButton_clicked"
-QT_MOC_LITERAL(25, 362, 28) // "on_SIFileCompression_clicked"
+QT_MOC_LITERAL(25, 362, 34) // "on_SIFileCompressionButton_cl..."
 
     },
     "SIForm\0JudgeIDSignal\0\0QLineEdit*\0Edit\0"
@@ -69,7 +69,7 @@ QT_MOC_LITERAL(25, 362, 28) // "on_SIFileCompression_clicked"
     "on_SISVNButton_clicked\0on_SIOutputButton_clicked\0"
     "on_SIFileSearchButton_clicked\0"
     "on_SIPretreatmentButton_clicked\0"
-    "on_SIFileCompression_clicked"
+    "on_SIFileCompressionButton_clicked"
 };
 #undef QT_MOC_LITERAL
 
@@ -138,7 +138,7 @@ void SIForm::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id, void
         case 8: _t->on_SIOutputButton_clicked(); break;
         case 9: _t->on_SIFileSearchButton_clicked(); break;
         case 10: _t->on_SIPretreatmentButton_clicked(); break;
-        case 11: _t->on_SIFileCompression_clicked(); break;
+        case 11: _t->on_SIFileCompressionButton_clicked(); break;
         default: ;
         }
     } else if (_c == QMetaObject::RegisterMethodArgumentMetaType) {

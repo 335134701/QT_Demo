@@ -54,8 +54,8 @@ void SIFormMethod::setLogFormMethod(LogFormMetod *value)
 void SIFormMethod::Init()
 {
     QLogHelper::instance()->LogInfo("SIFormMethod->Init() 函数执行!");
-    excelOperateThread=new ExcelOperateThread();
-    fileOperateThread=new FileOperateThread();
+    excelOperateThread=new SIExcelOperateThread();
+    fileOperateThread=new SIFileOperateThread();
 }
 
 /**

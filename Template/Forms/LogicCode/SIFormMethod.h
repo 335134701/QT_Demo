@@ -9,8 +9,8 @@
 #include "SIFormBean.h"
 #include "LogFormMetod.h"
 #include "CommonMethod.h"
-#include "ExcelOperateThread.h"
-#include "FileOperateThread.h"
+#include "SIExcelOperateThread.h"
+#include "SIFileOperateThread.h"
 
 class SIFormMethod : public QObject
 {
@@ -53,9 +53,9 @@ private :
 
     LogFormMetod *logFormMethod;
 
-    ExcelOperateThread *excelOperateThread;
+    SIExcelOperateThread *excelOperateThread;
 
-    FileOperateThread *fileOperateThread;
+    SIFileOperateThread *fileOperateThread;
 
     void Init();
 

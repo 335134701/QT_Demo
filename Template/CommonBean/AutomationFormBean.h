@@ -9,6 +9,10 @@
 class AutomationFormBean : public QObject
 {
     Q_OBJECT
+
+#define errFontColor "color:red;"
+#define nomFontColor "color:white;"
+
 public:
     explicit AutomationFormBean(QObject *parent = nullptr);
 

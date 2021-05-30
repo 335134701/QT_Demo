@@ -47,11 +47,36 @@
 #define DATETIME                QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss")
 #define DATAStytle              "[ "+DATETIME+" ] "
 
+/**
+ * @def
+ * @brief The Log_Level enum
+ */
 enum Log_Level{
     LOG_INFO    =   1,
     LOG_WARN    =   2,
     LOG_DEBUG   =   3,
     LOG_ERROR   =   4
 };
+
+/**
+ * @def 初始化标记位，根据标记位，初始化相关参数
+ * @brief The RestParameter enum
+ */
+enum RestParameter{
+    RET_ID                  =   1,
+    RET_SVNFilePath         =   2,
+    RET_OutPutFilePath      =   3
+};
+
+/**
+ * @def 标记位，Log 全部显示，Log输出显示，Table显示
+ * @brief The Log_Flag enum
+ */
+enum Log_Flag{
+    LOG_ALL     =   1,
+    LOG_LOG     =   2,
+    LOG_TABLE   =   3
+};
+
 
 #endif // COMMONDEFINE_H

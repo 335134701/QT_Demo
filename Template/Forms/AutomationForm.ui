@@ -101,7 +101,7 @@
       <item row="4" column="2">
        <widget class="QLabel" name="AuSVNLabel">
         <property name="text">
-         <string>TextLabel</string>
+         <string/>
         </property>
        </widget>
       </item>
@@ -132,7 +132,7 @@
       <item row="5" column="2">
        <widget class="QLabel" name="AuOutputLabel">
         <property name="text">
-         <string>TextLabel</string>
+         <string/>
         </property>
        </widget>
       </item>

@@ -58,8 +58,7 @@ private slots:
 
     void on_SIPretreatmentButton_clicked();
 
-    void on_SIFileCompression_clicked();
-
+    void on_SIFileCompressionButton_clicked();
 
 private:
     Ui::SIForm *ui;
@@ -77,6 +76,8 @@ private:
     void ConnectSlot();
 
     bool PromptInformation();
+
+    bool CheckMessage(const unsigned int flag);
 };
 
 #endif // SIFORM_H

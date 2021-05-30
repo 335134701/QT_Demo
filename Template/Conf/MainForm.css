@@ -84,7 +84,7 @@ QWidget#SITableWidget{
     background:#484848;
 }
 
-QAbstractButton#SIFileCompression,#SIFileSearchButton,#SIPretreatmentButton,#SIOutputButton,#SISVNButton{
+QAbstractButton#SIFileCompressionButton,#SIFileSearchButton,#SIPretreatmentButton,#SIOutputButton,#SISVNButton{
     font: 75 12pt "微软雅黑";
     border-style:none;
     border:1px solid #242424;
@@ -94,15 +94,15 @@ QAbstractButton#SIFileCompression,#SIFileSearchButton,#SIPretreatmentButton,#SIO
     border-radius:5px;
     background:qlineargradient(spread:pad,x1:0,y1:0,x2:0,y2:1,stop:0 #484848,stop:1 #383838);
 }
-QAbstractButton#SIFileCompression,#SIFileSearchButton,#SIPretreatmentButton{
+QAbstractButton#SIFileCompressionButton,#SIFileSearchButton,#SIPretreatmentButton{
     font: 75 15pt "微软雅黑";
 }
 
-QAbstractButton#SIFileCompression:hover,#SIFileSearchButton:hover,#SIPretreatmentButton:hover,#SIOutputButton:hover,#SISVNButton:hover{
+QAbstractButton#SIFileCompressionButton:hover,#SIFileSearchButton:hover,#SIPretreatmentButton:hover,#SIOutputButton:hover,#SISVNButton:hover{
     color:#FFFFFF;
     background-color:#636363;
 }
-QAbstractButton#SIFileCompression:pressed,#SIFileSearchButton:pressed,#SIPretreatmentButton:pressed,#SIOutputButton:pressed,#SISVNButton:pressed{
+QAbstractButton#SIFileCompressionButton:pressed,#SIFileSearchButton:pressed,#SIPretreatmentButton:pressed,#SIOutputButton:pressed,#SISVNButton:pressed{
     color:#FFFFFF;
     background-color:#484848;
 }

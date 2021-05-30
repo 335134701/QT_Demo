@@ -1,19 +1,20 @@
 INCLUDEPATH         += $$PWD
 INCLUDEPATH         += $$PWD/SIForm
+INCLUDEPATH         += $$PWD/AutomationForm
 
 
 HEADERS += \
     $$PWD/CommonMethod.h \
-    $$PWD/SIForm/ExcelOperateThread.h \
-    $$PWD/SIForm/ExcelOperateMethod.h \
-    $$PWD/SIForm/FileOperateThread.h \
-    $$PWD/SIForm/FileOperateMethod.h \
-    $$PWD/SIForm/SICommonMethod.h
+    $$PWD/SIForm/SICommonMethod.h \
+    $$PWD/SIForm/SIExcelOperateMethod.h \
+    $$PWD/SIForm/SIExcelOperateThread.h \
+    $$PWD/SIForm/SIFileOperateThread.h \
+    $$PWD/SIForm/SIFileOperateMethod.h
 
 SOURCES += \
     $$PWD/CommonMethod.cpp \
-    $$PWD/SIForm/ExcelOperateThread.cpp \
-    $$PWD/SIForm/ExcelOperateMethod.cpp \
-    $$PWD/SIForm/FileOperateThread.cpp \
-    $$PWD/SIForm/FileOperateMethod.cpp \
-    $$PWD/SIForm/SICommonMethod.cpp
+    $$PWD/SIForm/SICommonMethod.cpp \
+    $$PWD/SIForm/SIFileOperateThread.cpp \
+    $$PWD/SIForm/SIFileOperateMethod.cpp \
+    $$PWD/SIForm/SIExcelOperateThread.cpp \
+    $$PWD/SIForm/SIExcelOperateMethod.cpp

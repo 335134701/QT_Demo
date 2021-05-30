@@ -73,7 +73,7 @@ public:
 
         retranslateUi(MainForm);
 
-        FunctionWgedit->setCurrentIndex(1);
+        FunctionWgedit->setCurrentIndex(0);
 
 
         QMetaObject::connectSlotsByName(MainForm);

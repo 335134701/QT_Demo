@@ -113,7 +113,8 @@ void SIForm::ConnectSlot()
     connect(this,&SIForm::SelectDirSignal,this->siFormMethod,&SIFormMethod::SelectDirSlot);
     //文件查找处理相关槽函数
     connect(this,&SIForm::SearchFileSignal,this->siFormMethod,&SIFormMethod::SearchFileSlot);
-    
+    //SVN更新处理相关槽函数
+    connect(this,&SIForm::UpdateSVNSignal,this->siFormMethod,&SIFormMethod::UpdateSVNSlot);
 }
 
 /**
@@ -138,7 +139,7 @@ void SIForm::on_SIIDEdit_editingFinished()
     }else{
         ui->SIRelyIDEdit->setStyleSheet(QString(nomFontColor));
     }
-    emit ShowMessageProcessSignal(IDflag,LOG_LOG);
+    emit ShowMessageProcessSignal(SIIDflag,LOG_LOG);
 }
 
 /**
@@ -165,7 +166,7 @@ void SIForm::on_SIRelyIDEdit_editingFinished()
     }else{
         ui->SIRelyIDEdit->setStyleSheet(QString(nomFontColor));
     }
-    emit ShowMessageProcessSignal(RelyIDflag,LOG_ALL);
+    emit ShowMessageProcessSignal(SIRelyIDflag,LOG_ALL);
 }
 
 /**
@@ -178,6 +179,10 @@ void SIForm::on_SISVNButton_clicked()
     siFormBean->ResetParameter(RET_SVNFilePath);
     ui->SISVNLabel->setText(*siFormBean->getSVNDirPath());
     emit SelectDirSignal(ui->SISVNLabel,siFormBean->getSVNDirPath());
+    //SVN状态更新
+    if(!siFormBean->getSVNDirPath()->isEmpty()){
+        emit UpdateSVNSignal();
+    }
 }
 
 /**
@@ -199,7 +204,7 @@ void SIForm::on_SIFileSearchButton_clicked()
 {
      QLogHelper::instance()->LogInfo("SIForm->on_SIFileSearchButton_clicked() 函数触发执行!");
      if(!PromptInformation()||!CheckMessage(SI_CHECKMESSAGE_FileSearch)){return;}
-     emit SearchFileSignal(RelyFileflag,false);
+     emit SearchFileSignal(SIRelyFileflag,false);
 }
 
 /**
@@ -225,8 +230,8 @@ void SIForm::on_SIFileCompressionButton_clicked()
  * @def 执行某项操作时,其他操作不可执行提示
  *      关于 Statusflag 表示说明：
  *          0 表示无任何操作
- *          1 表示正在查找文件
- *          2 表示正在解析文件
+ *          1 表示正在执行SVN更新任务
+ *          2 表示正在执行文件检索任务
  *          3 表示正在生成相应的文件目录结构
  * @brief SIForm::PromptInformation
  * @return
@@ -237,11 +242,11 @@ bool SIForm::PromptInformation()
     if(siFormBean->getSIStatus()!=0)
     {
         switch (siFormBean->getSIStatus()) {
-        case 1:
-            QMessageBox::warning(this,"Warn","正在执行文件查找任务，其他任务暂时无法执行!");
+        case SI_SVNUPDATE:
+            QMessageBox::warning(this,"Warn","正在执行SVN更新任务，其他任务暂时无法执行!");
             break;
-        case 2:
-            QMessageBox::warning(this,"Warn","正在执行文件解析任务，其他任务暂时无法执行!");
+        case SI_FILESEARCH:
+            QMessageBox::warning(this,"Warn","正在执行文件检索任务，其他任务暂时无法执行!");
             break;
         case 3:
             QMessageBox::warning(this,"Warn","正在执行生成任务，其他任务暂时无法执行!");
@@ -263,13 +268,18 @@ bool SIForm::CheckMessage(const unsigned int flag)
 {
     QLogHelper::instance()->LogInfo("SIForm->CheckMessage() 函数执行!");
     if(siFormBean->getID()->isEmpty()){
-        QMessageBox::warning(this,"Warn","未设置机种番号,无法执行文件检索任务!");
+        QMessageBox::warning(this,"Warn","未设置机种番号,无法继续执行任务!");
         return false;
     }
     if(siFormBean->getSVNDirPath()->isEmpty()){
-        QMessageBox::warning(this,"Warn","未设置SVN路径,无法执行文件检索任务!");
+        QMessageBox::warning(this,"Warn","未设置SVN路径,无法继续执行任务!");
         return false;
     }
+    /*
+    if(!siFormBean->getSVNUpdateStatus()){
+        QMessageBox::warning(this,"Warn","SVN更新状态失败,无法继续执行任务!");
+        return false;
+    }*/
     switch (flag) {
     case SI_CHECKMESSAGE_FileSearch:
 

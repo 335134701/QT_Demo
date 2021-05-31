@@ -11,6 +11,8 @@ class SICommonMethod : public QObject
 public:
     explicit SICommonMethod(QObject *parent = nullptr);
 
+    QString JudgeIDType(const QString ID);
+
 signals:
 
 public slots:

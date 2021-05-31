@@ -2,7 +2,10 @@
 #define AUTOMATIONFORMMETHOD_H
 
 #include <QObject>
+#include <QLabel>
+#include <QLineEdit>
 #include <QTableView>
+#include <QFileDialog>
 
 #include "COMMONDEFINE.h"
 #include "LogFormMetod.h"
@@ -34,7 +37,21 @@ public:
 
 signals:
 
+    void ShowLogMessageSignal(const QStringList message,const unsigned int level);
+
+    void ShowMessageProcessSignal(const unsigned int flag, const unsigned int Log_Flag);
+
 public slots:
+
+    void JudgeIDSlot(QLineEdit *Edit, QString *ID);
+
+    void JudgeIDTypeSlot(QLineEdit *Edit, QString *srcobject, QString *desobject);
+
+    void ShowMessageProcessSlot(const unsigned int flag, const unsigned int Log_Flag);
+
+    void SelectDirSlot(QLabel *label, QString *objectDir);
+
+    void SearchFileSlot(unsigned int flag, bool isGoON);
 
 private :
 

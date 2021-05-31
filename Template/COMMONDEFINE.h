@@ -24,22 +24,22 @@
 *      6   表示P票信息获取
 *      7   表示SW确认文件获取
 *      8   表示CarInfoMot文件获取
+*      9   表示SVN更新状态标记
 *
 *      160 表示文件压缩状态
 *
 */
-
-
-#define SUCCESS             0
-#define IDflag              1
-#define IDTypeflag          2
-#define RelyIDflag          3
-#define RelyIDTypeflag      4
-#define RelyFileflag        5
-#define PFileflag           6
-#define SWFileflag          7
-#define CarInfoFileflag     8
-#define Compression         160
+#define SISUCCESS             0
+#define SIIDflag              1
+#define SIIDTypeflag          2
+#define SIRelyIDflag          3
+#define SIRelyIDTypeflag      4
+#define SIRelyFileflag        5
+#define SIPFileflag           6
+#define SISWFileflag          7
+#define SICarInfoFileflag     8
+#define SISVNUpdateflag       9
+#define SICompression         160
 
 
 
@@ -48,7 +48,7 @@
 #define DATAStytle              "[ "+DATETIME+" ] "
 
 /**
- * @def
+ * @def LogForm日志输出显示级别
  * @brief The Log_Level enum
  */
 enum Log_Level{

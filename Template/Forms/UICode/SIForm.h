@@ -39,6 +39,8 @@ signals:
 
     void ShowMessageProcessSignal(const unsigned int flag, const unsigned int Log_Flag);
 
+    void UpdateSVNSignal();
+
     void SelectDirSignal(QLabel *label,QString *objectDir);
 
     void SearchFileSignal(unsigned int flag, bool isGoON);

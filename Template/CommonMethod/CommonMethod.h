@@ -23,7 +23,8 @@ public:
 
     QString GetSVNInstallPath();
 
-    QString JudgeIDType(const QString ID);
+    bool CopyFile(const QString desDirPath,const QString srcDirPath);
+    
 
 signals:
 

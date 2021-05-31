@@ -14,6 +14,9 @@ public:
 signals:
 
 public slots:
+
+private :
+    void Init();
 };
 
 #endif // EXCELOPERATETHREAD_H

@@ -6,10 +6,13 @@
 #include <QTableView>
 #include <QFileDialog>
 #include <QLabel>
+#include <QThread>
+
 #include "COMMONDEFINE.h"
 #include "SIFormBean.h"
 #include "LogFormMetod.h"
 #include "CommonMethod.h"
+#include "SICommonMethod.h"
 #include "SIExcelOperateThread.h"
 #include "SIFileOperateThread.h"
 
@@ -39,6 +42,12 @@ signals:
 
     void ShowMessageProcessSignal(const unsigned int flag, const unsigned int Log_Flag);
 
+    void UpdateSVNSignal(const QString exeFilePath, const QString dirPath);
+
+    void SearchFileSignal(unsigned int flag, bool isGoON);
+
+    void FileSearchSignal(const QString dirPath,const QStringList filters,const QString ID,QString IDType,unsigned int flag, bool isGoON);
+
 public slots:
 
     void JudgeIDSlot(QLineEdit *Edit,QString *ID);
@@ -47,9 +56,15 @@ public slots:
 
     void ShowMessageProcessSlot(const unsigned int flag, const unsigned int Log_Flag);
 
+    void UpdateSVNSlot();
+
+    void EndUpdateSVNSlot(const bool result);
+
     void SelectDirSlot(QLabel *label,QString *objectDir);
 
     void SearchFileSlot(unsigned int flag, bool isGoON);
+
+    void EndFileSearcSlot(const QString filePath,unsigned int flag, bool isGoON);
 
 private :
 
@@ -57,11 +72,20 @@ private :
 
     SIFormBean *siFormBean;
 
+    SICommonMethod *siCommonMethod;
+
     LogFormMetod *logFormMethod;
+
+    QThread *fileThread;
+
+    QThread *excelThread;
 
     SIExcelOperateThread *excelOperateThread;
 
     SIFileOperateThread *fileOperateThread;
+
+    //任务执行状态标记位
+    unsigned int TmpProcessStatus;
 
     void Init();
 

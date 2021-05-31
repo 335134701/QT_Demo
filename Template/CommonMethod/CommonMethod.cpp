@@ -29,43 +29,18 @@ QString CommonMethod::Get7zInstallPath()
 QString CommonMethod::GetSVNInstallPath()
 {
     QLogHelper::instance()->LogInfo("CommonMethod->GetSVNInstallPath() 函数执行!");
-    QSettings settings("HKEY_LOCAL_MACHINE\\SOFTWARE\\WOW6432Node\\7-Zip",QSettings::NativeFormat);
-    return settings.value("Path").toString()+"7z.exe";
+    QSettings settings("HKEY_LOCAL_MACHINE\\SOFTWARE\\WOW6432Node\\TortoiseSVN",QSettings::NativeFormat);
+    return settings.value("Directory").toString()+"bin\\svn.exe";
 }
 
 /**
- * @def 判断机种类型
- *      根据ID字符串，第三四位字符判断
- * @brief CommonMethod::JudgeIDType
- * @param ID
+ * @def 文件复制功能
+ * @brief CommonMethod::CopyFile
+ * @param desDirPath
+ * @param srcDirPath
  * @return
  */
-QString CommonMethod::JudgeIDType(const QString ID)
+bool CommonMethod::CopyFile(const QString desDirPath, const QString srcDirPath)
 {
-    QLogHelper::instance()->LogInfo("CommonMethod->JudgeIDType() 函数执行!");
-    QString ret;
-    if(!ID.contains("EN")){return NULL;}
-    //字符转数字
-    switch (ID.mid(2,2).toInt()) {
-    case 33 :
-    case 40 :
-    case 42 :
-        ret="EntryAVM";
-        break;
-    case 34:
-        ret="EntryAVM2";
-        break;
-    case 35:
-        ret="EntryIPA";
-        break;
-    case 36:
-        ret="FAP";
-        break;
-    case 37:
-        ret="NextPH3";
-        break;
-    default:
-        break;
-    }
-    return ret;
+    QLogHelper::instance()->LogInfo("CommonMethod->CopyFile() 函数执行!");
 }

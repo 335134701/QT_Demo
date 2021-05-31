@@ -6,10 +6,24 @@
 #include "COMMONDEFINE.h"
 #include "CommonMethod.h"
 
+/**
+ * @def
+ * @brief The SI_CheckMessage enum
+ */
 enum SI_CheckMessage{
     SI_CHECKMESSAGE_FileSearch          =       1,
     SI_CHECKMESSAGE_Pretreatment        =       2,
     SI_CHECKMESSAGE_FileCompression     =       3
+};
+
+/**
+ * @def 程序执行状态标记
+ * @brief The SI_Task_Status enum
+ */
+enum SI_Task_Status{
+    SI_READY        =       0,
+    SI_SVNUPDATE    =       1,
+    SI_FILESEARCH   =       2
 };
 
 
@@ -93,12 +107,14 @@ private:
     QString *OutputDirPath;
     //依赖文件路径
     QString *RelyFilePath;
+    //项目源码路径
+    QString *codeFilePath;
     //P票相关路径
     QString *PFilePath;
     //SW确认表路径
     QString *SWFilePath;
     //CarInfo路径
-    QString *CarInfoFilePath;
+    QString *CarInfoFilePath;  
 
     //公共方法对象
     CommonMethod *commonMethod;

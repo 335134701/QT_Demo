@@ -123,7 +123,7 @@
        <widget class="QLineEdit" name="AuIDEdit">
         <property name="maximumSize">
          <size>
-          <width>120</width>
+          <width>105</width>
           <height>16777215</height>
          </size>
         </property>
@@ -153,7 +153,7 @@
        <widget class="QLineEdit" name="AuRelyIDEdit">
         <property name="maximumSize">
          <size>
-          <width>120</width>
+          <width>105</width>
           <height>16777215</height>
          </size>
         </property>

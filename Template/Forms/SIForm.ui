@@ -118,12 +118,15 @@
         </property>
         <property name="maximumSize">
          <size>
-          <width>120</width>
+          <width>105</width>
           <height>16777215</height>
          </size>
         </property>
         <property name="styleSheet">
          <string notr="true"/>
+        </property>
+        <property name="text">
+         <string>EN3302PA</string>
         </property>
         <property name="maxLength">
          <number>8</number>
@@ -144,7 +147,7 @@
        <widget class="QLineEdit" name="SIRelyIDEdit">
         <property name="maximumSize">
          <size>
-          <width>120</width>
+          <width>105</width>
           <height>16777215</height>
          </size>
         </property>

@@ -102,7 +102,7 @@ public:
         sizePolicy2.setVerticalStretch(0);
         sizePolicy2.setHeightForWidth(SIIDEdit->sizePolicy().hasHeightForWidth());
         SIIDEdit->setSizePolicy(sizePolicy2);
-        SIIDEdit->setMaximumSize(QSize(120, 16777215));
+        SIIDEdit->setMaximumSize(QSize(105, 16777215));
         SIIDEdit->setStyleSheet(QStringLiteral(""));
         SIIDEdit->setMaxLength(8);
 
@@ -116,7 +116,7 @@ public:
 
         SIRelyIDEdit = new QLineEdit(SIMemuWidget);
         SIRelyIDEdit->setObjectName(QStringLiteral("SIRelyIDEdit"));
-        SIRelyIDEdit->setMaximumSize(QSize(120, 16777215));
+        SIRelyIDEdit->setMaximumSize(QSize(105, 16777215));
         SIRelyIDEdit->setMaxLength(8);
 
         gridLayout_2->addWidget(SIRelyIDEdit, 1, 2, 1, 1);
@@ -174,6 +174,7 @@ public:
         SIOutputButton->setText(QApplication::translate("SIForm", "\350\276\223\345\207\272\350\267\257\345\276\204", Q_NULLPTR));
         SISVNButton->setText(QApplication::translate("SIForm", "SVN\350\267\257\345\276\204", Q_NULLPTR));
         SIIDLabel->setText(QApplication::translate("SIForm", "\346\234\272\347\247\215\347\225\252\345\217\267:", Q_NULLPTR));
+        SIIDEdit->setText(QApplication::translate("SIForm", "EN3302PA", Q_NULLPTR));
         SIRelyIDLabel->setText(QApplication::translate("SIForm", "\344\276\235\350\265\226\346\234\272\347\247\215\347\225\252\345\217\267:", Q_NULLPTR));
         SISVNLabel->setText(QString());
         SIOutputLabel->setText(QString());

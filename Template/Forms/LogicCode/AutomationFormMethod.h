@@ -2,6 +2,7 @@
 #define AUTOMATIONFORMMETHOD_H
 
 #include <QObject>
+#include <QThread>
 #include <QLabel>
 #include <QLineEdit>
 #include <QTableView>
@@ -12,6 +13,7 @@
 #include "AutomationFormBean.h"
 #include "AuExcelOperateThread.h"
 #include "AuFileOperateThread.h"
+#include "AuCommonMethod.h"
 
 class AutomationFormMethod : public QObject
 {
@@ -36,22 +38,27 @@ public:
     void ShowTableView(const QStringList message, const unsigned int flag);
 
 signals:
-
     void ShowLogMessageSignal(const QStringList message,const unsigned int level);
 
     void ShowMessageProcessSignal(const unsigned int flag, const unsigned int Log_Flag);
 
+    void SearchFileSignal(unsigned int flag, bool isGoON);
+
+    void FileSearchSignal(const QString dirPath,const QStringList filters,const QString ID,QString IDType,unsigned int flag, bool isGoON);
+
 public slots:
 
-    void JudgeIDSlot(QLineEdit *Edit, QString *ID);
+    void JudgeIDSlot(QLineEdit *Edit,QString *ID);
 
-    void JudgeIDTypeSlot(QLineEdit *Edit, QString *srcobject, QString *desobject);
+    void JudgeIDTypeSlot(QLineEdit *Edit,QString *srcobject,QString *desobject);
 
     void ShowMessageProcessSlot(const unsigned int flag, const unsigned int Log_Flag);
 
-    void SelectDirSlot(QLabel *label, QString *objectDir);
+    void SelectDirSlot(QLabel *label,QString *objectDir);
 
     void SearchFileSlot(unsigned int flag, bool isGoON);
+
+    void EndFileSearcSlot(const QString filePath,unsigned int flag, bool isGoON);
 
 private :
 
@@ -59,7 +66,13 @@ private :
 
     AutomationFormBean *automationFormBean;
 
+    AuCommonMethod *auCommonMethod;
+
     LogFormMetod *logFormMethod;
+
+    QThread *fileThread;
+
+    QThread *excelThread;
 
     AuExcelOperateThread *excelOperateThread;
 

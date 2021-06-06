@@ -80,6 +80,7 @@ void SIFormMethod::Init()
     fileOperateThread=new SIFileOperateThread();
     fileOperateThread->moveToThread(fileThread);
     excelOperateThread->moveToThread(excelThread);
+    siConfig=new SIConfig();
 }
 
 /**
@@ -89,14 +90,37 @@ void SIFormMethod::Init()
 void SIFormMethod::ConnectSlot()
 {
     QLogHelper::instance()->LogInfo("SIFormMethod->ConnectSlot() 函数执行!");
+    //不同线程之间传递自定义类型参数需要注册
+    qRegisterMetaType<QList<SI_SOFTNUMBERTable>> ("QList<SI_SOFTNUMBERTable>");
+    qRegisterMetaType<QList<SI_ERRORTable>> ("QList<SI_ERRORTable>");
+    qRegisterMetaType<QList<SI_DEFINEMESSAGE>> ("QList<SI_DEFINEMESSAGE>");
+    //连接Log信息输出处理信号槽函数
     connect(this,&SIFormMethod::ShowMessageProcessSignal,this,&SIFormMethod::ShowMessageProcessSlot);
+    //连接外部程序处理信号槽函数
+    connect(this,&SIFormMethod::RunOrderSignal,this,&SIFormMethod::RunOrderSlot);
+    connect(this->fileOperateThread,&SIFileOperateThread::EndRunOrderSignal,this,&SIFormMethod::EndRunOrderSlot);
     //SVN更新任务信号槽函数处理
     connect(this,&SIFormMethod::UpdateSVNSignal,this->fileOperateThread,&SIFileOperateThread::UpdateSVNSlot);
-    connect(this->fileOperateThread,&SIFileOperateThread::EndUpdateSVNSignal,this,&SIFormMethod::EndUpdateSVNSlot);
+    //连接文件解压信号槽函数
+    connect(this,&SIFormMethod::UNZipCodeFileSignal,this->fileOperateThread,&SIFileOperateThread::UNZipCodeFileSlot);
     //文件检索及文件检索完成后回调处理函数
     connect(this,&SIFormMethod::SearchFileSignal,this,&SIFormMethod::SearchFileSlot);
     connect(this,&SIFormMethod::FileSearchSignal,this->fileOperateThread,&SIFileOperateThread::FileSearchSlot);
     connect(this->fileOperateThread,&SIFileOperateThread::EndFileSearcSignal,this,&SIFormMethod::EndFileSearcSlot);
+    //Excel文件解析信号槽函数连接
+    connect(this,&SIFormMethod::ReadExcelThreadSignal,this->excelOperateThread,&SIExcelOperateThread::ReadExcelThreadSlot);
+    //量产管理表解析完成后信号槽函数连接
+    connect(this->excelOperateThread,&SIExcelOperateThread::EndReadSoftExcelSignal,this,&SIFormMethod::EndReadSoftExcelSlot);
+    //SW一览表解析完成后回调函数连接
+    connect(this->excelOperateThread,&SIExcelOperateThread::EndReadDefineFileExcelSignal,this,&SIFormMethod::EndReadDefineFileExcelSlot);
+    //文件检查信号槽函数
+    connect(this,&SIFormMethod::CheckFileSignal,this->fileOperateThread,&SIFileOperateThread::CheckFileSlot);
+    connect(this->fileOperateThread,&SIFileOperateThread::EndCheckFileSignal,this,&SIFormMethod::EndCheckFileSlot);
+    //文件压缩完成后继续执行预处理操作
+    connect(this,&SIFormMethod::PretreatmentSignal,this,&SIFormMethod::PretreatmentSlot);
+    //文件复制信号槽函数
+    connect(this,&SIFormMethod::CopyFileSignal,this->fileOperateThread,&SIFileOperateThread::CopyFileSlot);
+    connect(this->fileOperateThread,&SIFileOperateThread::EndCopyFileSignal,this,&SIFormMethod::EndCopyFileSlot);
 }
 
 /**
@@ -174,7 +198,7 @@ void SIFormMethod::JudgeIDTypeSlot(QLineEdit *Edit, QString *srcobject, QString 
 void SIFormMethod::ShowMessageProcessSlot(const unsigned int flag, const unsigned int Log_Flag)
 {
     QLogHelper::instance()->LogInfo("SIFormMethod->ShowLogMessageProcess() 函数执行!");
-    unsigned int level;
+    unsigned int level=LOG_INFO;
     QStringList message;
     //对数据包进行处理
     switch (flag) {
@@ -189,17 +213,30 @@ void SIFormMethod::ShowMessageProcessSlot(const unsigned int flag, const unsigne
         message.append("依赖机种类型: "+*siFormBean->getIDType());
         break;
     case SISVNUpdateflag:
-        if(siFormBean->getSIStatus()==1){
+        if(siFormBean->getSIStatus()!=0){
             level=LOG_INFO;
             message.append("SVN开始更新，更新路径: "+*siFormBean->getSVNDirPath());
-        }
-        if(siFormBean->getSIStatus()==0){
+        }else{
             if(siFormBean->getSVNUpdateStatus()){
                 level=LOG_INFO;
                 message.append("SVN更新成功，更新路径: "+*siFormBean->getSVNDirPath());
             }else{
                 level=LOG_WARN;
-                message.append("SVN更新失败，更新路径: "+*siFormBean->getSVNDirPath());
+                message.append("SVN更新失败！");
+            }
+        }
+        break;
+    case SIUnzipFileflag:
+        if(siFormBean->getSIStatus()==SI_PRETREAMENT){
+            level=LOG_INFO;
+            message.append("项目源码开始解压，文件路径: "+*siFormBean->getCodeFilePath());
+        }else {
+            if(siFormBean->getUnzipflag()){
+                level=LOG_INFO;
+                message.append("项目源码解压完成，目录路径: "+siFormBean->getCodeFilePath()->left(siFormBean->getCodeFilePath()->lastIndexOf("/"))+"/"+ProjectName);
+            }else{
+                level=LOG_ERROR;
+                message.append("项目源码解压失败!");
             }
         }
         break;
@@ -212,8 +249,130 @@ void SIFormMethod::ShowMessageProcessSlot(const unsigned int flag, const unsigne
             message.append("量产管理表路径获取失败!");
         }
         break;
-    default:
+    case SIPFileflag:
+        if(!siFormBean->getPFilePath()->isEmpty()){
+            level=LOG_INFO;
+            message.append("P票模板路径: "+*siFormBean->getPFilePath());
+        }else{
+            level=LOG_ERROR;
+            message.append("P票模板路径获取失败!");
+        }
         break;
+    case SISWFileflag:
+        if(!siFormBean->getSWFilePath()->isEmpty()){
+            level=LOG_INFO;
+            message.append("SW確認文件模板路径: "+*siFormBean->getSWFilePath());
+        }else{
+            level=LOG_ERROR;
+            message.append("SW確認文件模板路径获取失败!");
+        }
+        break;
+    case SICarInfoFileflag:
+        if(!siFormBean->getCarInfoFilePath()->isEmpty()){
+            level=LOG_INFO;
+            message.append("CarInfo文件路径: "+*siFormBean->getCarInfoFilePath());
+        }else{
+            level=LOG_ERROR;
+            message.append("CarInfo文件模板路径获取失败!");
+        }
+        break;
+    case SIBuildFileflag:
+        if(!siFormBean->getBuildFilePath()->isEmpty()){
+            level=LOG_INFO;
+            message.append("Build文件模板路径: "+*siFormBean->getBuildFilePath());
+        }else{
+            level=LOG_ERROR;
+            message.append("Build文件模板路径获取失败!");
+        }
+        break;
+    case SICodeFileflag:
+        if(!siFormBean->getCodeFilePath()->isEmpty()){
+            level=LOG_INFO;
+            message.append("项目源码路径: "+*siFormBean->getCodeFilePath());
+        }else{
+            level=LOG_ERROR;
+            message.append("项目源码路径获取失败!");
+        }
+        break;
+    case SICopyCodeflag:
+        if(siFormBean->getCopyCodeflag()){
+            level=LOG_INFO;
+            message.append("项目源码复制成功,文件新路径: "+*siFormBean->getCodeFilePath());
+        }else{
+            level=LOG_ERROR;
+            message.append("项目源码复制失败!");
+        }
+        break;
+    case SISHDefineFileflag:
+        if(!siFormBean->getSHDefineFilePath()->isEmpty()){
+            level=LOG_INFO;
+            message.append("SW一覧表路径: "+*siFormBean->getSHDefineFilePath());
+        }else{
+            level=LOG_ERROR;
+            message.append("SW一覧表路径获取失败!");
+        }
+        break;
+    case SIRelyMessageflag:
+        if(siFormBean->getSoftList()->size()>0){
+            level=LOG_INFO;
+            foreach (SI_SOFTNUMBERTable table, *(siFormBean->getSoftList())) {
+                message.append("クラリオン機種番号: "+table.ModelNumber);
+                message.append("車種仕向け: "+table.CarModels);
+                message.append("CAN世代: "+table.CANGen);
+                message.append("生産段階: "+table.Productionstage);
+                message.append("Application PartsNo: "+table.ApplicationPartNo);
+                message.append("Application Ver: "+table.ApplicationVer);
+                message.append("\\n");
+            }
+        }else{
+            level=LOG_WARN;
+            message.append("文件解析失败 : "+siFormBean->getRelyFilePath()->mid(siFormBean->getRelyFilePath()->lastIndexOf("/")+1));
+        }
+        break;
+    case SISHDefineflag:
+        if(siFormBean->getDefineList()->size()>0){
+            level=LOG_INFO;
+            foreach (SI_DEFINEMESSAGE table, *(siFormBean->getDefineList())) {
+                message.append("番号: "+*siFormBean->getID());
+                message.append("机种类型: "+*siFormBean->getIDType());
+                message.append("HEWプロジェクト: "+table.stageName);
+                message.append("マクロ定義: "+table.defineName);
+                if(table.isUse){
+                    message.append("使用状态: 使用");
+                }else{
+                    message.append("使用状态: 未使用");
+                }
+                message.append("\\n");
+            }
+        }else{
+            level=LOG_WARN;
+            message.append("文件解析失败 : "+siFormBean->getSHDefineFilePath()->mid(siFormBean->getSHDefineFilePath()->lastIndexOf("/")+1));
+        }
+        break;
+    case SIERRorMessageflag:
+        if(siFormBean->getErrList()->size()>0){
+            level=LOG_ERROR;
+            foreach (SI_ERRORTable err, *(siFormBean->getErrList())) {
+                message.append("文件(目录)名称: "+err.fileName);
+                if(!err.sheetName.isEmpty()){
+                    message.append("sheet名称: "+err.fileName);
+                }
+                if(err.row!=0||err.col!=0)
+                {
+                    message.append("第: "+QString::number(err.row)+ " 行, 第: "+QString::number(err.col)+" 列");
+                }
+                message.append("错误描述: "+err.errMessage);
+            }
+        }
+        break;
+    case SIBADirflag:
+        if(siFormBean->getBAflag()){
+            level=LOG_INFO;
+            message.append("Before&After 文件夹校验成功!");
+        }else{
+            level=LOG_ERROR;
+            message.append("Before&After 文件夹校验失败!");
+        }
     }
     switch (Log_Flag) {
     case LOG_ALL:
@@ -244,46 +403,41 @@ void SIFormMethod::ShowTableView(const QStringList message, const unsigned int f
 }
 
 /**
- * @def  SVN更新相关操作
- * @brief SIFormMethod::UpdateSVNSlot
+ * @def 执行调用外部程序处理函数
+ * @brief SIFormMethod::RunOrderSlot
+ * @param flag
  */
-void SIFormMethod::UpdateSVNSlot()
+void SIFormMethod::RunOrderSlot(const unsigned int flag)
 {
-    QLogHelper::instance()->LogInfo("SIFormMethod->UpdateSVNSlot() 函数执行!");
+    QLogHelper::instance()->LogInfo("SIFormMethod->RunOrderSlot() 函数执行!");
     QFile *file;
-    QString exeFilePath=siFormBean->getCommonMethod()->GetSVNInstallPath();
-    //SVN状态更新
-    siFormBean->setSIStatus(SI_SVNUPDATE);
-    emit ShowMessageProcessSignal(SISVNUpdateflag,LOG_LOG);
-    if(file->exists(*siFormBean->getSVNDirPath()+"/.svn")&&file->exists(exeFilePath))
-    {
-        //如果子线程未启动，则开启子线程
-        if(!fileThread->isRunning()){
-            fileThread->start();
+    QString exeFilePath;
+    emit ShowMessageProcessSignal(flag,LOG_LOG);
+    switch (flag) {
+    case SISVNUpdateflag:
+        //SVN状态更新
+        siFormBean->setSIStatus(SI_SVNUPDATE);
+        exeFilePath=siFormBean->getCommonMethod()->GetSVNInstallPath();
+        if(file->exists((*siFormBean->getSVNDirPath())+"/.svn")&&file->exists(exeFilePath))
+        {
+            //如果子线程未启动，则开启子线程
+            if(!fileThread->isRunning()){fileThread->start();}
+            emit UpdateSVNSignal(exeFilePath,*siFormBean->getSVNDirPath(),flag);
         }
-        emit UpdateSVNSignal(exeFilePath,*siFormBean->getSVNDirPath());
-    }else{
-        siFormBean->setSIStatus(SI_READY);
-        emit ShowMessageProcessSignal(SISVNUpdateflag,LOG_LOG);
+        break;
+    case SIUnzipFileflag:
+        //SVN状态更新
+        siFormBean->setSIStatus(SI_FILEUNZIP);
+        exeFilePath=siFormBean->getCommonMethod()->Get7zInstallPath();
+        if(file->exists(*siFormBean->getCodeFilePath())&&file->exists(exeFilePath))
+        {
+            //如果子线程未启动，则开启子线程
+            if(!fileThread->isRunning()){fileThread->start();}
+            emit UNZipCodeFileSignal(exeFilePath,*siFormBean->getCodeFilePath(),*siFormBean->getOutputDirPath()+"/"+*siFormBean->getID(),flag);
+        }
+        break;
     }
 }
-
-/**
- * @def SVN更新完成
- * @brief SIFormMethod::EndUpdateSVNSlot
- * @param result
- */
-void SIFormMethod::EndUpdateSVNSlot(const bool result)
-{
-    QLogHelper::instance()->LogInfo("SIFormMethod->EndUpdateSVNSlot() 函数执行!");
-    siFormBean->setSIStatus(SI_READY);
-    siFormBean->setSVNUpdateStatus(result);
-    emit ShowMessageProcessSlot(SISVNUpdateflag,LOG_LOG);
-    //子线程阻塞
-    fileThread->quit();
-    fileThread->wait();
-}
-
 
 /**
  * @def 处理路径选择相关操作
@@ -319,8 +473,9 @@ void SIFormMethod::SearchFileSlot(unsigned int flag, bool isGoON)
     if(!QDir(*siFormBean->getSVNDirPath()).exists()){return;}
     //文件检索过滤器
     QStringList filters;
+    siFormBean->setSIStatus(SI_FILESEARCH);
+    //如果文件搜索子线程未开启，则开启子线程
     if(!fileThread->isRunning()){
-        siFormBean->setSIStatus(SI_FILESEARCH);
         fileThread->start();
     }
     switch (flag) {
@@ -331,9 +486,185 @@ void SIFormMethod::SearchFileSlot(unsigned int flag, bool isGoON)
             filters.append("*"+*(siFormBean->getIDType())+"*ソフトウエア部品番号管理表(量産)_AKM対応用*.xls");
         }
         break;
+    case SIPFileflag:
+        filters.append("*AKM火災対応_P票.xls");
+        break;
+    case SISWFileflag:
+        filters.append("コンパイルSW確認結果*.xls");
+        break;
+    case SICarInfoFileflag:
+        filters.append("*"+*(siFormBean->getID())+"*_CarInfo.mot");
+        break;
+    case SIBuildFileflag:
+        filters.append("Buildパラメタ(option)_*.xlsx");
+        break;
+    case SICodeFileflag:
+        filters.append("*.7z");
+        filters.append("*.zip");
+        break;
+    case SISHDefineFileflag:
+        filters.append("SH7766*コンパイルSW一覧*.xlsx");
+        break;
     }
     emit FileSearchSignal(dirPath,filters,*siFormBean->getID(),*siFormBean->getIDType(),flag,isGoON);
 }
+
+/**
+ * @def 预处理
+ *      包括 创建对应机种文件夹路径
+ *          将项目源码复制到创建的路径下
+ *          对项目源码解压到指定文件夹下
+ *          根据依赖机种番号的设定分成两步处理：依赖机种番号未设定，依赖机种已设定
+ *          依赖机种已设定:
+ *
+ *          依赖机种未设定：
+ *              1.经过算法获取机种番号留用关系，
+ *                  如果在量产管理表中能获取到留用关系，则不需要再在宏定义表格中做宏定义
+ *                  如果在量产管理表中无法获取到留用关系，则需要在对应的宏定义表中添加宏定义
+ *              2.检查Before&After文件及其文件夹是否正确
+ *              3.合并After文件夹到指定项目路径下
+ *              4.根据项目路径下相关文件夹信息判断是否需要做新规
+ *              5.将宏定义写入对应的文件中
+ *
+ * @brief SIFormMethod::PretreatmentSlot
+ */
+void SIFormMethod::PretreatmentSlot()
+{
+    QLogHelper::instance()->LogInfo("SIFormMethod->PretreatmentSlot() 函数执行!");
+    QString tmpPath;
+    bool flag=false;
+    QDir *folder=new QDir();
+    if(siFormBean->getSIStatus()==SI_READY){
+        siFormBean->setSIStatus(SI_PRETREAMENT);
+        tmpPath=*siFormBean->getOutputDirPath()+"/"+*siFormBean->getID();
+        //如果输出路径不存在，则默认为桌面路径
+        if(siFormBean->getOutputDirPath()->isEmpty()){
+            (*siFormBean->getOutputDirPath())=siFormBean->getCommonMethod()->desktopDirPath;
+            tmpPath=*siFormBean->getOutputDirPath()+"/"+*siFormBean->getID();
+        }
+        //第一步创建目录
+        folder->setPath(tmpPath);
+        //如果路径下文件夹存在，则删除文件夹
+        if(folder->exists()){
+            folder->removeRecursively();
+            this->SendConMessageLog(tmpPath+" 文件夹删除成功!",LOG_INFO);
+        }
+        flag=folder->mkpath(tmpPath);
+        if(!flag){RetSIStatus(tmpPath+" 文件夹创建失败!",LOG_ERROR);return;}
+        emit this->SendConMessageLog(tmpPath+" 文件夹创建成功!",LOG_INFO);
+        //第二步项目源码文件复制
+        siFormBean->setSIStatus(SI_FILECODECOPY);
+        if(!fileThread->isRunning()){fileThread->start();}
+        emit CopyFileSignal(*siFormBean->getCodeFilePath(),tmpPath+"/"+siFormBean->getCodeFilePath()->mid(siFormBean->getCodeFilePath()->lastIndexOf("/")+1),SICopyCodeflag);
+    }else if(siFormBean->getSIStatus()==SI_FILECODECOPY){
+        if(!siFormBean->getCopyCodeflag()){siFormBean->setSIStatus(SI_READY);return;}
+        siFormBean->setSIStatus(SI_PRETREAMENT);
+        //解压项目源码
+        emit RunOrderSignal(SIUnzipFileflag);
+    }
+    else if(siFormBean->getSIStatus()==SI_FILEUNZIP){
+        //第三步宏定义检查
+        //if(siFormBean->getDefineList()->size()<0){}
+        if(!siFormBean->getUnzipflag()){siFormBean->setSIStatus(SI_READY);return;}
+        //第四步BeforeAfter文件检查
+        siFormBean->setSIStatus(SI_FILCHECK);
+        if(!fileThread->isRunning()){fileThread->start();}
+        emit CheckFileSignal(*siFormBean->getSVNDirPath(),*siFormBean->getID(),*siFormBean->getIDType(),SIBADirflag,*siFormBean->getSoftList());
+    }else if(siFormBean->getSIStatus()==SI_FILCHECK){
+        //第五步合并
+        if(!siFormBean->getBAflag()){siFormBean->setSIStatus(SI_READY);return;}
+        QStringList dirPathList=siCommonMethod->GetBeforeAfterDirPath(fileOperateThread->getSiFileOperateMethod()->AnalyzePath(*siFormBean->getSVNDirPath(),*siFormBean->getID(),*siFormBean->getIDType(),SIBADirflag),*siFormBean->getSoftList());
+        if(siFormBean->getCommonMethod()->CopyDir(dirPathList[1],siFormBean->getCodeFilePath()->left(siFormBean->getCodeFilePath()->lastIndexOf("/"))+"/"+ProjectName)){
+            this->SendConMessageLog("After文件夹与源码程序文件夹合并成功!",LOG_INFO);
+            siFormBean->setSIStatus(SI_READY);
+        }else{
+            this->RetSIStatus("After文件夹与源码程序文件夹合并失败，任务无法继续执行!",LOG_ERROR);
+        }
+    }
+    //siFormBean->setSIStatus(SI_READY);
+}
+
+/**
+ * @def 文件压缩处理，前提条件是：量产管理表中信息解析成功，CarInfo文件获取成功
+ *      1.将生成的ALL.mot,APP.mot文件与当前时间做对比，超过三十分钟则认为生成失败
+ *      2.将Carinfo.mot,ALL.mot文件复制到tools路径下
+ *      3.更改SumAddCP.bat,joinmot.bat中对应CarInfo.mot名称
+ *      4.执行SumAddCP.bat生成CarInfo.mot.org文件
+ *      5.执行joinmot.bat,生成join.mot文件
+ *      6.将SH7766_PF\ALL\ALL目录下多余文件夹删除
+ *      7.将SH7766_PF\ALL\ALL\机种番号目录下多余文件删除
+ *      8.将join.mot,app.mot文件复制到指定路径下
+ *      9.压缩项目文件，生成两个不同文件压缩包到指定路径下
+ *
+ * @brief SIFormMethod::FileCompressionSlot
+ */
+void SIFormMethod::FileCompressionSlot()
+{
+    QLogHelper::instance()->LogInfo("SIFormMethod->FileCompressionSlot() 函数执行!");
+    QString carModelsName=siFormBean->getSoftList()->value(0).CarModels;
+    siFormBean->setSIStatus(SI_FILCOMPRESSION);
+    if(carModelsName.contains("-")){carModelsName.replace("-","_");}
+    carModelsName=carModelsName+"_"+siFormBean->getID();
+    (*siFormBean->getOutputDirPath())=siFormBean->getCommonMethod()->desktopDirPath;
+    QString tmpPath=*siFormBean->getOutputDirPath()+"/"+*siFormBean->getID()+"/"+ProjectName;
+    //第一步：对比生成的ALL.mot,APP.mot文件
+    //if(!siCommonMethod->CompressionCompareMotFile(tmpPath+"/ALL/ALL/"+carModelsName)){this->RetSIStatus("Mot文件生成失败，任务无法继续执行!",LOG_ERROR);return;}
+    //第二步：文件复制
+    if(!siFormBean->getCommonMethod()->CopyFile(*siFormBean->getCarInfoFilePath(),tmpPath+"/tools/"+siFormBean->getCarInfoFilePath()->mid(siFormBean->getCarInfoFilePath()->lastIndexOf("/")+1))){
+        this->RetSIStatus("CarInfo.mot文件复制失败，任务无法继续执行!",LOG_ERROR);return;
+    }
+    if(!siFormBean->getCommonMethod()->CopyFile(tmpPath+"/ALL/ALL/"+carModelsName+"/ALL.mot",tmpPath+"/tools/ALL.mot")){
+        this->RetSIStatus("CarInfo.mot文件复制失败，任务无法继续执行!",LOG_ERROR);return;
+    }
+    //第三步:文件更改
+    if(!siCommonMethod->CompressionChangeBatFile(tmpPath+"/tools",siFormBean->getCarInfoFilePath()->mid(siFormBean->getCarInfoFilePath()->lastIndexOf("/")+1))){
+        this->RetSIStatus(QString(SUMBAT)+"Bat文件修改失败，任务无法继续执行!",LOG_ERROR);return;
+    }
+    //第四,五步:执行bat文件
+    if(!siCommonMethod->CompressionRunCmd(tmpPath+"/tools/"+SUMBAT)){
+        this->RetSIStatus(QString(SUMBAT)+" 执行失败，任务无法继续执行!",LOG_ERROR);return;
+    }
+    if(!siCommonMethod->CompressionRunCmd(tmpPath+"/tools/"+JOINBAT)){
+        this->RetSIStatus(QString(JOINBAT)+" 执行失败，任务无法继续执行!",LOG_ERROR);return;
+    }
+    if(QFile::exists(tmpPath+"/tools/join.mot")){this->SendConMessageLog("join.mot文件生成成功!",LOG_INFO);}
+    else{
+         this->RetSIStatus("join.mot文件生成失败!",LOG_ERROR);return;
+    }
+    //第六步：删除多余的文件夹
+    if(!siCommonMethod->CompressionRemoveDir(tmpPath+"/ALL/ALL",carModelsName)){
+        this->RetSIStatus("ALL路径下多余目录删除失败，任务无法继续执行!",LOG_ERROR);return;
+    }
+    siFormBean->setSIStatus(SI_READY);
+}
+
+/**
+ * @def 执行调用外部程序处理结束回调函数
+ * @brief SIFormMethod::EndRunOrderSlot
+ * @param result
+ * @param flag
+ */
+void SIFormMethod::EndRunOrderSlot(const bool result,const unsigned int flag)
+{
+    QLogHelper::instance()->LogInfo("SIFormMethod->EndRunOrderSlot() 函数执行!");
+    //子线程阻塞
+    fileThread->quit();
+    fileThread->wait();
+    switch (flag) {
+    case SISVNUpdateflag:
+        siFormBean->setSVNUpdateStatus(result);
+        if(siFormBean->getSIStatus()==SI_SVNUPDATE){siFormBean->setSIStatus(SI_READY);}
+        break;
+    case SIUnzipFileflag:
+        siFormBean->setUnzipflag(result);
+        break;
+    default:
+        break;
+    }
+    emit ShowMessageProcessSlot(flag,LOG_LOG);
+    if(flag==SIUnzipFileflag){emit PretreatmentSignal();}
+}
+
 
 /**
  * @def 文件搜索结束回调函数
@@ -350,18 +681,161 @@ void SIFormMethod::EndFileSearcSlot(const QString filePath, unsigned int flag, b
     case SIRelyFileflag:
         log_Flag=LOG_ALL;
         (*siFormBean->getRelyFilePath())=filePath;
+        if(!filePath.isEmpty()){
+            if(!excelThread->isRunning()){
+                siFormBean->setSIStatus(SI_FILEREAD);
+                excelThread->start();
+            }
+            emit ReadExcelThreadSignal(filePath,*siFormBean->getID(),*siFormBean->getIDType(),flag);
+        };
+        break;
+    case SIPFileflag:
+        log_Flag=LOG_ALL;
+        (*siFormBean->getPFilePath())=filePath;
+        break;
+    case SISWFileflag:
+        log_Flag=LOG_ALL;
+        (*siFormBean->getSWFilePath())=filePath;
+        break;
+    case SICarInfoFileflag:
+        log_Flag=LOG_ALL;
+        (*siFormBean->getCarInfoFilePath())=filePath;
+        isGoON=false;
+        break;
+    case SICodeFileflag:
+        log_Flag=LOG_ALL;
+        (*siFormBean->getCodeFilePath())=filePath;
+        break;
+    case SISHDefineFileflag:
+        log_Flag=LOG_ALL;
+        (*siFormBean->getSHDefineFilePath())=filePath;
+        if(!filePath.isEmpty()){
+            if(!excelThread->isRunning()){
+                siFormBean->setSIStatus(SI_FILEREAD);
+                excelThread->start();
+            }
+            emit ReadExcelThreadSignal(filePath,*siFormBean->getID(),*siFormBean->getIDType(),flag);
+        }
         break;
     }
     emit ShowMessageProcessSignal(flag,log_Flag);
     if(isGoON){
+        flag=SICarInfoFileflag;
         emit SearchFileSignal(flag,isGoON);
     }
     else{
         fileThread->quit();
         fileThread->wait();
-        siFormBean->setSIStatus(SI_READY);
+        if(!fileThread->isRunning()&&!excelThread->isRunning()){siFormBean->setSIStatus(SI_READY);}
     }
 }
 
+/**
+ * @brief SIFormMethod::EndCopyFileSlot
+ * @param filePath
+ * @param flag
+ * @param result
+ */
+void SIFormMethod::EndCopyFileSlot(const QString filePath, const unsigned int flag, const bool result)
+{
+    QLogHelper::instance()->LogInfo("SIFormMethod->EndCopyCodeFileSlot() 函数执行!");
+    fileThread->quit();
+    fileThread->wait();
+    switch (flag) {
+    case SICopyCodeflag:
+        siFormBean->setCopyCodeflag(result);
+        (*siFormBean->getCodeFilePath())=filePath;
+        break;
+    default:
+        break;
+    }
+    emit ShowMessageProcessSlot(SICopyCodeflag,LOG_LOG);
+    if(flag==SICopyCodeflag){emit PretreatmentSignal();}
+}
+
+/**
+ * @def 量产管理表信息读取完成后回调函数
+ * @brief SIFormMethod::EndReadSoftExcelSlot
+ * @param softList
+ * @param errList
+ */
+void SIFormMethod::EndReadSoftExcelSlot(const QList<SI_SOFTNUMBERTable> softList,const QList<SI_ERRORTable> errList)
+{
+    QLogHelper::instance()->LogInfo("SIFormMethod->EndReadSoftExcelSlot() 函数执行!");
+    (*siFormBean->getSoftList())=softList;
+    (*siFormBean->getErrList())=errList;
+    excelThread->quit();
+    excelThread->wait();
+    if(!fileThread->isRunning()&&!excelThread->isRunning()){siFormBean->setSIStatus(SI_READY);}
+    emit ShowMessageProcessSignal(SIRelyMessageflag,LOG_ALL);
+    emit ShowMessageProcessSignal(SIERRorMessageflag,LOG_LOG);
+}
+/**
+ * @def 校验文件是否存在
+ * @brief SIFormMethod::EndCheckFileSlot
+ * @param flag
+ * @param result
+ * @param errList
+ */
+void SIFormMethod::EndCheckFileSlot(const unsigned int flag, const bool result, const QList<SI_ERRORTable> errList)
+{
+    QLogHelper::instance()->LogInfo("SIFormMethod->EndCheckFileSlot() 函数执行!");
+    fileThread->quit();
+    fileThread->wait();
+    switch (flag) {
+    case SIBADirflag:
+        siFormBean->setBAflag(result);
+        emit ShowMessageProcessSlot(SIBADirflag,LOG_LOG);
+        emit PretreatmentSignal();
+        break;
+    }
+    (*siFormBean->getErrList())=errList;
+    emit ShowMessageProcessSlot(SIERRorMessageflag,LOG_LOG);
+}
+
+
+/**
+ * @def SW一览表解析完成后回调函数
+ * @brief SIFormMethod::EndReadDefineFileExcelSlot
+ * @param defineList
+ * @param errList
+ */
+void SIFormMethod::EndReadDefineFileExcelSlot(const QList<SI_DEFINEMESSAGE> defineList, const QList<SI_ERRORTable> errList)
+{
+    QLogHelper::instance()->LogInfo("SIFormMethod->EndReadDefineFileExcelSlot() 函数执行!");
+    (*siFormBean->getDefineList())=defineList;
+    (*siFormBean->getErrList())=errList;
+    excelThread->quit();
+    excelThread->wait();
+    if(!fileThread->isRunning()&&!excelThread->isRunning()){siFormBean->setSIStatus(SI_READY);}
+    emit ShowMessageProcessSlot(SISHDefineflag,LOG_ALL);
+    emit ShowMessageProcessSignal(SIERRorMessageflag,LOG_LOG);
+}
+
+
+/**
+ * @def 常规信息发送
+ * @brief SIFormMethod::SendConMessageLog
+ */
+void SIFormMethod::SendConMessageLog(const QString txt, const unsigned int level)
+{
+    QLogHelper::instance()->LogInfo("SIFormMethod->SendConMessageLog() 函数执行!");
+    QStringList message;
+    message.append(txt);
+    emit ShowLogMessageSignal(message,level);
+}
+
+/**
+ * @def 初始化程序状态，并发送发送信息
+ * @brief SIFormMethod::RetSIStatus
+ * @param txt
+ * @param level
+ */
+void SIFormMethod::RetSIStatus(const QString txt, const unsigned int level)
+{
+    QLogHelper::instance()->LogInfo("SIFormMethod->SendConMessageLog() 函数执行!");
+    this->SendConMessageLog(txt,level);
+    if(!fileThread->isRunning()&&!excelThread->isRunning()){siFormBean->setSIStatus(SI_READY);}
+}
 
 

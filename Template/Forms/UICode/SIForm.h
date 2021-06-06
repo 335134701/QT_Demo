@@ -39,12 +39,15 @@ signals:
 
     void ShowMessageProcessSignal(const unsigned int flag, const unsigned int Log_Flag);
 
-    void UpdateSVNSignal();
+    void RunOrderSignal(const unsigned int flag);
 
     void SelectDirSignal(QLabel *label,QString *objectDir);
 
     void SearchFileSignal(unsigned int flag, bool isGoON);
 
+    void PretreatmentSignal();
+
+    void FileCompressionSignal();
 
 private slots:
 

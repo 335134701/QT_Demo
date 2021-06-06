@@ -9,6 +9,7 @@ AutomationFormMethod::AutomationFormMethod(QObject *parent) : QObject(parent)
     QLogHelper::instance()->LogInfo("AutomationFormMethod 构造函数执行!");
     this->Init();
     this->ConnectSlot();
+    this->InitTableView();
 }
 
 /**
@@ -71,8 +72,13 @@ void AutomationFormMethod::setLogFormMethod(LogFormMetod *value)
 void AutomationFormMethod::Init()
 {
     QLogHelper::instance()->LogInfo("AutomationFormMethod->Init() 函数执行!");
+    fileThread=new QThread();
+    excelThread=new QThread();
+    auCommonMethod=new AuCommonMethod();
     excelOperateThread=new AuExcelOperateThread();
     fileOperateThread=new AuFileOperateThread();
+    fileOperateThread->moveToThread(fileThread);
+    excelOperateThread->moveToThread(excelThread);
 }
 
 /**
@@ -81,6 +87,11 @@ void AutomationFormMethod::Init()
 void AutomationFormMethod::ConnectSlot()
 {
     QLogHelper::instance()->LogInfo("AutomationFormMethod->ConnectSlot() 函数执行!");
+    connect(this,&AutomationFormMethod::ShowMessageProcessSignal,this,&AutomationFormMethod::ShowMessageProcessSlot);
+    //文件检索及文件检索完成后回调处理函数
+    connect(this,&AutomationFormMethod::SearchFileSignal,this,&AutomationFormMethod::SearchFileSlot);
+    connect(this,&AutomationFormMethod::FileSearchSignal,this->fileOperateThread,&AuFileOperateThread::FileSearchSlot);
+    connect(this->fileOperateThread,&AuFileOperateThread::EndFileSearcSignal,this,&AutomationFormMethod::EndFileSearcSlot);
 }
 
 /**
@@ -148,19 +159,18 @@ void AutomationFormMethod::JudgeIDSlot(QLineEdit *Edit, QString *ID)
 void AutomationFormMethod::JudgeIDTypeSlot(QLineEdit *Edit, QString *srcobject, QString *desobject)
 {
     QLogHelper::instance()->LogInfo("SIFormMethod->JudgeIDTypeSlot() 函数执行!");
-    /*QString ret=siFormBean->getCommonMethod()->JudgeIDType(Edit->text());
+    QString ret=auCommonMethod->JudgeIDType(Edit->text());
     (*srcobject)=ret;
     //对比机种不为空，当前机种类型和对比机种不一致
     if(!(*desobject).isEmpty()&&ret!=(*desobject))
     {
         //错误处理，设置标记位false
-        //siFormBean->setIDRelyIDflag(false);
+        automationFormBean->setIDRelyIDflag(false);
         return;
     }
     Edit->setStyleSheet(QString(nomFontColor));
     //正确处理，设置标记位true
-    siFormBean->setIDRelyIDflag(true);
-    */
+    automationFormBean->setIDRelyIDflag(true);
 }
 
 /**
@@ -172,19 +182,19 @@ void AutomationFormMethod::JudgeIDTypeSlot(QLineEdit *Edit, QString *srcobject, 
 void AutomationFormMethod::ShowMessageProcessSlot(const unsigned int flag, const unsigned int Log_Flag)
 {
     QLogHelper::instance()->LogInfo("SIFormMethod->ShowLogMessageProcess() 函数执行!");
-    /*unsigned int level;
+    unsigned int level;
     QStringList message;
     //对数据包进行处理
     switch (flag) {
-    case IDflag:
+    case AuIDflag:
         level=LOG_INFO;
-        message.append("机种番号: "+*siFormBean->getID());
-        message.append("机种类型: "+*siFormBean->getIDType());
+        message.append("机种番号: "+*automationFormBean->getID());
+        message.append("机种类型: "+*automationFormBean->getIDType());
         break;
-    case RelyIDflag:
+    case AuRelyIDflag:
         level=LOG_INFO;
-        message.append("依赖机种番号: "+*siFormBean->getID());
-        message.append("依赖机种类型: "+*siFormBean->getIDType());
+        message.append("依赖机种番号: "+*automationFormBean->getID());
+        message.append("依赖机种类型: "+*automationFormBean->getIDType());
         break;
     default:
         break;
@@ -203,7 +213,6 @@ void AutomationFormMethod::ShowMessageProcessSlot(const unsigned int flag, const
         this->ShowTableView(message,flag);
         break;
     }
-    */
 }
 
 /**
@@ -215,8 +224,7 @@ void AutomationFormMethod::ShowMessageProcessSlot(const unsigned int flag, const
 void AutomationFormMethod::SelectDirSlot(QLabel *label, QString *objectDir)
 {
     QLogHelper::instance()->LogInfo("SIFormMethod->SelectDirSlot() 函数执行!");
-    /*
-    QString dirName =  QFileDialog::getExistingDirectory(label, tr("Open Directory"),siFormBean->getCommonMethod()->desktopDirPath,QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
+    QString dirName =  QFileDialog::getExistingDirectory(label, tr("Open Directory"),automationFormBean->getCommonMethod()->desktopDirPath,QFileDialog::ShowDirsOnly | QFileDialog::DontResolveSymlinks);
     if (dirName.isEmpty()) {
         label->setStyleSheet(QString(errFontColor));
         QMessageBox::warning(label, "Warn", tr("No directory selected!"));
@@ -225,7 +233,6 @@ void AutomationFormMethod::SelectDirSlot(QLabel *label, QString *objectDir)
     label->setStyleSheet(QString(nomFontColor));
     label->setText(dirName);
     *objectDir=dirName;
-    * */
 }
 
 /**
@@ -244,5 +251,32 @@ void AutomationFormMethod::SearchFileSlot(unsigned int flag, bool isGoON)
     QStringList filters;
     */
 
+}
+
+/**
+ * @brief AutomationFormMethod::EndFileSearcSlot
+ * @param filePath
+ * @param flag
+ * @param isGoON
+ */
+void AutomationFormMethod::EndFileSearcSlot(const QString filePath, unsigned int flag, bool isGoON)
+{
+    QLogHelper::instance()->LogInfo("SIFormMethod->EndFileSearcSlot() 函数执行!");
+    unsigned int log_Flag=0;
+    switch (flag) {
+    case AuRelyFileflag:
+        log_Flag=LOG_ALL;
+        (*automationFormBean->getRelyFilePath())=filePath;
+        break;
+    }
+    emit ShowMessageProcessSignal(flag,log_Flag);
+    if(isGoON){
+        emit SearchFileSignal(flag,isGoON);
+    }
+    else{
+        fileThread->quit();
+        fileThread->wait();
+        automationFormBean->setAumationStatus(AU_READY);
+    }
 }
 

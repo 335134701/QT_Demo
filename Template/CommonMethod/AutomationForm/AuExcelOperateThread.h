@@ -4,6 +4,7 @@
 #include <QObject>
 
 #include "COMMONDEFINE.h"
+#include "AuCommonMethod.h"
 
 class AuExcelOperateThread : public QObject
 {
@@ -14,6 +15,11 @@ public:
 signals:
 
 public slots:
+
+
+private:
+
+    void Init();
 };
 
 #endif // AUEXCELOPERATETHREAD_H

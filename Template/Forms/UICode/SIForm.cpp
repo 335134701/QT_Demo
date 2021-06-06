@@ -94,7 +94,6 @@ void SIForm::Init()
     QLogHelper::instance()->LogInfo("SIForm->Init() 函数执行!");
     siFormBean  = new SIFormBean();
     siFormMethod = new SIFormMethod();
-    //siFormMethod->setTableView(ui->sit);
     siFormMethod->setSiFormBean(siFormBean);
 }
 
@@ -114,7 +113,11 @@ void SIForm::ConnectSlot()
     //文件查找处理相关槽函数
     connect(this,&SIForm::SearchFileSignal,this->siFormMethod,&SIFormMethod::SearchFileSlot);
     //SVN更新处理相关槽函数
-    connect(this,&SIForm::UpdateSVNSignal,this->siFormMethod,&SIFormMethod::UpdateSVNSlot);
+    connect(this,&SIForm::RunOrderSignal,this->siFormMethod,&SIFormMethod::RunOrderSlot);
+    //预处理相关槽函数
+    connect(this,&SIForm::PretreatmentSignal,this->siFormMethod,&SIFormMethod::PretreatmentSlot);
+    //文件压缩处理相关槽函数
+    connect(this,&SIForm::FileCompressionSignal,this->siFormMethod,&SIFormMethod::FileCompressionSlot);
 }
 
 /**
@@ -139,7 +142,7 @@ void SIForm::on_SIIDEdit_editingFinished()
     }else{
         ui->SIRelyIDEdit->setStyleSheet(QString(nomFontColor));
     }
-    emit ShowMessageProcessSignal(SIIDflag,LOG_LOG);
+    emit ShowMessageProcessSignal(SIIDflag,LOG_ALL);
 }
 
 /**
@@ -149,6 +152,8 @@ void SIForm::on_SIRelyIDEdit_editingFinished()
 {
     QLogHelper::instance()->LogInfo("SIForm->on_RelyIDEdit_editingFinished() 函数触发执行!");
     if(!PromptInformation()){return;}
+    //初始化机种相关信息
+    siFormBean->ResetParameter(RET_RELYID);
     //如果RelyIDEdit文本输入为空或者ID与依赖ID一致，则说明不依赖任何机种
     if(ui->SIRelyIDEdit->text().isEmpty()||ui->SIRelyIDEdit->text()==(*siFormBean->getID())){
         ui->SIRelyIDEdit->setText("");
@@ -181,7 +186,7 @@ void SIForm::on_SISVNButton_clicked()
     emit SelectDirSignal(ui->SISVNLabel,siFormBean->getSVNDirPath());
     //SVN状态更新
     if(!siFormBean->getSVNDirPath()->isEmpty()){
-        emit UpdateSVNSignal();
+        //emit RunOrderSignal(SISVNUpdateflag);
     }
 }
 
@@ -202,9 +207,9 @@ void SIForm::on_SIOutputButton_clicked()
  */
 void SIForm::on_SIFileSearchButton_clicked()
 {
-     QLogHelper::instance()->LogInfo("SIForm->on_SIFileSearchButton_clicked() 函数触发执行!");
-     if(!PromptInformation()||!CheckMessage(SI_CHECKMESSAGE_FileSearch)){return;}
-     emit SearchFileSignal(SIRelyFileflag,false);
+    QLogHelper::instance()->LogInfo("SIForm->on_SIFileSearchButton_clicked() 函数触发执行!");
+    if(!PromptInformation()||!CheckMessage(SI_CHECKMESSAGE_FileSearch)){return;}
+    emit SearchFileSignal(SIRelyFileflag,true);
 }
 
 /**
@@ -212,8 +217,10 @@ void SIForm::on_SIFileSearchButton_clicked()
  */
 void SIForm::on_SIPretreatmentButton_clicked()
 {
-     QLogHelper::instance()->LogInfo("SIForm->on_SIPretreatmentButton_clicked() 函数触发执行!");
-     if(!PromptInformation()||!CheckMessage(SI_CHECKMESSAGE_Pretreatment)){return;}
+    QLogHelper::instance()->LogInfo("SIForm->on_SIPretreatmentButton_clicked() 函数触发执行!");
+    *siFormBean->getCodeFilePath()="E:/CK_RedMaple/trunk/01REQ/0101Model/按类型归档/旭化成工場 火事対応/20210419_Entry/EN3302PA_二回目/EntryAVM_EXT_CANCLK_v066_131023_ROM_MASS_CAN.zip";
+    if(!PromptInformation()||!CheckMessage(SI_CHECKMESSAGE_Pretreatment)){return;}
+    emit PretreatmentSignal();
 }
 
 
@@ -222,8 +229,9 @@ void SIForm::on_SIPretreatmentButton_clicked()
  */
 void SIForm::on_SIFileCompressionButton_clicked()
 {
-     QLogHelper::instance()->LogInfo("SIForm->on_SIFileCompressionButton_clicked() 函数触发执行!");
-     if(!PromptInformation()||!CheckMessage(SI_CHECKMESSAGE_FileCompression)){return;}
+    QLogHelper::instance()->LogInfo("SIForm->on_SIFileCompressionButton_clicked() 函数触发执行!");
+    if(!PromptInformation()||!CheckMessage(SI_CHECKMESSAGE_FileCompression)){return;}
+    emit FileCompressionSignal();
 }
 
 /**
@@ -232,7 +240,8 @@ void SIForm::on_SIFileCompressionButton_clicked()
  *          0 表示无任何操作
  *          1 表示正在执行SVN更新任务
  *          2 表示正在执行文件检索任务
- *          3 表示正在生成相应的文件目录结构
+ *          3 表示正在执行文件读取任务
+ *          4 表示正在执行文件解压任务
  * @brief SIForm::PromptInformation
  * @return
  */
@@ -248,8 +257,23 @@ bool SIForm::PromptInformation()
         case SI_FILESEARCH:
             QMessageBox::warning(this,"Warn","正在执行文件检索任务，其他任务暂时无法执行!");
             break;
-        case 3:
-            QMessageBox::warning(this,"Warn","正在执行生成任务，其他任务暂时无法执行!");
+        case SI_FILEREAD:
+            QMessageBox::warning(this,"Warn","正在文件读取任务，其他任务暂时无法执行!");
+            break;
+        case SI_PRETREAMENT:
+            QMessageBox::warning(this,"Warn","正在执行预处理任务，其他任务暂时无法执行!");
+            break;
+        case SI_FILECODECOPY:
+            QMessageBox::warning(this,"Warn","正在执行源码复制任务，其他任务暂时无法执行!");
+            break;
+        case SI_FILEUNZIP:
+            QMessageBox::warning(this,"Warn","正在执行文件解压任务，其他任务暂时无法执行!");
+            break;
+        case SI_FILCHECK:
+            QMessageBox::warning(this,"Warn","正在执行文件校验任务，其他任务暂时无法执行!");
+            break;
+        case SI_FILCOMPRESSION:
+            QMessageBox::warning(this,"Warn","正在执行项目压缩处理任务，其他任务暂时无法执行!");
             break;
         default:
             break;
@@ -285,9 +309,20 @@ bool SIForm::CheckMessage(const unsigned int flag)
 
         break;
     case SI_CHECKMESSAGE_Pretreatment:
-
-        break;
     case SI_CHECKMESSAGE_FileCompression:
+        if(siFormBean->getSoftList()->size()<=0){
+            QMessageBox::warning(this,"Warn","量产管理表解析失败,无法继续执行任务!");
+            return false;
+        }
+        /*
+        if(siFormBean->getCodeFilePath()->isEmpty()){
+            QMessageBox::warning(this,"Warn","项目源码获取失败,无法继续执行任务!");
+            return false;
+        }*/
+        if(siFormBean->getCarInfoFilePath()->isEmpty()){
+            QMessageBox::warning(this,"Warn","CarInfo.Mot文件获取失败,无法继续执行任务!");
+            return false;
+        }
 
         break;
     }

@@ -102,7 +102,7 @@ public:
 
         AuIDEdit = new QLineEdit(widget);
         AuIDEdit->setObjectName(QStringLiteral("AuIDEdit"));
-        AuIDEdit->setMaximumSize(QSize(120, 16777215));
+        AuIDEdit->setMaximumSize(QSize(105, 16777215));
 
         gridLayout_2->addWidget(AuIDEdit, 1, 2, 1, 1);
 
@@ -117,7 +117,7 @@ public:
 
         AuRelyIDEdit = new QLineEdit(widget);
         AuRelyIDEdit->setObjectName(QStringLiteral("AuRelyIDEdit"));
-        AuRelyIDEdit->setMaximumSize(QSize(120, 16777215));
+        AuRelyIDEdit->setMaximumSize(QSize(105, 16777215));
 
         gridLayout_2->addWidget(AuRelyIDEdit, 2, 2, 1, 1);
 

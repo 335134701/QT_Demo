@@ -14,7 +14,8 @@ HEADERS += \
     $$PWD/AutomationForm/AuExcelOperateThread.h \
     $$PWD/AutomationForm/AuCommonMethod.h \
     $$PWD/AutomationForm/AuFileOperateMethod.h \
-    $$PWD/AutomationForm/AuFileOperateThread.h
+    $$PWD/AutomationForm/AuFileOperateThread.h \
+    $$PWD/SIForm/SIConfig.h
 
 SOURCES += \
     $$PWD/CommonMethod.cpp \
@@ -27,4 +28,5 @@ SOURCES += \
     $$PWD/AutomationForm/AuExcelOperateThread.cpp \
     $$PWD/AutomationForm/AuCommonMethod.cpp \
     $$PWD/AutomationForm/AuFileOperateMethod.cpp \
-    $$PWD/AutomationForm/AuFileOperateThread.cpp
+    $$PWD/AutomationForm/AuFileOperateThread.cpp \
+    $$PWD/SIForm/SIConfig.cpp

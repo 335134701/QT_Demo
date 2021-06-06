@@ -123,9 +123,12 @@
        <widget class="QLineEdit" name="AuIDEdit">
         <property name="maximumSize">
          <size>
-          <width>105</width>
+          <width>120</width>
           <height>16777215</height>
          </size>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
         </property>
        </widget>
       </item>
@@ -153,9 +156,12 @@
        <widget class="QLineEdit" name="AuRelyIDEdit">
         <property name="maximumSize">
          <size>
-          <width>105</width>
+          <width>120</width>
           <height>16777215</height>
          </size>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
         </property>
        </widget>
       </item>

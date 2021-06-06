@@ -43,8 +43,6 @@ signals:
 
     void SearchFileSignal(unsigned int flag, bool isGoON);
 
-public slots:
-
 private slots:
 
     void on_AuIDEdit_editingFinished();
@@ -67,7 +65,6 @@ private:
     AutomationFormMethod *automationFormMethod;
 
     LogFormMetod *logFormMethod;
-
 
     void InitStytle();
 

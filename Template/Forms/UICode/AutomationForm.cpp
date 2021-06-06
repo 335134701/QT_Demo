@@ -96,6 +96,23 @@ void AutomationForm::ConnectSlot()
 void AutomationForm::on_AuIDEdit_editingFinished()
 {
     QLogHelper::instance()->LogInfo("AutomationForm->on_AuIDEdit_editingFinished() 函数触发执行!");
+    if(!PromptInformation()){return;}
+    //初始化机种相关信息
+    automationFormBean->ResetParameter(RET_ID);
+    this->automationFormMethod->InitTableView();
+    //初始化Table UI显示
+    emit JudgeIDSignal(ui->AuIDEdit,automationFormBean->getID());
+    if(automationFormBean->getID()->isEmpty()){return;}
+    //判断机种类型
+    emit JudgeIDTypeSignal(ui->AuIDEdit,automationFormBean->getIDType(),automationFormBean->getRelyIDType());
+    //如果ID和依赖ID类型不一致，则依赖ID会显示红色
+    if(!automationFormBean->getIDRelyIDflag()){
+        ui->AuIDEdit->setStyleSheet(QString(errFontColor));
+        automationFormBean->setIDRelyIDflag(true);
+    }else{
+        ui->AuIDEdit->setStyleSheet(QString(nomFontColor));
+    }
+    emit ShowMessageProcessSignal(SIIDflag,LOG_LOG);
 }
 
 /**
@@ -104,6 +121,25 @@ void AutomationForm::on_AuIDEdit_editingFinished()
 void AutomationForm::on_AuRelyIDEdit_editingFinished()
 {
     QLogHelper::instance()->LogInfo("AutomationForm->on_AuRelyIDEdit_editingFinished() 函数触发执行!");
+    if(!PromptInformation()){return;}
+    //如果RelyIDEdit文本输入为空或者ID与依赖ID一致，则说明不依赖任何机种
+    if(ui->AuRelyIDEdit->text().isEmpty()||ui->AuRelyIDEdit->text()==(*automationFormBean->getID())){
+        ui->AuRelyIDEdit->setText("");
+        return;
+    }
+    //判断机种名称是否符合要求
+    emit JudgeIDSignal(ui->AuRelyIDEdit,automationFormBean->getRelyID());
+    if(automationFormBean->getRelyID()->isEmpty()){return;}
+    //判断依赖机种是否和作成机种同一种类型
+    emit JudgeIDTypeSignal(ui->AuRelyIDEdit,automationFormBean->getRelyIDType(),automationFormBean->getIDType());
+    //如果当前机种与依赖机种类型不一致，则设置依赖机种字体为红色字体
+    if(!automationFormBean->getIDRelyIDflag()){
+        ui->AuRelyIDEdit->setStyleSheet(QString(errFontColor));
+        automationFormBean->setIDRelyIDflag(true);
+    }else{
+        ui->AuRelyIDEdit->setStyleSheet(QString(nomFontColor));
+    }
+    emit ShowMessageProcessSignal(SIRelyIDflag,LOG_ALL);
 }
 
 /**
@@ -112,6 +148,10 @@ void AutomationForm::on_AuRelyIDEdit_editingFinished()
 void AutomationForm::on_AuSVNButton_clicked()
 {
     QLogHelper::instance()->LogInfo("AutomationForm->on_AuSVNButton_clicked() 函数触发执行!");
+    if(!PromptInformation()){return;}
+    automationFormBean->ResetParameter(RET_SVNFilePath);
+    ui->AuSVNLabel->setText(*automationFormBean->getSVNDirPath());
+    emit SelectDirSignal(ui->AuSVNLabel,automationFormBean->getSVNDirPath());
 }
 
 /**
@@ -120,6 +160,10 @@ void AutomationForm::on_AuSVNButton_clicked()
 void AutomationForm::on_AuOutputButton_clicked()
 {
     QLogHelper::instance()->LogInfo("AutomationForm->on_AuOutputButton_clicked() 函数触发执行!");
+    if(!PromptInformation()){return;}
+    automationFormBean->ResetParameter(RET_OutPutFilePath);
+    ui->AuOutputLabel->setText(*automationFormBean->getOutputDirPath());
+    emit SelectDirSignal(ui->AuOutputLabel,automationFormBean->getOutputDirPath());
 }
 
 /**
@@ -128,6 +172,9 @@ void AutomationForm::on_AuOutputButton_clicked()
 void AutomationForm::on_AuFileSearchButton_clicked()
 {
     QLogHelper::instance()->LogInfo("AutomationForm->on_AuFileSearchButton_clicked() 函数触发执行!");
+    QLogHelper::instance()->LogInfo("SIForm->on_SIFileSearchButton_clicked() 函数触发执行!");
+    if(!PromptInformation()||!CheckMessage(AU_CHECKMESSAGE_FileSearch)){return;}
+    emit SearchFileSignal(SIRelyFileflag,false);
 }
 
 /**
@@ -157,26 +204,21 @@ bool AutomationForm::PromptInformation()
 bool AutomationForm::CheckMessage(const unsigned int flag)
 {
      QLogHelper::instance()->LogInfo("AutomationForm->CheckMessage() 函数执行!");
-     /*
-     if(siFormBean->getID()->isEmpty()){
+     if(automationFormBean->getID()->isEmpty()){
          QMessageBox::warning(this,"Warn","未设置机种番号,无法执行文件检索任务!");
          return false;
      }
-     if(siFormBean->getSVNDirPath()->isEmpty()){
+     if(automationFormBean->getSVNDirPath()->isEmpty()){
          QMessageBox::warning(this,"Warn","未设置SVN路径,无法执行文件检索任务!");
          return false;
      }
      switch (flag) {
-     case SI_CHECKMESSAGE_FileSearch:
+     case AU_CHECKMESSAGE_FileSearch:
 
          break;
-     case SI_CHECKMESSAGE_Pretreatment:
-
-         break;
-     case SI_CHECKMESSAGE_FileCompression:
+     case AU_CHECKMESSAGE_FileCreate:
 
          break;
      }
      return true;
-     */
 }

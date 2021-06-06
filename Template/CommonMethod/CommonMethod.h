@@ -21,9 +21,13 @@ public:
 
     QString Get7zInstallPath();
 
+    QString GetZIPInstallPath();
+
     QString GetSVNInstallPath();
 
-    bool CopyFile(const QString desDirPath,const QString srcDirPath);
+    bool CopyFile(const QString srcFilePath,const QString desFilePath);
+
+    bool CopyDir(QString srcPath, QString desPath);
     
 
 signals:

@@ -2,6 +2,7 @@
 #define SIFORMBEAN_H
 
 #include <QObject>
+#include <QList>
 
 #include "COMMONDEFINE.h"
 #include "CommonMethod.h"
@@ -21,11 +22,40 @@ enum SI_CheckMessage{
  * @brief The SI_Task_Status enum
  */
 enum SI_Task_Status{
-    SI_READY        =       0,
-    SI_SVNUPDATE    =       1,
-    SI_FILESEARCH   =       2
+    SI_READY                =       0,
+    SI_SVNUPDATE            =       1,
+    SI_FILESEARCH           =       2,
+    SI_FILEREAD             =       3,
+    SI_PRETREAMENT          =       4,
+    SI_FILEUNZIP            =       5,
+    SI_FILECODECOPY         =       6,
+    SI_FILCHECK             =       7,
+    SI_FILCOMPRESSION       =       8
 };
 
+typedef struct SI_SoftNumberTable{
+    QString ModelNumber;            //クラリオン機種番号
+    QString CarModels;              //車種仕向け
+    QString PartNumber;             //日産部番
+    QString CANGen;                 //CAN世代
+    QString Productionstage;        //生産段階
+    QString ApplicationPartNo;      //Application PartsNo
+    QString ApplicationVer;         //Application Ver
+}SI_SOFTNUMBERTable;
+
+typedef struct SI_ErrorTable{
+    QString fileName;
+    QString sheetName;
+    unsigned int row;
+    unsigned int col;
+    QString errMessage;
+}SI_ERRORTable;
+
+typedef struct SI_DefineMessage{
+    QString stageName;
+    QString defineName;
+    bool isUse;
+}SI_DEFINEMESSAGE;
 
 class SIFormBean : public QObject
 {
@@ -33,6 +63,14 @@ class SIFormBean : public QObject
 
 #define errFontColor "color:red;"
 #define nomFontColor "color:white;"
+
+#define SILibName       "Tool"
+#define SILibPW         "windows-2b21230302c2ee006fb56d68a1s2sbic"
+
+#define ProjectName     "SH7766_PF"
+#define ProducTionstage "AKM対応"
+#define SUMBAT          "SumAddCP.bat"
+#define JOINBAT         "joinmot.bat"
 
 public:
     explicit SIFormBean(QObject *parent = nullptr);
@@ -73,13 +111,47 @@ public:
     bool getSVNUpdateStatus() const;
     void setSVNUpdateStatus(bool value);
 
-    void ResetParameter(unsigned int flag);
-
     bool getIDRelyIDflag() const;
     void setIDRelyIDflag(bool value);
 
     CommonMethod *getCommonMethod() const;
     void setCommonMethod(CommonMethod *value);
+
+    QString *getCodeFilePath() const;
+    void setCodeFilePath(QString *value);
+
+    QString *getBuildFilePath() const;
+    void setBuildFilePath(QString *value);
+
+    QString *getSHDefineFilePath() const;
+    void setSHDefineFilePath(QString *value);
+
+    QList<SI_ERRORTable> *getErrList() const;
+    void setErrList(QList<SI_ERRORTable> *value);
+
+    QList<SI_SOFTNUMBERTable> *getSoftList() const;
+    void setSoftList(QList<SI_SOFTNUMBERTable> *value);
+
+    QList<SI_DEFINEMESSAGE> *getDefineList() const;
+    void setDefineList(QList<SI_DEFINEMESSAGE> *value);
+
+    bool getBAflag() const;
+    void setBAflag(bool value);
+
+    bool getUnzipflag() const;
+    void setUnzipflag(bool value);
+
+    bool getIsSearchRelyIDflag() const;
+    void setIsSearchRelyIDflag(bool value);
+
+    bool getCopyCodeflag() const;
+    void setCopyCodeflag(bool value);
+
+
+    void ResetParameter(unsigned int flag);
+
+    bool getJoinMotflag() const;
+    void setJoinMotflag(bool value);
 
 signals:
 
@@ -108,13 +180,31 @@ private:
     //依赖文件路径
     QString *RelyFilePath;
     //项目源码路径
-    QString *codeFilePath;
-    //P票相关路径
+    QString *CodeFilePath;
+    //P票模板路径
     QString *PFilePath;
-    //SW确认表路径
+    //SW确认表模板路径
     QString *SWFilePath;
+    //Build文件路径
+    QString *BuildFilePath;
     //CarInfo路径
-    QString *CarInfoFilePath;  
+    QString *CarInfoFilePath;
+    //SH7766_コンパイルSW一覧表路径
+    QString *SHDefineFilePath;
+    //Before After路径标记
+    bool BAflag;
+    //解压状态
+    bool Unzipflag;
+    //量产管理表中对应机种相关信息
+    QList<SI_SOFTNUMBERTable> *SoftList;
+    //错误消息集合
+    QList<SI_ERRORTable> *ErrList;
+    //宏定义集合
+    QList<SI_DEFINEMESSAGE> *DefineList;
+    //留用关系程序自找标记位
+    bool isSearchRelyIDflag;
+    //项目源码复制标记位
+    bool CopyCodeflag;
 
     //公共方法对象
     CommonMethod *commonMethod;

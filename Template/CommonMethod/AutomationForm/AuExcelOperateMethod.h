@@ -4,6 +4,7 @@
 #include <QObject>
 
 #include "COMMONDEFINE.h"
+#include "AuCommonMethod.h"
 
 class AuExcelOperateMethod : public QObject
 {

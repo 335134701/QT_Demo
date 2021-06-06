@@ -118,7 +118,7 @@
         </property>
         <property name="maximumSize">
          <size>
-          <width>105</width>
+          <width>120</width>
           <height>16777215</height>
          </size>
         </property>
@@ -130,6 +130,9 @@
         </property>
         <property name="maxLength">
          <number>8</number>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
         </property>
        </widget>
       </item>
@@ -147,12 +150,15 @@
        <widget class="QLineEdit" name="SIRelyIDEdit">
         <property name="maximumSize">
          <size>
-          <width>105</width>
+          <width>120</width>
           <height>16777215</height>
          </size>
         </property>
         <property name="maxLength">
          <number>8</number>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
         </property>
        </widget>
       </item>

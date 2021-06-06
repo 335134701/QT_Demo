@@ -220,7 +220,7 @@ void AutomationTool::on_SVNButton_clicked()
     QLogHelper::instance()->LogInfo("AutomationTool->on_SVNButton_clicked() 函数触发执行!");
     if(comBean==NULL||MessageWarn()){return;}
     comBean->setSVNDirPath(new QString());
-    ui->SVNLabel->setText("");
+    ui->SVNLabel->setText(*comBean->getSVNDirPath());
     //获取相应文件路径
     emit SelectDirSignal(ui->SVNLabel,comBean->getSVNDirPath());
 }
@@ -234,7 +234,7 @@ void AutomationTool::on_OutputButton_clicked()
     QLogHelper::instance()->LogInfo("AutomationTool->on_OutputButton_clicked() 函数触发执行!");
     if(comBean==NULL||MessageWarn()){return;}
     comBean->setOutputDirPath(new QString());
-    ui->OutputLabel->setText("");
+    ui->OutputLabel->setText(*comBean->getOutputDirPath());
     //生成路径获取
     emit SelectDirSignal(ui->OutputLabel,comBean->getOutputDirPath());
 }
@@ -313,5 +313,5 @@ void AutomationTool::on_FileSearchButton_clicked()
         return;
     }
     //发送信号，执行文件检索任务
-    emit SelectFileSignal(*(comBean->getSVNDirPath()),RelyFileflag,false);
+    emit SelectFileSignal(*(comBean->getSVNDirPath()),RelyFileflag,true);
 }

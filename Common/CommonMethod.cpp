@@ -167,6 +167,11 @@ void CommonMethod::AnalyzeFilePath(const QStringList filePaths, QString *filePat
     case CarInfoFileflag:
     case CarMapFileflag:
     case CarOSDFileflag:
+        /*
+        foreach (QString filePath, filePaths) {
+               QLogHelper::instance()->LogDebug(filePath);
+        }
+        */
         foreach (QString filePath, filePaths) {
             if(!filePath.contains(".txt")&&filePath.contains(ID)){
                 QFileInfo file(filePath);

@@ -446,33 +446,42 @@ void UIMethod::SelectFileSlot(QString dirPath,unsigned int flag, bool goOn)
         }
         break;
     case CarInfoFileflag:
-        if(carTmpPath.contains(comBean->getRelyID())&&carTmpPathflag){
-            filters.append("*"+*(comBean->getRelyID())+"*_CarInfo.mot");
+        if(!carTmpPath.isEmpty()){
+            dirPath=carTmpPath.left(carTmpPath.lastIndexOf("/"));
+            filters.append("*_CarInfo.mot");
         }else{
-            filters.append("*"+*(comBean->getID())+"*_CarInfo.mot");
-        }
-        if(!comBean->getRelyID()->isEmpty()){
-            filters.append("*"+*comBean->getRelyID()+"*.txt");
+            if(!comBean->getRelyID()->isEmpty()){
+                filters.append("*"+*(comBean->getID())+"*_CarInfo.mot");
+                filters.append("*"+*(comBean->getRelyID())+"*_CarInfo.mot");
+            }else{
+                filters.append("*"+*(comBean->getID())+"*_CarInfo.mot");
+            }
         }
         break;
     case CarMapFileflag:
-        if(carTmpPath.contains(comBean->getRelyID())&&carTmpPathflag){
-            filters.append("*"+*(comBean->getRelyID())+"*_CameraMAP.mot");
+        if(!carTmpPath.isEmpty()){
+            dirPath=carTmpPath.left(carTmpPath.lastIndexOf("/"));
+            filters.append("*_CameraMAP.mot");
         }else{
-            filters.append("*"+*(comBean->getID())+"*_CameraMAP.mot");
-        }
-        if(!comBean->getRelyID()->isEmpty()){
-            filters.append("*"+*comBean->getRelyID()+"*.txt");
+            if(!comBean->getRelyID()->isEmpty()){
+                filters.append("*"+*(comBean->getID())+"*_CameraMAP.mot");
+                filters.append("*"+*(comBean->getRelyID())+"*_CameraMAP.mot");
+            }else{
+                filters.append("*"+*(comBean->getID())+"*_CameraMAP.mot");
+            }
         }
         break;
     case CarOSDFileflag:
-        if(carTmpPath.contains(comBean->getRelyID())&&carTmpPathflag){
-            filters.append("*"+*(comBean->getRelyID())+"*_CameraMAP.mot");
+        if(!carTmpPath.isEmpty()){
+            dirPath=carTmpPath.left(carTmpPath.lastIndexOf("/"));
+            filters.append("*_OSD.mot");
         }else{
-            filters.append("*"+*(comBean->getID())+"*_OSD.mot");
-        }
-        if(!comBean->getRelyID()->isEmpty()){
-            filters.append("*"+*comBean->getRelyID()+"*.txt");
+            if(!comBean->getRelyID()->isEmpty()){
+                filters.append("*"+*(comBean->getID())+"*_OSD.mot");
+                filters.append("*"+*(comBean->getRelyID())+"*_OSD.mot");
+            }else{
+                filters.append("*"+*(comBean->getID())+"*_OSD.mot");
+            }
         }
         break;
     case JoinFileflag:
@@ -537,33 +546,36 @@ void UIMethod::EndFindFileThreadSlot(QStringList st, unsigned int flag, bool goO
         break;
     case CarInfoFileflag:
         comBean->getComMethod()->AnalyzeFilePath(st,comBean->getCarInfoFilePath(),flag,*comBean->getID());
-        if(!comBean->getRelyID()->isEmpty()&&(comBean->getCarInfoFilePath()->isEmpty()||comBean->getCarInfoFilePath()->contains(".txt"))&&!carTmpPathflag){
-            carTmpPath=*comBean->getRelyID();
-            carTmpPathflag=true;
-            emit ActiveThreadSignal(*(comBean->getSVNDirPath()),flag,goOn);
-            return;
+        if(carTmpPath.isEmpty()&&!comBean->getCarInfoFilePath()->isEmpty()){
+            carTmpPath=*comBean->getCarInfoFilePath();
+        }else if(!carTmpPath.isEmpty()&&comBean->getCarInfoFilePath()->isEmpty()){
+            carTmpPath="";
         }
-        if(carTmpPathflag){carTmpPathflag=false;}
         break;
     case CarMapFileflag:
         comBean->getComMethod()->AnalyzeFilePath(st,comBean->getCarMapFilePath(),flag,*comBean->getID());
-        if(!comBean->getRelyID()->isEmpty()&&(comBean->getCarMapFilePath()->isEmpty()||comBean->getCarMapFilePath()->contains(".txt"))&&!carTmpPathflag){
-            carTmpPath=*comBean->getRelyID();
-            carTmpPathflag=true;
-            emit ActiveThreadSignal(*(comBean->getSVNDirPath()),flag,goOn);
-            return;
+        if(carTmpPath.isEmpty()&&!comBean->getCarMapFilePath()->isEmpty()){
+            carTmpPath=*comBean->getCarMapFilePath();
+        }else if(!carTmpPath.isEmpty()&&comBean->getCarMapFilePath()->isEmpty()){
+            carTmpPath="";
         }
-        if(carTmpPathflag){carTmpPathflag=false;}
         break;
     case CarOSDFileflag:
         comBean->getComMethod()->AnalyzeFilePath(st,comBean->getCarOSDFilePath(),flag,*comBean->getID());
-        if(!comBean->getRelyID()->isEmpty()&&(comBean->getCarOSDFilePath()->isEmpty()||comBean->getCarOSDFilePath()->contains(".txt"))&&!carTmpPathflag){
-            carTmpPath=*comBean->getRelyID();
+        if(carTmpPath.isEmpty()&&!comBean->getCarOSDFilePath()->isEmpty()){
+            carTmpPath=*comBean->getCarOSDFilePath();
+        }else if(!carTmpPath.isEmpty()&&comBean->getCarOSDFilePath()->isEmpty()){
+            carTmpPath="";
+        }
+        //再次对没有找到的文件进行查找处理
+        if((comBean->getCarInfoFilePath()->isEmpty()||comBean->getCarMapFilePath()->isEmpty()||comBean->getCarOSDFilePath()->isEmpty())&&!carTmpPath.isEmpty()&&!carTmpPathflag)
+        {
+            flag=flag-2;
             carTmpPathflag=true;
             emit ActiveThreadSignal(*(comBean->getSVNDirPath()),flag,goOn);
             return;
         }
-        if(carTmpPathflag){carTmpPathflag=false;}
+        if(carTmpPathflag){carTmpPathflag=false;carTmpPath="";}
         break;
     case JoinFileflag:
         comBean->getComMethod()->AnalyzeFilePath(st,comBean->getJoinMot(),flag,*comBean->getID());
@@ -725,7 +737,7 @@ void UIMethod::CreateSlot()
         this->getTextEdit()->append(DATAStytle+tmpPath+" 目录文件夹删除成功!");
     }
     flag=folder->mkpath(tmpPath);
-    if(!flag){this->getTextEdit()->append(DATAStytle+tmpPath+" 目录文件夹创建失败!");comBean->setStatusflag(0);return;}
+    if(!flag){this->getTextEdit()->append(DATAStytle+tmpPath+" 目录文件夹创建失败!");return;}
     this->getTextEdit()->append(DATAStytle+tmpPath+" 目录文件夹创建成功!");
     tmpPath=tmpPath+"/01_AKM対応";
     flag=folder->mkpath(tmpPath);
@@ -733,7 +745,6 @@ void UIMethod::CreateSlot()
         this->getTextEdit()->setTextColor(0xFF0000);
         this->getTextEdit()->append(DATAStytle+tmpPath+" 目录文件夹创建失败!");
         this->getTextEdit()->setTextColor(0xFFFFFF);
-        comBean->setStatusflag(0);
         return;
     }
     this->getTextEdit()->append(DATAStytle+tmpPath+" 目录文件夹创建成功!");
@@ -742,7 +753,6 @@ void UIMethod::CreateSlot()
         this->getTextEdit()->setTextColor(0xFF0000);
         this->getTextEdit()->append(DATAStytle+tmpPath+"/ソフト一式("+comBean->getID()+")"+" 目录文件夹创建失败!");
         this->getTextEdit()->setTextColor(0xFFFFFF);
-        comBean->setStatusflag(0);
         return;
     }
     this->getTextEdit()->append(DATAStytle+tmpPath+"/ソフト一式("+comBean->getID()+")"+" 目录文件夹创建成功!");
@@ -751,7 +761,6 @@ void UIMethod::CreateSlot()
         this->getTextEdit()->setTextColor(0xFF0000);
         this->getTextEdit()->append(DATAStytle+tmpPath+"/ソフト一式("+comBean->getID()+")/結合版"+" 目录文件夹创建失败!");
         this->getTextEdit()->setTextColor(0xFFFFFF);
-        comBean->setStatusflag(0);
         return;
     }
     this->getTextEdit()->append(DATAStytle+tmpPath+"/ソフト一式("+comBean->getID()+")/結合版"+" 目录文件夹创建成功!");

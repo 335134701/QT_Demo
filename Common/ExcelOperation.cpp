@@ -304,7 +304,6 @@ void ExcelOperation::ReadyFileWrite(const QString filePath, QList<SOFTNUMBERTabl
     return;
 }
 
-
 /**
  * @def 確認シート.xlsx 表第一个sheet修改
  * @brief ExcelOperation::ReadyFileFirstSheet
@@ -429,6 +428,7 @@ void ExcelOperation::ReadyFileFirstSheet(const QString filePath,const QString ID
         }
         book->save(filePath.toLocal8Bit());
         book->release();
+        this->SetFontName(filePath,0);
     }else{
         CommonMethod::SetErrorTable(errTableList,filePath,"",0,0,filePath+"文件不存在!");
         return;
@@ -539,6 +539,7 @@ void ExcelOperation::ReadyFileSecondSheet(const QString filePath, QList<CONFIGTa
         }
         book->save(filePath.toLocal8Bit());
         book->release();
+        this->SetFontName(filePath,1);
     }else{
         CommonMethod::SetErrorTable(errTableList,filePath,"",0,0,filePath+"文件不存在!");
         return;
@@ -755,6 +756,7 @@ void ExcelOperation::ReadyFileThirdSheet(const QString filePath,QList<SOFTNUMBER
         }
         book->save(filePath.toLocal8Bit());
         book->release();
+        this->SetFontName(filePath,2);
     }else{
         CommonMethod::SetErrorTable(errTableList,filePath,"",0,0,filePath+"文件不存在!");
         return;
@@ -779,5 +781,33 @@ void ExcelOperation::SetPatternForegroundColor(Sheet *sheetread,const int row, c
     format->setFillPattern(FILLPATTERN_SOLID);
     format->setPatternForegroundColor(color);
     sheetread->setCellFormat(row,col,format);
+}
+
+/**
+ * 设置表格字体设置
+ * @brief ExcelOperation::SetFontName
+ * @param filePath
+ * @param index
+ */
+void ExcelOperation::SetFontName(const QString filePath,unsigned int index)
+{
+    QLogHelper::instance()->LogInfo("ExcelOperation->SetFontName() 函数执行!");
+    Format *format;
+    Sheet *sheetread;
+    if(this->Init(filePath)&&book->load(filePath.toLocal8Bit()))
+    {
+        sheetread=book->getSheet(index);
+        for(int i=sheetread->firstRow();i<sheetread->lastRow();i++){
+            for(int j=sheetread->firstCol();j<sheetread->lastCol();j++){
+                if(!QString(sheetread->readStr(i,j)).isEmpty()){
+                    format=book->addFormat(sheetread->cellFormat(i,j));
+                    format->font()->setName("Meiryo UI");
+                    sheetread->setCellFormat(i,j,format);
+                }
+            }
+        }
+        book->save(filePath.toLocal8Bit());
+        book->release();
+    }
 }
 

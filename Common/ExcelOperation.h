@@ -28,6 +28,8 @@ public:
     void EEFileWrite(const QString filePath,const QString ID,const QString IDType,const QString RelyID, QList<SOFTNUMBERTable> *softNumberTable,QList<ERRORTable> *errTableList);
 
     void ReadyFileWrite(const QString filePath,QList<SOFTNUMBERTable> *softNumberTable,QList<CONFIGTable> *configTable,QStringList DefineConfigList,const QString IDType,const QString RelyID,QList<ERRORTable> *errTableList);
+
+    void SetFontName(const QString filePath,unsigned int index);
 signals:
 
 public slots:

@@ -1,7 +1,6 @@
 <RCC>
     <qresource prefix="/">
         <file>Log4qt.properties</file>
-        <file>qss.css</file>
-        <file>Images/Tool.ico</file>
+        <file>MainForm.css</file>
     </qresource>
 </RCC>

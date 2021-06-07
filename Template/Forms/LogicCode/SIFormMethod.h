@@ -50,9 +50,11 @@ signals:
 
     void UNZipCodeFileSignal(const QString exeFilePath, const QString filePath,const QString desDirPath,const unsigned flag);
 
+    void ZipCodeFileSignal(const QString exeFilePath, const QString dirPath,const QString IDType,const QString txt,QString APPVer,const unsigned flag);
+
     void SearchFileSignal(unsigned int flag, bool isGoON);
 
-    void CopyFileSignal(const QString srcFilePath,const QString desFilePath,const unsigned int flag);
+    void CopyCodeFileSignal(const QString srcFilePath,const QString desFilePath);
 
     //void CopyDirSignal(const QString srcDirPath,const QString desDirPath,const unsigned int flag);
 
@@ -60,11 +62,19 @@ signals:
 
     void ReadExcelThreadSignal(const QString filePath,const QString ID,const QString IDType,const unsigned int flag);
 
-    void CheckFileSignal(const QString dirPath,const QString ID,const QString IDType,const unsigned int flag,const QList<SI_SOFTNUMBERTable> softList);
+    void CheckBAFileSignal(const QString dirPath,const QString ID,const QString IDType,const QList<SI_SOFTNUMBERTable> softList,const unsigned int flag);
+
+    void CheckCLFileSignal(const QString dirPath,const QString ID,const QList<SI_SOFTNUMBERTable> softList);
+
+    //   void GetRelyIDSignal(const QString AppPartNo,const QString IDType);
 
     void PretreatmentSignal();
 
     void FileCompressionSignal();
+
+    void InferRelyIDSignal();
+    
+    void InferRelyIDProcessSignal(const QString relyFilePath,const QString defineFilePath,const QString ID,const QString IDType,const unsigned int flag);
 
 public slots:
 
@@ -82,7 +92,7 @@ public slots:
 
     void SearchFileSlot(unsigned int flag, bool isGoON);
 
-    void EndCopyFileSlot(const QString filePath,const unsigned int flag, const bool result);
+    void EndCopyCodeFileSlot(const QString filePath,const bool result);
 
     //void EndCopyDirSlot(const QString dirPath,const unsigned int flag, const bool result);
 
@@ -92,11 +102,17 @@ public slots:
 
     void PretreatmentSlot();
 
-    void EndCheckFileSlot(const unsigned int flag,const bool result,const QList<SI_ERRORTable> errList);
+    void EndCheckBAFileSlot(const bool result,const QList<SI_ERRORTable> errList);
+
+    void EndCheckCLFileSlot(const bool result,const QList<SI_ERRORTable> errList);
 
     void EndReadDefineFileExcelSlot(const QList<SI_DEFINEMESSAGE> defineList, const QList<SI_ERRORTable> errList);
 
+    void EndInferRelyIDProcessSlot(const QList<SI_SOFTNUMBERTable> softList,const QList<SI_DEFINEMESSAGE> defineList,const QString RelyID,const unsigned int flag);
+
     void FileCompressionSlot();
+
+    void InferRelyIDSlot();
 
 private :
 

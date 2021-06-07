@@ -107,6 +107,7 @@ SOURCES       = ..\Template\main.cpp \
 		..\Template\CommonMethod\AutomationForm\AuCommonMethod.cpp \
 		..\Template\CommonMethod\AutomationForm\AuFileOperateMethod.cpp \
 		..\Template\CommonMethod\AutomationForm\AuFileOperateThread.cpp \
+		..\Template\CommonMethod\SIForm\SIConfig.cpp \
 		..\Template\CommonBean\LogFormBean.cpp \
 		..\Template\CommonBean\SIFormBean.cpp \
 		..\Template\CommonBean\MainFormBean.cpp \
@@ -153,6 +154,7 @@ SOURCES       = ..\Template\main.cpp \
 		debug\moc_AuCommonMethod.cpp \
 		debug\moc_AuFileOperateMethod.cpp \
 		debug\moc_AuFileOperateThread.cpp \
+		debug\moc_SIConfig.cpp \
 		debug\moc_LogFormBean.cpp \
 		debug\moc_SIFormBean.cpp \
 		debug\moc_MainFormBean.cpp \
@@ -218,6 +220,7 @@ OBJECTS       = debug/main.o \
 		debug/AuCommonMethod.o \
 		debug/AuFileOperateMethod.o \
 		debug/AuFileOperateThread.o \
+		debug/SIConfig.o \
 		debug/LogFormBean.o \
 		debug/SIFormBean.o \
 		debug/MainFormBean.o \
@@ -265,6 +268,7 @@ OBJECTS       = debug/main.o \
 		debug/moc_AuCommonMethod.o \
 		debug/moc_AuFileOperateMethod.o \
 		debug/moc_AuFileOperateThread.o \
+		debug/moc_SIConfig.o \
 		debug/moc_LogFormBean.o \
 		debug/moc_SIFormBean.o \
 		debug/moc_MainFormBean.o \
@@ -332,6 +336,7 @@ DIST          =  ..\Template\COMMONDEFINE.h \
 		..\Template\CommonMethod\AutomationForm\AuCommonMethod.h \
 		..\Template\CommonMethod\AutomationForm\AuFileOperateMethod.h \
 		..\Template\CommonMethod\AutomationForm\AuFileOperateThread.h \
+		..\Template\CommonMethod\SIForm\SIConfig.h \
 		..\Template\CommonBean\LogFormBean.h \
 		..\Template\CommonBean\SIFormBean.h \
 		..\Template\CommonBean\MainFormBean.h \
@@ -406,6 +411,7 @@ DIST          =  ..\Template\COMMONDEFINE.h \
 		..\Template\CommonMethod\AutomationForm\AuCommonMethod.cpp \
 		..\Template\CommonMethod\AutomationForm\AuFileOperateMethod.cpp \
 		..\Template\CommonMethod\AutomationForm\AuFileOperateThread.cpp \
+		..\Template\CommonMethod\SIForm\SIConfig.cpp \
 		..\Template\CommonBean\LogFormBean.cpp \
 		..\Template\CommonBean\SIFormBean.cpp \
 		..\Template\CommonBean\MainFormBean.cpp \
@@ -429,11 +435,11 @@ qmake: FORCE
 qmake_all: FORCE
 
 dist:
-	$(ZIP) Template.zip $(SOURCES) $(DIST) ..\Template\Template.pro D:\QT\5.9\mingw53_32\mkspecs\features\spec_pre.prf D:\QT\5.9\mingw53_32\mkspecs\qdevice.pri D:\QT\5.9\mingw53_32\mkspecs\features\device_config.prf D:\QT\5.9\mingw53_32\mkspecs\common\g++-base.conf D:\QT\5.9\mingw53_32\mkspecs\common\angle.conf D:\QT\5.9\mingw53_32\mkspecs\common\sanitize.conf D:\QT\5.9\mingw53_32\mkspecs\common\gcc-base.conf D:\QT\5.9\mingw53_32\mkspecs\qconfig.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3danimation.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3danimation_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dcore.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dcore_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dextras.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dextras_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dinput.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dinput_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dlogic.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dlogic_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dquick.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dquick_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dquickanimation.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dquickanimation_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dquickextras.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dquickextras_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dquickinput.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dquickinput_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dquickrender.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dquickrender_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dquickscene2d.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dquickscene2d_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3drender.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3drender_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_accessibility_support_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_axbase.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_axbase_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_axcontainer.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_axcontainer_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_axserver.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_axserver_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_bluetooth.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_bluetooth_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_bootstrap_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_charts.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_charts_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_concurrent.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_concurrent_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_core.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_core_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_dbus.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_dbus_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_designer.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_designer_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_designercomponents_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_devicediscovery_support_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_egl_support_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_eventdispatcher_support_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_fb_support_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_fontdatabase_support_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_gamepad.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_gamepad_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_gui.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_gui_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_help.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_help_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_location.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_location_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_multimedia.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_multimedia_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_multimediawidgets.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_multimediawidgets_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_network.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_network_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_nfc.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_nfc_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_opengl.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_opengl_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_openglextensions.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_openglextensions_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_packetprotocol_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_platformcompositor_support_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_positioning.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_positioning_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_printsupport.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_printsupport_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_qml.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_qml_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_qmldebug_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_qmldevtools_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_qmltest.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_qmltest_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_quick.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_quick_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_quickcontrols2.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_quickcontrols2_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_quickparticles_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_quicktemplates2_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_quickwidgets.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_quickwidgets_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_scxml.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_scxml_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_sensors.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_sensors_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_serialbus.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_serialbus_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_serialport.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_serialport_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_sql.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_sql_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_svg.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_svg_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_testlib.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_testlib_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_theme_support_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_uiplugin.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_uitools.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_uitools_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_webchannel.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_webchannel_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_websockets.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_websockets_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_widgets.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_widgets_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_winextras.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_winextras_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_xml.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_xml_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_xmlpatterns.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_xmlpatterns_private.pri D:\QT\5.9\mingw53_32\mkspecs\features\qt_functions.prf D:\QT\5.9\mingw53_32\mkspecs\features\qt_config.prf D:\QT\5.9\mingw53_32\mkspecs\win32-g++\qmake.conf D:\QT\5.9\mingw53_32\mkspecs\features\spec_post.prf .qmake.stash D:\QT\5.9\mingw53_32\mkspecs\features\exclusive_builds.prf D:\QT\5.9\mingw53_32\mkspecs\features\toolchain.prf D:\QT\5.9\mingw53_32\mkspecs\features\default_pre.prf D:\QT\5.9\mingw53_32\mkspecs\features\win32\default_pre.prf ..\Template\Forms\Forms.pri ..\Template\QLog\log4qt\log4qt.pri ..\Template\QLog\QLog.pri ..\Template\CommonMethod\CommonMethod.pri ..\Template\CommonBean\CommonBean.pri ..\Template\LibXL\LibXL.pri D:\QT\5.9\mingw53_32\mkspecs\features\resolve_config.prf D:\QT\5.9\mingw53_32\mkspecs\features\exclusive_builds_post.prf D:\QT\5.9\mingw53_32\mkspecs\features\default_post.prf D:\QT\5.9\mingw53_32\mkspecs\features\build_pass.prf D:\QT\5.9\mingw53_32\mkspecs\features\qml_debug.prf D:\QT\5.9\mingw53_32\mkspecs\features\precompile_header.prf D:\QT\5.9\mingw53_32\mkspecs\features\warn_on.prf D:\QT\5.9\mingw53_32\mkspecs\features\qt.prf D:\QT\5.9\mingw53_32\mkspecs\features\resources.prf D:\QT\5.9\mingw53_32\mkspecs\features\moc.prf D:\QT\5.9\mingw53_32\mkspecs\features\win32\opengl.prf D:\QT\5.9\mingw53_32\mkspecs\features\uic.prf D:\QT\5.9\mingw53_32\mkspecs\features\qmake_use.prf D:\QT\5.9\mingw53_32\mkspecs\features\file_copies.prf D:\QT\5.9\mingw53_32\mkspecs\features\win32\windows.prf D:\QT\5.9\mingw53_32\mkspecs\features\testcase_targets.prf D:\QT\5.9\mingw53_32\mkspecs\features\exceptions.prf D:\QT\5.9\mingw53_32\mkspecs\features\yacc.prf D:\QT\5.9\mingw53_32\mkspecs\features\lex.prf ..\Template\Template.pro ..\Template\Conf\conf.qrc D:\QT\5.9\mingw53_32\lib\qtmaind.prl D:\QT\5.9\mingw53_32\lib\Qt5Widgetsd.prl D:\QT\5.9\mingw53_32\lib\Qt5Guid.prl D:\QT\5.9\mingw53_32\lib\Qt5Cored.prl   ..\Template\Conf\conf.qrc D:\QT\5.9\mingw53_32\mkspecs\features\data\dummy.cpp ..\Template\COMMONDEFINE.h ..\Template\Forms\UICode\SIForm.h ..\Template\Forms\UICode\MainForm.h ..\Template\Forms\UICode\LogForm.h ..\Template\Forms\UICode\AutomationForm.h ..\Template\Forms\LogicCode\LogFormMetod.h ..\Template\Forms\LogicCode\MainFormMethod.h ..\Template\Forms\LogicCode\SIFormMethod.h ..\Template\Forms\LogicCode\AutomationFormMethod.h ..\Template\QLog\QLoghelper.h ..\Template\QLog\log4qt\appender.h ..\Template\QLog\log4qt\appenderskeleton.h ..\Template\QLog\log4qt\basicconfigurator.h ..\Template\QLog\log4qt\consoleappender.h ..\Template\QLog\log4qt\dailyrollingfileappender.h ..\Template\QLog\log4qt\fileappender.h ..\Template\QLog\log4qt\helpers\classlogger.h ..\Template\QLog\log4qt\helpers\configuratorhelper.h ..\Template\QLog\log4qt\helpers\datetime.h ..\Template\QLog\log4qt\helpers\factory.h ..\Template\QLog\log4qt\helpers\initialisationhelper.h ..\Template\QLog\log4qt\helpers\logerror.h ..\Template\QLog\log4qt\helpers\logobject.h ..\Template\QLog\log4qt\helpers\logobjectptr.h ..\Template\QLog\log4qt\helpers\optionconverter.h ..\Template\QLog\log4qt\helpers\patternformatter.h ..\Template\QLog\log4qt\helpers\properties.h ..\Template\QLog\log4qt\hierarchy.h ..\Template\QLog\log4qt\layout.h ..\Template\QLog\log4qt\level.h ..\Template\QLog\log4qt\log4qt.h ..\Template\QLog\log4qt\logger.h ..\Template\QLog\log4qt\loggerrepository.h ..\Template\QLog\log4qt\loggingevent.h ..\Template\QLog\log4qt\logmanager.h ..\Template\QLog\log4qt\mdc.h ..\Template\QLog\log4qt\ndc.h ..\Template\QLog\log4qt\patternlayout.h ..\Template\QLog\log4qt\propertyconfigurator.h ..\Template\QLog\log4qt\rollingfileappender.h ..\Template\QLog\log4qt\simplelayout.h ..\Template\QLog\log4qt\spi\filter.h ..\Template\QLog\log4qt\ttcclayout.h ..\Template\QLog\log4qt\writerappender.h ..\Template\QLog\log4qt\varia\debugappender.h ..\Template\QLog\log4qt\varia\denyallfilter.h ..\Template\QLog\log4qt\varia\nullappender.h ..\Template\QLog\log4qt\varia\levelmatchfilter.h ..\Template\QLog\log4qt\varia\levelrangefilter.h ..\Template\QLog\log4qt\varia\listappender.h ..\Template\QLog\log4qt\varia\stringmatchfilter.h ..\Template\CommonMethod\CommonMethod.h ..\Template\CommonMethod\SIForm\SICommonMethod.h ..\Template\CommonMethod\SIForm\SIExcelOperateMethod.h ..\Template\CommonMethod\SIForm\SIExcelOperateThread.h ..\Template\CommonMethod\SIForm\SIFileOperateThread.h ..\Template\CommonMethod\SIForm\SIFileOperateMethod.h ..\Template\CommonMethod\AutomationForm\AuExcelOperateMethod.h ..\Template\CommonMethod\AutomationForm\AuExcelOperateThread.h ..\Template\CommonMethod\AutomationForm\AuCommonMethod.h ..\Template\CommonMethod\AutomationForm\AuFileOperateMethod.h ..\Template\CommonMethod\AutomationForm\AuFileOperateThread.h ..\Template\CommonBean\LogFormBean.h ..\Template\CommonBean\SIFormBean.h ..\Template\CommonBean\MainFormBean.h ..\Template\CommonBean\AutomationFormBean.h ..\Template\LibXL\enum.h ..\Template\LibXL\IAutoFilterT.h ..\Template\LibXL\IBookT.h ..\Template\LibXL\IFilterColumnT.h ..\Template\LibXL\IFontT.h ..\Template\LibXL\IFormatT.h ..\Template\LibXL\IRichStringT.h ..\Template\LibXL\ISheetT.h ..\Template\LibXL\libxl.h ..\Template\LibXL\setup.h ..\Template\main.cpp ..\Template\Forms\UICode\MainForm.cpp ..\Template\Forms\UICode\SIForm.cpp ..\Template\Forms\UICode\LogForm.cpp ..\Template\Forms\UICode\AutomationForm.cpp ..\Template\Forms\LogicCode\LogFormMetod.cpp ..\Template\Forms\LogicCode\MainFormMethod.cpp ..\Template\Forms\LogicCode\SIFormMethod.cpp ..\Template\Forms\LogicCode\AutomationFormMethod.cpp ..\Template\QLog\QLoghelper.cpp ..\Template\QLog\log4qt\appenderskeleton.cpp ..\Template\QLog\log4qt\basicconfigurator.cpp ..\Template\QLog\log4qt\consoleappender.cpp ..\Template\QLog\log4qt\dailyrollingfileappender.cpp ..\Template\QLog\log4qt\fileappender.cpp ..\Template\QLog\log4qt\helpers\classlogger.cpp ..\Template\QLog\log4qt\helpers\configuratorhelper.cpp ..\Template\QLog\log4qt\helpers\datetime.cpp ..\Template\QLog\log4qt\helpers\factory.cpp ..\Template\QLog\log4qt\helpers\initialisationhelper.cpp ..\Template\QLog\log4qt\helpers\logerror.cpp ..\Template\QLog\log4qt\helpers\logobject.cpp ..\Template\QLog\log4qt\helpers\logobjectptr.cpp ..\Template\QLog\log4qt\helpers\optionconverter.cpp ..\Template\QLog\log4qt\helpers\patternformatter.cpp ..\Template\QLog\log4qt\helpers\properties.cpp ..\Template\QLog\log4qt\hierarchy.cpp ..\Template\QLog\log4qt\layout.cpp ..\Template\QLog\log4qt\level.cpp ..\Template\QLog\log4qt\log4qt.cpp ..\Template\QLog\log4qt\logger.cpp ..\Template\QLog\log4qt\loggerrepository.cpp ..\Template\QLog\log4qt\loggingevent.cpp ..\Template\QLog\log4qt\logmanager.cpp ..\Template\QLog\log4qt\mdc.cpp ..\Template\QLog\log4qt\ndc.cpp ..\Template\QLog\log4qt\patternlayout.cpp ..\Template\QLog\log4qt\propertyconfigurator.cpp ..\Template\QLog\log4qt\rollingfileappender.cpp ..\Template\QLog\log4qt\simplelayout.cpp ..\Template\QLog\log4qt\spi\filter.cpp ..\Template\QLog\log4qt\ttcclayout.cpp ..\Template\QLog\log4qt\writerappender.cpp ..\Template\QLog\log4qt\varia\debugappender.cpp ..\Template\QLog\log4qt\varia\denyallfilter.cpp ..\Template\QLog\log4qt\varia\nullappender.cpp ..\Template\QLog\log4qt\varia\levelmatchfilter.cpp ..\Template\QLog\log4qt\varia\levelrangefilter.cpp ..\Template\QLog\log4qt\varia\listappender.cpp ..\Template\QLog\log4qt\varia\stringmatchfilter.cpp ..\Template\CommonMethod\CommonMethod.cpp ..\Template\CommonMethod\SIForm\SICommonMethod.cpp ..\Template\CommonMethod\SIForm\SIFileOperateThread.cpp ..\Template\CommonMethod\SIForm\SIFileOperateMethod.cpp ..\Template\CommonMethod\SIForm\SIExcelOperateThread.cpp ..\Template\CommonMethod\SIForm\SIExcelOperateMethod.cpp ..\Template\CommonMethod\AutomationForm\AuExcelOperateMethod.cpp ..\Template\CommonMethod\AutomationForm\AuExcelOperateThread.cpp ..\Template\CommonMethod\AutomationForm\AuCommonMethod.cpp ..\Template\CommonMethod\AutomationForm\AuFileOperateMethod.cpp ..\Template\CommonMethod\AutomationForm\AuFileOperateThread.cpp ..\Template\CommonBean\LogFormBean.cpp ..\Template\CommonBean\SIFormBean.cpp ..\Template\CommonBean\MainFormBean.cpp ..\Template\CommonBean\AutomationFormBean.cpp ..\Template\Forms\MainForm.ui ..\Template\Forms\SIForm.ui ..\Template\Forms\LogForm.ui ..\Template\Forms\AutomationForm.ui    
+	$(ZIP) Template.zip $(SOURCES) $(DIST) ..\Template\Template.pro D:\QT\5.9\mingw53_32\mkspecs\features\spec_pre.prf D:\QT\5.9\mingw53_32\mkspecs\qdevice.pri D:\QT\5.9\mingw53_32\mkspecs\features\device_config.prf D:\QT\5.9\mingw53_32\mkspecs\common\g++-base.conf D:\QT\5.9\mingw53_32\mkspecs\common\angle.conf D:\QT\5.9\mingw53_32\mkspecs\common\sanitize.conf D:\QT\5.9\mingw53_32\mkspecs\common\gcc-base.conf D:\QT\5.9\mingw53_32\mkspecs\qconfig.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3danimation.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3danimation_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dcore.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dcore_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dextras.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dextras_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dinput.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dinput_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dlogic.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dlogic_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dquick.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dquick_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dquickanimation.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dquickanimation_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dquickextras.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dquickextras_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dquickinput.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dquickinput_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dquickrender.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dquickrender_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dquickscene2d.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3dquickscene2d_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3drender.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_3drender_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_accessibility_support_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_axbase.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_axbase_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_axcontainer.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_axcontainer_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_axserver.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_axserver_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_bluetooth.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_bluetooth_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_bootstrap_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_charts.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_charts_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_concurrent.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_concurrent_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_core.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_core_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_dbus.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_dbus_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_designer.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_designer_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_designercomponents_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_devicediscovery_support_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_egl_support_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_eventdispatcher_support_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_fb_support_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_fontdatabase_support_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_gamepad.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_gamepad_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_gui.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_gui_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_help.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_help_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_location.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_location_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_multimedia.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_multimedia_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_multimediawidgets.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_multimediawidgets_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_network.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_network_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_nfc.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_nfc_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_opengl.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_opengl_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_openglextensions.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_openglextensions_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_packetprotocol_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_platformcompositor_support_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_positioning.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_positioning_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_printsupport.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_printsupport_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_qml.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_qml_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_qmldebug_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_qmldevtools_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_qmltest.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_qmltest_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_quick.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_quick_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_quickcontrols2.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_quickcontrols2_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_quickparticles_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_quicktemplates2_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_quickwidgets.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_quickwidgets_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_scxml.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_scxml_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_sensors.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_sensors_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_serialbus.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_serialbus_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_serialport.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_serialport_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_sql.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_sql_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_svg.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_svg_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_testlib.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_testlib_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_theme_support_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_uiplugin.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_uitools.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_uitools_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_webchannel.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_webchannel_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_websockets.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_websockets_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_widgets.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_widgets_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_winextras.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_winextras_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_xml.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_xml_private.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_xmlpatterns.pri D:\QT\5.9\mingw53_32\mkspecs\modules\qt_lib_xmlpatterns_private.pri D:\QT\5.9\mingw53_32\mkspecs\features\qt_functions.prf D:\QT\5.9\mingw53_32\mkspecs\features\qt_config.prf D:\QT\5.9\mingw53_32\mkspecs\win32-g++\qmake.conf D:\QT\5.9\mingw53_32\mkspecs\features\spec_post.prf .qmake.stash D:\QT\5.9\mingw53_32\mkspecs\features\exclusive_builds.prf D:\QT\5.9\mingw53_32\mkspecs\features\toolchain.prf D:\QT\5.9\mingw53_32\mkspecs\features\default_pre.prf D:\QT\5.9\mingw53_32\mkspecs\features\win32\default_pre.prf ..\Template\Forms\Forms.pri ..\Template\QLog\log4qt\log4qt.pri ..\Template\QLog\QLog.pri ..\Template\CommonMethod\CommonMethod.pri ..\Template\CommonBean\CommonBean.pri ..\Template\LibXL\LibXL.pri D:\QT\5.9\mingw53_32\mkspecs\features\resolve_config.prf D:\QT\5.9\mingw53_32\mkspecs\features\exclusive_builds_post.prf D:\QT\5.9\mingw53_32\mkspecs\features\default_post.prf D:\QT\5.9\mingw53_32\mkspecs\features\build_pass.prf D:\QT\5.9\mingw53_32\mkspecs\features\qml_debug.prf D:\QT\5.9\mingw53_32\mkspecs\features\precompile_header.prf D:\QT\5.9\mingw53_32\mkspecs\features\warn_on.prf D:\QT\5.9\mingw53_32\mkspecs\features\qt.prf D:\QT\5.9\mingw53_32\mkspecs\features\resources.prf D:\QT\5.9\mingw53_32\mkspecs\features\moc.prf D:\QT\5.9\mingw53_32\mkspecs\features\win32\opengl.prf D:\QT\5.9\mingw53_32\mkspecs\features\uic.prf D:\QT\5.9\mingw53_32\mkspecs\features\qmake_use.prf D:\QT\5.9\mingw53_32\mkspecs\features\file_copies.prf D:\QT\5.9\mingw53_32\mkspecs\features\win32\windows.prf D:\QT\5.9\mingw53_32\mkspecs\features\testcase_targets.prf D:\QT\5.9\mingw53_32\mkspecs\features\exceptions.prf D:\QT\5.9\mingw53_32\mkspecs\features\yacc.prf D:\QT\5.9\mingw53_32\mkspecs\features\lex.prf ..\Template\Template.pro ..\Template\Conf\conf.qrc D:\QT\5.9\mingw53_32\lib\qtmaind.prl D:\QT\5.9\mingw53_32\lib\Qt5Widgetsd.prl D:\QT\5.9\mingw53_32\lib\Qt5Guid.prl D:\QT\5.9\mingw53_32\lib\Qt5Cored.prl   ..\Template\Conf\conf.qrc D:\QT\5.9\mingw53_32\mkspecs\features\data\dummy.cpp ..\Template\COMMONDEFINE.h ..\Template\Forms\UICode\SIForm.h ..\Template\Forms\UICode\MainForm.h ..\Template\Forms\UICode\LogForm.h ..\Template\Forms\UICode\AutomationForm.h ..\Template\Forms\LogicCode\LogFormMetod.h ..\Template\Forms\LogicCode\MainFormMethod.h ..\Template\Forms\LogicCode\SIFormMethod.h ..\Template\Forms\LogicCode\AutomationFormMethod.h ..\Template\QLog\QLoghelper.h ..\Template\QLog\log4qt\appender.h ..\Template\QLog\log4qt\appenderskeleton.h ..\Template\QLog\log4qt\basicconfigurator.h ..\Template\QLog\log4qt\consoleappender.h ..\Template\QLog\log4qt\dailyrollingfileappender.h ..\Template\QLog\log4qt\fileappender.h ..\Template\QLog\log4qt\helpers\classlogger.h ..\Template\QLog\log4qt\helpers\configuratorhelper.h ..\Template\QLog\log4qt\helpers\datetime.h ..\Template\QLog\log4qt\helpers\factory.h ..\Template\QLog\log4qt\helpers\initialisationhelper.h ..\Template\QLog\log4qt\helpers\logerror.h ..\Template\QLog\log4qt\helpers\logobject.h ..\Template\QLog\log4qt\helpers\logobjectptr.h ..\Template\QLog\log4qt\helpers\optionconverter.h ..\Template\QLog\log4qt\helpers\patternformatter.h ..\Template\QLog\log4qt\helpers\properties.h ..\Template\QLog\log4qt\hierarchy.h ..\Template\QLog\log4qt\layout.h ..\Template\QLog\log4qt\level.h ..\Template\QLog\log4qt\log4qt.h ..\Template\QLog\log4qt\logger.h ..\Template\QLog\log4qt\loggerrepository.h ..\Template\QLog\log4qt\loggingevent.h ..\Template\QLog\log4qt\logmanager.h ..\Template\QLog\log4qt\mdc.h ..\Template\QLog\log4qt\ndc.h ..\Template\QLog\log4qt\patternlayout.h ..\Template\QLog\log4qt\propertyconfigurator.h ..\Template\QLog\log4qt\rollingfileappender.h ..\Template\QLog\log4qt\simplelayout.h ..\Template\QLog\log4qt\spi\filter.h ..\Template\QLog\log4qt\ttcclayout.h ..\Template\QLog\log4qt\writerappender.h ..\Template\QLog\log4qt\varia\debugappender.h ..\Template\QLog\log4qt\varia\denyallfilter.h ..\Template\QLog\log4qt\varia\nullappender.h ..\Template\QLog\log4qt\varia\levelmatchfilter.h ..\Template\QLog\log4qt\varia\levelrangefilter.h ..\Template\QLog\log4qt\varia\listappender.h ..\Template\QLog\log4qt\varia\stringmatchfilter.h ..\Template\CommonMethod\CommonMethod.h ..\Template\CommonMethod\SIForm\SICommonMethod.h ..\Template\CommonMethod\SIForm\SIExcelOperateMethod.h ..\Template\CommonMethod\SIForm\SIExcelOperateThread.h ..\Template\CommonMethod\SIForm\SIFileOperateThread.h ..\Template\CommonMethod\SIForm\SIFileOperateMethod.h ..\Template\CommonMethod\AutomationForm\AuExcelOperateMethod.h ..\Template\CommonMethod\AutomationForm\AuExcelOperateThread.h ..\Template\CommonMethod\AutomationForm\AuCommonMethod.h ..\Template\CommonMethod\AutomationForm\AuFileOperateMethod.h ..\Template\CommonMethod\AutomationForm\AuFileOperateThread.h ..\Template\CommonMethod\SIForm\SIConfig.h ..\Template\CommonBean\LogFormBean.h ..\Template\CommonBean\SIFormBean.h ..\Template\CommonBean\MainFormBean.h ..\Template\CommonBean\AutomationFormBean.h ..\Template\LibXL\enum.h ..\Template\LibXL\IAutoFilterT.h ..\Template\LibXL\IBookT.h ..\Template\LibXL\IFilterColumnT.h ..\Template\LibXL\IFontT.h ..\Template\LibXL\IFormatT.h ..\Template\LibXL\IRichStringT.h ..\Template\LibXL\ISheetT.h ..\Template\LibXL\libxl.h ..\Template\LibXL\setup.h ..\Template\main.cpp ..\Template\Forms\UICode\MainForm.cpp ..\Template\Forms\UICode\SIForm.cpp ..\Template\Forms\UICode\LogForm.cpp ..\Template\Forms\UICode\AutomationForm.cpp ..\Template\Forms\LogicCode\LogFormMetod.cpp ..\Template\Forms\LogicCode\MainFormMethod.cpp ..\Template\Forms\LogicCode\SIFormMethod.cpp ..\Template\Forms\LogicCode\AutomationFormMethod.cpp ..\Template\QLog\QLoghelper.cpp ..\Template\QLog\log4qt\appenderskeleton.cpp ..\Template\QLog\log4qt\basicconfigurator.cpp ..\Template\QLog\log4qt\consoleappender.cpp ..\Template\QLog\log4qt\dailyrollingfileappender.cpp ..\Template\QLog\log4qt\fileappender.cpp ..\Template\QLog\log4qt\helpers\classlogger.cpp ..\Template\QLog\log4qt\helpers\configuratorhelper.cpp ..\Template\QLog\log4qt\helpers\datetime.cpp ..\Template\QLog\log4qt\helpers\factory.cpp ..\Template\QLog\log4qt\helpers\initialisationhelper.cpp ..\Template\QLog\log4qt\helpers\logerror.cpp ..\Template\QLog\log4qt\helpers\logobject.cpp ..\Template\QLog\log4qt\helpers\logobjectptr.cpp ..\Template\QLog\log4qt\helpers\optionconverter.cpp ..\Template\QLog\log4qt\helpers\patternformatter.cpp ..\Template\QLog\log4qt\helpers\properties.cpp ..\Template\QLog\log4qt\hierarchy.cpp ..\Template\QLog\log4qt\layout.cpp ..\Template\QLog\log4qt\level.cpp ..\Template\QLog\log4qt\log4qt.cpp ..\Template\QLog\log4qt\logger.cpp ..\Template\QLog\log4qt\loggerrepository.cpp ..\Template\QLog\log4qt\loggingevent.cpp ..\Template\QLog\log4qt\logmanager.cpp ..\Template\QLog\log4qt\mdc.cpp ..\Template\QLog\log4qt\ndc.cpp ..\Template\QLog\log4qt\patternlayout.cpp ..\Template\QLog\log4qt\propertyconfigurator.cpp ..\Template\QLog\log4qt\rollingfileappender.cpp ..\Template\QLog\log4qt\simplelayout.cpp ..\Template\QLog\log4qt\spi\filter.cpp ..\Template\QLog\log4qt\ttcclayout.cpp ..\Template\QLog\log4qt\writerappender.cpp ..\Template\QLog\log4qt\varia\debugappender.cpp ..\Template\QLog\log4qt\varia\denyallfilter.cpp ..\Template\QLog\log4qt\varia\nullappender.cpp ..\Template\QLog\log4qt\varia\levelmatchfilter.cpp ..\Template\QLog\log4qt\varia\levelrangefilter.cpp ..\Template\QLog\log4qt\varia\listappender.cpp ..\Template\QLog\log4qt\varia\stringmatchfilter.cpp ..\Template\CommonMethod\CommonMethod.cpp ..\Template\CommonMethod\SIForm\SICommonMethod.cpp ..\Template\CommonMethod\SIForm\SIFileOperateThread.cpp ..\Template\CommonMethod\SIForm\SIFileOperateMethod.cpp ..\Template\CommonMethod\SIForm\SIExcelOperateThread.cpp ..\Template\CommonMethod\SIForm\SIExcelOperateMethod.cpp ..\Template\CommonMethod\AutomationForm\AuExcelOperateMethod.cpp ..\Template\CommonMethod\AutomationForm\AuExcelOperateThread.cpp ..\Template\CommonMethod\AutomationForm\AuCommonMethod.cpp ..\Template\CommonMethod\AutomationForm\AuFileOperateMethod.cpp ..\Template\CommonMethod\AutomationForm\AuFileOperateThread.cpp ..\Template\CommonMethod\SIForm\SIConfig.cpp ..\Template\CommonBean\LogFormBean.cpp ..\Template\CommonBean\SIFormBean.cpp ..\Template\CommonBean\MainFormBean.cpp ..\Template\CommonBean\AutomationFormBean.cpp ..\Template\Forms\MainForm.ui ..\Template\Forms\SIForm.ui ..\Template\Forms\LogForm.ui ..\Template\Forms\AutomationForm.ui    
 
 clean: compiler_clean 
-	-$(DEL_FILE) debug\main.o debug\MainForm.o debug\SIForm.o debug\LogForm.o debug\AutomationForm.o debug\LogFormMetod.o debug\MainFormMethod.o debug\SIFormMethod.o debug\AutomationFormMethod.o debug\QLoghelper.o debug\appenderskeleton.o debug\basicconfigurator.o debug\consoleappender.o debug\dailyrollingfileappender.o debug\fileappender.o debug\classlogger.o debug\configuratorhelper.o debug\datetime.o debug\factory.o debug\initialisationhelper.o debug\logerror.o debug\logobject.o debug\logobjectptr.o debug\optionconverter.o debug\patternformatter.o debug\properties.o debug\hierarchy.o debug\layout.o debug\level.o debug\log4qt.o debug\logger.o debug\loggerrepository.o debug\loggingevent.o debug\logmanager.o debug\mdc.o debug\ndc.o debug\patternlayout.o debug\propertyconfigurator.o debug\rollingfileappender.o debug\simplelayout.o debug\filter.o debug\ttcclayout.o debug\writerappender.o debug\debugappender.o debug\denyallfilter.o debug\nullappender.o debug\levelmatchfilter.o debug\levelrangefilter.o debug\listappender.o debug\stringmatchfilter.o debug\CommonMethod.o debug\SICommonMethod.o debug\SIFileOperateThread.o debug\SIFileOperateMethod.o debug\SIExcelOperateThread.o debug\SIExcelOperateMethod.o debug\AuExcelOperateMethod.o debug\AuExcelOperateThread.o debug\AuCommonMethod.o debug\AuFileOperateMethod.o debug\AuFileOperateThread.o debug\LogFormBean.o debug\SIFormBean.o debug\MainFormBean.o debug\AutomationFormBean.o debug\qrc_conf.o debug\moc_SIForm.o debug\moc_MainForm.o debug\moc_LogForm.o debug\moc_AutomationForm.o debug\moc_LogFormMetod.o debug\moc_MainFormMethod.o debug\moc_SIFormMethod.o debug\moc_AutomationFormMethod.o debug\moc_QLoghelper.o debug\moc_appender.o debug\moc_appenderskeleton.o debug\moc_consoleappender.o debug\moc_dailyrollingfileappender.o debug\moc_fileappender.o debug\moc_configuratorhelper.o debug\moc_logobject.o debug\moc_layout.o debug\moc_logger.o debug\moc_patternlayout.o debug\moc_rollingfileappender.o debug\moc_simplelayout.o debug\moc_filter.o debug\moc_ttcclayout.o
-	-$(DEL_FILE) debug\moc_writerappender.o debug\moc_debugappender.o debug\moc_denyallfilter.o debug\moc_nullappender.o debug\moc_levelmatchfilter.o debug\moc_levelrangefilter.o debug\moc_listappender.o debug\moc_stringmatchfilter.o debug\moc_CommonMethod.o debug\moc_SICommonMethod.o debug\moc_SIExcelOperateMethod.o debug\moc_SIExcelOperateThread.o debug\moc_SIFileOperateThread.o debug\moc_SIFileOperateMethod.o debug\moc_AuExcelOperateMethod.o debug\moc_AuExcelOperateThread.o debug\moc_AuCommonMethod.o debug\moc_AuFileOperateMethod.o debug\moc_AuFileOperateThread.o debug\moc_LogFormBean.o debug\moc_SIFormBean.o debug\moc_MainFormBean.o debug\moc_AutomationFormBean.o
+	-$(DEL_FILE) debug\main.o debug\MainForm.o debug\SIForm.o debug\LogForm.o debug\AutomationForm.o debug\LogFormMetod.o debug\MainFormMethod.o debug\SIFormMethod.o debug\AutomationFormMethod.o debug\QLoghelper.o debug\appenderskeleton.o debug\basicconfigurator.o debug\consoleappender.o debug\dailyrollingfileappender.o debug\fileappender.o debug\classlogger.o debug\configuratorhelper.o debug\datetime.o debug\factory.o debug\initialisationhelper.o debug\logerror.o debug\logobject.o debug\logobjectptr.o debug\optionconverter.o debug\patternformatter.o debug\properties.o debug\hierarchy.o debug\layout.o debug\level.o debug\log4qt.o debug\logger.o debug\loggerrepository.o debug\loggingevent.o debug\logmanager.o debug\mdc.o debug\ndc.o debug\patternlayout.o debug\propertyconfigurator.o debug\rollingfileappender.o debug\simplelayout.o debug\filter.o debug\ttcclayout.o debug\writerappender.o debug\debugappender.o debug\denyallfilter.o debug\nullappender.o debug\levelmatchfilter.o debug\levelrangefilter.o debug\listappender.o debug\stringmatchfilter.o debug\CommonMethod.o debug\SICommonMethod.o debug\SIFileOperateThread.o debug\SIFileOperateMethod.o debug\SIExcelOperateThread.o debug\SIExcelOperateMethod.o debug\AuExcelOperateMethod.o debug\AuExcelOperateThread.o debug\AuCommonMethod.o debug\AuFileOperateMethod.o debug\AuFileOperateThread.o debug\SIConfig.o debug\LogFormBean.o debug\SIFormBean.o debug\MainFormBean.o debug\AutomationFormBean.o debug\qrc_conf.o debug\moc_SIForm.o debug\moc_MainForm.o debug\moc_LogForm.o debug\moc_AutomationForm.o debug\moc_LogFormMetod.o debug\moc_MainFormMethod.o debug\moc_SIFormMethod.o debug\moc_AutomationFormMethod.o debug\moc_QLoghelper.o debug\moc_appender.o debug\moc_appenderskeleton.o debug\moc_consoleappender.o debug\moc_dailyrollingfileappender.o debug\moc_fileappender.o debug\moc_configuratorhelper.o debug\moc_logobject.o debug\moc_layout.o debug\moc_logger.o debug\moc_patternlayout.o debug\moc_rollingfileappender.o debug\moc_simplelayout.o debug\moc_filter.o
+	-$(DEL_FILE) debug\moc_ttcclayout.o debug\moc_writerappender.o debug\moc_debugappender.o debug\moc_denyallfilter.o debug\moc_nullappender.o debug\moc_levelmatchfilter.o debug\moc_levelrangefilter.o debug\moc_listappender.o debug\moc_stringmatchfilter.o debug\moc_CommonMethod.o debug\moc_SICommonMethod.o debug\moc_SIExcelOperateMethod.o debug\moc_SIExcelOperateThread.o debug\moc_SIFileOperateThread.o debug\moc_SIFileOperateMethod.o debug\moc_AuExcelOperateMethod.o debug\moc_AuExcelOperateThread.o debug\moc_AuCommonMethod.o debug\moc_AuFileOperateMethod.o debug\moc_AuFileOperateThread.o debug\moc_SIConfig.o debug\moc_LogFormBean.o debug\moc_SIFormBean.o debug\moc_MainFormBean.o debug\moc_AutomationFormBean.o
 
 distclean: clean 
 	-$(DEL_FILE) .qmake.stash
@@ -465,9 +471,9 @@ compiler_moc_predefs_clean:
 debug/moc_predefs.h: D:/QT/5.9/mingw53_32/mkspecs/features/data/dummy.cpp
 	g++ -fno-keep-inline-dllexport -pipe -g -std=gnu++11 -Wextra -Wall -W -dM -E -o debug\moc_predefs.h D:\QT\5.9\mingw53_32\mkspecs\features\data\dummy.cpp
 
-compiler_moc_header_make_all: debug/moc_SIForm.cpp debug/moc_MainForm.cpp debug/moc_LogForm.cpp debug/moc_AutomationForm.cpp debug/moc_LogFormMetod.cpp debug/moc_MainFormMethod.cpp debug/moc_SIFormMethod.cpp debug/moc_AutomationFormMethod.cpp debug/moc_QLoghelper.cpp debug/moc_appender.cpp debug/moc_appenderskeleton.cpp debug/moc_consoleappender.cpp debug/moc_dailyrollingfileappender.cpp debug/moc_fileappender.cpp debug/moc_configuratorhelper.cpp debug/moc_logobject.cpp debug/moc_layout.cpp debug/moc_logger.cpp debug/moc_patternlayout.cpp debug/moc_rollingfileappender.cpp debug/moc_simplelayout.cpp debug/moc_filter.cpp debug/moc_ttcclayout.cpp debug/moc_writerappender.cpp debug/moc_debugappender.cpp debug/moc_denyallfilter.cpp debug/moc_nullappender.cpp debug/moc_levelmatchfilter.cpp debug/moc_levelrangefilter.cpp debug/moc_listappender.cpp debug/moc_stringmatchfilter.cpp debug/moc_CommonMethod.cpp debug/moc_SICommonMethod.cpp debug/moc_SIExcelOperateMethod.cpp debug/moc_SIExcelOperateThread.cpp debug/moc_SIFileOperateThread.cpp debug/moc_SIFileOperateMethod.cpp debug/moc_AuExcelOperateMethod.cpp debug/moc_AuExcelOperateThread.cpp debug/moc_AuCommonMethod.cpp debug/moc_AuFileOperateMethod.cpp debug/moc_AuFileOperateThread.cpp debug/moc_LogFormBean.cpp debug/moc_SIFormBean.cpp debug/moc_MainFormBean.cpp debug/moc_AutomationFormBean.cpp
+compiler_moc_header_make_all: debug/moc_SIForm.cpp debug/moc_MainForm.cpp debug/moc_LogForm.cpp debug/moc_AutomationForm.cpp debug/moc_LogFormMetod.cpp debug/moc_MainFormMethod.cpp debug/moc_SIFormMethod.cpp debug/moc_AutomationFormMethod.cpp debug/moc_QLoghelper.cpp debug/moc_appender.cpp debug/moc_appenderskeleton.cpp debug/moc_consoleappender.cpp debug/moc_dailyrollingfileappender.cpp debug/moc_fileappender.cpp debug/moc_configuratorhelper.cpp debug/moc_logobject.cpp debug/moc_layout.cpp debug/moc_logger.cpp debug/moc_patternlayout.cpp debug/moc_rollingfileappender.cpp debug/moc_simplelayout.cpp debug/moc_filter.cpp debug/moc_ttcclayout.cpp debug/moc_writerappender.cpp debug/moc_debugappender.cpp debug/moc_denyallfilter.cpp debug/moc_nullappender.cpp debug/moc_levelmatchfilter.cpp debug/moc_levelrangefilter.cpp debug/moc_listappender.cpp debug/moc_stringmatchfilter.cpp debug/moc_CommonMethod.cpp debug/moc_SICommonMethod.cpp debug/moc_SIExcelOperateMethod.cpp debug/moc_SIExcelOperateThread.cpp debug/moc_SIFileOperateThread.cpp debug/moc_SIFileOperateMethod.cpp debug/moc_AuExcelOperateMethod.cpp debug/moc_AuExcelOperateThread.cpp debug/moc_AuCommonMethod.cpp debug/moc_AuFileOperateMethod.cpp debug/moc_AuFileOperateThread.cpp debug/moc_SIConfig.cpp debug/moc_LogFormBean.cpp debug/moc_SIFormBean.cpp debug/moc_MainFormBean.cpp debug/moc_AutomationFormBean.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) debug\moc_SIForm.cpp debug\moc_MainForm.cpp debug\moc_LogForm.cpp debug\moc_AutomationForm.cpp debug\moc_LogFormMetod.cpp debug\moc_MainFormMethod.cpp debug\moc_SIFormMethod.cpp debug\moc_AutomationFormMethod.cpp debug\moc_QLoghelper.cpp debug\moc_appender.cpp debug\moc_appenderskeleton.cpp debug\moc_consoleappender.cpp debug\moc_dailyrollingfileappender.cpp debug\moc_fileappender.cpp debug\moc_configuratorhelper.cpp debug\moc_logobject.cpp debug\moc_layout.cpp debug\moc_logger.cpp debug\moc_patternlayout.cpp debug\moc_rollingfileappender.cpp debug\moc_simplelayout.cpp debug\moc_filter.cpp debug\moc_ttcclayout.cpp debug\moc_writerappender.cpp debug\moc_debugappender.cpp debug\moc_denyallfilter.cpp debug\moc_nullappender.cpp debug\moc_levelmatchfilter.cpp debug\moc_levelrangefilter.cpp debug\moc_listappender.cpp debug\moc_stringmatchfilter.cpp debug\moc_CommonMethod.cpp debug\moc_SICommonMethod.cpp debug\moc_SIExcelOperateMethod.cpp debug\moc_SIExcelOperateThread.cpp debug\moc_SIFileOperateThread.cpp debug\moc_SIFileOperateMethod.cpp debug\moc_AuExcelOperateMethod.cpp debug\moc_AuExcelOperateThread.cpp debug\moc_AuCommonMethod.cpp debug\moc_AuFileOperateMethod.cpp debug\moc_AuFileOperateThread.cpp debug\moc_LogFormBean.cpp debug\moc_SIFormBean.cpp debug\moc_MainFormBean.cpp debug\moc_AutomationFormBean.cpp
+	-$(DEL_FILE) debug\moc_SIForm.cpp debug\moc_MainForm.cpp debug\moc_LogForm.cpp debug\moc_AutomationForm.cpp debug\moc_LogFormMetod.cpp debug\moc_MainFormMethod.cpp debug\moc_SIFormMethod.cpp debug\moc_AutomationFormMethod.cpp debug\moc_QLoghelper.cpp debug\moc_appender.cpp debug\moc_appenderskeleton.cpp debug\moc_consoleappender.cpp debug\moc_dailyrollingfileappender.cpp debug\moc_fileappender.cpp debug\moc_configuratorhelper.cpp debug\moc_logobject.cpp debug\moc_layout.cpp debug\moc_logger.cpp debug\moc_patternlayout.cpp debug\moc_rollingfileappender.cpp debug\moc_simplelayout.cpp debug\moc_filter.cpp debug\moc_ttcclayout.cpp debug\moc_writerappender.cpp debug\moc_debugappender.cpp debug\moc_denyallfilter.cpp debug\moc_nullappender.cpp debug\moc_levelmatchfilter.cpp debug\moc_levelrangefilter.cpp debug\moc_listappender.cpp debug\moc_stringmatchfilter.cpp debug\moc_CommonMethod.cpp debug\moc_SICommonMethod.cpp debug\moc_SIExcelOperateMethod.cpp debug\moc_SIExcelOperateThread.cpp debug\moc_SIFileOperateThread.cpp debug\moc_SIFileOperateMethod.cpp debug\moc_AuExcelOperateMethod.cpp debug\moc_AuExcelOperateThread.cpp debug\moc_AuCommonMethod.cpp debug\moc_AuFileOperateMethod.cpp debug\moc_AuFileOperateThread.cpp debug\moc_SIConfig.cpp debug\moc_LogFormBean.cpp debug\moc_SIFormBean.cpp debug\moc_MainFormBean.cpp debug\moc_AutomationFormBean.cpp
 debug/moc_SIForm.cpp: D:/QT/5.9/mingw53_32/include/QtWidgets/QWidget \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qwidget.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qtwidgetsglobal.h \
@@ -609,6 +615,7 @@ debug/moc_SIForm.cpp: D:/QT/5.9/mingw53_32/include/QtWidgets/QWidget \
 		../Template/QLog/log4qt/propertyconfigurator.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QHash \
 		../Template/CommonBean/SIFormBean.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/QList \
 		../Template/CommonMethod/CommonMethod.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QSettings \
 		D:/QT/5.9/mingw53_32/include/QtCore/qsettings.h \
@@ -644,6 +651,8 @@ debug/moc_SIForm.cpp: D:/QT/5.9/mingw53_32/include/QtWidgets/QWidget \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qfiledialog.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/QLabel \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qlabel.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QThread \
+		D:/QT/5.9/mingw53_32/include/QtCore/qthread.h \
 		../Template/Forms/LogicCode/LogFormMetod.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QStringListModel \
 		D:/QT/5.9/mingw53_32/include/QtCore/qstringlistmodel.h \
@@ -651,8 +660,26 @@ debug/moc_SIForm.cpp: D:/QT/5.9/mingw53_32/include/QtWidgets/QWidget \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/QTextEdit \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qtextedit.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qtextdocument.h \
+		../Template/CommonMethod/SIForm/SICommonMethod.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QProcess \
+		D:/QT/5.9/mingw53_32/include/QtCore/qprocess.h \
 		../Template/CommonMethod/SIForm/SIExcelOperateThread.h \
+		../Template/CommonMethod/SIForm/SIExcelOperateMethod.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QTextCodec \
+		D:/QT/5.9/mingw53_32/include/QtCore/qtextcodec.h \
+		../Template/LibXL/libxl.h \
+		../Template/LibXL/IBookT.h \
+		../Template/LibXL/setup.h \
+		../Template/LibXL/enum.h \
+		../Template/LibXL/ISheetT.h \
+		../Template/LibXL/IFormatT.h \
+		../Template/LibXL/IFontT.h \
+		../Template/LibXL/IAutoFilterT.h \
+		../Template/LibXL/IFilterColumnT.h \
+		../Template/LibXL/IRichStringT.h \
 		../Template/CommonMethod/SIForm/SIFileOperateThread.h \
+		../Template/CommonMethod/SIForm/SIFileOperateMethod.h \
+		../Template/CommonMethod/SIForm/SIConfig.h \
 		../Template/Forms/UICode/SIForm.h \
 		debug/moc_predefs.h \
 		D:/QT/5.9/mingw53_32/bin/moc.exe
@@ -1135,6 +1162,12 @@ debug/moc_AutomationForm.cpp: D:/QT/5.9/mingw53_32/include/QtWidgets/QWidget \
 		D:/QT/5.9/mingw53_32/include/QtGui/qpen.h \
 		../Template/CommonBean/AutomationFormBean.h \
 		../Template/Forms/LogicCode/AutomationFormMethod.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QThread \
+		D:/QT/5.9/mingw53_32/include/QtCore/qthread.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QLabel \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qlabel.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QLineEdit \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qlineedit.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/QTableView \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qtableview.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qabstractitemview.h \
@@ -1151,8 +1184,12 @@ debug/moc_AutomationForm.cpp: D:/QT/5.9/mingw53_32/include/QtWidgets/QWidget \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qtabbar.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qtabwidget.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qrubberband.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QFileDialog \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qfiledialog.h \
 		../Template/CommonMethod/AutomationForm/AuExcelOperateThread.h \
+		../Template/CommonMethod/AutomationForm/AuCommonMethod.h \
 		../Template/CommonMethod/AutomationForm/AuFileOperateThread.h \
+		../Template/CommonMethod/AutomationForm/AuFileOperateMethod.h \
 		../Template/Forms/UICode/AutomationForm.h \
 		debug/moc_predefs.h \
 		D:/QT/5.9/mingw53_32/bin/moc.exe
@@ -1517,6 +1554,7 @@ debug/moc_SIFormMethod.cpp: D:/QT/5.9/mingw53_32/include/QtCore/QObject \
 		D:/QT/5.9/mingw53_32/include/QtCore/qvarlengtharray.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qcontainerfwd.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qobject_impl.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QMetaType \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/QLineEdit \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qlineedit.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qtwidgetsglobal.h \
@@ -1602,6 +1640,8 @@ debug/moc_SIFormMethod.cpp: D:/QT/5.9/mingw53_32/include/QtCore/QObject \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qdialog.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/QLabel \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qlabel.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QThread \
+		D:/QT/5.9/mingw53_32/include/QtCore/qthread.h \
 		../Template/COMMONDEFINE.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/QMessageBox \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qmessagebox.h \
@@ -1632,13 +1672,13 @@ debug/moc_SIFormMethod.cpp: D:/QT/5.9/mingw53_32/include/QtCore/QObject \
 		../Template/QLog/log4qt/helpers/logobject.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QAtomicInt \
 		../Template/QLog/log4qt/level.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/QMetaType \
 		../Template/QLog/log4qt/log4qt.h \
 		../Template/QLog/log4qt/basicconfigurator.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/Qt \
 		../Template/QLog/log4qt/propertyconfigurator.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QHash \
 		../Template/CommonBean/SIFormBean.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/QList \
 		../Template/CommonMethod/CommonMethod.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QSettings \
 		D:/QT/5.9/mingw53_32/include/QtCore/qsettings.h \
@@ -1651,8 +1691,26 @@ debug/moc_SIFormMethod.cpp: D:/QT/5.9/mingw53_32/include/QtCore/QObject \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/QTextEdit \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qtextedit.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qtextdocument.h \
+		../Template/CommonMethod/SIForm/SICommonMethod.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QProcess \
+		D:/QT/5.9/mingw53_32/include/QtCore/qprocess.h \
 		../Template/CommonMethod/SIForm/SIExcelOperateThread.h \
+		../Template/CommonMethod/SIForm/SIExcelOperateMethod.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QTextCodec \
+		D:/QT/5.9/mingw53_32/include/QtCore/qtextcodec.h \
+		../Template/LibXL/libxl.h \
+		../Template/LibXL/IBookT.h \
+		../Template/LibXL/setup.h \
+		../Template/LibXL/enum.h \
+		../Template/LibXL/ISheetT.h \
+		../Template/LibXL/IFormatT.h \
+		../Template/LibXL/IFontT.h \
+		../Template/LibXL/IAutoFilterT.h \
+		../Template/LibXL/IFilterColumnT.h \
+		../Template/LibXL/IRichStringT.h \
 		../Template/CommonMethod/SIForm/SIFileOperateThread.h \
+		../Template/CommonMethod/SIForm/SIFileOperateMethod.h \
+		../Template/CommonMethod/SIForm/SIConfig.h \
 		../Template/Forms/LogicCode/SIFormMethod.h \
 		debug/moc_predefs.h \
 		D:/QT/5.9/mingw53_32/bin/moc.exe
@@ -1705,14 +1763,14 @@ debug/moc_AutomationFormMethod.cpp: D:/QT/5.9/mingw53_32/include/QtCore/QObject 
 		D:/QT/5.9/mingw53_32/include/QtCore/qvarlengtharray.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qcontainerfwd.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qobject_impl.h \
-		D:/QT/5.9/mingw53_32/include/QtWidgets/QTableView \
-		D:/QT/5.9/mingw53_32/include/QtWidgets/qtableview.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QThread \
+		D:/QT/5.9/mingw53_32/include/QtCore/qthread.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QLabel \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qlabel.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qtwidgetsglobal.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qtguiglobal.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qtgui-config.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qtwidgets-config.h \
-		D:/QT/5.9/mingw53_32/include/QtWidgets/qabstractitemview.h \
-		D:/QT/5.9/mingw53_32/include/QtWidgets/qabstractscrollarea.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qframe.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qwidget.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qwindowdefs.h \
@@ -1763,6 +1821,16 @@ debug/moc_AutomationFormMethod.cpp: D:/QT/5.9/mingw53_32/include/QtCore/QObject 
 		D:/QT/5.9/mingw53_32/include/QtCore/qfiledevice.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qvector2d.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qtouchdevice.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QLineEdit \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qlineedit.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qtextcursor.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qtextformat.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qpen.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qtextoption.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QTableView \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qtableview.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qabstractitemview.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qabstractscrollarea.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qabstractitemmodel.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qitemselectionmodel.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qabstractitemdelegate.h \
@@ -1777,17 +1845,20 @@ debug/moc_AutomationFormMethod.cpp: D:/QT/5.9/mingw53_32/include/QtCore/QObject 
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qtabbar.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qtabwidget.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qrubberband.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QFileDialog \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qfiledialog.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qdir.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qfileinfo.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qdialog.h \
 		../Template/COMMONDEFINE.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/QMessageBox \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qmessagebox.h \
-		D:/QT/5.9/mingw53_32/include/QtWidgets/qdialog.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QDebug \
 		D:/QT/5.9/mingw53_32/include/QtCore/QDateTime \
 		D:/QT/5.9/mingw53_32/include/QtCore/qdatetime.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QMap \
 		../Template/QLog/QLoghelper.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QFileInfo \
-		D:/QT/5.9/mingw53_32/include/QtCore/qfileinfo.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/QApplication \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qapplication.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qcoreapplication.h \
@@ -1796,7 +1867,6 @@ debug/moc_AutomationFormMethod.cpp: D:/QT/5.9/mingw53_32/include/QtCore/QObject 
 		D:/QT/5.9/mingw53_32/include/QtGui/qguiapplication.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qinputmethod.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QDir \
-		D:/QT/5.9/mingw53_32/include/QtCore/qdir.h \
 		../Template/QLog/log4qt/logger.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QAtomicPointer \
 		D:/QT/5.9/mingw53_32/include/QtCore/QList \
@@ -1828,13 +1898,11 @@ debug/moc_AutomationFormMethod.cpp: D:/QT/5.9/mingw53_32/include/QtCore/QObject 
 		D:/QT/5.9/mingw53_32/include/QtWidgets/QTextEdit \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qtextedit.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qtextdocument.h \
-		D:/QT/5.9/mingw53_32/include/QtGui/qtextoption.h \
-		D:/QT/5.9/mingw53_32/include/QtGui/qtextcursor.h \
-		D:/QT/5.9/mingw53_32/include/QtGui/qtextformat.h \
-		D:/QT/5.9/mingw53_32/include/QtGui/qpen.h \
 		../Template/CommonBean/AutomationFormBean.h \
 		../Template/CommonMethod/AutomationForm/AuExcelOperateThread.h \
+		../Template/CommonMethod/AutomationForm/AuCommonMethod.h \
 		../Template/CommonMethod/AutomationForm/AuFileOperateThread.h \
+		../Template/CommonMethod/AutomationForm/AuFileOperateMethod.h \
 		../Template/Forms/LogicCode/AutomationFormMethod.h \
 		debug/moc_predefs.h \
 		D:/QT/5.9/mingw53_32/bin/moc.exe
@@ -3755,6 +3823,11 @@ debug/moc_SICommonMethod.cpp: D:/QT/5.9/mingw53_32/include/QtCore/QObject \
 		D:/QT/5.9/mingw53_32/include/QtCore/qvarlengtharray.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qcontainerfwd.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qobject_impl.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QProcess \
+		D:/QT/5.9/mingw53_32/include/QtCore/qprocess.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qiodevice.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qshareddata.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qhash.h \
 		../Template/COMMONDEFINE.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/QMessageBox \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qmessagebox.h \
@@ -3781,7 +3854,6 @@ debug/moc_SICommonMethod.cpp: D:/QT/5.9/mingw53_32/include/QtCore/QObject \
 		D:/QT/5.9/mingw53_32/include/QtGui/qpolygon.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qregion.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qdatastream.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qiodevice.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qline.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qtransform.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qpainterpath.h \
@@ -3789,8 +3861,6 @@ debug/moc_SICommonMethod.cpp: D:/QT/5.9/mingw53_32/include/QtCore/QObject \
 		D:/QT/5.9/mingw53_32/include/QtGui/qpixelformat.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qpixmap.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qsharedpointer.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qshareddata.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qhash.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qsharedpointer_impl.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qfont.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qfontmetrics.h \
@@ -3847,6 +3917,13 @@ debug/moc_SICommonMethod.cpp: D:/QT/5.9/mingw53_32/include/QtCore/QObject \
 		D:/QT/5.9/mingw53_32/include/QtCore/Qt \
 		../Template/QLog/log4qt/propertyconfigurator.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QHash \
+		../Template/CommonBean/SIFormBean.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/QList \
+		../Template/CommonMethod/CommonMethod.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QSettings \
+		D:/QT/5.9/mingw53_32/include/QtCore/qsettings.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QStandardPaths \
+		D:/QT/5.9/mingw53_32/include/QtCore/qstandardpaths.h \
 		../Template/CommonMethod/SIForm/SICommonMethod.h \
 		debug/moc_predefs.h \
 		D:/QT/5.9/mingw53_32/bin/moc.exe
@@ -3899,6 +3976,8 @@ debug/moc_SIExcelOperateMethod.cpp: D:/QT/5.9/mingw53_32/include/QtCore/QObject 
 		D:/QT/5.9/mingw53_32/include/QtCore/qvarlengtharray.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qcontainerfwd.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qobject_impl.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QTextCodec \
+		D:/QT/5.9/mingw53_32/include/QtCore/qtextcodec.h \
 		../Template/LibXL/libxl.h \
 		../Template/LibXL/IBookT.h \
 		../Template/LibXL/setup.h \
@@ -4001,6 +4080,16 @@ debug/moc_SIExcelOperateMethod.cpp: D:/QT/5.9/mingw53_32/include/QtCore/QObject 
 		D:/QT/5.9/mingw53_32/include/QtCore/Qt \
 		../Template/QLog/log4qt/propertyconfigurator.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QHash \
+		../Template/CommonBean/SIFormBean.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/QList \
+		../Template/CommonMethod/CommonMethod.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QSettings \
+		D:/QT/5.9/mingw53_32/include/QtCore/qsettings.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QStandardPaths \
+		D:/QT/5.9/mingw53_32/include/QtCore/qstandardpaths.h \
+		../Template/CommonMethod/SIForm/SICommonMethod.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QProcess \
+		D:/QT/5.9/mingw53_32/include/QtCore/qprocess.h \
 		../Template/CommonMethod/SIForm/SIExcelOperateMethod.h \
 		debug/moc_predefs.h \
 		D:/QT/5.9/mingw53_32/bin/moc.exe
@@ -4145,6 +4234,29 @@ debug/moc_SIExcelOperateThread.cpp: D:/QT/5.9/mingw53_32/include/QtCore/QObject 
 		D:/QT/5.9/mingw53_32/include/QtCore/Qt \
 		../Template/QLog/log4qt/propertyconfigurator.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QHash \
+		../Template/CommonMethod/SIForm/SIExcelOperateMethod.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QTextCodec \
+		D:/QT/5.9/mingw53_32/include/QtCore/qtextcodec.h \
+		../Template/LibXL/libxl.h \
+		../Template/LibXL/IBookT.h \
+		../Template/LibXL/setup.h \
+		../Template/LibXL/enum.h \
+		../Template/LibXL/ISheetT.h \
+		../Template/LibXL/IFormatT.h \
+		../Template/LibXL/IFontT.h \
+		../Template/LibXL/IAutoFilterT.h \
+		../Template/LibXL/IFilterColumnT.h \
+		../Template/LibXL/IRichStringT.h \
+		../Template/CommonBean/SIFormBean.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/QList \
+		../Template/CommonMethod/CommonMethod.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QSettings \
+		D:/QT/5.9/mingw53_32/include/QtCore/qsettings.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QStandardPaths \
+		D:/QT/5.9/mingw53_32/include/QtCore/qstandardpaths.h \
+		../Template/CommonMethod/SIForm/SICommonMethod.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QProcess \
+		D:/QT/5.9/mingw53_32/include/QtCore/qprocess.h \
 		../Template/CommonMethod/SIForm/SIExcelOperateThread.h \
 		debug/moc_predefs.h \
 		D:/QT/5.9/mingw53_32/bin/moc.exe
@@ -4197,6 +4309,11 @@ debug/moc_SIFileOperateThread.cpp: D:/QT/5.9/mingw53_32/include/QtCore/QObject \
 		D:/QT/5.9/mingw53_32/include/QtCore/qvarlengtharray.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qcontainerfwd.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qobject_impl.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QProcess \
+		D:/QT/5.9/mingw53_32/include/QtCore/qprocess.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qiodevice.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qshareddata.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qhash.h \
 		../Template/COMMONDEFINE.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/QMessageBox \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qmessagebox.h \
@@ -4223,7 +4340,6 @@ debug/moc_SIFileOperateThread.cpp: D:/QT/5.9/mingw53_32/include/QtCore/QObject \
 		D:/QT/5.9/mingw53_32/include/QtGui/qpolygon.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qregion.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qdatastream.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qiodevice.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qline.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qtransform.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qpainterpath.h \
@@ -4231,8 +4347,6 @@ debug/moc_SIFileOperateThread.cpp: D:/QT/5.9/mingw53_32/include/QtCore/QObject \
 		D:/QT/5.9/mingw53_32/include/QtGui/qpixelformat.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qpixmap.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qsharedpointer.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qshareddata.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qhash.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qsharedpointer_impl.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qfont.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qfontmetrics.h \
@@ -4289,6 +4403,15 @@ debug/moc_SIFileOperateThread.cpp: D:/QT/5.9/mingw53_32/include/QtCore/QObject \
 		D:/QT/5.9/mingw53_32/include/QtCore/Qt \
 		../Template/QLog/log4qt/propertyconfigurator.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QHash \
+		../Template/CommonMethod/SIForm/SICommonMethod.h \
+		../Template/CommonBean/SIFormBean.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/QList \
+		../Template/CommonMethod/CommonMethod.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QSettings \
+		D:/QT/5.9/mingw53_32/include/QtCore/qsettings.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QStandardPaths \
+		D:/QT/5.9/mingw53_32/include/QtCore/qstandardpaths.h \
+		../Template/CommonMethod/SIForm/SIFileOperateMethod.h \
 		../Template/CommonMethod/SIForm/SIFileOperateThread.h \
 		debug/moc_predefs.h \
 		D:/QT/5.9/mingw53_32/bin/moc.exe
@@ -4433,6 +4556,16 @@ debug/moc_SIFileOperateMethod.cpp: D:/QT/5.9/mingw53_32/include/QtCore/QObject \
 		D:/QT/5.9/mingw53_32/include/QtCore/Qt \
 		../Template/QLog/log4qt/propertyconfigurator.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QHash \
+		../Template/CommonMethod/SIForm/SICommonMethod.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QProcess \
+		D:/QT/5.9/mingw53_32/include/QtCore/qprocess.h \
+		../Template/CommonBean/SIFormBean.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/QList \
+		../Template/CommonMethod/CommonMethod.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QSettings \
+		D:/QT/5.9/mingw53_32/include/QtCore/qsettings.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QStandardPaths \
+		D:/QT/5.9/mingw53_32/include/QtCore/qstandardpaths.h \
 		../Template/CommonMethod/SIForm/SIFileOperateMethod.h \
 		debug/moc_predefs.h \
 		D:/QT/5.9/mingw53_32/bin/moc.exe
@@ -4577,6 +4710,7 @@ debug/moc_AuExcelOperateMethod.cpp: D:/QT/5.9/mingw53_32/include/QtCore/QObject 
 		D:/QT/5.9/mingw53_32/include/QtCore/Qt \
 		../Template/QLog/log4qt/propertyconfigurator.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QHash \
+		../Template/CommonMethod/AutomationForm/AuCommonMethod.h \
 		../Template/CommonMethod/AutomationForm/AuExcelOperateMethod.h \
 		debug/moc_predefs.h \
 		D:/QT/5.9/mingw53_32/bin/moc.exe
@@ -4721,6 +4855,7 @@ debug/moc_AuExcelOperateThread.cpp: D:/QT/5.9/mingw53_32/include/QtCore/QObject 
 		D:/QT/5.9/mingw53_32/include/QtCore/Qt \
 		../Template/QLog/log4qt/propertyconfigurator.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QHash \
+		../Template/CommonMethod/AutomationForm/AuCommonMethod.h \
 		../Template/CommonMethod/AutomationForm/AuExcelOperateThread.h \
 		debug/moc_predefs.h \
 		D:/QT/5.9/mingw53_32/bin/moc.exe
@@ -5009,6 +5144,7 @@ debug/moc_AuFileOperateMethod.cpp: D:/QT/5.9/mingw53_32/include/QtCore/QObject \
 		D:/QT/5.9/mingw53_32/include/QtCore/Qt \
 		../Template/QLog/log4qt/propertyconfigurator.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QHash \
+		../Template/CommonMethod/AutomationForm/AuCommonMethod.h \
 		../Template/CommonMethod/AutomationForm/AuFileOperateMethod.h \
 		debug/moc_predefs.h \
 		D:/QT/5.9/mingw53_32/bin/moc.exe
@@ -5153,10 +5289,163 @@ debug/moc_AuFileOperateThread.cpp: D:/QT/5.9/mingw53_32/include/QtCore/QObject \
 		D:/QT/5.9/mingw53_32/include/QtCore/Qt \
 		../Template/QLog/log4qt/propertyconfigurator.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QHash \
+		../Template/CommonMethod/AutomationForm/AuFileOperateMethod.h \
+		../Template/CommonMethod/AutomationForm/AuCommonMethod.h \
 		../Template/CommonMethod/AutomationForm/AuFileOperateThread.h \
 		debug/moc_predefs.h \
 		D:/QT/5.9/mingw53_32/bin/moc.exe
 	D:\QT\5.9\mingw53_32\bin\moc.exe $(DEFINES) --include debug/moc_predefs.h -ID:/QT/5.9/mingw53_32/mkspecs/win32-g++ -IF:/Software/QTWorkspace/Widget/Template/Template -IF:/Software/QTWorkspace/Widget/Template/Template/Forms -IF:/Software/QTWorkspace/Widget/Template/Template/Forms/UICode -IF:/Software/QTWorkspace/Widget/Template/Template/Forms/LogicCode -IF:/Software/QTWorkspace/Widget/Template/Template/QLog -IF:/Software/QTWorkspace/Widget/Template/Template/QLog -IF:/Software/QTWorkspace/Widget/Template/Template/QLog/log4qt -IF:/Software/QTWorkspace/Widget/Template/Template/CommonMethod -IF:/Software/QTWorkspace/Widget/Template/Template/CommonMethod/SIForm -IF:/Software/QTWorkspace/Widget/Template/Template/CommonMethod/AutomationForm -IF:/Software/QTWorkspace/Widget/Template/Template -IF:/Software/QTWorkspace/Widget/Template/Template/Forms -IF:/Software/QTWorkspace/Widget/Template/Template/QLog -IF:/Software/QTWorkspace/Widget/Template/Template/CommonMethod -IF:/Software/QTWorkspace/Widget/Template/Template/CommonBean -IF:/Software/QTWorkspace/Widget/Template/Template/LibXL -ID:/QT/5.9/mingw53_32/include -ID:/QT/5.9/mingw53_32/include/QtWidgets -ID:/QT/5.9/mingw53_32/include/QtGui -ID:/QT/5.9/mingw53_32/include/QtANGLE -ID:/QT/5.9/mingw53_32/include/QtCore -I. -ID:/QT/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -ID:/QT/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -ID:/QT/Tools/mingw530_32/i686-w64-mingw32/include -ID:/QT/Tools/mingw530_32/i686-w64-mingw32/include/c++ -ID:/QT/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -ID:/QT/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ..\Template\CommonMethod\AutomationForm\AuFileOperateThread.h -o debug\moc_AuFileOperateThread.cpp
+
+debug/moc_SIConfig.cpp: D:/QT/5.9/mingw53_32/include/QtCore/QObject \
+		D:/QT/5.9/mingw53_32/include/QtCore/qobject.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qobjectdefs.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qnamespace.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qglobal.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qconfig-bootstrapped.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qconfig.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qtcore-config.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qsystemdetection.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qprocessordetection.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qcompilerdetection.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qtypeinfo.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qsysinfo.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qlogging.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qflags.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qatomic.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qbasicatomic.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qatomic_bootstrap.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qgenericatomic.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qatomic_cxx11.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qatomic_msvc.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qglobalstatic.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qmutex.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qnumeric.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qversiontagging.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qobjectdefs_impl.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qstring.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qchar.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qbytearray.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qrefcount.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qarraydata.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qstringbuilder.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qlist.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qalgorithms.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qiterator.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qhashfunctions.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qpair.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qbytearraylist.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qstringlist.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qregexp.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qstringmatcher.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qcoreevent.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qscopedpointer.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qmetatype.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qvarlengtharray.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qcontainerfwd.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qobject_impl.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QSettings \
+		D:/QT/5.9/mingw53_32/include/QtCore/qsettings.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qvariant.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qmap.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qdebug.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qhash.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qtextstream.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qiodevice.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qlocale.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qshareddata.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qvector.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qpoint.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qset.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qcontiguouscache.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qsharedpointer.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qsharedpointer_impl.h \
+		../Template/COMMONDEFINE.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QMessageBox \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qmessagebox.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qtwidgetsglobal.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qtguiglobal.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qtgui-config.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qtwidgets-config.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qdialog.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qwidget.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qwindowdefs.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qwindowdefs_win.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qmargins.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qpaintdevice.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qrect.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qsize.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qpalette.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qcolor.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qrgb.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qrgba64.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qbrush.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qmatrix.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qpolygon.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qregion.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qdatastream.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qline.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qtransform.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qpainterpath.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qimage.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qpixelformat.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qpixmap.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qfont.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qfontmetrics.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qfontinfo.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qsizepolicy.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qcursor.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qkeysequence.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qevent.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qurl.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qurlquery.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qfile.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qfiledevice.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qvector2d.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qtouchdevice.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QDebug \
+		D:/QT/5.9/mingw53_32/include/QtCore/QDateTime \
+		D:/QT/5.9/mingw53_32/include/QtCore/qdatetime.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QMap \
+		../Template/QLog/QLoghelper.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QFileInfo \
+		D:/QT/5.9/mingw53_32/include/QtCore/qfileinfo.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QApplication \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qapplication.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qcoreapplication.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qeventloop.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qdesktopwidget.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qguiapplication.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qinputmethod.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QDir \
+		D:/QT/5.9/mingw53_32/include/QtCore/qdir.h \
+		../Template/QLog/log4qt/logger.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QAtomicPointer \
+		D:/QT/5.9/mingw53_32/include/QtCore/QList \
+		D:/QT/5.9/mingw53_32/include/QtCore/QReadWriteLock \
+		D:/QT/5.9/mingw53_32/include/QtCore/qreadwritelock.h \
+		../Template/QLog/log4qt/helpers/logerror.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QString \
+		D:/QT/5.9/mingw53_32/include/QtCore/QVariant \
+		../Template/QLog/log4qt/helpers/classlogger.h \
+		../Template/QLog/log4qt/helpers/logobjectptr.h \
+		../Template/QLog/log4qt/helpers/logobject.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QAtomicInt \
+		../Template/QLog/log4qt/level.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QMetaType \
+		../Template/QLog/log4qt/log4qt.h \
+		../Template/QLog/log4qt/basicconfigurator.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/Qt \
+		../Template/QLog/log4qt/propertyconfigurator.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QHash \
+		../Template/CommonBean/SIFormBean.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/QList \
+		../Template/CommonMethod/CommonMethod.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QStandardPaths \
+		D:/QT/5.9/mingw53_32/include/QtCore/qstandardpaths.h \
+		../Template/CommonMethod/SIForm/SIConfig.h \
+		debug/moc_predefs.h \
+		D:/QT/5.9/mingw53_32/bin/moc.exe
+	D:\QT\5.9\mingw53_32\bin\moc.exe $(DEFINES) --include debug/moc_predefs.h -ID:/QT/5.9/mingw53_32/mkspecs/win32-g++ -IF:/Software/QTWorkspace/Widget/Template/Template -IF:/Software/QTWorkspace/Widget/Template/Template/Forms -IF:/Software/QTWorkspace/Widget/Template/Template/Forms/UICode -IF:/Software/QTWorkspace/Widget/Template/Template/Forms/LogicCode -IF:/Software/QTWorkspace/Widget/Template/Template/QLog -IF:/Software/QTWorkspace/Widget/Template/Template/QLog -IF:/Software/QTWorkspace/Widget/Template/Template/QLog/log4qt -IF:/Software/QTWorkspace/Widget/Template/Template/CommonMethod -IF:/Software/QTWorkspace/Widget/Template/Template/CommonMethod/SIForm -IF:/Software/QTWorkspace/Widget/Template/Template/CommonMethod/AutomationForm -IF:/Software/QTWorkspace/Widget/Template/Template -IF:/Software/QTWorkspace/Widget/Template/Template/Forms -IF:/Software/QTWorkspace/Widget/Template/Template/QLog -IF:/Software/QTWorkspace/Widget/Template/Template/CommonMethod -IF:/Software/QTWorkspace/Widget/Template/Template/CommonBean -IF:/Software/QTWorkspace/Widget/Template/Template/LibXL -ID:/QT/5.9/mingw53_32/include -ID:/QT/5.9/mingw53_32/include/QtWidgets -ID:/QT/5.9/mingw53_32/include/QtGui -ID:/QT/5.9/mingw53_32/include/QtANGLE -ID:/QT/5.9/mingw53_32/include/QtCore -I. -ID:/QT/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include -ID:/QT/Tools/mingw530_32/lib/gcc/i686-w64-mingw32/5.3.0/include-fixed -ID:/QT/Tools/mingw530_32/i686-w64-mingw32/include -ID:/QT/Tools/mingw530_32/i686-w64-mingw32/include/c++ -ID:/QT/Tools/mingw530_32/i686-w64-mingw32/include/c++/i686-w64-mingw32 -ID:/QT/Tools/mingw530_32/i686-w64-mingw32/include/c++/backward ..\Template\CommonMethod\SIForm\SIConfig.h -o debug\moc_SIConfig.cpp
 
 debug/moc_LogFormBean.cpp: D:/QT/5.9/mingw53_32/include/QtCore/QObject \
 		D:/QT/5.9/mingw53_32/include/QtCore/qobject.h \
@@ -5358,63 +5647,64 @@ debug/moc_SIFormBean.cpp: D:/QT/5.9/mingw53_32/include/QtCore/QObject \
 		D:/QT/5.9/mingw53_32/include/QtCore/qvarlengtharray.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qcontainerfwd.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qobject_impl.h \
-		../Template/COMMONDEFINE.h \
-		D:/QT/5.9/mingw53_32/include/QtWidgets/QMessageBox \
-		D:/QT/5.9/mingw53_32/include/QtWidgets/qmessagebox.h \
-		D:/QT/5.9/mingw53_32/include/QtWidgets/qtwidgetsglobal.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/QList \
+		D:/QT/5.9/mingw53_32/include/QtGui/qevent.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qtguiglobal.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qtgui-config.h \
-		D:/QT/5.9/mingw53_32/include/QtWidgets/qtwidgets-config.h \
-		D:/QT/5.9/mingw53_32/include/QtWidgets/qdialog.h \
-		D:/QT/5.9/mingw53_32/include/QtWidgets/qwidget.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qwindowdefs.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qwindowdefs_win.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qmargins.h \
-		D:/QT/5.9/mingw53_32/include/QtGui/qpaintdevice.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qregion.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qrect.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qmargins.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qsize.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qpoint.h \
-		D:/QT/5.9/mingw53_32/include/QtGui/qpalette.h \
-		D:/QT/5.9/mingw53_32/include/QtGui/qcolor.h \
-		D:/QT/5.9/mingw53_32/include/QtGui/qrgb.h \
-		D:/QT/5.9/mingw53_32/include/QtGui/qrgba64.h \
-		D:/QT/5.9/mingw53_32/include/QtGui/qbrush.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qvector.h \
-		D:/QT/5.9/mingw53_32/include/QtGui/qmatrix.h \
-		D:/QT/5.9/mingw53_32/include/QtGui/qpolygon.h \
-		D:/QT/5.9/mingw53_32/include/QtGui/qregion.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qdatastream.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qiodevice.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qline.h \
-		D:/QT/5.9/mingw53_32/include/QtGui/qtransform.h \
-		D:/QT/5.9/mingw53_32/include/QtGui/qpainterpath.h \
-		D:/QT/5.9/mingw53_32/include/QtGui/qimage.h \
-		D:/QT/5.9/mingw53_32/include/QtGui/qpixelformat.h \
-		D:/QT/5.9/mingw53_32/include/QtGui/qpixmap.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qsharedpointer.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qshareddata.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qhash.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qsharedpointer_impl.h \
-		D:/QT/5.9/mingw53_32/include/QtGui/qfont.h \
-		D:/QT/5.9/mingw53_32/include/QtGui/qfontmetrics.h \
-		D:/QT/5.9/mingw53_32/include/QtGui/qfontinfo.h \
-		D:/QT/5.9/mingw53_32/include/QtWidgets/qsizepolicy.h \
-		D:/QT/5.9/mingw53_32/include/QtGui/qcursor.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qkeysequence.h \
-		D:/QT/5.9/mingw53_32/include/QtGui/qevent.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qvariant.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qmap.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qdebug.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qhash.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qtextstream.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qlocale.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qshareddata.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qvector.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qset.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qcontiguouscache.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qsharedpointer.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qsharedpointer_impl.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qurl.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qurlquery.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qfile.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qfiledevice.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qvector2d.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qtouchdevice.h \
+		../Template/COMMONDEFINE.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QMessageBox \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qmessagebox.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qtwidgetsglobal.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qtwidgets-config.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qdialog.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qwidget.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qpaintdevice.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qpalette.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qcolor.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qrgb.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qrgba64.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qbrush.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qmatrix.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qpolygon.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qline.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qtransform.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qpainterpath.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qimage.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qpixelformat.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qpixmap.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qfont.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qfontmetrics.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qfontinfo.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qsizepolicy.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qcursor.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QDebug \
 		D:/QT/5.9/mingw53_32/include/QtCore/QDateTime \
 		D:/QT/5.9/mingw53_32/include/QtCore/qdatetime.h \
@@ -5909,6 +6199,7 @@ ui_MainForm.h: ../Template/Forms/MainForm.ui \
 		../Template/QLog/log4qt/propertyconfigurator.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QHash \
 		../Template/CommonBean/SIFormBean.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/QList \
 		../Template/CommonMethod/CommonMethod.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QSettings \
 		D:/QT/5.9/mingw53_32/include/QtCore/qsettings.h \
@@ -5944,6 +6235,8 @@ ui_MainForm.h: ../Template/Forms/MainForm.ui \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qfiledialog.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/QLabel \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qlabel.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QThread \
+		D:/QT/5.9/mingw53_32/include/QtCore/qthread.h \
 		../Template/Forms/LogicCode/LogFormMetod.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QStringListModel \
 		D:/QT/5.9/mingw53_32/include/QtCore/qstringlistmodel.h \
@@ -5951,8 +6244,26 @@ ui_MainForm.h: ../Template/Forms/MainForm.ui \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/QTextEdit \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qtextedit.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qtextdocument.h \
+		../Template/CommonMethod/SIForm/SICommonMethod.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QProcess \
+		D:/QT/5.9/mingw53_32/include/QtCore/qprocess.h \
 		../Template/CommonMethod/SIForm/SIExcelOperateThread.h \
+		../Template/CommonMethod/SIForm/SIExcelOperateMethod.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QTextCodec \
+		D:/QT/5.9/mingw53_32/include/QtCore/qtextcodec.h \
+		../Template/LibXL/libxl.h \
+		../Template/LibXL/IBookT.h \
+		../Template/LibXL/setup.h \
+		../Template/LibXL/enum.h \
+		../Template/LibXL/ISheetT.h \
+		../Template/LibXL/IFormatT.h \
+		../Template/LibXL/IFontT.h \
+		../Template/LibXL/IAutoFilterT.h \
+		../Template/LibXL/IFilterColumnT.h \
+		../Template/LibXL/IRichStringT.h \
 		../Template/CommonMethod/SIForm/SIFileOperateThread.h \
+		../Template/CommonMethod/SIForm/SIFileOperateMethod.h \
+		../Template/CommonMethod/SIForm/SIConfig.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/QWidget \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qwidget.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qtwidgetsglobal.h \
@@ -6273,6 +6584,12 @@ ui_MainForm.h: ../Template/Forms/MainForm.ui \
 		D:/QT/5.9/mingw53_32/include/QtGui/qpen.h \
 		../Template/CommonBean/AutomationFormBean.h \
 		../Template/Forms/LogicCode/AutomationFormMethod.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QThread \
+		D:/QT/5.9/mingw53_32/include/QtCore/qthread.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QLabel \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qlabel.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QLineEdit \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qlineedit.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/QTableView \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qtableview.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qabstractitemview.h \
@@ -6289,8 +6606,12 @@ ui_MainForm.h: ../Template/Forms/MainForm.ui \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qtabbar.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qtabwidget.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qrubberband.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QFileDialog \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qfiledialog.h \
 		../Template/CommonMethod/AutomationForm/AuExcelOperateThread.h \
-		../Template/CommonMethod/AutomationForm/AuFileOperateThread.h
+		../Template/CommonMethod/AutomationForm/AuCommonMethod.h \
+		../Template/CommonMethod/AutomationForm/AuFileOperateThread.h \
+		../Template/CommonMethod/AutomationForm/AuFileOperateMethod.h
 	D:\QT\5.9\mingw53_32\bin\uic.exe ..\Template\Forms\MainForm.ui -o ui_MainForm.h
 
 ui_SIForm.h: ../Template/Forms/SIForm.ui \
@@ -6615,7 +6936,90 @@ debug/MainForm.o: ../Template/Forms/UICode/MainForm.cpp ../Template/Forms/UICode
 		D:/QT/5.9/mingw53_32/include/QtCore/QStandardPaths \
 		D:/QT/5.9/mingw53_32/include/QtCore/qstandardpaths.h \
 		../Template/Forms/LogicCode/MainFormMethod.h \
-		ui_MainForm.h
+		ui_MainForm.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QAction \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qaction.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qicon.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qactiongroup.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QButtonGroup \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qbuttongroup.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QGridLayout \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qgridlayout.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qlayout.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qlayoutitem.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qboxlayout.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QHeaderView \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qheaderview.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qabstractitemview.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qabstractscrollarea.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qframe.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qabstractitemmodel.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qitemselectionmodel.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qabstractitemdelegate.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qstyleoption.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qabstractspinbox.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qvalidator.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qregularexpression.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qslider.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qabstractslider.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qstyle.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qtabbar.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qtabwidget.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qrubberband.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QTabWidget \
+		../Template/Forms/UICode/AutomationForm.h \
+		../Template/Forms/LogicCode/LogFormMetod.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QStringListModel \
+		D:/QT/5.9/mingw53_32/include/QtCore/qstringlistmodel.h \
+		../Template/CommonBean/LogFormBean.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QTextEdit \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qtextedit.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qtextdocument.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qtextoption.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qtextcursor.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qtextformat.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qpen.h \
+		../Template/CommonBean/AutomationFormBean.h \
+		../Template/Forms/LogicCode/AutomationFormMethod.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QThread \
+		D:/QT/5.9/mingw53_32/include/QtCore/qthread.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QLabel \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qlabel.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QLineEdit \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qlineedit.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QTableView \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qtableview.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QFileDialog \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qfiledialog.h \
+		../Template/CommonMethod/AutomationForm/AuExcelOperateThread.h \
+		../Template/CommonMethod/AutomationForm/AuCommonMethod.h \
+		../Template/CommonMethod/AutomationForm/AuFileOperateThread.h \
+		../Template/CommonMethod/AutomationForm/AuFileOperateMethod.h \
+		../Template/Forms/UICode/LogForm.h \
+		../Template/Forms/UICode/SIForm.h \
+		../Template/CommonBean/SIFormBean.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/QList \
+		../Template/Forms/LogicCode/SIFormMethod.h \
+		../Template/CommonMethod/SIForm/SICommonMethod.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QProcess \
+		D:/QT/5.9/mingw53_32/include/QtCore/qprocess.h \
+		../Template/CommonMethod/SIForm/SIExcelOperateThread.h \
+		../Template/CommonMethod/SIForm/SIExcelOperateMethod.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QTextCodec \
+		D:/QT/5.9/mingw53_32/include/QtCore/qtextcodec.h \
+		../Template/LibXL/libxl.h \
+		../Template/LibXL/IBookT.h \
+		../Template/LibXL/setup.h \
+		../Template/LibXL/enum.h \
+		../Template/LibXL/ISheetT.h \
+		../Template/LibXL/IFormatT.h \
+		../Template/LibXL/IFontT.h \
+		../Template/LibXL/IAutoFilterT.h \
+		../Template/LibXL/IFilterColumnT.h \
+		../Template/LibXL/IRichStringT.h \
+		../Template/CommonMethod/SIForm/SIFileOperateThread.h \
+		../Template/CommonMethod/SIForm/SIFileOperateMethod.h \
+		../Template/CommonMethod/SIForm/SIConfig.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\MainForm.o ..\Template\Forms\UICode\MainForm.cpp
 
 debug/SIForm.o: ../Template/Forms/UICode/SIForm.cpp ../Template/Forms/UICode/SIForm.h \
@@ -6760,6 +7164,7 @@ debug/SIForm.o: ../Template/Forms/UICode/SIForm.cpp ../Template/Forms/UICode/SIF
 		../Template/QLog/log4qt/propertyconfigurator.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QHash \
 		../Template/CommonBean/SIFormBean.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/QList \
 		../Template/CommonMethod/CommonMethod.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QSettings \
 		D:/QT/5.9/mingw53_32/include/QtCore/qsettings.h \
@@ -6795,6 +7200,8 @@ debug/SIForm.o: ../Template/Forms/UICode/SIForm.cpp ../Template/Forms/UICode/SIF
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qfiledialog.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/QLabel \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qlabel.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QThread \
+		D:/QT/5.9/mingw53_32/include/QtCore/qthread.h \
 		../Template/Forms/LogicCode/LogFormMetod.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QStringListModel \
 		D:/QT/5.9/mingw53_32/include/QtCore/qstringlistmodel.h \
@@ -6802,9 +7209,43 @@ debug/SIForm.o: ../Template/Forms/UICode/SIForm.cpp ../Template/Forms/UICode/SIF
 		D:/QT/5.9/mingw53_32/include/QtWidgets/QTextEdit \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qtextedit.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qtextdocument.h \
+		../Template/CommonMethod/SIForm/SICommonMethod.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QProcess \
+		D:/QT/5.9/mingw53_32/include/QtCore/qprocess.h \
 		../Template/CommonMethod/SIForm/SIExcelOperateThread.h \
+		../Template/CommonMethod/SIForm/SIExcelOperateMethod.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QTextCodec \
+		D:/QT/5.9/mingw53_32/include/QtCore/qtextcodec.h \
+		../Template/LibXL/libxl.h \
+		../Template/LibXL/IBookT.h \
+		../Template/LibXL/setup.h \
+		../Template/LibXL/enum.h \
+		../Template/LibXL/ISheetT.h \
+		../Template/LibXL/IFormatT.h \
+		../Template/LibXL/IFontT.h \
+		../Template/LibXL/IAutoFilterT.h \
+		../Template/LibXL/IFilterColumnT.h \
+		../Template/LibXL/IRichStringT.h \
 		../Template/CommonMethod/SIForm/SIFileOperateThread.h \
-		ui_SIForm.h
+		../Template/CommonMethod/SIForm/SIFileOperateMethod.h \
+		../Template/CommonMethod/SIForm/SIConfig.h \
+		ui_SIForm.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QAction \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qaction.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qactiongroup.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QButtonGroup \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qbuttongroup.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QGridLayout \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qgridlayout.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qlayout.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qlayoutitem.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qboxlayout.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QHeaderView \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qheaderview.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QPushButton \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qpushbutton.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qabstractbutton.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QSpacerItem
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\SIForm.o ..\Template\Forms\UICode\SIForm.cpp
 
 debug/LogForm.o: ../Template/Forms/UICode/LogForm.cpp ../Template/Forms/UICode/LogForm.h \
@@ -6967,7 +7408,33 @@ debug/LogForm.o: ../Template/Forms/UICode/LogForm.cpp ../Template/Forms/UICode/L
 		D:/QT/5.9/mingw53_32/include/QtCore/qsettings.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QStandardPaths \
 		D:/QT/5.9/mingw53_32/include/QtCore/qstandardpaths.h \
-		ui_LogForm.h
+		ui_LogForm.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QAction \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qaction.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qicon.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qactiongroup.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QButtonGroup \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qbuttongroup.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QGridLayout \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qgridlayout.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qlayout.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qlayoutitem.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qboxlayout.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QHeaderView \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qheaderview.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qabstractitemview.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qitemselectionmodel.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qabstractitemdelegate.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qstyleoption.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qabstractspinbox.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qvalidator.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qregularexpression.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qslider.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qabstractslider.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qstyle.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qtabbar.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qtabwidget.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qrubberband.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\LogForm.o ..\Template\Forms\UICode\LogForm.cpp
 
 debug/AutomationForm.o: ../Template/Forms/UICode/AutomationForm.cpp ../Template/Forms/UICode/AutomationForm.h \
@@ -7132,6 +7599,12 @@ debug/AutomationForm.o: ../Template/Forms/UICode/AutomationForm.cpp ../Template/
 		D:/QT/5.9/mingw53_32/include/QtGui/qpen.h \
 		../Template/CommonBean/AutomationFormBean.h \
 		../Template/Forms/LogicCode/AutomationFormMethod.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QThread \
+		D:/QT/5.9/mingw53_32/include/QtCore/qthread.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QLabel \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qlabel.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QLineEdit \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qlineedit.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/QTableView \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qtableview.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qabstractitemview.h \
@@ -7148,9 +7621,29 @@ debug/AutomationForm.o: ../Template/Forms/UICode/AutomationForm.cpp ../Template/
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qtabbar.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qtabwidget.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qrubberband.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QFileDialog \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qfiledialog.h \
 		../Template/CommonMethod/AutomationForm/AuExcelOperateThread.h \
+		../Template/CommonMethod/AutomationForm/AuCommonMethod.h \
 		../Template/CommonMethod/AutomationForm/AuFileOperateThread.h \
-		ui_AutomationForm.h
+		../Template/CommonMethod/AutomationForm/AuFileOperateMethod.h \
+		ui_AutomationForm.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QAction \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qaction.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qactiongroup.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QButtonGroup \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qbuttongroup.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QGridLayout \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qgridlayout.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qlayout.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qlayoutitem.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qboxlayout.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QHeaderView \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qheaderview.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QPushButton \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qpushbutton.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qabstractbutton.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QSpacerItem
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\AutomationForm.o ..\Template\Forms\UICode\AutomationForm.cpp
 
 debug/LogFormMetod.o: ../Template/Forms/LogicCode/LogFormMetod.cpp ../Template/Forms/LogicCode/LogFormMetod.h \
@@ -7509,6 +8002,7 @@ debug/SIFormMethod.o: ../Template/Forms/LogicCode/SIFormMethod.cpp ../Template/F
 		D:/QT/5.9/mingw53_32/include/QtCore/qvarlengtharray.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qcontainerfwd.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qobject_impl.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QMetaType \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/QLineEdit \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qlineedit.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qtwidgetsglobal.h \
@@ -7594,6 +8088,8 @@ debug/SIFormMethod.o: ../Template/Forms/LogicCode/SIFormMethod.cpp ../Template/F
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qdialog.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/QLabel \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qlabel.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QThread \
+		D:/QT/5.9/mingw53_32/include/QtCore/qthread.h \
 		../Template/COMMONDEFINE.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/QMessageBox \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qmessagebox.h \
@@ -7624,13 +8120,13 @@ debug/SIFormMethod.o: ../Template/Forms/LogicCode/SIFormMethod.cpp ../Template/F
 		../Template/QLog/log4qt/helpers/logobject.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QAtomicInt \
 		../Template/QLog/log4qt/level.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/QMetaType \
 		../Template/QLog/log4qt/log4qt.h \
 		../Template/QLog/log4qt/basicconfigurator.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/Qt \
 		../Template/QLog/log4qt/propertyconfigurator.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QHash \
 		../Template/CommonBean/SIFormBean.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/QList \
 		../Template/CommonMethod/CommonMethod.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QSettings \
 		D:/QT/5.9/mingw53_32/include/QtCore/qsettings.h \
@@ -7643,8 +8139,26 @@ debug/SIFormMethod.o: ../Template/Forms/LogicCode/SIFormMethod.cpp ../Template/F
 		D:/QT/5.9/mingw53_32/include/QtWidgets/QTextEdit \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qtextedit.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qtextdocument.h \
+		../Template/CommonMethod/SIForm/SICommonMethod.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QProcess \
+		D:/QT/5.9/mingw53_32/include/QtCore/qprocess.h \
 		../Template/CommonMethod/SIForm/SIExcelOperateThread.h \
-		../Template/CommonMethod/SIForm/SIFileOperateThread.h
+		../Template/CommonMethod/SIForm/SIExcelOperateMethod.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QTextCodec \
+		D:/QT/5.9/mingw53_32/include/QtCore/qtextcodec.h \
+		../Template/LibXL/libxl.h \
+		../Template/LibXL/IBookT.h \
+		../Template/LibXL/setup.h \
+		../Template/LibXL/enum.h \
+		../Template/LibXL/ISheetT.h \
+		../Template/LibXL/IFormatT.h \
+		../Template/LibXL/IFontT.h \
+		../Template/LibXL/IAutoFilterT.h \
+		../Template/LibXL/IFilterColumnT.h \
+		../Template/LibXL/IRichStringT.h \
+		../Template/CommonMethod/SIForm/SIFileOperateThread.h \
+		../Template/CommonMethod/SIForm/SIFileOperateMethod.h \
+		../Template/CommonMethod/SIForm/SIConfig.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\SIFormMethod.o ..\Template\Forms\LogicCode\SIFormMethod.cpp
 
 debug/AutomationFormMethod.o: ../Template/Forms/LogicCode/AutomationFormMethod.cpp ../Template/Forms/LogicCode/AutomationFormMethod.h \
@@ -7695,14 +8209,14 @@ debug/AutomationFormMethod.o: ../Template/Forms/LogicCode/AutomationFormMethod.c
 		D:/QT/5.9/mingw53_32/include/QtCore/qvarlengtharray.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qcontainerfwd.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qobject_impl.h \
-		D:/QT/5.9/mingw53_32/include/QtWidgets/QTableView \
-		D:/QT/5.9/mingw53_32/include/QtWidgets/qtableview.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QThread \
+		D:/QT/5.9/mingw53_32/include/QtCore/qthread.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QLabel \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qlabel.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qtwidgetsglobal.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qtguiglobal.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qtgui-config.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qtwidgets-config.h \
-		D:/QT/5.9/mingw53_32/include/QtWidgets/qabstractitemview.h \
-		D:/QT/5.9/mingw53_32/include/QtWidgets/qabstractscrollarea.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qframe.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qwidget.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qwindowdefs.h \
@@ -7753,6 +8267,16 @@ debug/AutomationFormMethod.o: ../Template/Forms/LogicCode/AutomationFormMethod.c
 		D:/QT/5.9/mingw53_32/include/QtCore/qfiledevice.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qvector2d.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qtouchdevice.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QLineEdit \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qlineedit.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qtextcursor.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qtextformat.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qpen.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qtextoption.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QTableView \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qtableview.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qabstractitemview.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qabstractscrollarea.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qabstractitemmodel.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qitemselectionmodel.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qabstractitemdelegate.h \
@@ -7767,17 +8291,20 @@ debug/AutomationFormMethod.o: ../Template/Forms/LogicCode/AutomationFormMethod.c
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qtabbar.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qtabwidget.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qrubberband.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QFileDialog \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qfiledialog.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qdir.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qfileinfo.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qdialog.h \
 		../Template/COMMONDEFINE.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/QMessageBox \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qmessagebox.h \
-		D:/QT/5.9/mingw53_32/include/QtWidgets/qdialog.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QDebug \
 		D:/QT/5.9/mingw53_32/include/QtCore/QDateTime \
 		D:/QT/5.9/mingw53_32/include/QtCore/qdatetime.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QMap \
 		../Template/QLog/QLoghelper.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QFileInfo \
-		D:/QT/5.9/mingw53_32/include/QtCore/qfileinfo.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/QApplication \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qapplication.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qcoreapplication.h \
@@ -7786,7 +8313,6 @@ debug/AutomationFormMethod.o: ../Template/Forms/LogicCode/AutomationFormMethod.c
 		D:/QT/5.9/mingw53_32/include/QtGui/qguiapplication.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qinputmethod.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QDir \
-		D:/QT/5.9/mingw53_32/include/QtCore/qdir.h \
 		../Template/QLog/log4qt/logger.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QAtomicPointer \
 		D:/QT/5.9/mingw53_32/include/QtCore/QList \
@@ -7818,13 +8344,11 @@ debug/AutomationFormMethod.o: ../Template/Forms/LogicCode/AutomationFormMethod.c
 		D:/QT/5.9/mingw53_32/include/QtWidgets/QTextEdit \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qtextedit.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qtextdocument.h \
-		D:/QT/5.9/mingw53_32/include/QtGui/qtextoption.h \
-		D:/QT/5.9/mingw53_32/include/QtGui/qtextcursor.h \
-		D:/QT/5.9/mingw53_32/include/QtGui/qtextformat.h \
-		D:/QT/5.9/mingw53_32/include/QtGui/qpen.h \
 		../Template/CommonBean/AutomationFormBean.h \
 		../Template/CommonMethod/AutomationForm/AuExcelOperateThread.h \
-		../Template/CommonMethod/AutomationForm/AuFileOperateThread.h
+		../Template/CommonMethod/AutomationForm/AuCommonMethod.h \
+		../Template/CommonMethod/AutomationForm/AuFileOperateThread.h \
+		../Template/CommonMethod/AutomationForm/AuFileOperateMethod.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\AutomationFormMethod.o ..\Template\Forms\LogicCode\AutomationFormMethod.cpp
 
 debug/QLoghelper.o: ../Template/QLog/QLoghelper.cpp ../Template/QLog/QLogHelper.h \
@@ -11551,6 +12075,11 @@ debug/SICommonMethod.o: ../Template/CommonMethod/SIForm/SICommonMethod.cpp ../Te
 		D:/QT/5.9/mingw53_32/include/QtCore/qvarlengtharray.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qcontainerfwd.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qobject_impl.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QProcess \
+		D:/QT/5.9/mingw53_32/include/QtCore/qprocess.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qiodevice.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qshareddata.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qhash.h \
 		../Template/COMMONDEFINE.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/QMessageBox \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qmessagebox.h \
@@ -11577,7 +12106,6 @@ debug/SICommonMethod.o: ../Template/CommonMethod/SIForm/SICommonMethod.cpp ../Te
 		D:/QT/5.9/mingw53_32/include/QtGui/qpolygon.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qregion.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qdatastream.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qiodevice.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qline.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qtransform.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qpainterpath.h \
@@ -11585,8 +12113,6 @@ debug/SICommonMethod.o: ../Template/CommonMethod/SIForm/SICommonMethod.cpp ../Te
 		D:/QT/5.9/mingw53_32/include/QtGui/qpixelformat.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qpixmap.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qsharedpointer.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qshareddata.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qhash.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qsharedpointer_impl.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qfont.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qfontmetrics.h \
@@ -11642,7 +12168,14 @@ debug/SICommonMethod.o: ../Template/CommonMethod/SIForm/SICommonMethod.cpp ../Te
 		../Template/QLog/log4qt/basicconfigurator.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/Qt \
 		../Template/QLog/log4qt/propertyconfigurator.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/QHash
+		D:/QT/5.9/mingw53_32/include/QtCore/QHash \
+		../Template/CommonBean/SIFormBean.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/QList \
+		../Template/CommonMethod/CommonMethod.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QSettings \
+		D:/QT/5.9/mingw53_32/include/QtCore/qsettings.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QStandardPaths \
+		D:/QT/5.9/mingw53_32/include/QtCore/qstandardpaths.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\SICommonMethod.o ..\Template\CommonMethod\SIForm\SICommonMethod.cpp
 
 debug/SIFileOperateThread.o: ../Template/CommonMethod/SIForm/SIFileOperateThread.cpp ../Template/CommonMethod/SIForm/SIFileOperateThread.h \
@@ -11693,6 +12226,11 @@ debug/SIFileOperateThread.o: ../Template/CommonMethod/SIForm/SIFileOperateThread
 		D:/QT/5.9/mingw53_32/include/QtCore/qvarlengtharray.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qcontainerfwd.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qobject_impl.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QProcess \
+		D:/QT/5.9/mingw53_32/include/QtCore/qprocess.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qiodevice.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qshareddata.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qhash.h \
 		../Template/COMMONDEFINE.h \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/QMessageBox \
 		D:/QT/5.9/mingw53_32/include/QtWidgets/qmessagebox.h \
@@ -11719,7 +12257,6 @@ debug/SIFileOperateThread.o: ../Template/CommonMethod/SIForm/SIFileOperateThread
 		D:/QT/5.9/mingw53_32/include/QtGui/qpolygon.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qregion.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qdatastream.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qiodevice.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qline.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qtransform.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qpainterpath.h \
@@ -11727,8 +12264,6 @@ debug/SIFileOperateThread.o: ../Template/CommonMethod/SIForm/SIFileOperateThread
 		D:/QT/5.9/mingw53_32/include/QtGui/qpixelformat.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qpixmap.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qsharedpointer.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qshareddata.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qhash.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qsharedpointer_impl.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qfont.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qfontmetrics.h \
@@ -11784,7 +12319,16 @@ debug/SIFileOperateThread.o: ../Template/CommonMethod/SIForm/SIFileOperateThread
 		../Template/QLog/log4qt/basicconfigurator.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/Qt \
 		../Template/QLog/log4qt/propertyconfigurator.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/QHash
+		D:/QT/5.9/mingw53_32/include/QtCore/QHash \
+		../Template/CommonMethod/SIForm/SICommonMethod.h \
+		../Template/CommonBean/SIFormBean.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/QList \
+		../Template/CommonMethod/CommonMethod.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QSettings \
+		D:/QT/5.9/mingw53_32/include/QtCore/qsettings.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QStandardPaths \
+		D:/QT/5.9/mingw53_32/include/QtCore/qstandardpaths.h \
+		../Template/CommonMethod/SIForm/SIFileOperateMethod.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\SIFileOperateThread.o ..\Template\CommonMethod\SIForm\SIFileOperateThread.cpp
 
 debug/SIFileOperateMethod.o: ../Template/CommonMethod/SIForm/SIFileOperateMethod.cpp ../Template/CommonMethod/SIForm/SIFileOperateMethod.h \
@@ -11926,7 +12470,17 @@ debug/SIFileOperateMethod.o: ../Template/CommonMethod/SIForm/SIFileOperateMethod
 		../Template/QLog/log4qt/basicconfigurator.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/Qt \
 		../Template/QLog/log4qt/propertyconfigurator.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/QHash
+		D:/QT/5.9/mingw53_32/include/QtCore/QHash \
+		../Template/CommonMethod/SIForm/SICommonMethod.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QProcess \
+		D:/QT/5.9/mingw53_32/include/QtCore/qprocess.h \
+		../Template/CommonBean/SIFormBean.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/QList \
+		../Template/CommonMethod/CommonMethod.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QSettings \
+		D:/QT/5.9/mingw53_32/include/QtCore/qsettings.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QStandardPaths \
+		D:/QT/5.9/mingw53_32/include/QtCore/qstandardpaths.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\SIFileOperateMethod.o ..\Template\CommonMethod\SIForm\SIFileOperateMethod.cpp
 
 debug/SIExcelOperateThread.o: ../Template/CommonMethod/SIForm/SIExcelOperateThread.cpp ../Template/CommonMethod/SIForm/SIExcelOperateThread.h \
@@ -12068,7 +12622,30 @@ debug/SIExcelOperateThread.o: ../Template/CommonMethod/SIForm/SIExcelOperateThre
 		../Template/QLog/log4qt/basicconfigurator.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/Qt \
 		../Template/QLog/log4qt/propertyconfigurator.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/QHash
+		D:/QT/5.9/mingw53_32/include/QtCore/QHash \
+		../Template/CommonMethod/SIForm/SIExcelOperateMethod.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QTextCodec \
+		D:/QT/5.9/mingw53_32/include/QtCore/qtextcodec.h \
+		../Template/LibXL/libxl.h \
+		../Template/LibXL/IBookT.h \
+		../Template/LibXL/setup.h \
+		../Template/LibXL/enum.h \
+		../Template/LibXL/ISheetT.h \
+		../Template/LibXL/IFormatT.h \
+		../Template/LibXL/IFontT.h \
+		../Template/LibXL/IAutoFilterT.h \
+		../Template/LibXL/IFilterColumnT.h \
+		../Template/LibXL/IRichStringT.h \
+		../Template/CommonBean/SIFormBean.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/QList \
+		../Template/CommonMethod/CommonMethod.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QSettings \
+		D:/QT/5.9/mingw53_32/include/QtCore/qsettings.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QStandardPaths \
+		D:/QT/5.9/mingw53_32/include/QtCore/qstandardpaths.h \
+		../Template/CommonMethod/SIForm/SICommonMethod.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QProcess \
+		D:/QT/5.9/mingw53_32/include/QtCore/qprocess.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\SIExcelOperateThread.o ..\Template\CommonMethod\SIForm\SIExcelOperateThread.cpp
 
 debug/SIExcelOperateMethod.o: ../Template/CommonMethod/SIForm/SIExcelOperateMethod.cpp ../Template/CommonMethod/SIForm/SIExcelOperateMethod.h \
@@ -12119,6 +12696,8 @@ debug/SIExcelOperateMethod.o: ../Template/CommonMethod/SIForm/SIExcelOperateMeth
 		D:/QT/5.9/mingw53_32/include/QtCore/qvarlengtharray.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qcontainerfwd.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qobject_impl.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QTextCodec \
+		D:/QT/5.9/mingw53_32/include/QtCore/qtextcodec.h \
 		../Template/LibXL/libxl.h \
 		../Template/LibXL/IBookT.h \
 		../Template/LibXL/setup.h \
@@ -12220,7 +12799,17 @@ debug/SIExcelOperateMethod.o: ../Template/CommonMethod/SIForm/SIExcelOperateMeth
 		../Template/QLog/log4qt/basicconfigurator.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/Qt \
 		../Template/QLog/log4qt/propertyconfigurator.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/QHash
+		D:/QT/5.9/mingw53_32/include/QtCore/QHash \
+		../Template/CommonBean/SIFormBean.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/QList \
+		../Template/CommonMethod/CommonMethod.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QSettings \
+		D:/QT/5.9/mingw53_32/include/QtCore/qsettings.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QStandardPaths \
+		D:/QT/5.9/mingw53_32/include/QtCore/qstandardpaths.h \
+		../Template/CommonMethod/SIForm/SICommonMethod.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QProcess \
+		D:/QT/5.9/mingw53_32/include/QtCore/qprocess.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\SIExcelOperateMethod.o ..\Template\CommonMethod\SIForm\SIExcelOperateMethod.cpp
 
 debug/AuExcelOperateMethod.o: ../Template/CommonMethod/AutomationForm/AuExcelOperateMethod.cpp ../Template/CommonMethod/AutomationForm/AuExcelOperateMethod.h \
@@ -12362,7 +12951,8 @@ debug/AuExcelOperateMethod.o: ../Template/CommonMethod/AutomationForm/AuExcelOpe
 		../Template/QLog/log4qt/basicconfigurator.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/Qt \
 		../Template/QLog/log4qt/propertyconfigurator.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/QHash
+		D:/QT/5.9/mingw53_32/include/QtCore/QHash \
+		../Template/CommonMethod/AutomationForm/AuCommonMethod.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\AuExcelOperateMethod.o ..\Template\CommonMethod\AutomationForm\AuExcelOperateMethod.cpp
 
 debug/AuExcelOperateThread.o: ../Template/CommonMethod/AutomationForm/AuExcelOperateThread.cpp ../Template/CommonMethod/AutomationForm/AuExcelOperateThread.h \
@@ -12504,7 +13094,8 @@ debug/AuExcelOperateThread.o: ../Template/CommonMethod/AutomationForm/AuExcelOpe
 		../Template/QLog/log4qt/basicconfigurator.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/Qt \
 		../Template/QLog/log4qt/propertyconfigurator.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/QHash
+		D:/QT/5.9/mingw53_32/include/QtCore/QHash \
+		../Template/CommonMethod/AutomationForm/AuCommonMethod.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\AuExcelOperateThread.o ..\Template\CommonMethod\AutomationForm\AuExcelOperateThread.cpp
 
 debug/AuCommonMethod.o: ../Template/CommonMethod/AutomationForm/AuCommonMethod.cpp ../Template/CommonMethod/AutomationForm/AuCommonMethod.h \
@@ -12788,7 +13379,8 @@ debug/AuFileOperateMethod.o: ../Template/CommonMethod/AutomationForm/AuFileOpera
 		../Template/QLog/log4qt/basicconfigurator.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/Qt \
 		../Template/QLog/log4qt/propertyconfigurator.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/QHash
+		D:/QT/5.9/mingw53_32/include/QtCore/QHash \
+		../Template/CommonMethod/AutomationForm/AuCommonMethod.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\AuFileOperateMethod.o ..\Template\CommonMethod\AutomationForm\AuFileOperateMethod.cpp
 
 debug/AuFileOperateThread.o: ../Template/CommonMethod/AutomationForm/AuFileOperateThread.cpp ../Template/CommonMethod/AutomationForm/AuFileOperateThread.h \
@@ -12930,8 +13522,159 @@ debug/AuFileOperateThread.o: ../Template/CommonMethod/AutomationForm/AuFileOpera
 		../Template/QLog/log4qt/basicconfigurator.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/Qt \
 		../Template/QLog/log4qt/propertyconfigurator.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/QHash
+		D:/QT/5.9/mingw53_32/include/QtCore/QHash \
+		../Template/CommonMethod/AutomationForm/AuFileOperateMethod.h \
+		../Template/CommonMethod/AutomationForm/AuCommonMethod.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\AuFileOperateThread.o ..\Template\CommonMethod\AutomationForm\AuFileOperateThread.cpp
+
+debug/SIConfig.o: ../Template/CommonMethod/SIForm/SIConfig.cpp ../Template/CommonMethod/SIForm/SIConfig.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QObject \
+		D:/QT/5.9/mingw53_32/include/QtCore/qobject.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qobjectdefs.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qnamespace.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qglobal.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qconfig-bootstrapped.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qconfig.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qtcore-config.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qsystemdetection.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qprocessordetection.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qcompilerdetection.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qtypeinfo.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qsysinfo.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qlogging.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qflags.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qatomic.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qbasicatomic.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qatomic_bootstrap.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qgenericatomic.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qatomic_cxx11.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qatomic_msvc.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qglobalstatic.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qmutex.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qnumeric.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qversiontagging.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qobjectdefs_impl.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qstring.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qchar.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qbytearray.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qrefcount.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qarraydata.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qstringbuilder.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qlist.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qalgorithms.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qiterator.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qhashfunctions.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qpair.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qbytearraylist.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qstringlist.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qregexp.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qstringmatcher.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qcoreevent.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qscopedpointer.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qmetatype.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qvarlengtharray.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qcontainerfwd.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qobject_impl.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QSettings \
+		D:/QT/5.9/mingw53_32/include/QtCore/qsettings.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qvariant.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qmap.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qdebug.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qhash.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qtextstream.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qiodevice.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qlocale.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qshareddata.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qvector.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qpoint.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qset.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qcontiguouscache.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qsharedpointer.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qsharedpointer_impl.h \
+		../Template/COMMONDEFINE.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QMessageBox \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qmessagebox.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qtwidgetsglobal.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qtguiglobal.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qtgui-config.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qtwidgets-config.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qdialog.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qwidget.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qwindowdefs.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qwindowdefs_win.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qmargins.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qpaintdevice.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qrect.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qsize.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qpalette.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qcolor.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qrgb.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qrgba64.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qbrush.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qmatrix.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qpolygon.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qregion.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qdatastream.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qline.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qtransform.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qpainterpath.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qimage.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qpixelformat.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qpixmap.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qfont.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qfontmetrics.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qfontinfo.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qsizepolicy.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qcursor.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qkeysequence.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qevent.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qurl.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qurlquery.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qfile.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qfiledevice.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qvector2d.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qtouchdevice.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QDebug \
+		D:/QT/5.9/mingw53_32/include/QtCore/QDateTime \
+		D:/QT/5.9/mingw53_32/include/QtCore/qdatetime.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QMap \
+		../Template/QLog/QLoghelper.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QFileInfo \
+		D:/QT/5.9/mingw53_32/include/QtCore/qfileinfo.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QApplication \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qapplication.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qcoreapplication.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qeventloop.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qdesktopwidget.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qguiapplication.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qinputmethod.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QDir \
+		D:/QT/5.9/mingw53_32/include/QtCore/qdir.h \
+		../Template/QLog/log4qt/logger.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QAtomicPointer \
+		D:/QT/5.9/mingw53_32/include/QtCore/QList \
+		D:/QT/5.9/mingw53_32/include/QtCore/QReadWriteLock \
+		D:/QT/5.9/mingw53_32/include/QtCore/qreadwritelock.h \
+		../Template/QLog/log4qt/helpers/logerror.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QString \
+		D:/QT/5.9/mingw53_32/include/QtCore/QVariant \
+		../Template/QLog/log4qt/helpers/classlogger.h \
+		../Template/QLog/log4qt/helpers/logobjectptr.h \
+		../Template/QLog/log4qt/helpers/logobject.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QAtomicInt \
+		../Template/QLog/log4qt/level.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QMetaType \
+		../Template/QLog/log4qt/log4qt.h \
+		../Template/QLog/log4qt/basicconfigurator.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/Qt \
+		../Template/QLog/log4qt/propertyconfigurator.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QHash \
+		../Template/CommonBean/SIFormBean.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/QList \
+		../Template/CommonMethod/CommonMethod.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/QStandardPaths \
+		D:/QT/5.9/mingw53_32/include/QtCore/qstandardpaths.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\SIConfig.o ..\Template\CommonMethod\SIForm\SIConfig.cpp
 
 debug/LogFormBean.o: ../Template/CommonBean/LogFormBean.cpp ../Template/CommonBean/LogFormBean.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QObject \
@@ -13132,63 +13875,64 @@ debug/SIFormBean.o: ../Template/CommonBean/SIFormBean.cpp ../Template/CommonBean
 		D:/QT/5.9/mingw53_32/include/QtCore/qvarlengtharray.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qcontainerfwd.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qobject_impl.h \
-		../Template/COMMONDEFINE.h \
-		D:/QT/5.9/mingw53_32/include/QtWidgets/QMessageBox \
-		D:/QT/5.9/mingw53_32/include/QtWidgets/qmessagebox.h \
-		D:/QT/5.9/mingw53_32/include/QtWidgets/qtwidgetsglobal.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/QList \
+		D:/QT/5.9/mingw53_32/include/QtGui/qevent.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qtguiglobal.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qtgui-config.h \
-		D:/QT/5.9/mingw53_32/include/QtWidgets/qtwidgets-config.h \
-		D:/QT/5.9/mingw53_32/include/QtWidgets/qdialog.h \
-		D:/QT/5.9/mingw53_32/include/QtWidgets/qwidget.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qwindowdefs.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qwindowdefs_win.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qmargins.h \
-		D:/QT/5.9/mingw53_32/include/QtGui/qpaintdevice.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qregion.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qrect.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qmargins.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qsize.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qpoint.h \
-		D:/QT/5.9/mingw53_32/include/QtGui/qpalette.h \
-		D:/QT/5.9/mingw53_32/include/QtGui/qcolor.h \
-		D:/QT/5.9/mingw53_32/include/QtGui/qrgb.h \
-		D:/QT/5.9/mingw53_32/include/QtGui/qrgba64.h \
-		D:/QT/5.9/mingw53_32/include/QtGui/qbrush.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qvector.h \
-		D:/QT/5.9/mingw53_32/include/QtGui/qmatrix.h \
-		D:/QT/5.9/mingw53_32/include/QtGui/qpolygon.h \
-		D:/QT/5.9/mingw53_32/include/QtGui/qregion.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qdatastream.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qiodevice.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qline.h \
-		D:/QT/5.9/mingw53_32/include/QtGui/qtransform.h \
-		D:/QT/5.9/mingw53_32/include/QtGui/qpainterpath.h \
-		D:/QT/5.9/mingw53_32/include/QtGui/qimage.h \
-		D:/QT/5.9/mingw53_32/include/QtGui/qpixelformat.h \
-		D:/QT/5.9/mingw53_32/include/QtGui/qpixmap.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qsharedpointer.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qshareddata.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qhash.h \
-		D:/QT/5.9/mingw53_32/include/QtCore/qsharedpointer_impl.h \
-		D:/QT/5.9/mingw53_32/include/QtGui/qfont.h \
-		D:/QT/5.9/mingw53_32/include/QtGui/qfontmetrics.h \
-		D:/QT/5.9/mingw53_32/include/QtGui/qfontinfo.h \
-		D:/QT/5.9/mingw53_32/include/QtWidgets/qsizepolicy.h \
-		D:/QT/5.9/mingw53_32/include/QtGui/qcursor.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qkeysequence.h \
-		D:/QT/5.9/mingw53_32/include/QtGui/qevent.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qvariant.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qmap.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qdebug.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qhash.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qtextstream.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qlocale.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qshareddata.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qvector.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qset.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qcontiguouscache.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qsharedpointer.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qsharedpointer_impl.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qurl.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qurlquery.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qfile.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/qfiledevice.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qvector2d.h \
 		D:/QT/5.9/mingw53_32/include/QtGui/qtouchdevice.h \
+		../Template/COMMONDEFINE.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/QMessageBox \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qmessagebox.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qtwidgetsglobal.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qtwidgets-config.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qdialog.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qwidget.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qpaintdevice.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qpalette.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qcolor.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qrgb.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qrgba64.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qbrush.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qmatrix.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qpolygon.h \
+		D:/QT/5.9/mingw53_32/include/QtCore/qline.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qtransform.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qpainterpath.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qimage.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qpixelformat.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qpixmap.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qfont.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qfontmetrics.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qfontinfo.h \
+		D:/QT/5.9/mingw53_32/include/QtWidgets/qsizepolicy.h \
+		D:/QT/5.9/mingw53_32/include/QtGui/qcursor.h \
 		D:/QT/5.9/mingw53_32/include/QtCore/QDebug \
 		D:/QT/5.9/mingw53_32/include/QtCore/QDateTime \
 		D:/QT/5.9/mingw53_32/include/QtCore/qdatetime.h \
@@ -13653,6 +14397,9 @@ debug/moc_AuFileOperateMethod.o: debug/moc_AuFileOperateMethod.cpp
 
 debug/moc_AuFileOperateThread.o: debug/moc_AuFileOperateThread.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\moc_AuFileOperateThread.o debug\moc_AuFileOperateThread.cpp
+
+debug/moc_SIConfig.o: debug/moc_SIConfig.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\moc_SIConfig.o debug\moc_SIConfig.cpp
 
 debug/moc_LogFormBean.o: debug/moc_LogFormBean.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\moc_LogFormBean.o debug\moc_LogFormBean.cpp

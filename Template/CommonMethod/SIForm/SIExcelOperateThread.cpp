@@ -74,6 +74,40 @@ void SIExcelOperateThread::ReadExcelThreadSlot(const QString filePath, const QSt
     }
 }
 
+/**
+ * @brief SIExcelOperateThread::InferRelyIDProcessSlot
+ * @param relyFilePath
+ * @param defineFilePath
+ * @param ID
+ * @param IDType
+ * @param flag
+ */
+void SIExcelOperateThread::InferRelyIDProcessSlot(const QString relyFilePath, const QString defineFilePath, const QString ID, const QString IDType, const unsigned int flag)
+{
+    QLogHelper::instance()->LogInfo("SIExcelOperateThread->InferRelyIDProcessSlot() 函数执行!");
+    QList<SI_SOFTNUMBERTable> *softList;
+    QList<SI_DEFINEMESSAGE> *defineList;
+    //错误消息集合
+    QList<SI_ERRORTable> *errList=new QList<SI_ERRORTable>();
+    if(!QFile(relyFilePath).exists()&&!QFile(defineFilePath).exists()){return;}
+    softList=new QList<SI_SOFTNUMBERTable>();
+    defineList=new QList<SI_DEFINEMESSAGE>();
+    switch (flag) {
+    case 1:
+        (*softList)=siExcelOperateMethod->ReadSoftExcel(relyFilePath,ID,IDType,errList);
+        break;
+    case 2:
+        (*softList)=siExcelOperateMethod->ReadSoftExcel(relyFilePath,ID,IDType,errList);
+        (*defineList)=siExcelOperateMethod->ReadDefineExcel(defineFilePath,ID,IDType,errList);
+        break;
+    case 11:
+        
+        break;
+    default:
+        break;
+    }
+}
+
 
 
 

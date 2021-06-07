@@ -25,7 +25,7 @@ public:
 
     QString AnalyzeFilePath(const QStringList filePaths,const unsigned int flag,const QString ID,const QString IDType);
 
-    bool UNZipCodeDearDirSignal(const QString dirPath);
+    bool UNZipCodeDearDir(const QString dirPath);
 
     QList<SI_ERRORTable> CheckBAFileExist(const QString dirPath,const QString IDType);
 

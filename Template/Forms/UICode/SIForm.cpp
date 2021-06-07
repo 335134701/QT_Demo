@@ -186,6 +186,7 @@ void SIForm::on_SISVNButton_clicked()
     emit SelectDirSignal(ui->SISVNLabel,siFormBean->getSVNDirPath());
     //SVN状态更新
     if(!siFormBean->getSVNDirPath()->isEmpty()){
+        //siFormBean->setSIStatus(SI_SVNUPDATE);
         //emit RunOrderSignal(SISVNUpdateflag);
     }
 }
@@ -218,9 +219,8 @@ void SIForm::on_SIFileSearchButton_clicked()
 void SIForm::on_SIPretreatmentButton_clicked()
 {
     QLogHelper::instance()->LogInfo("SIForm->on_SIPretreatmentButton_clicked() 函数触发执行!");
-    *siFormBean->getCodeFilePath()="E:/CK_RedMaple/trunk/01REQ/0101Model/按类型归档/旭化成工場 火事対応/20210419_Entry/EN3302PA_二回目/EntryAVM_EXT_CANCLK_v066_131023_ROM_MASS_CAN.zip";
     if(!PromptInformation()||!CheckMessage(SI_CHECKMESSAGE_Pretreatment)){return;}
-    emit PretreatmentSignal();
+    //emit PretreatmentSignal();
 }
 
 
@@ -231,7 +231,7 @@ void SIForm::on_SIFileCompressionButton_clicked()
 {
     QLogHelper::instance()->LogInfo("SIForm->on_SIFileCompressionButton_clicked() 函数触发执行!");
     if(!PromptInformation()||!CheckMessage(SI_CHECKMESSAGE_FileCompression)){return;}
-    emit FileCompressionSignal();
+    //emit FileCompressionSignal();
 }
 
 /**
@@ -260,6 +260,9 @@ bool SIForm::PromptInformation()
         case SI_FILEREAD:
             QMessageBox::warning(this,"Warn","正在文件读取任务，其他任务暂时无法执行!");
             break;
+        case SI_FILEDEFINE:
+            QMessageBox::warning(this,"Warn","正在执行宏定义处理任务，其他任务暂时无法执行!");
+            break;
         case SI_PRETREAMENT:
             QMessageBox::warning(this,"Warn","正在执行预处理任务，其他任务暂时无法执行!");
             break;
@@ -269,11 +272,15 @@ bool SIForm::PromptInformation()
         case SI_FILEUNZIP:
             QMessageBox::warning(this,"Warn","正在执行文件解压任务，其他任务暂时无法执行!");
             break;
-        case SI_FILCHECK:
+        case SI_FILCHECKBA:
+        case SI_FILCHECKCL:
             QMessageBox::warning(this,"Warn","正在执行文件校验任务，其他任务暂时无法执行!");
             break;
         case SI_FILCOMPRESSION:
-            QMessageBox::warning(this,"Warn","正在执行项目压缩处理任务，其他任务暂时无法执行!");
+            QMessageBox::warning(this,"Warn","正在执行项目生成后处理任务，其他任务暂时无法执行!");
+            break;
+        case SI_FILEZIP:
+            QMessageBox::warning(this,"Warn","正在执行项目源码压缩处理任务，其他任务暂时无法执行!");
             break;
         default:
             break;
@@ -310,20 +317,22 @@ bool SIForm::CheckMessage(const unsigned int flag)
         break;
     case SI_CHECKMESSAGE_Pretreatment:
     case SI_CHECKMESSAGE_FileCompression:
+        /*
         if(siFormBean->getSoftList()->size()<=0){
             QMessageBox::warning(this,"Warn","量产管理表解析失败,无法继续执行任务!");
             return false;
         }
-        /*
+
         if(siFormBean->getCodeFilePath()->isEmpty()){
             QMessageBox::warning(this,"Warn","项目源码获取失败,无法继续执行任务!");
             return false;
-        }*/
+        }
+
         if(siFormBean->getCarInfoFilePath()->isEmpty()){
             QMessageBox::warning(this,"Warn","CarInfo.Mot文件获取失败,无法继续执行任务!");
             return false;
         }
-
+        */
         break;
     }
     return true;

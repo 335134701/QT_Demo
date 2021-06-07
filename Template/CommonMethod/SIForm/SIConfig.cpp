@@ -100,8 +100,8 @@ void SIConfig::InitParameter()
 void SIConfig::Init()
 {
     QLogHelper::instance()->LogInfo("SIConfig->Init() 函数执行!");
-    ConfigFile=QString("%1/%2").arg(QApplication::applicationDirPath()).arg(ConfigFile);
-    if(!QFile::exists(ConfigFile)){this->NewConfig(ConfigFile);}
+    //ConfigFile=QString("%1/%2").arg(QApplication::applicationDirPath()).arg(ConfigFile);
+    //if(!QFile::exists(ConfigFile)){this->NewConfig(ConfigFile);}
 
 }
 

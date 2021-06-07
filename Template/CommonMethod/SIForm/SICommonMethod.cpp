@@ -165,10 +165,65 @@ bool SICommonMethod::CompressionRemoveDir(const QString dirPath,const QString tx
     if(!dir.exists()){return false;}
     QStringList fileList = dir.entryList(QDir::Dirs);
     foreach (QString str, fileList) {
-        if(str!=txt&&str!="Debug"&&str!="Release"){
-            dir.remove(dirPath+"/"+str);
+        if(str!=txt&&str!="Debug"&&str!="Release"&&str!="."&&str!=".."){
+            dir.setPath(dirPath+"/"+str);
+            if(dir.removeRecursively()){return false;}
         }
     }
+    return true;
+}
+
+/**
+ * @brief SICommonMethod::CompressionRemoveFile
+ * @param dirPath
+ * @return
+ */
+bool SICommonMethod::CompressionRemoveFile(const QString dirPath)
+{
+    QLogHelper::instance()->LogInfo("SICommonMethod->CompressionRemoveFile() 函数执行!");
+    QDir dir(dirPath);
+    if(!dir.exists()){return false;}
+    QStringList fileList = dir.entryList(QDir::Files);
+    foreach (QString str, fileList) {
+        if(str!="ALL.mot"&&str!="APP.abs"&&str!="APP.hlk"&&str!="APP.lib"&&str!="APP.map"&&str!="APP.mot"&&str!="APP.sni"&&str!=dirPath.mid(dirPath.lastIndexOf("/")+1)+".hdp"){
+            if(!dir.remove(dirPath+"/"+str)){return false;}
+        }
+    }
+    return true;
+}
+
+/**
+ * @brief SICommonMethod::CompressionCopyMot
+ * @param dirPath
+ * @param txt
+ * @return
+ */
+bool SICommonMethod::CompressionCopyMot(const QString dirPath, const QString txt, const QString IDType, QString APPVer, const QString InfoVer)
+{
+    QLogHelper::instance()->LogInfo("SICommonMethod->CompressionCopyMot() 函数执行!");
+    CommonMethod commonMethod;
+    QString APPMotName;
+    QString JoinMotName;
+    if(!QDir(dirPath).exists()){return false;}
+    if(APPVer.left(1)=="0"){APPVer="A"+APPVer.mid(1);}
+    if(APPVer.left(1)=="1"){APPVer="B"+APPVer.mid(1);}
+    if(IDType=="EntryAVM"){
+        JoinMotName="join_Entry_"+txt+"_v"+APPVer.left(4)+"_CP"+InfoVer.left(4).mid(2)+"_"+QDateTime::currentDateTime().toString("yyyyMMdd")+".mot";
+        APPMotName="APP_Entry_"+txt.mid(txt.lastIndexOf("_")+1)+"_"+txt.left(txt.lastIndexOf("_"))+"_v"+APPVer.left(4)+"_"+QDateTime::currentDateTime().toString("yyyyMMdd")+".mot";
+    }else if(IDType=="EntryAVM2"){
+        JoinMotName="join_Entry2_"+txt+"_v"+APPVer.left(4)+"_CP"+InfoVer.left(4).mid(2)+"_"+QDateTime::currentDateTime().toString("yyyyMMdd")+".mot";
+        APPMotName="APP_Entry2_"+txt.mid(txt.lastIndexOf("_")+1)+"_"+txt.left(txt.lastIndexOf("_"))+"_v"+APPVer.left(4)+"_"+QDateTime::currentDateTime().toString("yyyyMMdd")+".mot";
+    }
+    else if(IDType=="EntryIPA"){
+        JoinMotName="join_EntryIPA_"+txt+"_v"+APPVer.left(4)+"_CP"+InfoVer.left(4).mid(2)+"_"+QDateTime::currentDateTime().toString("yyyyMMdd")+".mot";
+        APPMotName="APP_EntryIPA_"+txt.mid(txt.lastIndexOf("_")+1)+"_"+txt.left(txt.lastIndexOf("_"))+"_v"+APPVer.left(4)+"_"+QDateTime::currentDateTime().toString("yyyyMMdd")+".mot";
+    }else if(IDType=="NextPH3"){
+        JoinMotName="join_N_PH3_"+txt.left(txt.lastIndexOf("_"))+"_v"+APPVer.left(4)+"_CP"+InfoVer.left(4)+"_"+QDateTime::currentDateTime().toString("yyyyMMdd")+".mot";
+        APPMotName="APP_N_PH3_"+txt.left(txt.lastIndexOf("_"))+"_v"+APPVer.left(4)+"_"+QDateTime::currentDateTime().toString("yyyyMMdd")+".mot";
+    }
+    //复制文件
+    if(!commonMethod.CopyFile(dirPath+"/ALL/ALL/"+txt+"/APP.mot",dirPath.left(dirPath.lastIndexOf("/"))+"/"+APPMotName)){return false;}
+    if(!commonMethod.CopyFile(dirPath+"/tools/join.mot",dirPath.left(dirPath.lastIndexOf("/"))+"/"+JoinMotName)){return false;}
     return true;
 }
 

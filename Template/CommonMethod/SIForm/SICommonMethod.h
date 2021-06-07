@@ -25,6 +25,10 @@ public:
 
     bool CompressionRemoveDir(const QString dirPath, const QString txt);
 
+    bool CompressionRemoveFile(const QString dirPath);
+
+    bool CompressionCopyMot(const QString dirPath, const QString txt,QString IDType,const QString APPVer,const QString InfoVer);
+
     static SI_ERRORTable SetERRMessage(const QString fileName,const QString errMessage);
     static SI_ERRORTable SetERRMessage(const QString fileName,const QString sheetName,const QString errMessage);
     static SI_ERRORTable SetERRMessage(const QString fileName, const QString sheetName,const unsigned int row,const unsigned int col,const QString errMessage);

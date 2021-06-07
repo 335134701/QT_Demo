@@ -102,9 +102,10 @@ public:
         sizePolicy2.setVerticalStretch(0);
         sizePolicy2.setHeightForWidth(SIIDEdit->sizePolicy().hasHeightForWidth());
         SIIDEdit->setSizePolicy(sizePolicy2);
-        SIIDEdit->setMaximumSize(QSize(105, 16777215));
+        SIIDEdit->setMaximumSize(QSize(120, 16777215));
         SIIDEdit->setStyleSheet(QStringLiteral(""));
         SIIDEdit->setMaxLength(8);
+        SIIDEdit->setAlignment(Qt::AlignCenter);
 
         gridLayout_2->addWidget(SIIDEdit, 0, 2, 1, 1);
 
@@ -116,8 +117,9 @@ public:
 
         SIRelyIDEdit = new QLineEdit(SIMemuWidget);
         SIRelyIDEdit->setObjectName(QStringLiteral("SIRelyIDEdit"));
-        SIRelyIDEdit->setMaximumSize(QSize(105, 16777215));
+        SIRelyIDEdit->setMaximumSize(QSize(120, 16777215));
         SIRelyIDEdit->setMaxLength(8);
+        SIRelyIDEdit->setAlignment(Qt::AlignCenter);
 
         gridLayout_2->addWidget(SIRelyIDEdit, 1, 2, 1, 1);
 

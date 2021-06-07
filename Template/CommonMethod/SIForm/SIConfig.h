@@ -12,7 +12,7 @@ class SIConfig : public QObject
 public:
     explicit SIConfig(QObject *parent = nullptr);
 
-    QString ConfigFile="Tool.ini";
+    //QString ConfigFile="Tool.ini";
 
     QList<SI_DEFINEMESSAGE> *getEntryAVM1() const;
     void setEntryAVM1(QList<SI_DEFINEMESSAGE> *value);

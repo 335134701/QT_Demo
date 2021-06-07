@@ -26,11 +26,14 @@ enum SI_Task_Status{
     SI_SVNUPDATE            =       1,
     SI_FILESEARCH           =       2,
     SI_FILEREAD             =       3,
-    SI_PRETREAMENT          =       4,
-    SI_FILEUNZIP            =       5,
-    SI_FILECODECOPY         =       6,
-    SI_FILCHECK             =       7,
-    SI_FILCOMPRESSION       =       8
+    SI_FILEDEFINE           =       4,
+    SI_PRETREAMENT          =       5,
+    SI_FILEUNZIP            =       6,
+    SI_FILECODECOPY         =       7,
+    SI_FILCHECKBA           =       8,
+    SI_FILCHECKCL           =       9,
+    SI_FILCOMPRESSION       =       10,
+    SI_FILEZIP              =       11
 };
 
 typedef struct SI_SoftNumberTable{
@@ -41,6 +44,8 @@ typedef struct SI_SoftNumberTable{
     QString Productionstage;        //生産段階
     QString ApplicationPartNo;      //Application PartsNo
     QString ApplicationVer;         //Application Ver
+    QString CarInfoPartNo;          //Car_Info PartsNo
+    QString CarInfoVer;             //Car_Info Ver
 }SI_SOFTNUMBERTable;
 
 typedef struct SI_ErrorTable{
@@ -147,11 +152,19 @@ public:
     bool getCopyCodeflag() const;
     void setCopyCodeflag(bool value);
 
+    bool getJoinMotflag() const;
+    void setJoinMotflag(bool value);
+
+    bool getZIPflag() const;
+    void setZIPflag(bool value);
 
     void ResetParameter(unsigned int flag);
 
-    bool getJoinMotflag() const;
-    void setJoinMotflag(bool value);
+    QList<SI_SOFTNUMBERTable> *getRelyIDSoftList() const;
+    void setRelyIDSoftList(QList<SI_SOFTNUMBERTable> *value);
+
+    bool getNEWCLflag() const;
+    void setNEWCLflag(bool value);
 
 signals:
 
@@ -193,10 +206,11 @@ private:
     QString *SHDefineFilePath;
     //Before After路径标记
     bool BAflag;
-    //解压状态
+    //项目源码解压状态
     bool Unzipflag;
     //量产管理表中对应机种相关信息
     QList<SI_SOFTNUMBERTable> *SoftList;
+    QList<SI_SOFTNUMBERTable> *RelyIDSoftList;
     //错误消息集合
     QList<SI_ERRORTable> *ErrList;
     //宏定义集合
@@ -205,6 +219,10 @@ private:
     bool isSearchRelyIDflag;
     //项目源码复制标记位
     bool CopyCodeflag;
+    //项目源码处理后压缩状态标记位
+    bool ZIPflag;
+    //新规作成标记位
+    bool NEWCLflag;
 
     //公共方法对象
     CommonMethod *commonMethod;

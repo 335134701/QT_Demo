@@ -195,13 +195,13 @@ QString SIFileOperateMethod::AnalyzeFilePath(const QStringList filePaths, const 
 
 /**
  * @def 对解压后的文件进行二次处理，保证源码目录结构一致，便于后续对项目源码打包
- * @brief SIFileOperateMethod::UNZipCodeDearDirSignal
+ * @brief SIFileOperateMethod::UNZipCodeDearDir
  * @param dirPath
  * @return
  */
-bool SIFileOperateMethod::UNZipCodeDearDirSignal(const QString dirPath)
+bool SIFileOperateMethod::UNZipCodeDearDir(const QString dirPath)
 {
-    QLogHelper::instance()->LogInfo("SIFileOperateMethod->UNZipCodeDearDirSignal() 函数执行!");
+    QLogHelper::instance()->LogInfo("SIFileOperateMethod->UNZipCodeDearDir() 函数执行!");
     QString tmpDirPath=dirPath;
     bool flag=false;
     QDir folder(tmpDirPath);

@@ -22,8 +22,14 @@ signals:
 
     void EndReadDefineFileExcelSignal(const QList<SI_DEFINEMESSAGE> defineList,const QList<SI_ERRORTable> errList);
 
+    void EndGetRelyIDSignal(const QList<SI_DEFINEMESSAGE> defineList,const QString RelyID);
+    
+    void EndInferRelyIDProcessSignal(const QList<SI_SOFTNUMBERTable> softList,const QList<SI_DEFINEMESSAGE> defineList,const QString RelyID,const unsigned int flag);
+
 public slots:
     void ReadExcelThreadSlot(const QString filePath,const QString ID,const QString IDType,const unsigned int flag);
+
+    void InferRelyIDProcessSlot(const QString relyFilePath,const QString defineFilePath,const QString ID,const QString IDType,const unsigned int flag);
 
 private :
     SIExcelOperateMethod *siExcelOperateMethod;

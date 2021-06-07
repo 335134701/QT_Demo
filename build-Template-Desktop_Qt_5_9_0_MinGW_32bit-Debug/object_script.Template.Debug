@@ -60,6 +60,7 @@ INPUT(
 ./debug\AuCommonMethod.o
 ./debug\AuFileOperateMethod.o
 ./debug\AuFileOperateThread.o
+./debug\SIConfig.o
 ./debug\LogFormBean.o
 ./debug\SIFormBean.o
 ./debug\MainFormBean.o
@@ -107,6 +108,7 @@ INPUT(
 ./debug\moc_AuCommonMethod.o
 ./debug\moc_AuFileOperateMethod.o
 ./debug\moc_AuFileOperateThread.o
+./debug\moc_SIConfig.o
 ./debug\moc_LogFormBean.o
 ./debug\moc_SIFormBean.o
 ./debug\moc_MainFormBean.o

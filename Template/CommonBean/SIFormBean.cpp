@@ -422,6 +422,49 @@ void SIFormBean::setCopyCodeflag(bool value)
 {
     CopyCodeflag = value;
 }
+/**
+ * @brief SIFormBean::getZIPflag
+ * @return
+ */
+bool SIFormBean::getZIPflag() const
+{
+    return ZIPflag;
+}
+/**
+ * @brief SIFormBean::setZIPflag
+ * @param value
+ */
+void SIFormBean::setZIPflag(bool value)
+{
+    ZIPflag = value;
+}
+/**
+ * @brief SIFormBean::getRelyIDSoftList
+ * @return
+ */
+QList<SI_SOFTNUMBERTable> *SIFormBean::getRelyIDSoftList() const
+{
+    return RelyIDSoftList;
+}
+
+/**
+ * @brief SIFormBean::setRelyIDSoftList
+ * @param value
+ */
+void SIFormBean::setRelyIDSoftList(QList<SI_SOFTNUMBERTable> *value)
+{
+    RelyIDSoftList = value;
+}
+
+bool SIFormBean::getNEWCLflag() const
+{
+    return NEWCLflag;
+}
+
+void SIFormBean::setNEWCLflag(bool value)
+{
+    NEWCLflag = value;
+}
 
 
 /**
@@ -451,7 +494,10 @@ void SIFormBean::Init()
     Unzipflag=false;
     isSearchRelyIDflag=false;
     CopyCodeflag=false;
+    ZIPflag=false;
+    NEWCLflag=false;
     SoftList=new QList<SI_SOFTNUMBERTable>();
+    RelyIDSoftList=new QList<SI_SOFTNUMBERTable>();
     ErrList=new QList<SI_ERRORTable>();
     DefineList=new QList<SI_DEFINEMESSAGE>();
 }
@@ -481,7 +527,10 @@ void SIFormBean::ResetParameter(unsigned int flag)
         Unzipflag=false;
         isSearchRelyIDflag=false;
         CopyCodeflag=false;
+        ZIPflag=false;
+        NEWCLflag=false;
         SoftList=new QList<SI_SOFTNUMBERTable>();
+        RelyIDSoftList=new QList<SI_SOFTNUMBERTable>();
         ErrList=new QList<SI_ERRORTable>();
         DefineList=new QList<SI_DEFINEMESSAGE>();
         break;
@@ -499,3 +548,4 @@ void SIFormBean::ResetParameter(unsigned int flag)
         break;
     }
 }
+

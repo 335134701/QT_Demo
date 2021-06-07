@@ -60,6 +60,7 @@ INPUT(
 ./release\AuCommonMethod.o
 ./release\AuFileOperateMethod.o
 ./release\AuFileOperateThread.o
+./release\SIConfig.o
 ./release\LogFormBean.o
 ./release\SIFormBean.o
 ./release\MainFormBean.o
@@ -107,6 +108,7 @@ INPUT(
 ./release\moc_AuCommonMethod.o
 ./release\moc_AuFileOperateMethod.o
 ./release\moc_AuFileOperateThread.o
+./release\moc_SIConfig.o
 ./release\moc_LogFormBean.o
 ./release\moc_SIFormBean.o
 ./release\moc_MainFormBean.o

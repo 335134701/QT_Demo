@@ -73,6 +73,7 @@ function Main()
 		git pull origin ${localDirName} >/dev/null 2>&1
 		Judge_Order "获取最新的${localDirName}分支成功" "获取最新的${localDirName}分支失败!" 0
 	fi
+
 }
 
 Main

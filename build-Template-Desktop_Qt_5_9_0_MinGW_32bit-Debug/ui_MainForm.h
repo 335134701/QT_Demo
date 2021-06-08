@@ -53,13 +53,15 @@ public:
         LogWgedit->setObjectName(QStringLiteral("LogWgedit"));
         sizePolicy.setHeightForWidth(LogWgedit->sizePolicy().hasHeightForWidth());
         LogWgedit->setSizePolicy(sizePolicy);
-        LogWgedit->setMinimumSize(QSize(0, 150));
-        LogWgedit->setMaximumSize(QSize(16777215, 300));
+        LogWgedit->setMinimumSize(QSize(0, 0));
+        LogWgedit->setMaximumSize(QSize(16777215, 16777215));
 
         gridLayout->addWidget(LogWgedit, 1, 0, 1, 1);
 
         FunctionWgedit = new QTabWidget(MainForm);
         FunctionWgedit->setObjectName(QStringLiteral("FunctionWgedit"));
+        FunctionWgedit->setMinimumSize(QSize(0, 0));
+        FunctionWgedit->setMaximumSize(QSize(16777215, 500));
         FunctionWgedit->setStyleSheet(QStringLiteral(""));
         SI = new SIForm();
         SI->setObjectName(QStringLiteral("SI"));

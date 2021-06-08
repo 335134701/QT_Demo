@@ -6,7 +6,7 @@
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "../../../AutomationTool/AutomationTool/CommonMethod/SIForm/SIFileOperateThread.h"
+#include "../../Template/CommonMethod/SIForm/SIFileOperateThread.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #include <QtCore/QList>

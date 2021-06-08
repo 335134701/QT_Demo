@@ -6,7 +6,7 @@
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "../../../AutomationTool/AutomationTool/CommonMethod/SIForm/SIConfig.h"
+#include "../../Template/CommonMethod/SIForm/SIConfig.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #if !defined(Q_MOC_OUTPUT_REVISION)

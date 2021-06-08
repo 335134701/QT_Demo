@@ -6,7 +6,7 @@
 ** WARNING! All changes made in this file will be lost!
 *****************************************************************************/
 
-#include "../../../AutomationTool/AutomationTool/Forms/LogicCode/SIFormMethod.h"
+#include "../../Template/Forms/LogicCode/SIFormMethod.h"
 #include <QtCore/qbytearray.h>
 #include <QtCore/qmetatype.h>
 #include <QtCore/QList>
@@ -23,7 +23,7 @@ QT_WARNING_PUSH
 QT_WARNING_DISABLE_DEPRECATED
 struct qt_meta_stringdata_SIFormMethod_t {
     QByteArrayData data[69];
-    char stringdata0[973];
+    char stringdata0[976];
 };
 #define QT_MOC_LITERAL(idx, ofs, len) \
     Q_STATIC_BYTE_ARRAY_DATA_HEADER_INITIALIZER_WITH_OFFSET(len, \
@@ -70,37 +70,37 @@ QT_MOC_LITERAL(34, 444, 17), // "InferRelyIDSignal"
 QT_MOC_LITERAL(35, 462, 24), // "InferRelyIDProcessSignal"
 QT_MOC_LITERAL(36, 487, 12), // "relyFilePath"
 QT_MOC_LITERAL(37, 500, 14), // "defineFilePath"
-QT_MOC_LITERAL(38, 515, 11), // "JudgeIDSlot"
-QT_MOC_LITERAL(39, 527, 10), // "QLineEdit*"
-QT_MOC_LITERAL(40, 538, 4), // "Edit"
-QT_MOC_LITERAL(41, 543, 8), // "QString*"
-QT_MOC_LITERAL(42, 552, 15), // "JudgeIDTypeSlot"
-QT_MOC_LITERAL(43, 568, 9), // "srcobject"
-QT_MOC_LITERAL(44, 578, 9), // "desobject"
-QT_MOC_LITERAL(45, 588, 22), // "ShowMessageProcessSlot"
-QT_MOC_LITERAL(46, 611, 12), // "RunOrderSlot"
-QT_MOC_LITERAL(47, 624, 15), // "EndRunOrderSlot"
-QT_MOC_LITERAL(48, 640, 6), // "result"
-QT_MOC_LITERAL(49, 647, 13), // "SelectDirSlot"
-QT_MOC_LITERAL(50, 661, 7), // "QLabel*"
-QT_MOC_LITERAL(51, 669, 5), // "label"
-QT_MOC_LITERAL(52, 675, 9), // "objectDir"
-QT_MOC_LITERAL(53, 685, 14), // "SearchFileSlot"
-QT_MOC_LITERAL(54, 700, 19), // "EndCopyCodeFileSlot"
-QT_MOC_LITERAL(55, 720, 16), // "EndFileSearcSlot"
-QT_MOC_LITERAL(56, 737, 20), // "EndReadSoftExcelSlot"
-QT_MOC_LITERAL(57, 758, 20), // "QList<SI_ERRORTable>"
-QT_MOC_LITERAL(58, 779, 7), // "errList"
-QT_MOC_LITERAL(59, 787, 16), // "PretreatmentSlot"
-QT_MOC_LITERAL(60, 804, 18), // "EndCheckBAFileSlot"
-QT_MOC_LITERAL(61, 823, 18), // "EndCheckCLFileSlot"
-QT_MOC_LITERAL(62, 842, 26), // "EndReadDefineFileExcelSlot"
-QT_MOC_LITERAL(63, 869, 23), // "QList<SI_DEFINEMESSAGE>"
-QT_MOC_LITERAL(64, 893, 10), // "defineList"
-QT_MOC_LITERAL(65, 904, 25), // "EndInferRelyIDProcessSlot"
-QT_MOC_LITERAL(66, 930, 6), // "RelyID"
-QT_MOC_LITERAL(67, 937, 19), // "FileCompressionSlot"
-QT_MOC_LITERAL(68, 957, 15) // "InferRelyIDSlot"
+QT_MOC_LITERAL(38, 515, 9), // "condition"
+QT_MOC_LITERAL(39, 525, 11), // "JudgeIDSlot"
+QT_MOC_LITERAL(40, 537, 10), // "QLineEdit*"
+QT_MOC_LITERAL(41, 548, 4), // "Edit"
+QT_MOC_LITERAL(42, 553, 8), // "QString*"
+QT_MOC_LITERAL(43, 562, 15), // "JudgeIDTypeSlot"
+QT_MOC_LITERAL(44, 578, 9), // "srcobject"
+QT_MOC_LITERAL(45, 588, 9), // "desobject"
+QT_MOC_LITERAL(46, 598, 22), // "ShowMessageProcessSlot"
+QT_MOC_LITERAL(47, 621, 12), // "RunOrderSlot"
+QT_MOC_LITERAL(48, 634, 15), // "EndRunOrderSlot"
+QT_MOC_LITERAL(49, 650, 6), // "result"
+QT_MOC_LITERAL(50, 657, 13), // "SelectDirSlot"
+QT_MOC_LITERAL(51, 671, 7), // "QLabel*"
+QT_MOC_LITERAL(52, 679, 5), // "label"
+QT_MOC_LITERAL(53, 685, 9), // "objectDir"
+QT_MOC_LITERAL(54, 695, 14), // "SearchFileSlot"
+QT_MOC_LITERAL(55, 710, 19), // "EndCopyCodeFileSlot"
+QT_MOC_LITERAL(56, 730, 16), // "EndFileSearcSlot"
+QT_MOC_LITERAL(57, 747, 20), // "EndReadSoftExcelSlot"
+QT_MOC_LITERAL(58, 768, 20), // "QList<SI_ERRORTable>"
+QT_MOC_LITERAL(59, 789, 7), // "errList"
+QT_MOC_LITERAL(60, 797, 16), // "PretreatmentSlot"
+QT_MOC_LITERAL(61, 814, 18), // "EndCheckBAFileSlot"
+QT_MOC_LITERAL(62, 833, 18), // "EndCheckCLFileSlot"
+QT_MOC_LITERAL(63, 852, 26), // "EndReadDefineFileExcelSlot"
+QT_MOC_LITERAL(64, 879, 23), // "QList<SI_DEFINEMESSAGE>"
+QT_MOC_LITERAL(65, 903, 10), // "defineList"
+QT_MOC_LITERAL(66, 914, 25), // "EndInferRelyIDProcessSlot"
+QT_MOC_LITERAL(67, 940, 19), // "FileCompressionSlot"
+QT_MOC_LITERAL(68, 960, 15) // "InferRelyIDSlot"
 
     },
     "SIFormMethod\0ShowLogMessageSignal\0\0"
@@ -116,19 +116,19 @@ QT_MOC_LITERAL(68, 957, 15) // "InferRelyIDSlot"
     "softList\0CheckCLFileSignal\0"
     "PretreatmentSignal\0FileCompressionSignal\0"
     "InferRelyIDSignal\0InferRelyIDProcessSignal\0"
-    "relyFilePath\0defineFilePath\0JudgeIDSlot\0"
-    "QLineEdit*\0Edit\0QString*\0JudgeIDTypeSlot\0"
-    "srcobject\0desobject\0ShowMessageProcessSlot\0"
-    "RunOrderSlot\0EndRunOrderSlot\0result\0"
-    "SelectDirSlot\0QLabel*\0label\0objectDir\0"
-    "SearchFileSlot\0EndCopyCodeFileSlot\0"
-    "EndFileSearcSlot\0EndReadSoftExcelSlot\0"
-    "QList<SI_ERRORTable>\0errList\0"
-    "PretreatmentSlot\0EndCheckBAFileSlot\0"
+    "relyFilePath\0defineFilePath\0condition\0"
+    "JudgeIDSlot\0QLineEdit*\0Edit\0QString*\0"
+    "JudgeIDTypeSlot\0srcobject\0desobject\0"
+    "ShowMessageProcessSlot\0RunOrderSlot\0"
+    "EndRunOrderSlot\0result\0SelectDirSlot\0"
+    "QLabel*\0label\0objectDir\0SearchFileSlot\0"
+    "EndCopyCodeFileSlot\0EndFileSearcSlot\0"
+    "EndReadSoftExcelSlot\0QList<SI_ERRORTable>\0"
+    "errList\0PretreatmentSlot\0EndCheckBAFileSlot\0"
     "EndCheckCLFileSlot\0EndReadDefineFileExcelSlot\0"
     "QList<SI_DEFINEMESSAGE>\0defineList\0"
-    "EndInferRelyIDProcessSlot\0RelyID\0"
-    "FileCompressionSlot\0InferRelyIDSlot"
+    "EndInferRelyIDProcessSlot\0FileCompressionSlot\0"
+    "InferRelyIDSlot"
 };
 #undef QT_MOC_LITERAL
 
@@ -161,26 +161,26 @@ static const uint qt_meta_data_SIFormMethod[] = {
       32,    0,  271,    2, 0x06 /* Public */,
       33,    0,  272,    2, 0x06 /* Public */,
       34,    0,  273,    2, 0x06 /* Public */,
-      35,    5,  274,    2, 0x06 /* Public */,
+      35,    6,  274,    2, 0x06 /* Public */,
 
  // slots: name, argc, parameters, tag, flags
-      38,    2,  285,    2, 0x0a /* Public */,
-      42,    3,  290,    2, 0x0a /* Public */,
-      45,    2,  297,    2, 0x0a /* Public */,
-      46,    1,  302,    2, 0x0a /* Public */,
-      47,    2,  305,    2, 0x0a /* Public */,
-      49,    2,  310,    2, 0x0a /* Public */,
-      53,    2,  315,    2, 0x0a /* Public */,
-      54,    2,  320,    2, 0x0a /* Public */,
-      55,    3,  325,    2, 0x0a /* Public */,
-      56,    2,  332,    2, 0x0a /* Public */,
-      59,    0,  337,    2, 0x0a /* Public */,
-      60,    2,  338,    2, 0x0a /* Public */,
-      61,    2,  343,    2, 0x0a /* Public */,
-      62,    2,  348,    2, 0x0a /* Public */,
-      65,    4,  353,    2, 0x0a /* Public */,
-      67,    0,  362,    2, 0x0a /* Public */,
-      68,    0,  363,    2, 0x0a /* Public */,
+      39,    2,  287,    2, 0x0a /* Public */,
+      43,    3,  292,    2, 0x0a /* Public */,
+      46,    2,  299,    2, 0x0a /* Public */,
+      47,    1,  304,    2, 0x0a /* Public */,
+      48,    2,  307,    2, 0x0a /* Public */,
+      50,    2,  312,    2, 0x0a /* Public */,
+      54,    2,  317,    2, 0x0a /* Public */,
+      55,    2,  322,    2, 0x0a /* Public */,
+      56,    3,  327,    2, 0x0a /* Public */,
+      57,    2,  334,    2, 0x0a /* Public */,
+      60,    0,  339,    2, 0x0a /* Public */,
+      61,    2,  340,    2, 0x0a /* Public */,
+      62,    2,  345,    2, 0x0a /* Public */,
+      63,    2,  350,    2, 0x0a /* Public */,
+      66,    4,  355,    2, 0x0a /* Public */,
+      67,    0,  364,    2, 0x0a /* Public */,
+      68,    0,  365,    2, 0x0a /* Public */,
 
  // signals: parameters
     QMetaType::Void, QMetaType::QStringList, QMetaType::UInt,    3,    4,
@@ -198,24 +198,24 @@ static const uint qt_meta_data_SIFormMethod[] = {
     QMetaType::Void,
     QMetaType::Void,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::UInt,   36,   37,   26,   16,    6,
+    QMetaType::Void, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::QString, QMetaType::UInt,   36,   37,   26,   16,   38,    6,
 
  // slots: parameters
-    QMetaType::Void, 0x80000000 | 39, 0x80000000 | 41,   40,   26,
-    QMetaType::Void, 0x80000000 | 39, 0x80000000 | 41, 0x80000000 | 41,   40,   43,   44,
+    QMetaType::Void, 0x80000000 | 40, 0x80000000 | 42,   41,   26,
+    QMetaType::Void, 0x80000000 | 40, 0x80000000 | 42, 0x80000000 | 42,   41,   44,   45,
     QMetaType::Void, QMetaType::UInt, QMetaType::UInt,    6,    7,
     QMetaType::Void, QMetaType::UInt,    6,
-    QMetaType::Void, QMetaType::Bool, QMetaType::UInt,   48,    6,
-    QMetaType::Void, 0x80000000 | 50, 0x80000000 | 41,   51,   52,
+    QMetaType::Void, QMetaType::Bool, QMetaType::UInt,   49,    6,
+    QMetaType::Void, 0x80000000 | 51, 0x80000000 | 42,   52,   53,
     QMetaType::Void, QMetaType::UInt, QMetaType::Bool,    6,   20,
-    QMetaType::Void, QMetaType::QString, QMetaType::Bool,   13,   48,
+    QMetaType::Void, QMetaType::QString, QMetaType::Bool,   13,   49,
     QMetaType::Void, QMetaType::QString, QMetaType::UInt, QMetaType::Bool,   13,    6,   20,
-    QMetaType::Void, 0x80000000 | 29, 0x80000000 | 57,   30,   58,
+    QMetaType::Void, 0x80000000 | 29, 0x80000000 | 58,   30,   59,
     QMetaType::Void,
-    QMetaType::Void, QMetaType::Bool, 0x80000000 | 57,   48,   58,
-    QMetaType::Void, QMetaType::Bool, 0x80000000 | 57,   48,   58,
-    QMetaType::Void, 0x80000000 | 63, 0x80000000 | 57,   64,   58,
-    QMetaType::Void, 0x80000000 | 29, 0x80000000 | 63, QMetaType::QString, QMetaType::UInt,   30,   64,   66,    6,
+    QMetaType::Void, QMetaType::Bool, 0x80000000 | 58,   49,   59,
+    QMetaType::Void, QMetaType::Bool, 0x80000000 | 58,   49,   59,
+    QMetaType::Void, 0x80000000 | 64, 0x80000000 | 58,   65,   59,
+    QMetaType::Void, 0x80000000 | 29, 0x80000000 | 64, 0x80000000 | 58, QMetaType::UInt,   30,   65,   59,    6,
     QMetaType::Void,
     QMetaType::Void,
 
@@ -243,7 +243,7 @@ void SIFormMethod::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         case 12: _t->PretreatmentSignal(); break;
         case 13: _t->FileCompressionSignal(); break;
         case 14: _t->InferRelyIDSignal(); break;
-        case 15: _t->InferRelyIDProcessSignal((*reinterpret_cast< const QString(*)>(_a[1])),(*reinterpret_cast< const QString(*)>(_a[2])),(*reinterpret_cast< const QString(*)>(_a[3])),(*reinterpret_cast< const QString(*)>(_a[4])),(*reinterpret_cast< const uint(*)>(_a[5]))); break;
+        case 15: _t->InferRelyIDProcessSignal((*reinterpret_cast< const QString(*)>(_a[1])),(*reinterpret_cast< const QString(*)>(_a[2])),(*reinterpret_cast< const QString(*)>(_a[3])),(*reinterpret_cast< const QString(*)>(_a[4])),(*reinterpret_cast< const QString(*)>(_a[5])),(*reinterpret_cast< const uint(*)>(_a[6]))); break;
         case 16: _t->JudgeIDSlot((*reinterpret_cast< QLineEdit*(*)>(_a[1])),(*reinterpret_cast< QString*(*)>(_a[2]))); break;
         case 17: _t->JudgeIDTypeSlot((*reinterpret_cast< QLineEdit*(*)>(_a[1])),(*reinterpret_cast< QString*(*)>(_a[2])),(*reinterpret_cast< QString*(*)>(_a[3]))); break;
         case 18: _t->ShowMessageProcessSlot((*reinterpret_cast< const uint(*)>(_a[1])),(*reinterpret_cast< const uint(*)>(_a[2]))); break;
@@ -258,7 +258,7 @@ void SIFormMethod::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
         case 27: _t->EndCheckBAFileSlot((*reinterpret_cast< const bool(*)>(_a[1])),(*reinterpret_cast< const QList<SI_ERRORTable>(*)>(_a[2]))); break;
         case 28: _t->EndCheckCLFileSlot((*reinterpret_cast< const bool(*)>(_a[1])),(*reinterpret_cast< const QList<SI_ERRORTable>(*)>(_a[2]))); break;
         case 29: _t->EndReadDefineFileExcelSlot((*reinterpret_cast< const QList<SI_DEFINEMESSAGE>(*)>(_a[1])),(*reinterpret_cast< const QList<SI_ERRORTable>(*)>(_a[2]))); break;
-        case 30: _t->EndInferRelyIDProcessSlot((*reinterpret_cast< const QList<SI_SOFTNUMBERTable>(*)>(_a[1])),(*reinterpret_cast< const QList<SI_DEFINEMESSAGE>(*)>(_a[2])),(*reinterpret_cast< const QString(*)>(_a[3])),(*reinterpret_cast< const uint(*)>(_a[4]))); break;
+        case 30: _t->EndInferRelyIDProcessSlot((*reinterpret_cast< const QList<SI_SOFTNUMBERTable>(*)>(_a[1])),(*reinterpret_cast< const QList<SI_DEFINEMESSAGE>(*)>(_a[2])),(*reinterpret_cast< const QList<SI_ERRORTable>(*)>(_a[3])),(*reinterpret_cast< const uint(*)>(_a[4]))); break;
         case 31: _t->FileCompressionSlot(); break;
         case 32: _t->InferRelyIDSlot(); break;
         default: ;
@@ -397,7 +397,7 @@ void SIFormMethod::qt_static_metacall(QObject *_o, QMetaObject::Call _c, int _id
             }
         }
         {
-            typedef void (SIFormMethod::*_t)(const QString , const QString , const QString , const QString , const unsigned int );
+            typedef void (SIFormMethod::*_t)(const QString , const QString , const QString , const QString , const QString , const unsigned int );
             if (*reinterpret_cast<_t *>(func) == static_cast<_t>(&SIFormMethod::InferRelyIDProcessSignal)) {
                 *result = 15;
                 return;
@@ -545,9 +545,9 @@ void SIFormMethod::InferRelyIDSignal()
 }
 
 // SIGNAL 15
-void SIFormMethod::InferRelyIDProcessSignal(const QString _t1, const QString _t2, const QString _t3, const QString _t4, const unsigned int _t5)
+void SIFormMethod::InferRelyIDProcessSignal(const QString _t1, const QString _t2, const QString _t3, const QString _t4, const QString _t5, const unsigned int _t6)
 {
-    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)), const_cast<void*>(reinterpret_cast<const void*>(&_t3)), const_cast<void*>(reinterpret_cast<const void*>(&_t4)), const_cast<void*>(reinterpret_cast<const void*>(&_t5)) };
+    void *_a[] = { nullptr, const_cast<void*>(reinterpret_cast<const void*>(&_t1)), const_cast<void*>(reinterpret_cast<const void*>(&_t2)), const_cast<void*>(reinterpret_cast<const void*>(&_t3)), const_cast<void*>(reinterpret_cast<const void*>(&_t4)), const_cast<void*>(reinterpret_cast<const void*>(&_t5)), const_cast<void*>(reinterpret_cast<const void*>(&_t6)) };
     QMetaObject::activate(this, &staticMetaObject, 15, _a);
 }
 QT_WARNING_POP

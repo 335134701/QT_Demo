@@ -127,7 +127,12 @@ QLabel#SISVNLabel,#SIOutputLabel{
     background:#484848;
     color:#FFFFFF;
 }
-
+QTableView#SITableView{
+    font: 75 12pt "微软雅黑";
+    font-weight: bold;
+    vertical-align:middle;
+    color: #FFFFFF;
+}
 
 /*********************************** AutomationForm界面美化 ***********************************/
 QWidget#AuTableView{

@@ -6,6 +6,7 @@
 #include <QLineEdit>
 #include <QTableView>
 #include <QFileDialog>
+#include <QHeaderView>
 #include <QLabel>
 #include <QThread>
 

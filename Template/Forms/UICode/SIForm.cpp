@@ -95,6 +95,8 @@ void SIForm::Init()
     siFormBean  = new SIFormBean();
     siFormMethod = new SIFormMethod();
     siFormMethod->setSiFormBean(siFormBean);
+    siFormMethod->setTableView(ui->SITableView);
+    siFormMethod->InitTableView();
 }
 
 /**

@@ -160,15 +160,42 @@ QList<SI_SOFTNUMBERTable> SIExcelOperateMethod::ReadSoftExcel(const QString file
 }
 
 /**
- * @brief SIExcelOperateMethod::WriteDefineExcel
+ * @brief SIExcelOperateMethod::WriteEntryAVMDefineExcel
  * @param filePath
  * @param ID
- * @param IDType
  * @param CarModels
+ * @param CANGen
+ * @param errList
  */
-void SIExcelOperateMethod::WriteDefineExcel(const QString filePath, const QString ID, const QString IDType, const QString CarModels,QList<SI_ERRORTable> *errList)
+void SIExcelOperateMethod::WriteEntryAVMDefineExcel(const QString filePath, const QString ID, const QString CarModels, const QString CANGen, QList<SI_ERRORTable> *errList)
 {
-    QLogHelper::instance()->LogInfo("SIExcelOperateMethod->WriteDefineExcel() 函数执行!");
+    QLogHelper::instance()->LogInfo("SIExcelOperateMethod->WriteEntryAVMDefineExcel() 函数执行!");
+}
+
+/**
+ * @brief SIExcelOperateMethod::WriteEntryIPADefineExcel
+ * @param filePath
+ * @param ID
+ * @param CarModels
+ * @param CANGen
+ * @param errList
+ */
+void SIExcelOperateMethod::WriteEntryIPADefineExcel(const QString filePath, const QString ID, const QString CarModels, const QString CANGen, QList<SI_ERRORTable> *errList)
+{
+    QLogHelper::instance()->LogInfo("SIExcelOperateMethod->WriteEntryIPADefineExcel() 函数执行!");
+}
+
+/**
+ * @brief SIExcelOperateMethod::WriteNextPH3DefineExcel
+ * @param filePath
+ * @param ID
+ * @param CarModels
+ * @param CANGen
+ * @param errList
+ */
+void SIExcelOperateMethod::WriteNextPH3DefineExcel(const QString filePath, const QString ID, const QString CarModels, const QString CANGen, QList<SI_ERRORTable> *errList)
+{
+    QLogHelper::instance()->LogInfo("SIExcelOperateMethod->WriteNextPH3DefineExcel() 函数执行!");
 }
 
 /**

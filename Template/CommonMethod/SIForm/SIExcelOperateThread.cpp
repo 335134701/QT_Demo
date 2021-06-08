@@ -114,7 +114,13 @@ void SIExcelOperateThread::InferRelyIDProcessSlot(const QString relyFilePath, co
         if(defineList->size()==0){
             errList->clear();
             //新写入宏定义
-            siExcelOperateMethod->WriteDefineExcel(defineFilePath,ID,IDType,tmpsoft.CarModels,errList);
+            if(IDType=="EntryAVM"||IDType=="EntryAVM2"){
+                siExcelOperateMethod->WriteEntryAVMDefineExcel(defineFilePath,IDType,tmpsoft.CarModels,tmpsoft.CANGen,errList);
+            }else if(IDType=="EntryIPA"){
+                siExcelOperateMethod->WriteEntryIPADefineExcel(defineFilePath,IDType,tmpsoft.CarModels,tmpsoft.CANGen,errList);
+            }else if(IDType=="NextPH3"){
+                siExcelOperateMethod->WriteNextPH3DefineExcel(defineFilePath,IDType,tmpsoft.CarModels,tmpsoft.CANGen,errList);
+            }
         }else{
             softList->clear();
             softList->append(tmpsoft);

@@ -9,7 +9,6 @@ SIFormMethod::SIFormMethod(QObject *parent) : QObject(parent)
     QLogHelper::instance()->LogInfo("SIFormMethod 构造函数执行!");
     this->Init();
     this->ConnectSlot();
-    this->InitTableView();
 }
 
 /**
@@ -150,6 +149,38 @@ void SIFormMethod::ConnectOtherUISlot()
 void SIFormMethod::InitTableView()
 {
     QLogHelper::instance()->LogInfo("SIFormMethod->InitTableView() 函数执行!");
+    siFormBean->setMessageViewModel(new QStandardItemModel());
+    siFormBean->getMessageViewModel()->setItem(0, 0, new QStandardItem("机种番号:"));
+    siFormBean->getMessageViewModel()->item(0,0)->setTextAlignment(Qt::AlignRight|Qt::AlignVCenter);
+    siFormBean->getMessageViewModel()->item(0,0)->setEditable(false);
+    siFormBean->getMessageViewModel()->setItem(0, 1, new QStandardItem(""));
+    siFormBean->getMessageViewModel()->item(0,1)->setEditable(false);
+    siFormBean->getMessageViewModel()->setItem(1, 0, new QStandardItem("机种类型:"));
+    siFormBean->getMessageViewModel()->item(1,0)->setTextAlignment(Qt::AlignRight|Qt::AlignVCenter);
+    siFormBean->getMessageViewModel()->item(1,0)->setEditable(false);
+    siFormBean->getMessageViewModel()->setItem(1, 1, new QStandardItem(""));
+    siFormBean->getMessageViewModel()->item(1,1)->setEditable(false);
+    siFormBean->getMessageViewModel()->setItem(2, 0, new QStandardItem("依赖机种番号:"));
+    siFormBean->getMessageViewModel()->item(2,0)->setTextAlignment(Qt::AlignRight|Qt::AlignVCenter);
+    siFormBean->getMessageViewModel()->item(2,0)->setEditable(false);
+    siFormBean->getMessageViewModel()->setItem(2, 1, new QStandardItem(""));
+    siFormBean->getMessageViewModel()->item(2,1)->setEditable(false);
+    siFormBean->getMessageViewModel()->setItem(3, 0, new QStandardItem("依赖机种类型:"));
+    siFormBean->getMessageViewModel()->item(3,0)->setTextAlignment(Qt::AlignRight|Qt::AlignVCenter);
+    siFormBean->getMessageViewModel()->item(3,0)->setEditable(false);
+    siFormBean->getMessageViewModel()->setItem(3, 1, new QStandardItem(""));
+    siFormBean->getMessageViewModel()->item(3,1)->setEditable(false);
+    siFormBean->getMessageViewModel()->setItem(4, 0, new QStandardItem("量产管理表路径:"));
+    siFormBean->getMessageViewModel()->item(4,0)->setTextAlignment(Qt::AlignRight|Qt::AlignVCenter);
+    siFormBean->getMessageViewModel()->item(4,0)->setEditable(false);
+    siFormBean->getMessageViewModel()->setItem(4, 1, new QStandardItem(""));
+    //设置TableView自适应
+    tableView->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+    tableView->verticalHeader()->setStretchLastSection(false);
+    tableView->setModel(siFormBean->getMessageViewModel());
+    tableView->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);
+    tableView->horizontalHeader()->setSectionResizeMode(0, QHeaderView::Fixed);//对第0列单独设置固定宽度
+    tableView->setColumnWidth(0,200);
 }
 
 /**
@@ -392,6 +423,10 @@ void SIFormMethod::ShowMessageProcessSlot(const unsigned int flag, const unsigne
             message.append("ID : "+*siFormBean->getID()+" 需要作成新规!");
         }
         break;
+    case SIRelyIDDealflag:
+        level=LOG_INFO;
+        message.append(*siFormBean->getID()+ " 宏定义推算结束!");
+        break;
     case SIZIPFileflag:
         if(siFormBean->getSIStatus()==SI_FILEZIP){
             level=LOG_INFO;
@@ -405,10 +440,6 @@ void SIFormMethod::ShowMessageProcessSlot(const unsigned int flag, const unsigne
                 message.append("项目源码解压失败!");
             }
         }
-        break;
-    case SIRelyIDDealflag:
-        level=LOG_INFO;
-        message.append(*siFormBean->getID()+ " 宏定义推算结束!");
         break;
     }
     switch (Log_Flag) {
@@ -437,6 +468,20 @@ void SIFormMethod::ShowMessageProcessSlot(const unsigned int flag, const unsigne
 void SIFormMethod::ShowTableView(const QStringList message, const unsigned int flag)
 {
     QLogHelper::instance()->LogInfo("SIFormMethod->ShowTableView() 函数执行!");
+    switch (flag) {
+    case SIIDflag:
+        siFormBean->getMessageViewModel()->setItem(0, 1, new QStandardItem(*siFormBean->getID()));
+        siFormBean->getMessageViewModel()->item(0,1)->setEditable(false);
+        siFormBean->getMessageViewModel()->setItem(1, 1, new QStandardItem(*siFormBean->getIDType()));
+        siFormBean->getMessageViewModel()->item(1,1)->setEditable(false);
+        break;
+    case SIRelyIDflag:
+        siFormBean->getMessageViewModel()->setItem(2, 1, new QStandardItem(*siFormBean->getRelyID()));
+        siFormBean->getMessageViewModel()->item(2,1)->setEditable(false);
+        siFormBean->getMessageViewModel()->setItem(3, 1, new QStandardItem(*siFormBean->getRelyIDType()));
+        siFormBean->getMessageViewModel()->item(3,1)->setEditable(false);
+        break;
+    }
 }
 
 /**
@@ -604,9 +649,11 @@ void SIFormMethod::PretreatmentSlot()
         /* siFormBean->setSIStatus(SI_FILEDEFINE);
         emit InferRelyIDSignal();
     }else if(siFormBean->getSIStatus()==SI_FILEDEFINE){
-
         QLogHelper::instance()->LogDebug("---------------------------------------------- 推算完成!");
-        siFormBean->setSIStatus(SI_READY);
+        if(siFormBean->getDefineList()->size()==0){
+            this->RetSIStatus("宏定义集合获取失败，任务无法继续执行!",LOG_ERROR);
+            return;
+        }
     }*/
         //项目源码文件复制
         siFormBean->setSIStatus(SI_FILECODECOPY);
@@ -625,7 +672,6 @@ void SIFormMethod::PretreatmentSlot()
         if(!fileThread->isRunning()){fileThread->start();}
         emit CheckBAFileSignal(*siFormBean->getSVNDirPath(),*siFormBean->getID(),*siFormBean->getIDType(),*siFormBean->getSoftList(),SIBADirflag);
     }else if(siFormBean->getSIStatus()==SI_FILCHECKBA){
-
         //合并文件
         if(!siFormBean->getBAflag()){siFormBean->setSIStatus(SI_READY);return;}
         QStringList dirPathList=siCommonMethod->GetBeforeAfterDirPath(fileOperateThread->getSiFileOperateMethod()->AnalyzePath(*siFormBean->getSVNDirPath(),*siFormBean->getID(),*siFormBean->getIDType(),SIBADirflag),*siFormBean->getSoftList());
@@ -633,6 +679,7 @@ void SIFormMethod::PretreatmentSlot()
             this->SendConMessageLog("After文件夹与源码程序文件夹合并成功!",LOG_INFO);
         }else{
             this->RetSIStatus("After文件夹与源码程序文件夹合并失败，任务无法继续执行!",LOG_ERROR);
+            return;
         }
         //新规文件检查
         siFormBean->setSIStatus(SI_FILCHECKCL);

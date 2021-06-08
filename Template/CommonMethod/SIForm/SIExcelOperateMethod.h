@@ -23,7 +23,9 @@ public:
 
     QList<SI_SOFTNUMBERTable> ReadSoftExcel(const QString filePath, const QString IDType, const QString condition);
 
-    void WriteDefineExcel(const QString filePath,const QString ID, const QString IDType,const QString CarModels,QList<SI_ERRORTable> *errList);
+    void WriteEntryAVMDefineExcel(const QString filePath,const QString ID,const QString CarModels, const QString CANGen,QList<SI_ERRORTable> *errList);
+        void WriteEntryIPADefineExcel(const QString filePath,const QString ID,const QString CarModels, const QString CANGen,QList<SI_ERRORTable> *errList);
+            void WriteNextPH3DefineExcel(const QString filePath,const QString ID,const QString CarModels, const QString CANGen,QList<SI_ERRORTable> *errList);
 
     QList<SI_DEFINEMESSAGE> ReadDefineExcel(const QString filePath, const QString ID, const QString IDType,QList<SI_ERRORTable> *errList);
 

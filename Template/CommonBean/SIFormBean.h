@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QList>
+#include <QStandardItemModel>
 
 #include "COMMONDEFINE.h"
 #include "CommonMethod.h"
@@ -166,6 +167,9 @@ public:
     bool getNEWCLflag() const;
     void setNEWCLflag(bool value);
 
+    QStandardItemModel *getMessageViewModel() const;
+    void setMessageViewModel(QStandardItemModel *value);
+
 signals:
 
 public slots:
@@ -226,6 +230,9 @@ private:
 
     //公共方法对象
     CommonMethod *commonMethod;
+
+    //TableView数据模型
+    QStandardItemModel *messageViewModel;
 
     void Init();
 };

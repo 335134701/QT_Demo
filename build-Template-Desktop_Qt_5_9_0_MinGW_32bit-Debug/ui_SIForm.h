@@ -72,8 +72,8 @@ public:
         sizePolicy1.setVerticalStretch(0);
         sizePolicy1.setHeightForWidth(SIMemuWidget->sizePolicy().hasHeightForWidth());
         SIMemuWidget->setSizePolicy(sizePolicy1);
-        SIMemuWidget->setMinimumSize(QSize(350, 0));
-        SIMemuWidget->setMaximumSize(QSize(550, 16777215));
+        SIMemuWidget->setMinimumSize(QSize(0, 0));
+        SIMemuWidget->setMaximumSize(QSize(16777215, 16777215));
         gridLayout_2 = new QGridLayout(SIMemuWidget);
         gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
         gridLayout_2->setHorizontalSpacing(10);
@@ -160,6 +160,11 @@ public:
 
         SITableView = new QTableView(SIForm);
         SITableView->setObjectName(QStringLiteral("SITableView"));
+        SITableView->setMinimumSize(QSize(0, 0));
+        SITableView->setMaximumSize(QSize(16777215, 16777215));
+        SITableView->setLineWidth(0);
+        SITableView->horizontalHeader()->setVisible(false);
+        SITableView->verticalHeader()->setVisible(false);
 
         gridLayout->addWidget(SITableView, 0, 1, 5, 1);
 

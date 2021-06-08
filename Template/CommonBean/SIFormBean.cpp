@@ -466,6 +466,16 @@ void SIFormBean::setNEWCLflag(bool value)
     NEWCLflag = value;
 }
 
+QStandardItemModel *SIFormBean::getMessageViewModel() const
+{
+    return messageViewModel;
+}
+
+void SIFormBean::setMessageViewModel(QStandardItemModel *value)
+{
+    messageViewModel = value;
+}
+
 
 /**
  * @def 初始化函数

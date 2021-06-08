@@ -66,6 +66,8 @@ void MainForm::BetweenUI_Init()
     ui->SI->getSiFormBean()->setCommonMethod(mainFormBean->getCommonMethod());
     ui->SI->getSiFormMethod()->ConnectOtherUISlot();
 
+    //ui->LogWgedit->getLogFormBean()->setLastIndex(ui->FunctionWgedit->currentIndex());
+
     ui->Automation->setLogFormMethod(ui->LogWgedit->getLogFormMethod());
     ui->Automation->getAutomationFormMethod()->setLogFormMethod(ui->LogWgedit->getLogFormMethod());
     ui->Automation->getAutomationFormBean()->setCommonMethod(mainFormBean->getCommonMethod());
@@ -79,4 +81,20 @@ void MainForm::BetweenUI_Init()
 void MainForm::ConnectSlot()
 {
     QLogHelper::instance()->LogInfo("MainForm->ConnectSlot() 函数执行!");
+}
+
+/**
+ * @brief MainForm::on_FunctionWgedit_tabBarClicked
+ * @param index
+ */
+void MainForm::on_FunctionWgedit_tabBarClicked(int index)
+{
+    QLogHelper::instance()->LogInfo("MainForm->on_FunctionWgedit_tabBarClicked() 函数触发执行!");
+    /*
+    if(index!=ui->LogWgedit->getLogFormBean()->getLastIndex()){
+        ui->LogWgedit->getLogFormBean()->getTextList()->replace(ui->LogWgedit->getLogFormBean()->getLastIndex(),ui->LogWgedit->getLogFormBean()->getLogView()->toPlainText());
+        ui->LogWgedit->getLogFormBean()->getLogView()->clear();
+        ui->LogWgedit->getLogFormBean()->getLogView()->append(ui->LogWgedit->getLogFormBean()->getTextList()->value(index));
+        ui->LogWgedit->getLogFormBean()->setLastIndex(index);
+    }*/
 }

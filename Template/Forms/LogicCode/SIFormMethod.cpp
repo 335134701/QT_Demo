@@ -101,9 +101,6 @@ void SIFormMethod::ConnectSlot()
     connect(this->fileOperateThread,&SIFileOperateThread::EndRunOrderSignal,this,&SIFormMethod::EndRunOrderSlot);
     //SVN更新任务信号槽函数处理
     connect(this,&SIFormMethod::UpdateSVNSignal,this->fileOperateThread,&SIFileOperateThread::UpdateSVNSlot);
-    //连接推算依赖ID信号槽函数
-    //connect(this,&SIFormMethod::GetRelyIDSignal,this->excelOperateThread,&SIExcelOperateThread::GetRelyIDSlot);
-    //connect(this->excelOperateThread,&SIExcelOperateThread::EndReadSoftExcelSignal,this,&SIFormMethod::EndGetRelyIDSlot);
     //连接文件解压信号槽函数
     connect(this,&SIFormMethod::UNZipCodeFileSignal,this->fileOperateThread,&SIFileOperateThread::UNZipCodeFileSlot);
     //文件检索及文件检索完成后回调处理函数
@@ -132,6 +129,8 @@ void SIFormMethod::ConnectSlot()
     connect(this,&SIFormMethod::ZipCodeFileSignal,this->fileOperateThread,&SIFileOperateThread::ZipCodeFileSlot);
     //推算依赖ID连接信号槽函数
     connect(this,&SIFormMethod::InferRelyIDSignal,this,&SIFormMethod::InferRelyIDSlot);
+    connect(this,&SIFormMethod::InferRelyIDProcessSignal,this->excelOperateThread,&SIExcelOperateThread::InferRelyIDProcessSlot);
+    connect(this->excelOperateThread,&SIExcelOperateThread::EndInferRelyIDProcessSignal,this,&SIFormMethod::EndInferRelyIDProcessSlot);
 }
 
 /**
@@ -386,15 +385,13 @@ void SIFormMethod::ShowMessageProcessSlot(const unsigned int flag, const unsigne
             level=LOG_ERROR;
             message.append("Before&After 文件夹校验失败!");
         }
+        break;
     case SICLVERCheckflag:
-        /*
         if(siFormBean->getNEWCLflag()){
-            level=LOG_INFO;
-            message.append("Before&After 文件夹校验成功!");
-        }else{
-            level=LOG_ERROR;
-            message.append("Before&After 文件夹校验失败!");
-        }*/
+            level=LOG_WARN;
+            message.append("ID : "+*siFormBean->getID()+" 需要作成新规!");
+        }
+        break;
     case SIZIPFileflag:
         if(siFormBean->getSIStatus()==SI_FILEZIP){
             level=LOG_INFO;
@@ -408,6 +405,11 @@ void SIFormMethod::ShowMessageProcessSlot(const unsigned int flag, const unsigne
                 message.append("项目源码解压失败!");
             }
         }
+        break;
+    case SIRelyIDDealflag:
+        level=LOG_INFO;
+        message.append(*siFormBean->getID()+ " 宏定义推算结束!");
+        break;
     }
     switch (Log_Flag) {
     case LOG_ALL:
@@ -461,6 +463,7 @@ void SIFormMethod::RunOrderSlot(const unsigned int flag)
         break;
     case SIUnzipFileflag:
         //解压状态更新
+        siFormBean->setSIStatus(SI_FILEUNZIP);
         exeFilePath=siFormBean->getCommonMethod()->Get7zInstallPath();
         if(file->exists(*siFormBean->getCodeFilePath())&&file->exists(exeFilePath))
         {
@@ -598,9 +601,13 @@ void SIFormMethod::PretreatmentSlot()
         if(!flag){RetSIStatus(tmpPath+" 文件夹创建失败!",LOG_ERROR);return;}
         emit this->SendConMessageLog(tmpPath+" 文件夹创建成功!",LOG_INFO);
         //宏定义文件检查，如果没有则需要写入表格中
-        siFormBean->setSIStatus(SI_FILEDEFINE);
+        /* siFormBean->setSIStatus(SI_FILEDEFINE);
         emit InferRelyIDSignal();
     }else if(siFormBean->getSIStatus()==SI_FILEDEFINE){
+
+        QLogHelper::instance()->LogDebug("---------------------------------------------- 推算完成!");
+        siFormBean->setSIStatus(SI_READY);
+    }*/
         //项目源码文件复制
         siFormBean->setSIStatus(SI_FILECODECOPY);
         if(!fileThread->isRunning()){fileThread->start();}
@@ -609,7 +616,6 @@ void SIFormMethod::PretreatmentSlot()
         if(!siFormBean->getCopyCodeflag()){siFormBean->setSIStatus(SI_READY);return;}
         siFormBean->setSIStatus(SI_PRETREAMENT);
         //解压项目源码
-        siFormBean->setSIStatus(SI_FILEUNZIP);
         emit RunOrderSignal(SIUnzipFileflag);
     }
     else if(siFormBean->getSIStatus()==SI_FILEUNZIP){
@@ -619,12 +625,12 @@ void SIFormMethod::PretreatmentSlot()
         if(!fileThread->isRunning()){fileThread->start();}
         emit CheckBAFileSignal(*siFormBean->getSVNDirPath(),*siFormBean->getID(),*siFormBean->getIDType(),*siFormBean->getSoftList(),SIBADirflag);
     }else if(siFormBean->getSIStatus()==SI_FILCHECKBA){
+
         //合并文件
         if(!siFormBean->getBAflag()){siFormBean->setSIStatus(SI_READY);return;}
         QStringList dirPathList=siCommonMethod->GetBeforeAfterDirPath(fileOperateThread->getSiFileOperateMethod()->AnalyzePath(*siFormBean->getSVNDirPath(),*siFormBean->getID(),*siFormBean->getIDType(),SIBADirflag),*siFormBean->getSoftList());
-        if(siFormBean->getCommonMethod()->CopyDir(dirPathList[1],siFormBean->getCodeFilePath()->left(siFormBean->getCodeFilePath()->lastIndexOf("/"))+"/"+ProjectName)){
+        if(dirPathList.size()>0&&(siFormBean->getCommonMethod()->CopyDir(dirPathList[1],siFormBean->getCodeFilePath()->left(siFormBean->getCodeFilePath()->lastIndexOf("/"))+"/"+ProjectName))){
             this->SendConMessageLog("After文件夹与源码程序文件夹合并成功!",LOG_INFO);
-            siFormBean->setSIStatus(SI_READY);
         }else{
             this->RetSIStatus("After文件夹与源码程序文件夹合并失败，任务无法继续执行!",LOG_ERROR);
         }
@@ -632,17 +638,16 @@ void SIFormMethod::PretreatmentSlot()
         siFormBean->setSIStatus(SI_FILCHECKCL);
         if(!fileThread->isRunning()){fileThread->start();}
         tmpPath=*siFormBean->getOutputDirPath()+"/"+*siFormBean->getID();
-        if(siFormBean->getIsSearchRelyIDflag()&&!siFormBean->getRelyID()->isEmpty()){
-            //通过程序计算出留用关系
-            emit CheckCLFileSignal(tmpPath+"/"+ProjectName,*siFormBean->getID(),*siFormBean->getSoftList());
-        }else if(!siFormBean->getIsSearchRelyIDflag()&&!siFormBean->getRelyID()->isEmpty()){
-            //输入留用关系
+        if(!siFormBean->getRelyID()->isEmpty()&&siFormBean->getRelyIDSoftList()->size()>0){
             emit CheckCLFileSignal(tmpPath+"/"+ProjectName,*siFormBean->getRelyID(),*siFormBean->getRelyIDSoftList());
-        }else{
-            //找不到留用关系
+        }else if(siFormBean->getRelyID()->isEmpty()&&siFormBean->getSoftList()->size()>0){
             emit CheckCLFileSignal(tmpPath+"/"+ProjectName,*siFormBean->getID(),*siFormBean->getSoftList());
+        }else{
+            fileThread->quit();
+            fileThread->wait();
+            this->RetSIStatus("机种番号信息获取失败,CL_Ver_Parts_ex.h文件检查任务无法继续执行!",LOG_ERROR);
+            return;
         }
-        //emit CheckFileSignal(*siFormBean->getSVNDirPath(),*siFormBean->getID(),*siFormBean->getIDType(),*siFormBean->getSoftList());
     }else if(siFormBean->getSIStatus()==SI_FILCHECKCL){
 
         //宏定义文件写入
@@ -724,7 +729,7 @@ void SIFormMethod::FileCompressionSlot()
  */
 void SIFormMethod::InferRelyIDSlot()
 {
-    QLogHelper::instance()->LogInfo("SIFormMethod->EndRunOrderSlot() 函数执行!");
+    QLogHelper::instance()->LogInfo("SIFormMethod->InferRelyIDSlot() 函数执行!");
     unsigned int flag=0;
     //开启子线程
     if(!excelThread->isRunning()){
@@ -737,11 +742,11 @@ void SIFormMethod::InferRelyIDSlot()
         if(siFormBean->getDefineList()->size()==0&&!siFormBean->getSHDefineFilePath()->isEmpty()){
             flag=2;
         }
-        emit InferRelyIDProcessSignal(*siFormBean->getRelyFilePath(),*siFormBean->getSHDefineFilePath(),*siFormBean->getRelyID(),*siFormBean->getIDType(),flag);
+        emit InferRelyIDProcessSignal(*siFormBean->getRelyFilePath(),*siFormBean->getSHDefineFilePath(),*siFormBean->getRelyID(),*siFormBean->getRelyIDType(),"",flag);
     }else if(siFormBean->getDefineList()->size()==0){
         //推算依赖ID
         flag=11;
-        emit InferRelyIDProcessSignal(*siFormBean->getRelyFilePath(),*siFormBean->getSHDefineFilePath(),siFormBean->getSoftList()->value(siFormBean->getSoftList()->size()-1).ApplicationPartNo,*siFormBean->getIDType(),flag);
+        emit InferRelyIDProcessSignal(*siFormBean->getRelyFilePath(),*siFormBean->getSHDefineFilePath(),*siFormBean->getID(),*siFormBean->getIDType(),siFormBean->getSoftList()->value(siFormBean->getSoftList()->size()-1).ApplicationPartNo,flag);
     }else if(siFormBean->getSoftList()>0){
         //如果宏定义获取成功则不需要推算依赖ID
         excelThread->quit();
@@ -778,6 +783,7 @@ void SIFormMethod::EndRunOrderSlot(const bool result,const unsigned int flag)
     }
     emit ShowMessageProcessSlot(flag,LOG_LOG);
     if(flag==SIUnzipFileflag){emit PretreatmentSignal();}
+    if(flag==SIZIPFileflag){this->SendConMessageLog("SI 任务结束!",LOG_INFO);}
 }
 
 
@@ -817,12 +823,11 @@ void SIFormMethod::EndFileSearcSlot(const QString filePath, unsigned int flag, b
     case SICarInfoFileflag:
         log_Flag=LOG_ALL;
         (*siFormBean->getCarInfoFilePath())=filePath;
-        isGoON=false;
         break;
     case SICodeFileflag:
         log_Flag=LOG_ALL;
         (*siFormBean->getCodeFilePath())=filePath;
-        //break;
+        break;
     case SISHDefineFileflag:
         log_Flag=LOG_ALL;
         (*siFormBean->getSHDefineFilePath())=filePath;
@@ -838,8 +843,7 @@ void SIFormMethod::EndFileSearcSlot(const QString filePath, unsigned int flag, b
     }
     emit ShowMessageProcessSignal(flag,log_Flag);
     if(isGoON){
-        flag=SISHDefineFileflag;
-        emit SearchFileSignal(flag,isGoON);
+        emit SearchFileSignal(flag+1,isGoON);
     }
     else{
         fileThread->quit();
@@ -876,8 +880,10 @@ void SIFormMethod::EndReadSoftExcelSlot(const QList<SI_SOFTNUMBERTable> softList
     QLogHelper::instance()->LogInfo("SIFormMethod->EndReadSoftExcelSlot() 函数执行!");
     (*siFormBean->getSoftList())=softList;
     (*siFormBean->getErrList())=errList;
-    excelThread->quit();
-    excelThread->wait();
+    if(!excelThread->isRunning()){
+        excelThread->quit();
+        excelThread->wait();
+    }
     if(!fileThread->isRunning()&&!excelThread->isRunning()){siFormBean->setSIStatus(SI_READY);}
     emit ShowMessageProcessSignal(SIRelyMessageflag,LOG_ALL);
     emit ShowMessageProcessSignal(SIERRorMessageflag,LOG_LOG);
@@ -890,7 +896,7 @@ void SIFormMethod::EndReadSoftExcelSlot(const QList<SI_SOFTNUMBERTable> softList
  */
 void SIFormMethod::EndCheckBAFileSlot( const bool result, const QList<SI_ERRORTable> errList)
 {
-    QLogHelper::instance()->LogInfo("SIFormMethod->EndCheckFileSlot() 函数执行!");
+    QLogHelper::instance()->LogInfo("SIFormMethod->EndCheckBAFileSlot() 函数执行!");
     fileThread->quit();
     fileThread->wait();
     siFormBean->setBAflag(result);
@@ -908,6 +914,13 @@ void SIFormMethod::EndCheckBAFileSlot( const bool result, const QList<SI_ERRORTa
 void SIFormMethod::EndCheckCLFileSlot(const bool result, const QList<SI_ERRORTable> errList)
 {
     QLogHelper::instance()->LogInfo("SIFormMethod->EndCheckCLFileSlot() 函数执行!");
+    fileThread->quit();
+    fileThread->wait();
+    siFormBean->setNEWCLflag(result);
+    (*siFormBean->getErrList())=errList;
+    emit ShowMessageProcessSlot(SICLVERCheckflag,LOG_LOG);
+    emit ShowMessageProcessSlot(SIERRorMessageflag,LOG_LOG);
+    emit PretreatmentSignal();
 }
 
 
@@ -927,6 +940,7 @@ void SIFormMethod::EndReadDefineFileExcelSlot(const QList<SI_DEFINEMESSAGE> defi
     emit ShowMessageProcessSlot(SISHDefineflag,LOG_ALL);
     emit ShowMessageProcessSignal(SIERRorMessageflag,LOG_LOG);
     if(!fileThread->isRunning()&&!excelThread->isRunning()){siFormBean->setSIStatus(SI_READY);}
+    this->SendConMessageLog("文件搜索任务结束,可以执行预处理任务!",LOG_INFO);
 }
 
 /**
@@ -936,7 +950,7 @@ void SIFormMethod::EndReadDefineFileExcelSlot(const QList<SI_DEFINEMESSAGE> defi
  * @param RelyID
  * @param flag
  */
-void SIFormMethod::EndInferRelyIDProcessSlot(const QList<SI_SOFTNUMBERTable> softList, const QList<SI_DEFINEMESSAGE> defineList, const QString RelyID, const unsigned int flag)
+void SIFormMethod::EndInferRelyIDProcessSlot(const QList<SI_SOFTNUMBERTable> softList, const QList<SI_DEFINEMESSAGE> defineList, const QList<SI_ERRORTable> errList, const unsigned int flag)
 {
     QLogHelper::instance()->LogInfo("SIFormMethod->EndInferRelyIDProcessSlot() 函数执行!");
     excelThread->quit();
@@ -952,14 +966,11 @@ void SIFormMethod::EndInferRelyIDProcessSlot(const QList<SI_SOFTNUMBERTable> sof
     case 11:
         (*siFormBean->getRelyIDSoftList())=softList;
         (*siFormBean->getDefineList())=defineList;
-        (*siFormBean->getRelyID())=RelyID;
-        (*siFormBean->getRelyIDType())=*siFormBean->getIDType();
-        siFormBean->setIsSearchRelyIDflag(true);
-        //如果宏定义列表获取还是失败，则准备写入宏定义列表
+        (*siFormBean->getErrList())=errList;
         break;
     }
-    //emit ShowMessageProcessSlot(SIRelyIDDealflag,LOG_LOG);
-    if(!fileThread->isRunning()&&!excelThread->isRunning()){siFormBean->setSIStatus(SI_READY);}
+    emit ShowMessageProcessSignal(SIRelyIDDealflag,LOG_LOG);
+    emit ShowMessageProcessSignal(SIERRorMessageflag,LOG_LOG);
     emit PretreatmentSignal();
 }
 
@@ -985,7 +996,7 @@ void SIFormMethod::SendConMessageLog(const QString txt, const unsigned int level
  */
 void SIFormMethod::RetSIStatus(const QString txt, const unsigned int level)
 {
-    QLogHelper::instance()->LogInfo("SIFormMethod->SendConMessageLog() 函数执行!");
+    QLogHelper::instance()->LogInfo("SIFormMethod->RetSIStatus() 函数执行!");
     this->SendConMessageLog(txt,level);
     if(!fileThread->isRunning()&&!excelThread->isRunning()){siFormBean->setSIStatus(SI_READY);}
 }

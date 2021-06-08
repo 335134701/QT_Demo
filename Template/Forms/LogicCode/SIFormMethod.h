@@ -74,7 +74,7 @@ signals:
 
     void InferRelyIDSignal();
     
-    void InferRelyIDProcessSignal(const QString relyFilePath,const QString defineFilePath,const QString ID,const QString IDType,const unsigned int flag);
+    void InferRelyIDProcessSignal(const QString relyFilePath,const QString defineFilePath,const QString ID,const QString IDType,const QString condition,const unsigned int flag);
 
 public slots:
 
@@ -108,7 +108,7 @@ public slots:
 
     void EndReadDefineFileExcelSlot(const QList<SI_DEFINEMESSAGE> defineList, const QList<SI_ERRORTable> errList);
 
-    void EndInferRelyIDProcessSlot(const QList<SI_SOFTNUMBERTable> softList,const QList<SI_DEFINEMESSAGE> defineList,const QString RelyID,const unsigned int flag);
+    void EndInferRelyIDProcessSlot(const QList<SI_SOFTNUMBERTable> softList,const QList<SI_DEFINEMESSAGE> defineList, const QList<SI_ERRORTable> errList,const unsigned int flag);
 
     void FileCompressionSlot();
 

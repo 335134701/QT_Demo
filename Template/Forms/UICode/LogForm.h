@@ -35,7 +35,6 @@ private:
 
     LogFormBean *logFormBean;
 
-
     LogFormMetod *logFormMethod;
 
     void InitStytle();

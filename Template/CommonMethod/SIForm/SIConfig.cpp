@@ -7,7 +7,6 @@
 SIConfig::SIConfig(QObject *parent) : QObject(parent)
 {
     QLogHelper::instance()->LogInfo("SIConfig 构造函数执行!");
-    this->InitParameter();
     this->Init();
 }
 
@@ -48,24 +47,6 @@ void SIConfig::setEntryAVM2(QList<SI_DEFINEMESSAGE> *value)
 }
 
 /**
- * @brief SIConfig::getIpa
- * @return
- */
-QList<SI_DEFINEMESSAGE> *SIConfig::getIpa() const
-{
-    return ipa;
-}
-
-/**
- * @brief SIConfig::setIpa
- * @param value
- */
-void SIConfig::setIpa(QList<SI_DEFINEMESSAGE> *value)
-{
-    ipa = value;
-}
-
-/**
  * @brief SIConfig::getNextPH3
  * @return
  */
@@ -83,58 +64,63 @@ void SIConfig::setNextPH3(QList<SI_DEFINEMESSAGE> *value)
     nextPH3 = value;
 }
 
-/**
- * @brief SIConfig::InitParameter
- */
-void SIConfig::InitParameter()
+QList<SI_DEFINEMESSAGE> *SIConfig::getEntryIPA() const
 {
-    QLogHelper::instance()->LogInfo("SIConfig->InitParameter() 函数执行!");
-    entryAVM1=new QList<SI_DEFINEMESSAGE>();
-    entryAVM2=new QList<SI_DEFINEMESSAGE>();
-    ipa=new QList<SI_DEFINEMESSAGE>();
-    nextPH3=new QList<SI_DEFINEMESSAGE>();
+    return entryIPA;
 }
+
+void SIConfig::setEntryIPA(QList<SI_DEFINEMESSAGE> *value)
+{
+    entryIPA = value;
+}
+
 /**
  * @brief SIConfig::Init
  */
 void SIConfig::Init()
 {
     QLogHelper::instance()->LogInfo("SIConfig->Init() 函数执行!");
-    //ConfigFile=QString("%1/%2").arg(QApplication::applicationDirPath()).arg(ConfigFile);
-    //if(!QFile::exists(ConfigFile)){this->NewConfig(ConfigFile);}
-
+    this->SetEntryAVM();
+    this->SetEntryAVM2();
+    this->SetEntryIPA();
+    this->SetNextPH3();
 }
 
 /**
- * @brief SIConfig::ReadConfig
- * @param filePath
- * @param flag
+ * @brief SIConfig::SetEntryAVM
  */
-void SIConfig::ReadConfig(const QString filePath, const unsigned int flag)
+void SIConfig::SetEntryAVM()
 {
-    QLogHelper::instance()->LogInfo("SIConfig->ReadConfig() 函数执行!");
+    QLogHelper::instance()->LogInfo("SIConfig->SetEntryAVM() 函数执行!");
+    entryAVM1=new QList<SI_DEFINEMESSAGE>();
 }
 
 /**
- * @brief SIConfig::NewConfig
- * @param filePath
+ * @brief SIConfig::SetEntryAVM2
  */
-void SIConfig::NewConfig(const QString filePath)
+void SIConfig::SetEntryAVM2()
 {
-    QLogHelper::instance()->LogInfo("SIConfig->NewConfig() 函数执行!");
-
-    QSettings set(filePath, QSettings::IniFormat);
-
-    set.beginGroup("TcpClientConfig");
-    set.setValue("HexSendTcpClient",2);
-    set.setValue("HexReceiveTcpClient", 2);
-    set.setValue("DebugTcpClient", 3);
-    set.setValue("AutoSendTcpClient", 4);
-    set.setValue("IntervalTcpClient", 5);
-    set.setValue("TcpServerIP", 6);
-    set.setValue("TcpServerPort", 7);
-    set.endGroup();
+    QLogHelper::instance()->LogInfo("SIConfig->SetEntryAVM2() 函数执行!");
+    entryAVM2=new QList<SI_DEFINEMESSAGE>();
+    //entryAVM2->append(new SI_DEFINEMESSAGE{});
 }
 
+/**
+ * @brief SIConfig::SetEntryIPA
+ */
+void SIConfig::SetEntryIPA()
+{
+    QLogHelper::instance()->LogInfo("SIConfig->SetEntryIPA() 函数执行!");
+    entryIPA=new QList<SI_DEFINEMESSAGE>();
+}
+
+/**
+ * @brief SIConfig::SetNextPH3
+ */
+void SIConfig::SetNextPH3()
+{
+    QLogHelper::instance()->LogInfo("SIConfig->SetNextPH3() 函数执行!");
+    nextPH3=new QList<SI_DEFINEMESSAGE>();
+}
 
 

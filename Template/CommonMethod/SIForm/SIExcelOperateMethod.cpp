@@ -111,21 +111,20 @@ QList<SI_SOFTNUMBERTable> SIExcelOperateMethod::ReadSoftExcel(const QString file
 }
 
 /**
- * @def 根据条件读取量产管理表
- * @brief SIExcelOperateMethod::RelyReadSoftExcel
+ * @brief SIExcelOperateMethod::ReadSoftExcel
  * @param filePath
  * @param IDType
  * @param condition
  * @return
  */
-QList<SI_SOFTNUMBERTable> SIExcelOperateMethod::RelyReadSoftExcel(const QString filePath, const QString IDType, const QString condition)
+QList<SI_SOFTNUMBERTable> SIExcelOperateMethod::ReadSoftExcel(const QString filePath, const QString IDType, const QString condition)
 {
-    QLogHelper::instance()->LogInfo("SIExcelOperateMethod->RelyReadSoftExcel() 函数执行!");
-    /*
+    QLogHelper::instance()->LogInfo("SIExcelOperateMethod->ReadSoftExcel() 函数执行!");
+    bool flag=false;
     unsigned int lastRow=0,firstRow=0,firstCol=0;
     Sheet *sheetread;
     QList<SI_SOFTNUMBERTable> *softlist=new QList<SI_SOFTNUMBERTable>();
-    QString CarModels,PartNumber,CANGen;
+    QString CarModels,PartNumber,tmpID;
     if(this->InitLIBXL(filePath)&&book->load(filePath.toLocal8Bit()))
     {
         if(IDType!="EntryAVM2"){
@@ -133,29 +132,43 @@ QList<SI_SOFTNUMBERTable> SIExcelOperateMethod::RelyReadSoftExcel(const QString 
         }else{
             sheetread = book->getSheet(1);
         }
-        if(NULL==sheetread){ return *softlist; }
+        if(NULL==sheetread){return *softlist;}
         firstCol=sheetread->firstCol();
         firstRow=sheetread->firstRow();
         lastRow=sheetread->lastRow();
         for (unsigned int i = firstRow; i < lastRow; ++i)
         {
-            if(CarModels.isEmpty()){CarModels=QString(sheetread->readStr(i,firstCol+1));}
-            if(PartNumber.isEmpty()){PartNumber=QString(sheetread->readStr(i,firstCol+2));}
-            if(CANGen.isEmpty()){CANGen=QString(sheetread->readStr(i,firstCol+3));}
-            SI_SOFTNUMBERTable soft;
-            soft.ModelNumber=ID;
-            soft.CarModels=CarModels;
-            soft.PartNumber=PartNumber;
-            soft.CANGen=CANGen;
-            soft.Productionstage=codec->toUnicode(*(new QByteArray(sheetread->readStr(i,firstCol+4))));
-            soft.ApplicationPartNo=QString(sheetread->readStr(i,firstCol+10));
-            soft.ApplicationVer=QString(sheetread->readStr(i,firstCol+11));
-            soft.CarInfoPartNo=QString(sheetread->readStr(i,firstCol+12));
-            soft.CarInfoVer=QString(sheetread->readStr(i,firstCol+13));
+            if(!QString::fromLocal8Bit(sheetread->readStr(i,firstCol)).isEmpty()){
+                tmpID=QString(sheetread->readStr(i,firstCol));
+                CarModels=QString(sheetread->readStr(i,firstCol+1));
+                PartNumber=QString(sheetread->readStr(i,firstCol+2));
+                flag=false;
+            }else{
+                if(condition==QString(sheetread->readStr(i,firstCol+10))&&sheetread->cellFormat(i,5)->font()->strikeOut()!=1&&!flag){
+                    flag=true;
+                    SI_SOFTNUMBERTable soft;
+                    soft.ModelNumber=tmpID;
+                    soft.CarModels=CarModels;
+                    soft.PartNumber=PartNumber;
+                    softlist->append(soft);
+                }
+            }
         }
         book->release();
     }
-    */
+    return *softlist;
+}
+
+/**
+ * @brief SIExcelOperateMethod::WriteDefineExcel
+ * @param filePath
+ * @param ID
+ * @param IDType
+ * @param CarModels
+ */
+void SIExcelOperateMethod::WriteDefineExcel(const QString filePath, const QString ID, const QString IDType, const QString CarModels,QList<SI_ERRORTable> *errList)
+{
+    QLogHelper::instance()->LogInfo("SIExcelOperateMethod->WriteDefineExcel() 函数执行!");
 }
 
 /**

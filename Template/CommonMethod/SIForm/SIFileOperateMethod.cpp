@@ -253,7 +253,7 @@ QList<SI_ERRORTable> SIFileOperateMethod::CheckBAFileExist(const QString dirPath
         }
     }
     tmpDirPath=dirPath+"/common/include/gpiow_wrapper_ex.h";
-    if((IDType=="EntryAVM1"||IDType=="EntryAVM2")&&file->exists(tmpDirPath)){
+    if((IDType=="EntryAVM"||IDType=="EntryAVM2")&&!file->exists(tmpDirPath)){
         errList->append(SICommonMethod::SetERRMessage(tmpDirPath,"文件不存在!"));
     }
     tmpDirPath=dirPath+"/common/include/CL_Ver_ex.h";
@@ -288,6 +288,172 @@ QList<SI_ERRORTable> SIFileOperateMethod::CheckBAFileExist(const QString dirPath
     }else{
         errList->append(SICommonMethod::SetERRMessage(tmpDirPath,"文件不存在!"));
     }
+    return *errList;
+}
+
+/**
+ * @brief SIFileOperateMethod::CheckCLFileMessage
+ * @param filePath
+ * @param softList
+ * @return
+ */
+QList<SI_ERRORTable> SIFileOperateMethod::CheckCLFileMessage(const QString filePath, const QList<SI_SOFTNUMBERTable> softList)
+{
+    QLogHelper::instance()->LogInfo("SIFileOperateMethod->CheckCLFileMessage() 函数执行!");
+    QFile file(filePath);
+    //错误消息集合
+    QList<SI_ERRORTable> *errList=new QList<SI_ERRORTable>();
+    QString tmpstr;
+    if(!file.exists()){
+        errList->append(SICommonMethod::SetERRMessage(filePath,"文件不存在!"));
+        return *errList;
+    }
+    if (!file.open(QIODevice::ReadOnly | QIODevice::Text)){
+        errList->append(SICommonMethod::SetERRMessage(filePath,"文件打开失败!"));
+        return *errList;
+    }
+    while (!file.atEnd())
+    {
+        QByteArray line = file.readLine();
+        QString str(line);
+        if(str.contains("E_SOFTWARE_PARTNO")){
+            str=str.left(str.lastIndexOf("}")).mid(str.lastIndexOf("{")+1);
+            str=str.replace(",","").replace("0x","").replace(" ","").trimmed();
+            tmpstr=softList.value(softList.size()-1).ApplicationPartNo;
+            tmpstr=tmpstr.replace("-","").replace(" ","").trimmed();
+            if(str!=(tmpstr+"0")){errList->append(SICommonMethod::SetERRMessage(filePath,"Application PartsNo 信息错误")); }
+        }
+        if(str.contains("E_N_PARTNO_01")){
+            str=str.left(str.lastIndexOf("'")).mid(str.indexOf("'")+1);
+            tmpstr=softList.value(softList.size()-1).PartNumber;
+            if(str!=tmpstr[0]){errList->append(SICommonMethod::SetERRMessage(filePath,"生産段階 信息错误"));}
+        }
+        if(str.contains("E_N_PARTNO_02")){
+            str=str.left(str.lastIndexOf("'")).mid(str.indexOf("'")+1);
+            tmpstr=softList.value(softList.size()-1).PartNumber;
+            if(str!=tmpstr[1]){errList->append(SICommonMethod::SetERRMessage(filePath,"生産段階 信息错误"));}
+        }
+        if(str.contains("E_N_PARTNO_03")){
+            str=str.left(str.lastIndexOf("'")).mid(str.indexOf("'")+1);
+            tmpstr=softList.value(softList.size()-1).PartNumber;
+            if(str!=tmpstr[2]){errList->append(SICommonMethod::SetERRMessage(filePath,"生産段階 信息错误"));}
+        }
+        if(str.contains("E_N_PARTNO_04")){
+            str=str.left(str.lastIndexOf("'")).mid(str.indexOf("'")+1);
+            tmpstr=softList.value(softList.size()-1).PartNumber;
+            if(str!=tmpstr[3]){errList->append(SICommonMethod::SetERRMessage(filePath,"生産段階 信息错误"));}
+        }
+        if(str.contains("E_N_PARTNO_05")){
+            str=str.left(str.lastIndexOf("'")).mid(str.indexOf("'")+1);
+            tmpstr=softList.value(softList.size()-1).PartNumber;
+            if(str!=tmpstr[4]){errList->append(SICommonMethod::SetERRMessage(filePath,"生産段階 信息错误"));}
+        }
+        if(str.contains("E_CLARION_PARTSNO")){
+            str=str.left(str.lastIndexOf("}")).mid(str.lastIndexOf("{")+1);
+            str=str.replace(",","").replace("'","").replace(" ","").trimmed();
+            tmpstr=softList.value(softList.size()-1).ModelNumber;
+            tmpstr=tmpstr.replace(" ","").trimmed();
+            if(str!=tmpstr){errList->append(SICommonMethod::SetERRMessage(filePath,"クラリオン機種番号 信息错误")); }
+        }
+        if(str.contains("E_VEHICLE_REGION")){
+            str=str.left(str.lastIndexOf("}")).mid(str.lastIndexOf("{")+1);
+            str=str.replace(",","").replace("'","").replace("_","").replace(" ","").trimmed();
+            tmpstr=softList.value(softList.size()-1).CarModels;
+            tmpstr=tmpstr.replace("-","").replace("_","").replace(" ","").trimmed();
+            if(str!=tmpstr){errList->append(SICommonMethod::SetERRMessage(filePath,"車種仕向け 信息错误")); }
+        }
+    }
+    file.close();
+    return *errList;
+}
+
+/**
+ * @brief SIFileOperateMethod::WriteCLFileMessage
+ * @param dirPath
+ * @param softList
+ */
+QList<SI_ERRORTable> SIFileOperateMethod::WriteCLFileMessage(const QString dirPath, const QList<SI_SOFTNUMBERTable> softList)
+{
+    QLogHelper::instance()->LogInfo("SIFileOperateMethod->WriteCLFileMessage() 函数执行!");
+    QString tmpDir=dirPath.left(dirPath.lastIndexOf("/"));
+    QString tmpfile=dirPath+"/CL_Ver_Parts_ex.h",tmpstr;
+    QStringList strList;
+    QDir dir(tmpDir);
+    QFile file;
+    //错误消息集合
+    QList<SI_ERRORTable> *errList=new QList<SI_ERRORTable>();
+    if(!dir.exists()){
+        errList->append(SICommonMethod::SetERRMessage(tmpDir,"文件夹不存在, 无法作成新规文件!"));
+        return *errList;
+    }
+    QStringList fileList = dir.entryList(QDir::Dirs);
+    foreach (QString str, fileList) {
+        file.setFileName(tmpDir+"/"+str+"/CL_Ver_Parts_ex.h");
+        if(file.exists()){break;}
+    }
+    if(!file.open(QIODevice::ReadOnly | QIODevice::Text)){
+        errList->append(SICommonMethod::SetERRMessage(tmpfile,"文件打开失败!"));
+        return *errList;
+    }
+    while (!file.atEnd())
+    {
+        QByteArray line = file.readLine();
+        QString str(line);
+        if(str.contains("E_SOFTWARE_PARTNO")){
+            tmpstr=softList.value(softList.size()-1).ApplicationPartNo;
+            tmpstr=tmpstr.replace("-","").replace(" ","").trimmed()+"0";
+            tmpstr=QString("0x%1,0x%2,0x%3,0x%4,0x%5").arg(tmpstr.mid(0,2)).arg(tmpstr.mid(2,2)).arg(tmpstr.mid(4,2)).arg(tmpstr.mid(6,2)).arg(tmpstr.mid(8,2));
+            str=str.left(str.lastIndexOf("{")+2)+tmpstr+str.mid(str.lastIndexOf("}")-1);
+            str=str.left(str.lastIndexOf("/*")+3)+softList.value(softList.size()-1).ApplicationPartNo.trimmed()+str.mid(str.lastIndexOf("*/")-1);
+        }
+        if(str.contains("E_N_PARTNO_01")){
+            tmpstr=softList.value(softList.size()-1).PartNumber.trimmed();
+            str=str.left(str.indexOf("'")+1)+tmpstr[0]+str.mid(str.lastIndexOf("'"));
+        }
+        if(str.contains("E_N_PARTNO_02")){
+            tmpstr=softList.value(softList.size()-1).PartNumber.trimmed();
+            str=str.left(str.indexOf("'")+1)+tmpstr[1]+str.mid(str.lastIndexOf("'"));
+        }
+        if(str.contains("E_N_PARTNO_03")){
+            tmpstr=softList.value(softList.size()-1).PartNumber.trimmed();
+            str=str.left(str.indexOf("'")+1)+tmpstr[2]+str.mid(str.lastIndexOf("'"));
+        }
+        if(str.contains("E_N_PARTNO_04")){
+            tmpstr=softList.value(softList.size()-1).PartNumber.trimmed();
+            str=str.left(str.indexOf("'")+1)+tmpstr[3]+str.mid(str.lastIndexOf("'"));
+        }
+        if(str.contains("E_N_PARTNO_05")){
+            tmpstr=softList.value(softList.size()-1).PartNumber.trimmed();
+            str=str.left(str.indexOf("'")+1)+tmpstr[4]+str.mid(str.lastIndexOf("'"));
+        }
+        if(str.contains("E_CLARION_PARTSNO")){
+            tmpstr=softList.value(softList.size()-1).ModelNumber.trimmed();
+            tmpstr=QString("'%1','%2','%3','%4','%5','%6','%7','%8'").arg(tmpstr[0]).arg(tmpstr[1]).arg(tmpstr[2]).arg(tmpstr[3]).arg(tmpstr[4]).arg(tmpstr[5]).arg(tmpstr[6]).arg(tmpstr[7]);
+            str=str.left(str.lastIndexOf("{")+2)+tmpstr+str.mid(str.lastIndexOf("}")-1);
+        }
+        if(str.contains("E_VEHICLE_REGION")){
+            tmpstr=softList.value(softList.size()-1).CarModels.trimmed();
+            tmpstr=QString("'%1','%2','%3','%4','_','%5','%6','%7', '_', '_', '_', '_', '_', '_', '_', '_'").arg(tmpstr[0]).arg(tmpstr[1]).arg(tmpstr[2]).arg(tmpstr[3]).arg(tmpstr[5]).arg(tmpstr[6]).arg(tmpstr[7]);
+            str=str.left(str.lastIndexOf("{")+2)+tmpstr+str.mid(str.lastIndexOf("}")-1);
+        }
+        strList.append(str);
+    }
+    file.close();
+
+     //QFile dd();
+    dir.mkdir(dirPath);
+    file.setFileName(tmpfile);
+    QTextStream out(&file);
+
+    if (!file.open(QFile::WriteOnly | QFile::Text)) {
+        errList->append(SICommonMethod::SetERRMessage(tmpfile,"文件打开失败!"));
+        return *errList;
+    }
+    /*    out << strList.value(0);
+    file.close();
+    //file.remove();
+    */
+    file.close();
     return *errList;
 }
 

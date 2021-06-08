@@ -51,7 +51,7 @@ void SIFileOperateThread::Init()
  */
 void SIFileOperateThread::UpdateSVNSlot(const QString exeFilePath, const QString dirPath,const unsigned flag)
 {
-    QLogHelper::instance()->LogInfo("SIFileOperateThread->RunOrderSignal() 函数执行!");
+    QLogHelper::instance()->LogInfo("SIFileOperateThread->UpdateSVNSlot() 函数执行!");
     QFile *file;
     QProcess *p=new QProcess();
     QStringList args;
@@ -189,7 +189,7 @@ void SIFileOperateThread::FileSearchSlot(const QString dirPath,const QStringList
  */
 void SIFileOperateThread::CheckBAFileSlot(const QString dirPath,const QString ID,const QString IDType,const QList<SI_SOFTNUMBERTable> softList,const unsigned int flag)
 {
-    QLogHelper::instance()->LogInfo("SIFileOperateThread->CheckFileSignalSlot() 函数执行!");
+    QLogHelper::instance()->LogInfo("SIFileOperateThread->CheckBAFileSlot() 函数执行!");
     bool tmpflag=false;
     QStringList tmpDirPathList;
     //错误消息集合
@@ -223,22 +223,26 @@ void SIFileOperateThread::CheckBAFileSlot(const QString dirPath,const QString ID
  */
 void SIFileOperateThread::CheckCLFileSlot(const QString dirPath, const QString ID, const QList<SI_SOFTNUMBERTable> softList)
 {
-    QLogHelper::instance()->LogInfo("SIFileOperateThread->CopyCodeFileSlot() 函数执行!");
-    QDir folder(dirPath);
+    QLogHelper::instance()->LogInfo("SIFileOperateThread->CheckCLFileSlot() 函数执行!");
+    bool flag=false;
     QString carMessage=softList.value(softList.size()-1).CarModels+"_"+ID;
+    QString tmpfile=dirPath+"/common/car_param/"+carMessage+"/CL_Ver_Parts_ex.h";
     //错误消息集合
     QList<SI_ERRORTable> *errList=new QList<SI_ERRORTable>();
-    if(!folder.exists()){
+    if(!QDir(dirPath).exists()){
         errList->append(SICommonMethod::SetERRMessage(dirPath,"文件夹不存在,无法进行校验!"));
-        emit EndCheckCLFileSignal(false,*errList);
+        emit EndCheckCLFileSignal(flag,*errList);
         return;
     }
-    if(QFile(dirPath+"/common/car_param/"+carMessage+"/CL_Ver_Parts_ex.h").exists()){
-
-    }else {
-
-    }
-    emit EndCheckCLFileSignal(true,*errList);
+    /*
+    if(QFile(tmpfile).exists()){
+        *errList=siFileOperateMethod->CheckCLFileMessage(tmpfile,softList);
+    }else {*/
+        tmpfile=dirPath+"/common/car_param/"+carMessage+"1";
+        *errList=siFileOperateMethod->WriteCLFileMessage(tmpfile,softList);
+        flag=true;
+    //}
+    //emit EndCheckCLFileSignal(flag,*errList);
 }
 
 /**

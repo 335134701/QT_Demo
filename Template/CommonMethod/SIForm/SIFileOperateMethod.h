@@ -29,6 +29,10 @@ public:
 
     QList<SI_ERRORTable> CheckBAFileExist(const QString dirPath,const QString IDType);
 
+    QList<SI_ERRORTable> CheckCLFileMessage(const QString filePath,const QList<SI_SOFTNUMBERTable> softList);
+
+    QList<SI_ERRORTable> WriteCLFileMessage(const QString dirPath,const QList<SI_SOFTNUMBERTable> softList);
+
 signals:
 
 public slots:

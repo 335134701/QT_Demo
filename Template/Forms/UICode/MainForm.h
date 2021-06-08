@@ -22,6 +22,9 @@ public:
     ~MainForm();
 
 
+private slots:
+    void on_FunctionWgedit_tabBarClicked(int index);
+
 private:
     Ui::MainForm *ui;
 

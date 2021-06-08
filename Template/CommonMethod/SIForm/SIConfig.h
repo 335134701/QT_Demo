@@ -20,17 +20,11 @@ public:
     QList<SI_DEFINEMESSAGE> *getEntryAVM2() const;
     void setEntryAVM2(QList<SI_DEFINEMESSAGE> *value);
 
-    QList<SI_DEFINEMESSAGE> *getIpa() const;
-    void setIpa(QList<SI_DEFINEMESSAGE> *value);
-
     QList<SI_DEFINEMESSAGE> *getNextPH3() const;
     void setNextPH3(QList<SI_DEFINEMESSAGE> *value);
 
-    //读写配置参数及其他操作
-    void ReadConfig(const QString filePath,const unsigned int flag);           //读取配置参数
-    void NewConfig(const QString filePath);            //以初始值新建配置文件
-
-
+    QList<SI_DEFINEMESSAGE> *getEntryIPA() const;
+    void setEntryIPA(QList<SI_DEFINEMESSAGE> *value);
 
 signals:
 
@@ -45,14 +39,17 @@ private:
     QList<SI_DEFINEMESSAGE> *entryAVM2;
 
     //IPA宏定义
-    QList<SI_DEFINEMESSAGE> *ipa;
+    QList<SI_DEFINEMESSAGE> *entryIPA;
 
     //NextPH3宏定义
     QList<SI_DEFINEMESSAGE> *nextPH3;
 
-    void InitParameter();
-
     void Init();
+
+    void SetEntryAVM();
+    void SetEntryAVM2();
+    void SetEntryIPA();
+    void SetNextPH3();
 };
 
 #endif // SICONFIG_H

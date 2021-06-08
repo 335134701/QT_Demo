@@ -220,7 +220,7 @@ void SIForm::on_SIPretreatmentButton_clicked()
 {
     QLogHelper::instance()->LogInfo("SIForm->on_SIPretreatmentButton_clicked() 函数触发执行!");
     if(!PromptInformation()||!CheckMessage(SI_CHECKMESSAGE_Pretreatment)){return;}
-    //emit PretreatmentSignal();
+    emit PretreatmentSignal();
 }
 
 

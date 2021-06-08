@@ -29,10 +29,29 @@ void LogFormBean::setLogView(QTextEdit *value)
 }
 
 /**
+ * @brief LogFormBean::getTextList
+ * @return
+ */
+QStringList *LogFormBean::getTextList() const
+{
+    return textList;
+}
+
+/**
+ * @brief LogFormBean::setTextList
+ * @param value
+ */
+void LogFormBean::setTextList(QStringList *value)
+{
+    textList = value;
+}
+
+/**
  * @def 初始化函数
  * @brief LogFormBean::Init
  */
 void LogFormBean::Init()
 {
     QLogHelper::instance()->LogInfo("LogFormBean->Init() 函数执行!");
+    textList=new QStringList();
 }

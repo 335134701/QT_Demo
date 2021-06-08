@@ -82,11 +82,12 @@ void SIExcelOperateThread::ReadExcelThreadSlot(const QString filePath, const QSt
  * @param IDType
  * @param flag
  */
-void SIExcelOperateThread::InferRelyIDProcessSlot(const QString relyFilePath, const QString defineFilePath, const QString ID, const QString IDType, const unsigned int flag)
+void SIExcelOperateThread::InferRelyIDProcessSlot(const QString relyFilePath, const QString defineFilePath, const QString ID, const QString IDType, const QString condition, const unsigned int flag)
 {
     QLogHelper::instance()->LogInfo("SIExcelOperateThread->InferRelyIDProcessSlot() 函数执行!");
     QList<SI_SOFTNUMBERTable> *softList;
     QList<SI_DEFINEMESSAGE> *defineList;
+    SI_SOFTNUMBERTable tmpsoft;
     //错误消息集合
     QList<SI_ERRORTable> *errList=new QList<SI_ERRORTable>();
     if(!QFile(relyFilePath).exists()&&!QFile(defineFilePath).exists()){return;}
@@ -101,11 +102,26 @@ void SIExcelOperateThread::InferRelyIDProcessSlot(const QString relyFilePath, co
         (*defineList)=siExcelOperateMethod->ReadDefineExcel(defineFilePath,ID,IDType,errList);
         break;
     case 11:
-        
-        break;
-    default:
+        (*softList)=siExcelOperateMethod->ReadSoftExcel(relyFilePath,IDType,condition);
+        foreach (SI_SOFTNUMBERTable soft, *softList) {
+            if(soft.ModelNumber!=ID){
+                (*defineList)=siExcelOperateMethod->ReadDefineExcel(defineFilePath,soft.ModelNumber,IDType,errList);
+                if(defineList->size()>0){tmpsoft=soft; break;}
+            }else{
+                if(defineList->size()==0){tmpsoft=soft;}
+            }
+        }
+        if(defineList->size()==0){
+            errList->clear();
+            //新写入宏定义
+            siExcelOperateMethod->WriteDefineExcel(defineFilePath,ID,IDType,tmpsoft.CarModels,errList);
+        }else{
+            softList->clear();
+            softList->append(tmpsoft);
+        }
         break;
     }
+    emit EndInferRelyIDProcessSignal(*softList,*defineList,*errList,flag);
 }
 
 

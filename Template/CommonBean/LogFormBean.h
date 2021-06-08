@@ -15,6 +15,12 @@ public:
     QTextEdit *getLogView() const;
     void setLogView(QTextEdit *value);
 
+    QStringList *getTextList() const;
+    void setTextList(QStringList *value);
+
+    int getLastIndex() const;
+    void setLastIndex(int value);
+
 signals:
 
 public slots:
@@ -22,6 +28,10 @@ public slots:
 private :
 
     QTextEdit *logView;
+
+    QStringList *textList;
+
+    int lastIndex;
 
     void Init();
 };

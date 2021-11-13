@@ -42,7 +42,7 @@ INPUT(
 ./release\listappender.o
 ./release\stringmatchfilter.o
 ./release\main.o
-./release\qrc_conf.o
+./release\qrc_Config.o
 ./release\moc_Temple.o
 ./release\moc_QLoghelper.o
 ./release\moc_appender.o

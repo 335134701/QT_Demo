@@ -42,7 +42,7 @@ INPUT(
 ./debug\listappender.o
 ./debug\stringmatchfilter.o
 ./debug\main.o
-./debug\qrc_conf.o
+./debug\qrc_Config.o
 ./debug\moc_Temple.o
 ./debug\moc_QLoghelper.o
 ./debug\moc_appender.o

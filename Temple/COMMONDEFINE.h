@@ -8,7 +8,7 @@
 
 #define DATETIME                QDateTime::currentDateTime().toString("yyyy-MM-dd HH:mm:ss")
 #define DATAStytle              "[ "+DATETIME+" ] "
-#define LOGMESSAGE              "< "+QString(__FILE__)+"  "+QString(__FUNCTION__)+"()"+" > 函数执行!"
+#define LOGMESSAGE              "<< "+QString(__FILE__)+" >> "+QString(__FUNCTION__)+"() 函数执行!"
 
 
 #endif // COMMONDEFINE_H

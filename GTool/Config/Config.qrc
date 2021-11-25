@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>QLog/Log4qt.properties</file>
+        <file>CSS/UI.css</file>
+        <file>Images/GTool.ico</file>
+    </qresource>
+</RCC>

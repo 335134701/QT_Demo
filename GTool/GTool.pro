@@ -29,10 +29,13 @@ DEFINES += QT_DEPRECATED_WARNINGS
 RESOURCES           += Config/Config.qrc
 
 include             ($$PWD/Forms/Forms.pri)
+include             ($$PWD/Beans/Beans.pri)
 include             ($$PWD/QLog/QLog.pri)
+
 
 INCLUDEPATH         += $$PWD
 INCLUDEPATH         += $$PWD/Forms
+INCLUDEPATH         += $$PWD/Beans
 INCLUDEPATH         += $$PWD/QLog
 
 

@@ -17,10 +17,13 @@ public:
     ~GTool();
 
 private slots:
-    void on_Log_triggred();
+    void onLogTriggred();
 
 private:
     Ui::GTool *ui;
+
+    unsigned int currentLodindex=0;
+
     void InitStytle();
     void Init();
     void ConnectSlot();

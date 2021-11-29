@@ -26,7 +26,6 @@ GTool::~GTool()
     delete ui;
 }
 
-
 /**
  * @brief GTool::InitStytle
  * @def 调用.css文件美化UI
@@ -60,17 +59,25 @@ void GTool::Init()
 void GTool::ConnectSlot()
 {
     QLogHelper::instance()->LogInfo(LOGMESSAGE);
+    connect(this->ui->actionInfo,&QAction::triggered,this,&GTool::onLogTriggred);
+    /*
     connect(this->ui->actionInfo,&QAction::triggered,this,&GTool::on_Log_triggred);
     connect(this->ui->actionDebug,&QAction::triggered,this,&GTool::on_Log_triggred);
     connect(this->ui->actionWarn,&QAction::triggered,this,&GTool::on_Log_triggred);
     connect(this->ui->actionError,&QAction::triggered,this,&GTool::on_Log_triggred);
     connect(this->ui->actionOtherMessage,&QAction::triggered,this,&GTool::on_Log_triggred);
+    */
 }
 
 /**
- * @brief GTool::on_Log_triggred
+ * @brief GTool::onLogTriggred
  */
-void GTool::on_Log_triggred()
+void GTool::onLogTriggred()
 {
     QLogHelper::instance()->LogInfo(LOGMESSAGE);
+    if(ui->actionInfo->isChecked()&&(currentLodindex==0||currentLodindex!=Info_MenuLog)){
+
+    }
 }
+
+

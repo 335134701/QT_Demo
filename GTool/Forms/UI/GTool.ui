@@ -87,6 +87,8 @@
     <property name="title">
      <string>Log</string>
     </property>
+    <addaction name="actionSingle"/>
+    <addaction name="separator"/>
     <addaction name="actionInfo"/>
     <addaction name="actionDebug"/>
     <addaction name="actionWarn"/>
@@ -146,6 +148,14 @@
    </property>
    <property name="text">
     <string>OtherMessage</string>
+   </property>
+  </action>
+  <action name="actionSingle">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Single</string>
    </property>
   </action>
  </widget>

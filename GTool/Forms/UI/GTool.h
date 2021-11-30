@@ -2,6 +2,7 @@
 #define GTOOL_H
 
 #include <QMainWindow>
+#include "GToolBean.h"
 #include "COMMONDEFINE.h"
 
 namespace Ui {
@@ -16,13 +17,17 @@ public:
     explicit GTool(QWidget *parent = 0);
     ~GTool();
 
+signals:
+    void Set_ShowMenuLog_Signal(QList<int> menuLog);
+
 private slots:
-    void onLogTriggred();
+    void onLogTriggred_Slot();
+    void Set_ShowMenuLog_Slot(QList<int> menuLog);
 
 private:
     Ui::GTool *ui;
 
-    unsigned int currentLodindex=0;
+    GToolBean *gToolBean;
 
     void InitStytle();
     void Init();

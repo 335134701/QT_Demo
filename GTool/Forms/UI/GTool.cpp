@@ -26,6 +26,8 @@ GTool::~GTool()
     delete ui;
 }
 
+
+
 /**
  * @brief GTool::InitStytle
  * @def 调用.css文件美化UI
@@ -49,6 +51,9 @@ void GTool::InitStytle()
 void GTool::Init()
 {
     QLogHelper::instance()->LogInfo(LOGMESSAGE);
+    gToolBean=new GToolBean();
+
+
     this->ui->Log->setVisible(false);
 }
 
@@ -59,25 +64,65 @@ void GTool::Init()
 void GTool::ConnectSlot()
 {
     QLogHelper::instance()->LogInfo(LOGMESSAGE);
-    connect(this->ui->actionInfo,&QAction::triggered,this,&GTool::onLogTriggred);
-    /*
-    connect(this->ui->actionInfo,&QAction::triggered,this,&GTool::on_Log_triggred);
-    connect(this->ui->actionDebug,&QAction::triggered,this,&GTool::on_Log_triggred);
-    connect(this->ui->actionWarn,&QAction::triggered,this,&GTool::on_Log_triggred);
-    connect(this->ui->actionError,&QAction::triggered,this,&GTool::on_Log_triggred);
-    connect(this->ui->actionOtherMessage,&QAction::triggered,this,&GTool::on_Log_triggred);
-    */
+    connect(this->ui->actionSingle,&QAction::triggered,this,&GTool::onLogTriggred_Slot);
+    connect(this->ui->actionInfo,&QAction::triggered,this,&GTool::onLogTriggred_Slot);
+    connect(this->ui->actionInfo,&QAction::triggered,this,&GTool::onLogTriggred_Slot);
+    connect(this->ui->actionDebug,&QAction::triggered,this,&GTool::onLogTriggred_Slot);
+    connect(this->ui->actionWarn,&QAction::triggered,this,&GTool::onLogTriggred_Slot);
+    connect(this->ui->actionError,&QAction::triggered,this,&GTool::onLogTriggred_Slot);
+    connect(this->ui->actionOtherMessage,&QAction::triggered,this,&GTool::onLogTriggred_Slot);
+    connect(this,&GTool::Set_ShowMenuLog_Signal,this,&GTool::Set_ShowMenuLog_Slot);
 }
 
 /**
- * @brief GTool::onLogTriggred
+ * @brief GTool::onLogTriggred_Slot
  */
-void GTool::onLogTriggred()
+void GTool::onLogTriggred_Slot()
 {
     QLogHelper::instance()->LogInfo(LOGMESSAGE);
-    if(ui->actionInfo->isChecked()&&(currentLodindex==0||currentLodindex!=Info_MenuLog)){
 
+    if(ui->actionSingle->isChecked()&&!gToolBean->getMenuLogSingleflag()){
+        gToolBean->setMenuLogSingleflag(ui->actionSingle->isChecked());
+        gToolBean->getMenuLog()->clear();
+        emit Set_ShowMenuLog_Signal(*gToolBean->getMenuLog());
+        return;
+    }else if(!ui->actionSingle->isChecked()&&gToolBean->getMenuLogSingleflag()){
+        gToolBean->setMenuLogSingleflag(ui->actionSingle->isChecked());
+        return;
+    }
+
+
+    for(int i=1;i<ui->menuLog->actions().count();i++){
+        if(ui->menuLog->actions().at(i)->isChecked()&&!gToolBean->getMenuLog()->contains(i)){
+            if(gToolBean->getMenuLogSingleflag()){
+                gToolBean->getMenuLog()->clear();
+                gToolBean->getMenuLog()->append(i);
+                emit Set_ShowMenuLog_Signal(*gToolBean->getMenuLog());
+            }else{
+                gToolBean->getMenuLog()->append(i);
+            }
+            break;
+        }
+        else if(!ui->menuLog->actions().at(i)->isChecked()&&gToolBean->getMenuLog()->contains(i)){
+            gToolBean->getMenuLog()->removeAt(i);
+            break;
+        }
     }
 }
 
-
+/**
+ * @brief GTool::Set_ShowMenuLog_Slot
+ * @param menuLog
+ */
+void GTool::Set_ShowMenuLog_Slot(QList<int> menuLog)
+{
+    QLogHelper::instance()->LogInfo(LOGMESSAGE);
+    //设置除Single Action外其他为未选中
+    for(int i=1;i<ui->menuLog->actions().count();i++){
+        ui->menuLog->actions().at(i)->setChecked(false);
+    }
+    //根据实际选中集合设置选中
+    foreach (int i, menuLog) {
+        ui->menuLog->actions().at(i)->setChecked(true);
+    }
+}

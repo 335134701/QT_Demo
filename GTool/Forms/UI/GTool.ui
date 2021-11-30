@@ -90,8 +90,8 @@
     <addaction name="actionSingle"/>
     <addaction name="separator"/>
     <addaction name="actionInfo"/>
-    <addaction name="actionDebug"/>
     <addaction name="actionWarn"/>
+    <addaction name="actionDebug"/>
     <addaction name="actionError"/>
     <addaction name="separator"/>
     <addaction name="actionOtherMessage"/>

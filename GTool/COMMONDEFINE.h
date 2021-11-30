@@ -12,10 +12,12 @@
 
 
 enum MenuLogIndex{
-    Info_MenuLog=0,
-    Warn_MenuLog=1,
-    Debug_MenuLog=2,
-    Error_MenuLog=3
+    Single_MenuLog=0,
+    Info_MenuLog=1,
+    Warn_MenuLog=2,
+    Debug_MenuLog=3,
+    Error_MenuLog=4,
+    Other_MenuLog=5
 };
 
 
